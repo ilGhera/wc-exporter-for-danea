@@ -108,15 +108,6 @@ class WCtoDanea {
 	   }
 	   
 	}
-
-	//GET BUNDLED ITEM DISCOUNT
-	public static function get_bundled_item_discount($item) {
-		$price = self::item_info($item, '_line_total');
-		$product_id = self::item_info($item, '_product_id');
-		$price_details = self::get_price_details($product_id);
-		$discount = round(100 -($price * 100 / $price_details['regular_price']));
-		return $discount; 
-	} 
 	
 	//OTTENGO LA CATEGORIA DI APPARTENENZA DEL PRODOTTO - NEW
 	function get_product_category_name($product_id) {
@@ -262,6 +253,14 @@ class WCtoDanea {
 } //CHIUSURA WCtoDanea
 
 
+//HIDE ITEM DISCOUNT 
+function wcexd_hide_item_discount($array) {
+	$array[] = '_wcexd_item_discount';
+	return $array;
+}
+add_filter( 'woocommerce_hidden_order_itemmeta', 'wcexd_hide_item_discount');
+
+
 //GET PRODUCT DISCOUNT - TEMP
 function wcifd_add_item_details($order_id) {		
 	$order = new WC_Order($order_id);
@@ -277,7 +276,7 @@ function wcifd_add_item_details($order_id) {
 			if($price) {
 				$math = $price * 100 / $regular_price;
 				$discount = number_format(100 - $math);
-				wc_add_order_item_meta($key, '_wcifd_item_discount', $discount);
+				wc_add_order_item_meta($key, '_wcexd_item_discount', $discount);
 			}
 		}
 	}

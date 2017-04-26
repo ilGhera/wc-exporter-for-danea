@@ -1,10 +1,10 @@
 === Woocommerce Exporter for Danea - Premium ===
 Contributors: ghera74
 Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products
-Version: 0.9.5
+Version: 0.9.6
 Requires at least: 4.0
-Tested up to: 4.7.3
-Stable tag: 0.9.5
+Tested up to: 4.7.4
+Stable tag: 0.9.6
 
 
 
@@ -50,10 +50,17 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 
 
+= 0.9.6 =
+Release Date: 26 April, 2017
+
+* Bug Fix: Wrong discount for bundled items in orders feed.
+* Bug Fix: Custom order item meta visible in back-end order page.
+
+
 = 0.9.5 =
 Release Date: 11 April, 2017
 
-* Bag Fix: Product parent categories not exported if not set.
+* Bug Fix: Product parent categories not exported if not set.
 
 
 = 0.9.4 =
@@ -66,25 +73,25 @@ Release Date: 09 April, 2017
 * Enhancement: Now Danea variations size and color are supported
 * Enhancement: Exporting the products is possible to exclude the variations created by Danea (Size and Color).
 * Enhancement: Better tabs navigation.
-* Bag Fix: Trashed orders in the order feed.
-* Bag Fix: Decimal numbers in CostVatCode.
-* Bag Fix: Product and cart discount wrong combination in orders feed.
-* Bag Fix: CostAmount and CostVatCode
-* Bag Fix: Product variations exported even if the parent is not published.
+* Bug Fix: Trashed orders in the order feed.
+* Bug Fix: Decimal numbers in CostVatCode.
+* Bug Fix: Product and cart discount wrong combination in orders feed.
+* Bug Fix: CostAmount and CostVatCode
+* Bug Fix: Product variations exported even if the parent is not published.
 
 
 = 0.9.3 =
 Release Date: 14 March, 2017
 
-* Bag Fix: Names of customers and suppliers absent in certain cases
-* Bag Fix: Column label 'Pubblicaz. su web' changed in 'E-commerce'
-* Bag Fix: Columns labels 'Listino 1', 'Listino 2', ... become 'Listino 1 (ivato)', ... with tax included.
-* Bag Fix: The product type now change from 'Articolo' to 'Art. con magazzino' with manage stock.
-* Bag Fix: Problem with product price and discount.
-* Bag Fix: Added "PricesIncludeVat" to the orders feed to indicate to Danea that the prices are inclusive of tax.
-* Bag Fix: Paid set to true for order status wc-completed
-* Bag Fix: Error importing products in Danea for unknown suppliers; now using the product's author as supplier is an option. 
-* Bag Fix: CostVatCode must be a percentage.
+* Bug Fix: Names of customers and suppliers absent in certain cases
+* Bug Fix: Column label 'Pubblicaz. su web' changed in 'E-commerce'
+* Bug Fix: Columns labels 'Listino 1', 'Listino 2', ... become 'Listino 1 (ivato)', ... with tax included.
+* Bug Fix: The product type now change from 'Articolo' to 'Art. con magazzino' with manage stock.
+* Bug Fix: Problem with product price and discount.
+* Bug Fix: Added "PricesIncludeVat" to the orders feed to indicate to Danea that the prices are inclusive of tax.
+* Bug Fix: Paid set to true for order status wc-completed
+* Bug Fix: Error importing products in Danea for unknown suppliers; now using the product's author as supplier is an option. 
+* Bug Fix: CostVatCode must be a percentage.
 
 
 = 0.9.2 =

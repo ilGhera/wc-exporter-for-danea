@@ -78,15 +78,18 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   }
 
 
-  //SKY (FIRST) OR ID
+  //SKU (FIRST) OR ID
   if(get_post_meta($item_id, '_sku', true)) {
     $product_id = get_post_meta($item_id, '_sku', true);
   } else {
     $product_id = $item_id;
   }
 
-
   //IS THE ITEM A BUNDLE?
+  $is_bundle = WCtoDanea::item_info($item['order_item_id'], '_bundled_items');  
+
+
+  //IS THE ITEM IN A BUNDLE?
   $is_bundled = WCtoDanea::item_info($item['order_item_id'], '_bundled_by');
 
 
@@ -94,17 +97,17 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $item_get_subtotal = WCtoDanea::item_info($item['order_item_id'], '_line_subtotal');
   $item_get_total = WCtoDanea::item_info($item['order_item_id'], '_line_total');
   $item_get_tax = WCtoDanea::item_info($item['order_item_id'], '_line_tax');
-  $item_discount = wc_get_order_item_meta($item['order_item_id'], '_wcifd_item_discount');
+  $item_discount = wc_get_order_item_meta($item['order_item_id'], '_wcexd_item_discount');
 
   $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item['order_item_id'], '_qty'), 2);
-
+    
 
   //PRICE BEFORE DISCOUNT/ ITEM DISCOUNT
-  if($item_discount) {
-    $item_price = number_format((($item_get_subtotal * 100) / (100 - $item_discount) / 2), 2);
+  $discount = null;
+  if($item_discount && !$is_bundle) {
+    $item_price = number_format((($item_get_subtotal * 100) / (100 - $item_discount)), 2);
     $discount = $item_discount . '%';
   }
-
 
   //GET SIZE AND COLORS
   $size  = null;
@@ -130,15 +133,9 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
 <?php echo $color; ?>
       <Qty><?php echo WCtoDanea::item_info($item['order_item_id'], '_qty'); ?></Qty>
       <Um>pz</Um>
-  <?php if($is_bundled) { ?>
       <Price><?php echo $item_price; ?></Price>
       <VatCode><?php echo WCtoDanea::get_tax_rate($item_id); ?></VatCode>
-      <Discounts><?php echo WCtoDanea::get_bundled_item_discount($item['order_item_id']); ?></Discounts>
-  <?php } else { ?>
-    <Price><?php echo $item_price; ?></Price>
-      <VatCode><?php echo WCtoDanea::get_tax_rate($item_id); ?></VatCode>
       <Discounts><?php echo $discount; ?></Discounts>
-<?php } ?>
     </Row>
 <?php } ?>
   </Rows>
