@@ -87,10 +87,6 @@ function wcexd_options() {
 	?>
 	</div>
 
-        
-    <!--LIBRERIA JQUERY-->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    
 	<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br /></div>
 	  <h2 id="wcexd-admin-menu" class="nav-tab-wrapper woo-nav-tab-wrapper">
         <a href="#" data-link="wcexd-fornitori" class="nav-tab nav-tab-active" onclick="return false;"><?php echo __('Fornitori', 'wcexd'); ?></a>
