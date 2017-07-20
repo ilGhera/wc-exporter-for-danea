@@ -113,12 +113,11 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $size  = null;
   $color = null;
   if($variation_id) {
-    if(get_post_meta($variation_id, 'attribute_pa_size', true)) {
-      $size = "      <Size>" . get_post_meta($variation_id, 'attribute_pa_size', true) . "</Size>\n";
-    }
-    if(get_post_meta($variation_id, 'attribute_pa_color', true)) {
-      $color = "      <Color>" . get_post_meta($variation_id, 'attribute_pa_color', true) . "</Color>\n";
-    }
+    $product_variation = new WC_Product_Variation($variation_id);
+    $attr_size = $product_variation->get_attribute('pa_size');
+    $attr_color = $product_variation->get_attribute('pa_color');
+    $size = "      <Size>" . ($attr_size ? $attr_size : '-') . "</Size>\n";
+    $color = "      <Color>" . ($attr_color ? $attr_color : '-') . "</Color>\n";
   }
 
   $cart_discount = false;
