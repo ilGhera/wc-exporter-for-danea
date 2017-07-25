@@ -48,7 +48,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
 }
 ?>
   <CostVatCode><?php echo($cost_vat_code) ? $cost_vat_code : 'FC'; ?></CostVatCode>
-  <CostAmount><?php echo round(WCtoDanea::order_details($order->ID, '_order_shipping')); ?></CostAmount>
+  <CostAmount><?php echo round(WCtoDanea::order_details($order->ID, '_order_shipping'), 2); ?></CostAmount>
   <PricesIncludeVat>false</PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->ID, '_payment_method_title'); ?></PaymentName>
   <InternalComment><?php echo $order->post_excerpt; ?></InternalComment>
