@@ -4,7 +4,7 @@ Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, prod
 Version: 0.9.7.1
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 0.9.7
+Stable tag: 0.9.7.1
 
 
 
