@@ -105,7 +105,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   //PRICE BEFORE DISCOUNT/ ITEM DISCOUNT
   $discount = null;
   if($item_discount && !$is_bundle) {
-    $item_price = number_format((($item_get_subtotal * 100) / (100 - $item_discount)), 2);
+    $item_price = number_format( (($item_get_subtotal * 100) / (100 - $item_discount)) / WCtoDanea::item_info($item['order_item_id'], '_qty'), 2);
     $discount = $item_discount . '%';
   }
 
@@ -122,7 +122,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
 
   $cart_discount = false;
   if($item_get_subtotal != $item_get_total) {
-    $cart_discount = number_format(($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100);
+    $cart_discount = number_format( (($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 2);
     $discount = ($item_discount) ? $item_discount . '+' . $cart_discount . '%' : $cart_discount . '%'; // + $price_details['discount']; //ERRATO, DA CONTROLLARE
   } ?>
     <Row>
