@@ -13,11 +13,7 @@ add_action( 'admin_menu', 'wcexd_js_menu' );
 
 //CREONE Wcexd STYLE
 function wcexd_register_style() {
-	wp_register_style( 'wcexd-style', plugins_url('css/wc-exporter-for-danea.css', 'wc-exporter-for-danea-premium/css'));
-}
-
-function wcexd_add_style() {
-	wp_enqueue_style( 'wcexd-style');
+	wp_enqueue_style( 'wcexd-style', plugins_url('css/wc-exporter-for-danea.css', 'wc-exporter-for-danea-premium/css'));
 }
 
 
@@ -420,3 +416,30 @@ function wcexd_options() {
     <?php
     
 }
+
+//UPDATE MESSAGE
+function wcexd_update_message2( $plugin_data, $response) {
+	$key = get_option('wcexd-premium-key');
+
+	if(!$key) {
+
+		$message = 'A <b>Premium Key</b> is required for keeping this plugin up to date. Please, add yours in the <a href="' . admin_url() . '/?page=jw-player-7-for-wp">options page</a> or click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
+	
+	} else {
+	
+		$decoded_key = explode('|', base64_decode($key));
+	    $bought_date = date( 'd-m-Y', strtotime($decoded_key[1]));
+	    $limit = strtotime($bought_date . ' + 365 day');
+	    $now = strtotime('today');
+
+	    if($limit < $now) { 
+	        $message = 'It seems like your <strong>Premium Key</strong> is expired. Please, click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
+	    } elseif($decoded_key[2] != 140) {
+	    	$message = 'It seems like your <strong>Premium Key</strong> is not valid. Please, click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
+	    }
+
+	}
+	echo ($message) ? '<br><span class="wcexd-alert">' . $message . '</span>' : '';
+
+}
+add_action('in_plugin_update_message-wc-exporter-for-danea-premium/wc-exporter-for-danea-premium.php', 'wcexd_update_message2', 10, 2);

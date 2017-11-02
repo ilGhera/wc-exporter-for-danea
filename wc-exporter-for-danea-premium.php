@@ -62,6 +62,23 @@ function load_wc_exporter_for_danea_premium() {
 
 
 //RICHIAMO "UPDATE-CHECKER"
-require( plugin_dir_path( __FILE__ ) . 'wcexd-update/plugin-update-checker.php');
-$key = get_option('wcexd-premium-key');
-$MyUpdateChecker = new PluginUpdateChecker_2_1('http://www.ilghera.com/wp-update-server/?key=' . $key, __FILE__, 'wc-exporter-for-danea-premium');
+// require( plugin_dir_path( __FILE__ ) . 'wcexd-update/plugin-update-checker.php');
+// $key = get_option('wcexd-premium-key');
+// $MyUpdateChecker = new PluginUpdateChecker_2_1('http://www.ilghera.com/wp-update-server/?key=' . $key, __FILE__, 'wc-exporter-for-danea-premium');
+
+require( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
+$wcexdUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+    'http://localhost/ilghera/wp-update-server-master/?action=get_metadata&slug=wc-exporter-for-danea-premium',
+    __FILE__,
+    'wc-exporter-for-danea-premium'
+);
+
+$wcexdUpdateChecker->addQueryArgFilter('wcexd_secure_update_check');
+function wcexd_secure_update_check($queryArgs) {
+    $key = base64_encode( get_option('wcexd-premium-key') );
+
+    if($key) {
+        $queryArgs['premium-key'] = $key;
+    }
+    return $queryArgs;
+}
