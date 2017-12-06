@@ -105,7 +105,7 @@ function wcexd_products_download() {
 				if(get_option('woocommerce_prices_include_tax') == 'yes') {
 					$get_price = $product->price;
 				} else {
-					$get_price = $product->price/ ( 1 + ( WCtoDanea::get_tax_rate()/ 100 ) );
+					$get_price = $product->price/ ( 1 + ( WCtoDanea::get_tax_rate($product->id)/ 100 ) );
 				}
 				
 				//ARTICOLO CON GESTIONE MAGAZZINO O MENO

@@ -64,7 +64,7 @@ function wcexd_options() {
 	<div id="wcexd-generale">
 	<?php
 		//HEADER
-		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 0.9.7.1 Dev Version</span></h1>";
+		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 0.9.8 Dev Version</span></h1>";
 		
 
 		//PLUGIN PREMIUM KEY
@@ -422,8 +422,8 @@ function wcexd_update_message2( $plugin_data, $response) {
 	$key = get_option('wcexd-premium-key');
 
 	if(!$key) {
-
-		$message = 'A <b>Premium Key</b> is required for keeping this plugin up to date. Please, add yours in the <a href="' . admin_url() . '/?page=jw-player-7-for-wp">options page</a> or click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
+		var_dump(admin_url());
+		$message = 'A <b>Premium Key</b> is required for keeping this plugin up to date. Please, add yours in the <a href="' . admin_url() . 'admin.php/?page=wc-exporter-for-danea">options page</a> or click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
 	
 	} else {
 	
