@@ -1,10 +1,9 @@
 === Woocommerce Exporter for Danea - Premium ===
 Contributors: ghera74
 Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products
-Version: 0.9.7.1
+Version: 1.0.0
 Requires at least: 4.0
-Tested up to: 4.8
-Stable tag: 0.9.7.1
+Tested up to: 4.9
 
 
 

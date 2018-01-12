@@ -32,7 +32,7 @@ function wcexd_add_menu() {
 	$wcexd_page = add_submenu_page( 'woocommerce','WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', 'wcexd_options');
 	
 	//Richiamo lo style per Wcexd
-	add_action( 'admin_print_styles-' . $wcexd_page, 'wcexd_add_style' );
+	// add_action( 'admin_print_styles-' . $wcexd_page, 'wcexd_add_style' );
 	//Richiamo lo script per Wcexd
 	add_action( 'admin_print_scripts-' . $wcexd_page, 'wcexd_js_menu');
 	
@@ -64,14 +64,14 @@ function wcexd_options() {
 	<div id="wcexd-generale">
 	<?php
 		//HEADER
-		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 0.9.8 Dev Version</span></h1>";
+		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 1.0.0</span></h1>";
 		
 
 		//PLUGIN PREMIUM KEY
 		$key = sanitize_text_field(get_option('wcexd-premium-key'));
 		if(isset($_POST['wcexd-premium-key'])) {
-		$key = sanitize_text_field($_POST['wcexd-premium-key']);
-		update_option('wcexd-premium-key', $key);
+			$key = sanitize_text_field($_POST['wcexd-premium-key']);
+			update_option('wcexd-premium-key', $key);
 		}
 		echo '<form id="wcexd-options" method="post" action="">';
 		echo '<label>' . __('Premium Key', 'wcexd') . '</label>';
@@ -179,6 +179,11 @@ function wcexd_options() {
 	  echo "<a href=\"http://www.danea.it/software/easyfatt/ecommerce/specifiche/ricezione_prodotti.asp\" target=\"_blank\">http://www.danea.it/software/easyfatt/ecommerce/specifiche/ricezione_prodotti.asp</a></p>";
     ?>
 
+    <?php
+	$size_type = get_option('wcexd-size-type');
+	$weight_type = get_option('wcexd-weight-type');
+    ?>
+
     <form name="wcexd-products-submit" id="wcexd-products-submit" class="wcexd-form"  method="post" action="">
     	<table class="form-table">
     		<tr>
@@ -219,6 +224,28 @@ function wcexd_options() {
 	    			</td>
 	    		</tr>
 			<?php } ?>
+
+			<tr>
+				<th scope="row"><?php echo __('Misure prodotti', 'wcexd'); ?></th>
+				<td>
+					<select name="wcexd-size-type" class="wcexd">
+						<option value="gross-size"<?php echo($size_type == 'gross-size') ? ' selected="selected"' : ''; ?>><?php echo __('Misure lorde', 'wcexd'); ?></option>
+						<option value="net-size"<?php echo($size_type == 'net-size') ? ' selected="selected"' : ''; ?>><?php echo __('Misure nette', 'wcexd'); ?></option>
+					</select>
+					<p class="description"><?php echo __('Scegli se le misure esportate verranno usate in danea come lorde o nette.', 'wcexd'); ?></p>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<th scope="row"><?php echo __('Peso prodotti', 'wcexd'); ?></th>
+				<td>
+					<select name="wcexd-weight-type" class="wcexd">
+						<option value="gross-weight"<?php echo($weight_type == 'gross-weight') ? 'selected="selected"' : ''; ?>><?php echo __('Peso lordo', 'wcexd'); ?></option>
+						<option value="net-weight"<?php echo($weight_type == 'net-weight') ? 'selected="selected"' : ''; ?>><?php echo __('Peso netto', 'wcexd'); ?></option>
+					</select>
+					<p class="description"><?php echo __('Scegli se il peso esportato sarà usato in Danea come lordo o netto.', 'wcexd'); ?></p>
+				</td>
+			</tr>
 
     	</table>
 
@@ -310,32 +337,32 @@ function wcexd_options() {
 
     <?php 
 	  //Dichiarazione variabili
-	  $opt_orders_name = 'wcexd-orders-name';	
-	  $hidden_orders_name = 'wcexd_orders_hidden';	
-	  $orders_field_name = 'wcexd-orders-name';
+	  // $opt_orders_name = 'wcexd-orders-name';	
+	  // $hidden_orders_name = 'wcexd_orders_hidden';	
+	  // $orders_field_name = 'wcexd-orders-name';
 	
-	  //Leggo il dato se già esistente nel database
-	  $orders_val = get_option( $opt_orders_name );
+	  // //Leggo il dato se già esistente nel database
+	  // $orders_val = get_option( $opt_orders_name );
   
 		  
-	  //Controllo se il nome del feed è già stato inserito
-	  if( isset($_POST[ $hidden_orders_name ]) && $_POST[ $hidden_orders_name ] == 'Y' ) {
+	  // //Controllo se il nome del feed è già stato inserito
+	  // if( isset($_POST[ $hidden_orders_name ]) && $_POST[ $hidden_orders_name ] == 'Y' ) {
 		  
-		  //Leggo il dato inserito dall'utente
-		  $orders_val = $_POST[ $opt_orders_name ];
+		 //  //Leggo il dato inserito dall'utente
+		 //  $orders_val = $_POST[ $opt_orders_name ];
   
-		  //Salvo il dato nel database
-		  update_option( $opt_orders_name, $orders_val ); 
+		 //  //Salvo il dato nel database
+		 //  update_option( $opt_orders_name, $orders_val ); 
 		  
-		  //Aggiorno i permalinks
-		  flush_rewrite_rules(); 					
+		 //  //Aggiorno i permalinks
+		 //  flush_rewrite_rules(); 					
 	?>
 		  
 	  <!--Messaggio di conferma per l'utente-->
-	  <div class="updated"><p><strong><?php _e('Le informazioni sono state salvate.', 'wcexd' ); ?></strong></p></div>
+	  <!-- <div class="updated"><p><strong><?php _e('Le informazioni sono state salvate.', 'wcexd' ); ?></strong></p></div> -->
 
 
-	<?php }
+	<?php //}
 
       //Header form ordini
 	  echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco ordini Woocommerce', 'wcexd' ) . "</h3>"; 
@@ -360,9 +387,24 @@ function wcexd_options() {
     
     <form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
 
-        <input type="hidden" name="<?php echo $hidden_orders_name; ?>" value="Y">
+        <!-- <input type="hidden" name="<?php //echo $hidden_orders_name; ?>" value="Y"> -->
 
         <table class="form-table">
+        	<?php
+        	$premium_key = strtolower(get_option('wcexd-premium-key'));
+			$url_code = get_option('wcexd-url-code');
+			if(!$url_code) {
+				$url_code = wcexd_rand_md5(6);
+				add_option('wcexd-url-code', $url_code);
+			}
+
+			$receive_orders_url = __('Please insert your <strong>Premium Key</strong>', 'wcexd');
+			if($premium_key) {
+				// $receive_orders_url = home_url() . '?key=' . $premium_key . '&code=' . $url_code;					
+				$receive_orders_url = home_url() . '/' . $premium_key . $url_code;
+				// $receive_orders_url = home_url() . '/' . $premium_key;
+			}
+			?>
         	<tr>
 		    	<th scope="row"><?php echo __('Stato ordini', 'wcexd'); ?></th>
 		    	<td>
@@ -380,18 +422,11 @@ function wcexd_options() {
 			    	<p class="description"><?php echo __('Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd'); ?></p>
 		    	</td>
 		    </tr>
-	    	<tr>
-		    	<th scope="row"><?php echo __("Nome Feed", 'wcexd' ); ?></th>
-		    	<td>
-			        <input class="wcexd-input" type="text" name="<?php echo $orders_field_name; ?>" value="<?php echo $orders_val; ?>" size="20">
-			        <p class="description"><?php echo __('Scegli un nome per il feed dei tuoi ordini.', 'wcexd'); ?></p>
-		    	</td>
-		    </tr>
 		    <tr>
 		    	<th scope="row"><?php echo __("Feed URL", 'wcexd' ); ?></th>
 		        <td>
-			        <div class="wcexd-copy-url"><?php echo($orders_val != null) ? '<span>' . home_url() . '/' .  $orders_val . '</span>' : __('Qui apparirà l\'url completo del tuo feed', 'wcexd'); ?></div>
-			        <p class="description"><?php echo($orders_val != null) ? __('Utilizza questo url per l\'importazione degli ordini in Danea.', 'wcexd') : __('Potrai utilizzare questo url per l\'importazione degli ordini in Danea', 'wcexd'); ?></p>
+			        <div class="wcexd-copy-url"><span<?php echo(!$premium_key ? ' class="wcexd-red"' : ''); ?>><?php echo $receive_orders_url; ?></span></div>
+			        <p class="description"><?php echo __('Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica ordini</b> (Ctrl+O) di Danea.', 'wcexd'); ?></p>
 		        </td>
 		    </tr>
     	</table>                      
@@ -417,12 +452,23 @@ function wcexd_options() {
     
 }
 
+
+//UPDATE PERMALINKS
+// function wcexd_rewrite_rules() {
+// 	if( isset($_POST['wcexd-premium-key']) ) {
+// 		global $wp_rewrite;
+// 		$wp_rewrite->flush_rules();	
+// 		echo 'ciao';
+// 	}
+// }
+// add_action('admin_init', 'wcexd_rewrite_rules');
+
+
 //UPDATE MESSAGE
 function wcexd_update_message2( $plugin_data, $response) {
 	$key = get_option('wcexd-premium-key');
 
 	if(!$key) {
-		var_dump(admin_url());
 		$message = 'A <b>Premium Key</b> is required for keeping this plugin up to date. Please, add yours in the <a href="' . admin_url() . 'admin.php/?page=wc-exporter-for-danea">options page</a> or click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
 	
 	} else {

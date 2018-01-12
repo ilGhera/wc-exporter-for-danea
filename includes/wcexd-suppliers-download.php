@@ -8,7 +8,7 @@ add_action('admin_init', 'wcexd_suppliers_download');
 
 function wcexd_suppliers_download() {
 
-	if($_POST['wcexd-users'] && wp_verify_nonce( $_POST['wcexd-suppliers-nonce'], 'wcexd-suppliers-submit' )) {
+	if(isset($_POST['wcexd-users']) && wp_verify_nonce( $_POST['wcexd-suppliers-nonce'], 'wcexd-suppliers-submit' )) {
 	
 		//INIZIO DOCUMENTO CSV
 		header('Pragma: public');

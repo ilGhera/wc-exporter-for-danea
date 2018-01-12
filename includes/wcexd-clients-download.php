@@ -8,7 +8,7 @@ add_action('admin_init', 'wcexd_clients_download');
 
 function wcexd_clients_download() {
 
-	if($_POST['wcexd-clients'] && wp_verify_nonce( $_POST['wcexd-clients-nonce'], 'wcexd-clients-submit' )) {
+	if(isset($_POST['wcexd-clients']) && wp_verify_nonce( $_POST['wcexd-clients-nonce'], 'wcexd-clients-submit' )) {
 
 		//INIZIO DOCUMENTO CSV
 		header('Pragma: public');

@@ -116,7 +116,7 @@ class WCtoDanea {
 	}
 	
 	//OTTENGO LA CATEGORIA DI APPARTENENZA DEL PRODOTTO - NEW
-	function get_product_category_name($product_id) {
+	public static function get_product_category_name($product_id) {
 		$parent = array();
 		$child  = array();
 		$product_cat = get_the_terms($product_id, 'product_cat');
@@ -132,7 +132,7 @@ class WCtoDanea {
 			if($child) {
 				$cat_name = array('cat' => $get_parent->slug, 'sub' => $cat->slug);	
 			} else {
-				$cat_name = array('cat' => $parent[0], 'sub' => $child[0]);						
+				$cat_name = array('cat' => $parent[0], 'sub' => '');						
 			}
 		} else {
 			$cat_name = null;	
@@ -175,6 +175,9 @@ class WCtoDanea {
 
 	//VERIFICO IL PLUGIN INSTALLATO PER RECUPERARE P.IVA E C.FISCALE
 	public static function get_italian_tax_fields_names($field) {
+
+		$cf_name = null;
+		$pi_name = null;
 
 		//WooCommerce Aggiungere CF e P.IVA
 		if(class_exists('WC_BrazilianCheckoutFields')) {
@@ -288,6 +291,17 @@ function wcifd_add_item_details($order_id) {
 	}
 }
 add_action('woocommerce_thankyou', 'wcifd_add_item_details', 10, 1);
+
+
+//RANDOM STRING
+function wcexd_rand_md5($length) {
+	$max = ceil($length / 32);
+	$random = '';
+	for ($i = 0; $i < $max; $i ++) {
+	$random .= md5(microtime(true).mt_rand(10000,90000));
+	}
+	return substr($random, 0, $length);
+}
 
 
 // MODIFICO IL NOME DEL LINK DI VERIFICA AGGIORNAMENTO

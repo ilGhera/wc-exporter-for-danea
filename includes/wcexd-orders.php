@@ -10,7 +10,14 @@ add_action('init', 'addFeedInit');
 
 //HOOK CREAZIONE FEED PER PRODOTTI E ORDINI
 function addFeedInit() {
-	add_feed(get_option('wcexd-orders-name'), 'addOrdersFeed');
+	$premium_key = strtolower(get_option('wcexd-premium-key'));
+	$url_code = strtolower(get_option('wcexd-url-code'));
+	$feed_name = $premium_key . $url_code;
+	add_feed($feed_name, 'addOrdersFeed');
+
+	//UPDATE PERMALINKS
+	global $wp_rewrite;
+	$wp_rewrite->flush_rules();	
 }
 
 

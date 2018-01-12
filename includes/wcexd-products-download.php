@@ -8,7 +8,7 @@ add_action('admin_init', 'wcexd_products_download');
 
 function wcexd_products_download() {
 
-	if($_POST['wcexd-products-hidden'] && wp_verify_nonce( $_POST['wcexd-products-nonce'], 'wcexd-products-submit' )) {
+	if(isset($_POST['wcexd-products-hidden']) && wp_verify_nonce( $_POST['wcexd-products-nonce'], 'wcexd-products-submit' )) {
 
 		//INIZIO DOCUMENTO CSV
 		header('Pragma: public');
@@ -20,12 +20,25 @@ function wcexd_products_download() {
 		header("Content-Transfer-Encoding: binary");
 
 		//Leggo il dato inserito dall'utente
-		$use_suppliers = $_POST['wcexd-use-suppliers'];
-		$exclude_danea_vars = $_POST['wcexd-exclude-danea-vars'];
+		$use_suppliers = isset($_POST['wcexd-use-suppliers']) ? $_POST['wcexd-use-suppliers'] : 0;
+		$exclude_danea_vars = isset($_POST['wcexd-exclude-danea-vars']) ? $_POST['wcexd-exclude-danea-vars'] : 0;
 
 		//Salvo il dato nel database
-		update_option( 'wcexd-use-suppliers', $use_suppliers );
+		update_option('wcexd-use-suppliers', $use_suppliers);
 		update_option('wcexd-exclude-danea-vars', $exclude_danea_vars); 
+
+		//Pesi e misure
+		$size_type = get_option('wcexd-size-type');
+		if(isset($_POST['wcexd-size-type'])) {
+			$size_type = $_POST['wcexd-size-type'];
+			update_option('wcexd-size-type', $size_type);
+		}
+
+		$weight_type = get_option('wcexd-weight-type');
+		if(isset($_POST['wcexd-weight-type'])) {
+			$weight_type = $_POST['wcexd-weight-type'];
+			update_option('wcexd-weight-type', $weight_type);
+		}
 
 
 		$args = array('post_type' => array('product', 'product_variation'), 'post_status'=>'publish', 'posts_per_page' => -1);
@@ -43,7 +56,8 @@ function wcexd_products_download() {
 					'Note fornitura', 'Ord. a multipli di', 'Gg. ordine', 'Scorta min.', 'Ubicazione', 'Tot. q.tà caricata', 
 					'Tot. q.tà scaricata', 'Q.tà giacenza', 'Q.tà impegnata', 'Q.tà disponibile', 'Q.tà in arrivo', 'Vendita media mensile	', 
 					'Stima data fine magazz.', 'Stima data prossimo ordine', 'Data primo carico', 'Data ultimo carico', 'Data ultimo scarico	', 
-					'Costo medio d\'acq.',	 'Ultimo costo d\'acq.',	'Prezzo medio vend.',	'Stato magazzino', 'Immagine'	);
+					'Costo medio d\'acq.',	 'Ultimo costo d\'acq.',	'Prezzo medio vend.',	'Stato magazzino', 'Udm Dim.', 'Dim. netta X', 'Dim. netta Y', 'Dim. netta Z',
+					'Volume netto', 'Dim. imballo X', 'Dim. imballo Y', 'Dim. imballo Z', 'Volume imballo', 'Udm peso', 'Peso netto', 'Peso lordo', 'Immagine'	);
 					
 			fputcsv($fp, $list);
 			
@@ -55,16 +69,15 @@ function wcexd_products_download() {
 				
 				//SE RICHIESTO, ESCLUDO LE VARIABILI TAGLIE/ COLORI GENERATE DA DANEA
 				if($exclude_danea_vars) {
-					if(strpos($product->slug, 'danea') === 0) {
+					if(strpos($product->get_slug(), 'danea') === 0) {
 						continue;
 					}
 				}
 
 				//ESCLUDO LE VARIAZIONI DI UN PRODOTTO NON PUBBLICATO
-				if(get_post_status($product->post->post_parent) != 'publish') {
+				if(get_post_status($product->get_parent_id()) != 'publish') {
 					continue;
 				}
-
 
 				//SE PRESENTE LO SKU, HA LA PRECEDENZA
 				if(get_post_meta(get_the_ID(), '_sku', true)) {
@@ -74,23 +87,25 @@ function wcexd_products_download() {
 				}
 
 				//RECUPERO LA CATEGORIA DEL PRODOTTO
-				if($product->post->post_parent) {
-					$product_category = WCtoDanea::get_product_category_name($product->post->post_parent);
+				if($product->get_parent_id()) {
+					$product_category = WCtoDanea::get_product_category_name($product->get_parent_id());
 				} else {
-					$product_category = WCtoDanea::get_product_category_name($product->id);
+					$product_category = WCtoDanea::get_product_category_name($product->get_id());
 				}
 				
 				//CONTROLLO LA PRESENZA DI SENSEI
-				if($_POST['sensei'] && ( WCtoDanea::get_sensei_author($product->id) != null) ) {
-				  $id_fornitore = WCtoDanea::get_sensei_author($product->id);
-				  //Salvo il dato nel database
-				  update_option( 'wcexd-sensei-option', 1 ); 
+				$id_fornitore = null;
+				if(isset($_POST['sensei']) && ( WCtoDanea::get_sensei_author($product->get_id()) != null) ) {
+					$id_fornitore = WCtoDanea::get_sensei_author($product->get_id());
+					//Salvo il dato nel database
+					update_option( 'wcexd-sensei-option', 1 ); 
 				} elseif($use_suppliers) {
-				  $id_fornitore = $product->post->post_author; 
-				  update_option( 'wcexd-sensei-option', 0 );
+					$id_fornitore = get_post_field('post_author', get_the_ID());; 
+					update_option( 'wcexd-sensei-option', 0 );
 				}
 
 				//OTTENGO IL NOME DEL FORNITORE (POST AUTHOR)
+				$denominazione = null;
 				if($id_fornitore) {
 					$supplier_name = get_user_meta( $id_fornitore, 'billing_first_name', true ) . ' ' . get_user_meta( $id_fornitore, 'billing_last_name', true );
 					//Se presente il nome dell'azienda, modifico la denominazione per Danea
@@ -103,9 +118,9 @@ function wcexd_products_download() {
 				
 				//SCORPORO IVA
 				if(get_option('woocommerce_prices_include_tax') == 'yes') {
-					$get_price = $product->price;
+					$get_price = $product->get_price();
 				} else {
-					$get_price = $product->price/ ( 1 + ( WCtoDanea::get_tax_rate($product->id)/ 100 ) );
+					$get_price = $product->get_price()/ ( 1 + ( WCtoDanea::get_tax_rate($product->get_id())/ 100 ) );
 				}
 				
 				//ARTICOLO CON GESTIONE MAGAZZINO O MENO
@@ -119,10 +134,50 @@ function wcexd_products_download() {
 				//TRASFORMO IL FORMATO DEL PREZZO
 				$price = round($get_price, 2);
 				$prezzo = str_replace('.', ',', $price);
+
+
+				//PESI E MISURE
+				$weight_unit = get_option('woocommerce_weight_unit');
+				$weight_type = get_option('wcexd-weight-type');
+				$weight = get_post_meta(get_the_ID(), '_weight', true);
+				$gross_weight = null;
+				$net_weight = null;
+
+				if($weight_type == 'net-weight') {
+					$net_weight = $weight;
+				} else {
+					$gross_weight = $weight;
+				}
+
+
+				$size_unit = get_option('woocommerce_dimension_unit');
+				$size_type = get_option('wcexd-size-type');
+				$width = get_post_meta(get_the_ID(), '_width', true);
+				$height = get_post_meta(get_the_ID(), '_height', true);
+				$length = get_post_meta(get_the_ID(), '_length', true);
+
+				$net_width = null;
+				$net_height = null;
+				$net_length = null;
+
+				$gross_width = null;
+				$gross_height = null;
+				$gross_length = null;
+
+				if($size_type == 'net-size') {
+					$net_width = $width;
+					$net_height = $height;
+					$net_length = $length;					
+				} else {
+					$gross_width = $width;
+					$gross_height = $height;
+					$gross_length = $length;					
+				}
 				
-				$data = array($product_id, $product->post->post_title, $product_type, $product_category['cat'],$product_category['sub'],'', WCtoDanea::get_tax_rate($product->id), 
-				$prezzo, '','','','','', WCtoDanea::get_product_notes(),'','', '',$product->post->post_content,'','','','','', $id_fornitore, $denominazione,'','','','','','','','','', 
-				$product->get_stock_quantity(),'','','','','','','','','','','','','','');	
+				
+				$data = array($product_id, $product->get_title(), $product_type, $product_category['cat'],$product_category['sub'],'', WCtoDanea::get_tax_rate($product->get_id()), 
+				$prezzo, '','','','','', WCtoDanea::get_product_notes(),'','', '',$product->get_description(),'','','','','', $id_fornitore, $denominazione,'','','','','','','','','', 
+				$product->get_stock_quantity(),'','','','','','','','','','','','','',$size_unit,$net_width,$net_height,$net_length,'',$gross_width,$gross_height,$gross_length,'',$weight_unit,$net_weight,$gross_weight,'');	
 				fputcsv($fp, $data);
 
 			  endwhile;
