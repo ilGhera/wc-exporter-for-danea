@@ -10,6 +10,7 @@
  * Requires at least: 4.0
  * Tested up to: 4.9
  * WC tested up to: 3
+ * Text Domain: wcexd
  */
 
 
@@ -65,7 +66,7 @@ function load_wc_exporter_for_danea_premium() {
 //RICHIAMO "UPDATE-CHECKER"
 require( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
 $wcexdUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-    'http://localhost/ilghera/wp-update-server-2/?action=get_metadata&slug=wc-exporter-for-danea-premium',
+    'https://www.ilghera.com/wp-update-server-2/?action=get_metadata&slug=wc-exporter-for-danea-premium',
     __FILE__,
     'wc-exporter-for-danea-premium'
 );

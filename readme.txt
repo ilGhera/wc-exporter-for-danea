@@ -41,12 +41,16 @@ Clicca sul pulsante "Carica plugin" e seleziona la cartella compressa appena sca
 Completato il processo di installazione, troverai nel menù Woocommerce la pagina opzioni con tutte le informazioni necessarie all'utilizzo di WED.
 
 
-== Screenshots ==
-1. Choose the user role and download your updated suppliers list
-2. Download your updated products list
-3. Choose the user role and download your updated clients list
-4. Choose a name for your orsers feed, copy and paste the full url in Danea.
 
+== Changelog ==
+
+= 1.0.0 =
+Release Date: 15 January, 2018
+
+* Enhancement: Export product weight and measures with gross or net values.
+* Enhancement: New orders feed url, created from the user's Premium Key and a random code
+* Enhancement: Use the tax name instead of the value, useful if they were imported previously from Danea Easyfatt.
+* Bug Fix: PHP Notices and deprecated functions.
 
 
 = 0.9.7.1 =

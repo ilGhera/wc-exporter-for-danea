@@ -22,10 +22,12 @@ function wcexd_products_download() {
 		//Leggo il dato inserito dall'utente
 		$use_suppliers = isset($_POST['wcexd-use-suppliers']) ? $_POST['wcexd-use-suppliers'] : 0;
 		$exclude_danea_vars = isset($_POST['wcexd-exclude-danea-vars']) ? $_POST['wcexd-exclude-danea-vars'] : 0;
+		$wcexd_products_tax_name = isset($_POST['wcexd-products-tax-name']) ? $_POST['wcexd-products-tax-name'] : 0;
 
 		//Salvo il dato nel database
 		update_option('wcexd-use-suppliers', $use_suppliers);
 		update_option('wcexd-exclude-danea-vars', $exclude_danea_vars); 
+		update_option('wcexd-products-tax-name', $wcexd_products_tax_name);
 
 		//Pesi e misure
 		$size_type = get_option('wcexd-size-type');
@@ -39,6 +41,8 @@ function wcexd_products_download() {
 			$weight_type = $_POST['wcexd-weight-type'];
 			update_option('wcexd-weight-type', $weight_type);
 		}
+
+
 
 
 		$args = array('post_type' => array('product', 'product_variation'), 'post_status'=>'publish', 'posts_per_page' => -1);
@@ -174,8 +178,9 @@ function wcexd_products_download() {
 					$gross_length = $length;					
 				}
 				
+				$tax_rate = $wcexd_products_tax_name == 1 ? WCtoDanea::get_tax_rate($product->get_id(), 'name') : WCtoDanea::get_tax_rate($product->get_id());
 				
-				$data = array($product_id, $product->get_title(), $product_type, $product_category['cat'],$product_category['sub'],'', WCtoDanea::get_tax_rate($product->get_id()), 
+				$data = array($product_id, $product->get_title(), $product_type, $product_category['cat'],$product_category['sub'],'', $tax_rate, 
 				$prezzo, '','','','','', WCtoDanea::get_product_notes(),'','', '',$product->get_description(),'','','','','', $id_fornitore, $denominazione,'','','','','','','','','', 
 				$product->get_stock_quantity(),'','','','','','','','','','','','','',$size_unit,$net_width,$net_height,$net_length,'',$gross_width,$gross_height,$gross_length,'',$weight_unit,$net_weight,$gross_weight,'');	
 				fputcsv($fp, $data);

@@ -43,11 +43,12 @@ $pi_name = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
   <Total><?php echo WCtoDanea::order_details($order->ID, '_order_total'); ?></Total>
   <CostDescription><?php echo WCtoDanea::get_shipping_method_name($order->ID); ?></CostDescription>
 <?php 
+$cost_vat_code = null;
 if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $cost_vat_code = number_format(WCtoDanea::order_details($order->ID, '_order_shipping_tax') * 100 / WCtoDanea::order_details($order->ID, '_order_shipping'));
 }
 ?>
-  <CostVatCode><?php echo($cost_vat_code) ? $cost_vat_code : 'FC'; ?></CostVatCode>
+  <CostVatCode><?php echo $cost_vat_code ? $cost_vat_code : 'FC'; ?></CostVatCode>
   <CostAmount><?php echo round(WCtoDanea::order_details($order->ID, '_order_shipping'), 2); ?></CostAmount>
   <PricesIncludeVat>false</PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->ID, '_payment_method_title'); ?></PaymentName>
@@ -98,7 +99,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $item_get_total = WCtoDanea::item_info($item['order_item_id'], '_line_total');
   $item_get_tax = WCtoDanea::item_info($item['order_item_id'], '_line_tax');
   $item_discount = wc_get_order_item_meta($item['order_item_id'], '_wcexd_item_discount');
-
+  $tax_rate = get_option('wcexd-orders-tax-name') == 1 ? WCtoDanea::get_tax_rate($item_id, 'name') : WCtoDanea::get_tax_rate($item_id);
   $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item['order_item_id'], '_qty'), 2);
     
 
@@ -133,7 +134,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
       <Qty><?php echo WCtoDanea::item_info($item['order_item_id'], '_qty'); ?></Qty>
       <Um>pz</Um>
       <Price><?php echo $item_price; ?></Price>
-      <VatCode><?php echo WCtoDanea::get_tax_rate($item_id); ?></VatCode>
+      <VatCode><?php echo $tax_rate; ?></VatCode>
       <Discounts><?php echo $discount; ?></Discounts>
     </Row>
 <?php } ?>

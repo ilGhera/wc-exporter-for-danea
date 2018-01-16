@@ -182,6 +182,7 @@ function wcexd_options() {
     <?php
 	$size_type = get_option('wcexd-size-type');
 	$weight_type = get_option('wcexd-weight-type');
+	$wcexd_products_tax_name = get_option('wcexd_products_tax_name');
     ?>
 
     <form name="wcexd-products-submit" id="wcexd-products-submit" class="wcexd-form"  method="post" action="">
@@ -197,7 +198,16 @@ function wcexd_options() {
 	    			</fieldset>
     			</td>
     		</tr>
-
+			<tr>
+				<th scope="row"><?php echo __('Nome imposta', 'wcexd'); ?></th>
+				<td>
+					<label for="wcexd-products-tax-name">
+						<input type="checkbox" name="wcexd-products-tax-name" value="1"<?php echo $wcexd_products_tax_name == 1 ? ' checked="checked"' : ''; ?>>
+						<?php echo __('Esporta il nome dell\'imposta e non l\'aliquota.', 'wcexd'); ?>
+					</label>
+					<p class="description"><?php echo __('Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd'); ?></p>
+				</td>
+			</tr>
     		<tr>
     			<th scope="row"><?php _e("Danea taglie e colori", 'wcexd' ); ?></th>
     			<td>
@@ -210,7 +220,6 @@ function wcexd_options() {
 	    			<p class="description"><?php echo __('Le variazioni taglie/ colori create da Danea, trasferite a Woocommerce precedentemente, non possono essere importate attraverso un file. Escluderle dall\'esportazione?', 'wcexd'); ?></p>
     			</td>
     		</tr>
-
 			<?php if ( class_exists( 'WooThemes_Sensei' ) ) { ?>
 				<tr>
 	    			<th scope="row"><?php _e("Sensei", 'wcexd' ); ?></th>
@@ -246,7 +255,6 @@ function wcexd_options() {
 					<p class="description"><?php echo __('Scegli se il peso esportato sarà usato in Danea come lordo o netto.', 'wcexd'); ?></p>
 				</td>
 			</tr>
-
     	</table>
 
       <p class="submit">
@@ -335,35 +343,7 @@ function wcexd_options() {
   
     <div id="wcexd-ordini" class="wcexd-admin">
 
-    <?php 
-	  //Dichiarazione variabili
-	  // $opt_orders_name = 'wcexd-orders-name';	
-	  // $hidden_orders_name = 'wcexd_orders_hidden';	
-	  // $orders_field_name = 'wcexd-orders-name';
-	
-	  // //Leggo il dato se già esistente nel database
-	  // $orders_val = get_option( $opt_orders_name );
-  
-		  
-	  // //Controllo se il nome del feed è già stato inserito
-	  // if( isset($_POST[ $hidden_orders_name ]) && $_POST[ $hidden_orders_name ] == 'Y' ) {
-		  
-		 //  //Leggo il dato inserito dall'utente
-		 //  $orders_val = $_POST[ $opt_orders_name ];
-  
-		 //  //Salvo il dato nel database
-		 //  update_option( $opt_orders_name, $orders_val ); 
-		  
-		 //  //Aggiorno i permalinks
-		 //  flush_rewrite_rules(); 					
-	?>
-		  
-	  <!--Messaggio di conferma per l'utente-->
-	  <!-- <div class="updated"><p><strong><?php _e('Le informazioni sono state salvate.', 'wcexd' ); ?></strong></p></div> -->
-
-
-	<?php //}
-
+	<?php
       //Header form ordini
 	  echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco ordini Woocommerce', 'wcexd' ) . "</h3>"; 
 	  echo "<p>" . __( 'L\'importazione degli ordini in Danea avviene attraverso l\'utilizzo di un file xml. ', 'wcexd' );
@@ -383,6 +363,12 @@ function wcexd_options() {
     	update_option('wcexd-orders-status', $orders_status);
     }
 
+    $wcexd_orders_tax_name = get_option('wcexd-orders-tax-name');
+    if(isset($_POST['wcexd-orders-sent'])) {
+    	$wcexd_orders_tax_name = isset($_POST['wcexd-orders-tax-name']) ? $_POST['wcexd-orders-tax-name'] : 0;
+    	update_option('wcexd-orders-tax-name', $wcexd_orders_tax_name);
+    }
+
     ?>
     
     <form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
@@ -400,9 +386,7 @@ function wcexd_options() {
 
 			$receive_orders_url = __('Please insert your <strong>Premium Key</strong>', 'wcexd');
 			if($premium_key) {
-				// $receive_orders_url = home_url() . '?key=' . $premium_key . '&code=' . $url_code;					
 				$receive_orders_url = home_url() . '/' . $premium_key . $url_code;
-				// $receive_orders_url = home_url() . '/' . $premium_key;
 			}
 			?>
         	<tr>
@@ -422,6 +406,16 @@ function wcexd_options() {
 			    	<p class="description"><?php echo __('Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd'); ?></p>
 		    	</td>
 		    </tr>
+			<tr>
+				<th scope="row"><?php echo __('Nome imposta', 'wcexd'); ?></th>
+				<td>
+					<label for="wcexd-orders-tax-name">
+						<input type="checkbox" name="wcexd-orders-tax-name" value="1"<?php echo $wcexd_orders_tax_name == 1 ? ' checked="checked"' : ''; ?>>
+						<?php echo __('Esporta il nome dell\'imposta e non l\'aliquota.', 'wcexd'); ?>
+					</label>
+					<p class="description"><?php echo __('Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd'); ?></p>
+				</td>
+			</tr>
 		    <tr>
 		    	<th scope="row"><?php echo __("Feed URL", 'wcexd' ); ?></th>
 		        <td>
@@ -432,6 +426,7 @@ function wcexd_options() {
     	</table>                      
         
         <p class="submit">
+        	<input type="hidden" name="wcexd-orders-sent" value="1">
 	        <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Salva impostazioni') ?>" />
         </p>
     
@@ -453,19 +448,10 @@ function wcexd_options() {
 }
 
 
-//UPDATE PERMALINKS
-// function wcexd_rewrite_rules() {
-// 	if( isset($_POST['wcexd-premium-key']) ) {
-// 		global $wp_rewrite;
-// 		$wp_rewrite->flush_rules();	
-// 		echo 'ciao';
-// 	}
-// }
-// add_action('admin_init', 'wcexd_rewrite_rules');
-
-
 //UPDATE MESSAGE
 function wcexd_update_message2( $plugin_data, $response) {
+
+	$message = null;
 	$key = get_option('wcexd-premium-key');
 
 	if(!$key) {
@@ -480,7 +466,7 @@ function wcexd_update_message2( $plugin_data, $response) {
 
 	    if($limit < $now) { 
 	        $message = 'It seems like your <strong>Premium Key</strong> is expired. Please, click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
-	    } elseif($decoded_key[2] != 140) {
+	    } elseif(!in_array($decoded_key[2], array(140, 1582))) {
 	    	$message = 'It seems like your <strong>Premium Key</strong> is not valid. Please, click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
 	    }
 

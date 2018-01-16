@@ -57,18 +57,19 @@ class WCtoDanea {
 	}
 	
 	//RECUPERO IL VALORE DELL'IVA
-	public static function get_tax_rate($product_id) {
+	public static function get_tax_rate($product_id, $type = '') {
 
 		$tax_status = get_post_meta($product_id, '_tax_status', true);
 		if($tax_status == 'taxable') {
 			$tax_class = get_post_meta($product_id, '_tax_class', true);
 			global $wpdb;
 			$query = "
-				SELECT tax_rate FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'
+				SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'
 			";
 
 			$results = $wpdb->get_results($query, ARRAY_A);
-			$output = intval($results[0]['tax_rate']);			
+
+			$output = $type == 'name' ? $results[0]['tax_rate_name'] : intval($results[0]['tax_rate']);			
 		} else {
 			$output = 0;
 		}
@@ -97,7 +98,8 @@ class WCtoDanea {
 	  global $wpdb;
 	  $query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_items WHERE order_id = $order_id AND order_item_type = 'shipping'";	
 	  $items = $wpdb->get_results($query, ARRAY_A);
-	  return $items[0]['order_item_name'];
+	  $output = $items ? $items[0]['order_item_name'] : null; 
+	  return $output;
 		
 	}
 	
