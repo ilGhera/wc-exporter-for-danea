@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WED\n"
-"POT-Creation-Date: 2018-01-16 12:56+0100\n"
+"POT-Creation-Date: 2018-01-22 17:57+0100\n"
 "PO-Revision-Date: 2016-05-26 13:25+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
@@ -260,10 +260,6 @@ msgstr ""
 msgid ""
 "L'importazione degli ordini in Danea avviene attraverso l'utilizzo di un "
 "file xml. "
-msgstr ""
-
-#: includes/wcexd-admin-functions.php:350
-msgid "Scegli un nome per il tuo file xml."
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:351

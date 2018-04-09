@@ -59,6 +59,8 @@ class WCtoDanea {
 	//RECUPERO IL VALORE DELL'IVA
 	public static function get_tax_rate($product_id, $type = '') {
 
+		$output = 0;
+
 		$tax_status = get_post_meta($product_id, '_tax_status', true);
 		if($tax_status == 'taxable') {
 			$tax_class = get_post_meta($product_id, '_tax_class', true);
@@ -69,10 +71,11 @@ class WCtoDanea {
 
 			$results = $wpdb->get_results($query, ARRAY_A);
 
-			$output = $type == 'name' ? $results[0]['tax_rate_name'] : intval($results[0]['tax_rate']);			
-		} else {
-			$output = 0;
-		}
+			if($results) {
+				$output = $type == 'name' ? $results[0]['tax_rate_name'] : intval($results[0]['tax_rate']);			
+			}
+		} 
+
 		return $output;
 	
 	}

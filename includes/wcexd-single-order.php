@@ -115,8 +115,11 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $color = null;
   if($variation_id) {
     $product_variation = new WC_Product_Variation($variation_id);
+
+    /*Restituisce l'etichetta*/
     $attr_size = $product_variation->get_attribute('pa_size');
     $attr_color = $product_variation->get_attribute('pa_color');
+
     $size = "      <Size>" . ($attr_size ? $attr_size : '-') . "</Size>\n";
     $color = "      <Color>" . ($attr_color ? $attr_color : '-') . "</Color>\n";
   }
@@ -128,7 +131,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   } ?>
     <Row>
       <Code><?php echo $product_id; ?></Code>
-      <Description><?php echo $item['order_item_name']; ?></Description>
+      <Description><?php echo esc_html($item['order_item_name']); ?></Description>
 <?php echo $size; ?>
 <?php echo $color; ?>
       <Qty><?php echo WCtoDanea::item_info($item['order_item_id'], '_qty'); ?></Qty>

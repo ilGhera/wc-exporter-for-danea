@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WED\n"
-"POT-Creation-Date: 2018-01-15 17:04+0100\n"
-"PO-Revision-Date: 2018-01-15 17:13+0100\n"
+"POT-Creation-Date: 2018-01-22 17:58+0100\n"
+"PO-Revision-Date: 2018-01-22 17:58+0100\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -280,10 +280,6 @@ msgid ""
 "file xml. "
 msgstr "The import of orders in Danea is done by using a xml file"
 
-#: includes/wcexd-admin-functions.php:350
-msgid "Scegli un nome per il tuo file xml."
-msgstr "Choose a name for your xml file"
-
 #: includes/wcexd-admin-functions.php:351
 msgid ""
 "Copia l'indirizzo completo del tuo feed con l'elenco ordini Woocommerce "
@@ -376,6 +372,9 @@ msgstr ""
 #: plugin-update-checker/Puc/v4p2/Vcs/PluginUpdateChecker.php:86
 msgid "There is no changelog available."
 msgstr ""
+
+#~ msgid "Scegli un nome per il tuo file xml."
+#~ msgstr "Choose a name for your xml file"
 
 #~ msgid "Le informazioni sono state salvate."
 #~ msgstr "All saved."

@@ -347,7 +347,7 @@ function wcexd_options() {
       //Header form ordini
 	  echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco ordini Woocommerce', 'wcexd' ) . "</h3>"; 
 	  echo "<p>" . __( 'L\'importazione degli ordini in Danea avviene attraverso l\'utilizzo di un file xml. ', 'wcexd' );
-	  echo "<ul class=\"wcexd\"><li>" . __('Scegli un nome per il tuo file xml.', 'wcexd' ) . "</li>";
+	  echo "<ul class=\"wcexd\">";
 	  echo "<li>" . __('Copia l\'indirizzo completo del tuo feed con l\'elenco ordini Woocommerce aggiornato.', 'wcexd' ) . "</li>";
 	  echo "<li>" . __('In Danea, scegli "Scarica ordini" dal menù "Strumenti/ E-commerce"', 'wcexd' ) . "</li>";
 	  echo "<li>" . __('Nella finestra seguente, incolla l\'indirizzo del tuo elenco ordini in in "Impostazioni/ Indirizzo..."', 'wcexd' ) . "</li><ul>";
