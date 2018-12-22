@@ -82,30 +82,37 @@ class wcexd_checkout_fields {
 			);
 		}
 
-		foreach ($this->custom_fields as $key => $value) {
-			$fields['billing'][$key] = array(
-				'type' => 'text',
-				'label' => $value,
-				'class' => array(
-					'field-name form-row-wide'
-				)
-				// 'placeholder' => __('xxxxx', 'wcexd'),
-				// 'required' 	  => true
-			);
- 		}
+		if(!empty($this->custom_fields)) {
+			foreach ($this->custom_fields as $key => $value) {
+				$fields['billing'][$key] = array(
+					'type' => 'text',
+					'label' => $value,
+					'class' => array(
+						'field-name form-row-wide'
+					)
+					// 'placeholder' => __('xxxxx', 'wcexd'),
+					// 'required' 	  => true
+				);
+	 		}
 
- 		$fields['billing']['billing_wcexd_piva']['required'] = true; 			
- 		$fields['billing']['billing_wcexd_cf']['required'] = true; 			
+	 		if(isset($this->custom_fields['billing_wcexd_piva'])) {
+		 		$fields['billing']['billing_wcexd_piva']['required'] = true;	 			
+	 		}
 
- 		/*Rendo obbligatorio cf e p. iva*/
- 		if(isset($_POST['billing_wcexd_invoice_type']) && $_POST['billing_wcexd_invoice_type'] === 'private') {
-	 		$fields['billing']['billing_wcexd_piva']['required'] = false; 			
- 		}
+	 		if(isset($this->custom_fields['billing_wcexd_cf'])) {
+		 		$fields['billing']['billing_wcexd_cf']['required'] = true; 			
+			}
 
- 		if(!isset($this->custom_fields['billing_wcexd_pec']) && isset($this->custom_fields['billing_wcexd_pa_code'])) {
-	 		$fields['billing']['billing_wcexd_pa_code']['required'] = true; 			
-		} elseif(isset($this->custom_fields['billing_wcexd_pec']) && !isset($this->custom_fields['billing_wcexd_pa_code'])) {
-	 		$fields['billing']['billing_wcexd_pec']['required'] = true; 						
+	 		/*Rendo obbligatorio cf e p. iva*/
+	 		if(isset($_POST['billing_wcexd_invoice_type']) && $_POST['billing_wcexd_invoice_type'] === 'private') {
+		 		$fields['billing']['billing_wcexd_piva']['required'] = false; 			
+	 		}
+
+	 		if(!isset($this->custom_fields['billing_wcexd_pec']) && isset($this->custom_fields['billing_wcexd_pa_code'])) {
+		 		$fields['billing']['billing_wcexd_pa_code']['required'] = true; 			
+			} elseif(isset($this->custom_fields['billing_wcexd_pec']) && !isset($this->custom_fields['billing_wcexd_pa_code'])) {
+		 		$fields['billing']['billing_wcexd_pec']['required'] = true; 						
+			}			
 		}
  		
  		return $fields;

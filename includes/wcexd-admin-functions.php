@@ -136,8 +136,7 @@ function wcexd_options() {
 
     /*Aggiorno cf nel db in base alle opzioni precedenti*/
     if(isset($_POST['wcexd-options-sent'])) {
-
-    	if($wcexd_company_invoice === 0 || $wcexd_private_invoice === 0) {
+    	if($wcexd_company_invoice === 0 && $wcexd_private_invoice === 0) {
 	    	update_option('billing_wcexd_cf_active', 0);    		
     	} else {
 	    	update_option('billing_wcexd_cf_active', 1);    		    		
