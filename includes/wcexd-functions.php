@@ -1,62 +1,63 @@
 <?php
-/*
-WOOCOMMERCE EXPORTER FOR DANEA - PREMIUM | FUNZIONI
-*/
+/**
+ * Funzioni
+ * @author ilGhera
+ * @package wc-exporter-for-danea-premium/includes
+ * @version 1.1.0
+ */
 
-
-//EVITO ACCESSO DIRETTO
+/*Evito accesso diretto*/
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
 class WCtoDanea {
 
-	//RECUPERO GLI ORDINI
+	/**
+	 * Recupero gli ordini
+	 */
 	public static function get_orders() {
 
 		$orders_status = get_option('wcexd-orders-status');
 		$query_part = ($orders_status) ? "AND (t2.post_status = '" . $orders_status . "')" : "";
 		global $wpdb;
 		$query_str = "
-						SELECT t1.*, t2.*
-						FROM " . $wpdb->prefix . "woocommerce_order_items t1, $wpdb->posts t2
-						WHERE
-						(t1.order_id = t2.ID )
-						" . $query_part . "
-						GROUP BY t2.ID
-						ORDER BY t2.ID
-						DESC 
-						LIMIT 200
-					  ";
+			SELECT t1.*, t2.*
+			FROM " . $wpdb->prefix . "woocommerce_order_items t1, $wpdb->posts t2
+			WHERE
+			(t1.order_id = t2.ID )
+			" . $query_part . "
+			GROUP BY t2.ID
+			ORDER BY t2.ID
+			DESC 
+			LIMIT 200
+     	";
 		 
 		$orders = $wpdb->get_results($query_str, OBJECT);
 	  
 		return $orders;
-		
 	}
 	
-	//DETTAGLI SINGOLO ORDINE
+
+	/**
+	 * Dettagli singolo ordine
+	 * @param  int $order_ID l'id dell'ordine
+	 * @param  string $campo    il post_meta da recuperare
+	 * @return [type]           [description]
+	 */
 	public static function order_details($order_ID, $campo) {
+
+		$output = get_post_meta($order_ID, $campo, true);
 	
-		global $wpdb;
-		$query_str_details = "SELECT *
-					  FROM $wpdb->postmeta
-					  WHERE
-					  post_id = $order_ID
-					  
-					";
-		 $order_details = $wpdb->get_results($query_str_details);	
-		 
-		 foreach($order_details as $single_details) {
-			if($single_details->meta_key === $campo) {
-				
-			  return htmlspecialchars($single_details->meta_value);
-			
-			}
-		 }
-		 
+		return htmlspecialchars($output);	
 	}
+
 	
-	//RECUPERO IL VALORE DELL'IVA
+	/**
+	 * Recupero il valore dell'iva
+	 * @param  int $product_id l'id del prodotto
+	 * @param  string $type       il tipo di dato da restituire, nome o aliquota
+	 * @return mixed
+	 */
 	public static function get_tax_rate($product_id, $type = '') {
 
 		$output = 0;
@@ -64,10 +65,9 @@ class WCtoDanea {
 		$tax_status = get_post_meta($product_id, '_tax_status', true);
 		if($tax_status == 'taxable') {
 			$tax_class = get_post_meta($product_id, '_tax_class', true);
+			
 			global $wpdb;
-			$query = "
-				SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'
-			";
+			$query = "SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'";
 
 			$results = $wpdb->get_results($query, ARRAY_A);
 
@@ -79,8 +79,13 @@ class WCtoDanea {
 		return $output;
 	
 	}
+
 	
-	//RECUPERO ITEMS PER ORDINE	
+	/**
+	 * Recupero items per ordine
+	 * @param  int $order_id l'id dell'ordine
+	 * @return array
+	 */
 	public static function get_order_items($order_id) {
 	
 	  global $wpdb;
@@ -95,7 +100,12 @@ class WCtoDanea {
 		
 	}
 
-	//RECUPERO IL NOME DEL METODO DI SPEDIZIONE
+
+	/**
+	 * Recupero il nome del metodo di spedizione
+	 * @param  int $order_id l'id dell'ordine
+	 * @return string
+	 */
 	public static function get_shipping_method_name($order_id) {
 	
 	  global $wpdb;
@@ -106,7 +116,13 @@ class WCtoDanea {
 		
 	}
 	
-	//DETTAGLI SINGOLO ITEM ORDINE	
+	
+	/**
+	 * Dettagli singolo item ordine
+	 * @param  int $item    	 l'id del singolo prodotto dell'ordine
+	 * @param  string $meta_key
+	 * @return string
+	 */
 	public static function item_info($item, $meta_key) {
 	
 	  global $wpdb;
@@ -117,10 +133,14 @@ class WCtoDanea {
 				return $info['meta_value'];
 			}
 	   }
-	   
 	}
 	
-	//OTTENGO LA CATEGORIA DI APPARTENENZA DEL PRODOTTO - NEW
+
+	/**
+	 * Ottengo la categoria di appartenenza del prodotto
+	 * @param  int $product_id l'id del prodotto
+	 * @return string
+	 */
 	public static function get_product_category_name($product_id) {
 		$parent = array();
 		$child  = array();
@@ -144,10 +164,13 @@ class WCtoDanea {
 		}
 		
 		return $cat_name;
-		
 	}
+
 		
-	//URL IMMAGINE PRODOTTO
+	/**
+	 * URL immagine prodotto
+	 * @return string
+	 */
 	public static function get_image_product() {
 			
 		$thumb_id = get_post_thumbnail_id();
@@ -157,16 +180,20 @@ class WCtoDanea {
 	}
 	
 	
-	//RECUPERO L'AUTORE DEL CORSO SENSEI LEGATO AL PRODOTTO WOOCOMMERCE
+	/**
+	 * Recupero l'autore del corso sensei legato al prodotto woocommerce
+	 * @param  int $product_id l'id del prodotto
+	 */
 	public static function get_sensei_author($product_id) {
 	
 		global $wpdb;
-		$query_course = "SELECT post_id
-						  FROM $wpdb->postmeta
-						  WHERE
-						  meta_key = '_course_woocommerce_product'
-						  AND meta_value = $product_id
-						  ";
+		$query_course = "
+			SELECT post_id
+			FROM $wpdb->postmeta
+			WHERE
+			meta_key = '_course_woocommerce_product'
+			AND meta_value = $product_id
+		";
 						  
 		$courses = $wpdb->get_results($query_course);
 		if($courses != null) {
@@ -178,41 +205,79 @@ class WCtoDanea {
 	}
 
 
-	//VERIFICO IL PLUGIN INSTALLATO PER RECUPERARE P.IVA E C.FISCALE
+	/**
+	 * Definisce come recuperare i campi fiscali, generati dal plugin o attraverso plugin supportati
+	 * Anche quelli per la fatturazione elettronica
+	 * @param  string $field il campo da cercare
+	 * @return string        il nome del meta_key che verrà utilizzato per recuperare il dato
+	 */
 	public static function get_italian_tax_fields_names($field) {
 
-		$cf_name = null;
-		$pi_name = null;
+		$cf_name 	  = null;
+		$pi_name 	  = null;
+		$pec_name 	  = null;
+		$pa_code_name = null;
 
-		//WooCommerce Aggiungere CF e P.IVA
-		if(class_exists('WC_BrazilianCheckoutFields')) {
-			$cf_name = 'billing_cpf';
-			$pi_name = 'billing_cnpj';
-		} 
-		//WooCommerce P.IVA e Codice Fiscale per Italia
-		elseif(class_exists('WooCommerce_Piva_Cf_Invoice_Ita')) {
-			$cf_name = 'billing_cf';
-			$pi_name = 'billing_piva';	
-		} 
-		//YITH WooCommerce Checkout Manager
-		elseif(function_exists('ywccp_init')) {
-			$cf_name = 'billing_Codice_Fiscale';
-			$pi_name = 'billing_Partita_IVA';
-		} 
-		//WOO Codice Fiscale
-		elseif(function_exists('woocf_on_checkout')) {
-			$cf_name = 'billing_CF';
-			$pi_name = 'billing_iva';	
+		/*Campi generati dal plugin*/
+		if(get_option('wcexd_company_invoice') || get_option('wcexd_private_invoice')) {
+
+			$cf_name 	  = 'billing_wcexd_cf';
+			$pi_name 	  = 'billing_wcexd_piva';
+			$pec_name 	  = 'billing_wcexd_pec';
+			$pa_code_name = 'billing_wcexd_pa_code';	
+
+		} else {
+			
+			/*Plugin supportati*/
+
+			/*WooCommerce Aggiungere CF e P.IVA*/
+			if(class_exists('WC_BrazilianCheckoutFields')) {
+				$cf_name = 'billing_cpf';
+				$pi_name = 'billing_cnpj';
+			} 
+			/*WooCommerce P.IVA e Codice Fiscale per Italia*/
+			elseif(class_exists('WooCommerce_Piva_Cf_Invoice_Ita')) {
+				$cf_name 	  = 'billing_cf';
+				$pi_name 	  = 'billing_piva';
+				$pec_name 	  = 'billing_pec';
+				$pa_code_name = 'billing_pa_code';	
+			} 
+			/*YITH WooCommerce Checkout Manager*/
+			elseif(function_exists('ywccp_init')) {
+				$cf_name = 'billing_Codice_Fiscale';
+				$pi_name = 'billing_Partita_IVA';
+			} 
+			/*WOO Codice Fiscale*/
+			elseif(function_exists('woocf_on_checkout')) {
+				$cf_name = 'billing_CF';
+				$pi_name = 'billing_iva';	
+			}
+
+
 		}
 		
-		if($field == 'cf_name') {
-			return $cf_name;
-		} else {
-			return $pi_name;
-		}
+		switch ($field) {
+			case 'cf_name':
+				return $cf_name;
+				break;
+			case 'pi_name':
+				return $pi_name;
+				break;
+			case 'pec_name':
+				return $pec_name;
+				break;
+			case 'pa_code_name':
+				return $pa_code_name;
+				break;
+		}		
 	} 
 	
-	//OTTENDO IL NOME DELLE COLONNE LISTINO IN BASE ALL'INCLUSIONE O MENO DELL'IVA
+
+	/**
+	 * Ottendo il nome delle colonne listino in base all'inclusione o meno dell'iva
+	 * @param  int $n    il numero del listino
+	 * @return string    il nome del listino
+	 */
 	public static function get_prices_col_name($n) {
 		$include_tax = get_option('woocommerce_prices_include_tax');
 		if($include_tax == 'yes') {
@@ -222,7 +287,11 @@ class WCtoDanea {
 		}
 	}
 
-	//OTTENGO GLI ATTRIBUTI DELLA SINGOLA VARIABILE DI PRODOTTO
+
+	/**
+	 * Ottengo gli attributi della singola variabile di prodotto
+	 * @return string il contenuto del campo Note
+	 */
 	public static function get_product_notes() {
 		$parent = wp_get_post_parent_id(get_the_ID());
 		if($parent) {
@@ -264,10 +333,12 @@ class WCtoDanea {
 		}
 	}
 	
-} //CHIUSURA WCtoDanea
+}
 
 
-//HIDE ITEM DISCOUNT 
+/**
+ * Hide item discount 
+ */
 function wcexd_hide_item_discount($array) {
 	$array[] = '_wcexd_item_discount';
 	return $array;
@@ -275,7 +346,10 @@ function wcexd_hide_item_discount($array) {
 add_filter( 'woocommerce_hidden_order_itemmeta', 'wcexd_hide_item_discount');
 
 
-//GET PRODUCT DISCOUNT - TEMP
+/**
+ * Salva nel db la percentale di sconto per singolo item dell'ordine
+ * @param  int $order_id l'id dell'ordine
+ */
 function wcifd_add_item_details($order_id) {		
 	$order = new WC_Order($order_id);
 	foreach($order->get_items() as $key => $item) {
@@ -298,7 +372,11 @@ function wcifd_add_item_details($order_id) {
 add_action('woocommerce_thankyou', 'wcifd_add_item_details', 10, 1);
 
 
-//RANDOM STRING
+/**
+ * Random string
+ * @param  int $length la lunghezza della stringa richiesta
+ * @return string
+ */
 function wcexd_rand_md5($length) {
 	$max = ceil($length / 32);
 	$random = '';
@@ -309,14 +387,21 @@ function wcexd_rand_md5($length) {
 }
 
 
-// MODIFICO IL NOME DEL LINK DI VERIFICA AGGIORNAMENTO
+/**
+ * Modifico il nome del link di verifica aggiornamento
+ */
 function wcexd_check_update() {
 	return __('Verifica aggiornamenti', 'wcexd');	
 }
 add_filter('puc_manual_check_link-wc-exporter-for-danea-premium', 'wcexd_check_update');
 
 
-//MODIFICO IL MESSAGGIO DEL RISULTATO AGGIORNAMENTO
+/**
+ * Modifico il messaggio del risultato aggiornamento
+ * @param  string $message
+ * @param  string $status  presenza o meno di un aggiornamento disponibile, errore
+ * @return string          il messaggio restituito
+ */
 function wcexd_update_message($message = '', $status = '') {
 	
 	if ( $status == 'no_update' ) {

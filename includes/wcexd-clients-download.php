@@ -1,7 +1,10 @@
 <?php
-/*
-WOOCOMMERCE EXPORTER FOR DANEA - PREMIUM | TEMPLATE CSV CLIENTI
-*/
+/**
+ * Template csv clienti
+ * @author ilGhera
+ * @package wc-exporter-for-danea-premium/includes
+ * @version 1.0.1
+ */
 
 
 add_action('admin_init', 'wcexd_clients_download');
@@ -10,7 +13,7 @@ function wcexd_clients_download() {
 
 	if(isset($_POST['wcexd-clients']) && wp_verify_nonce( $_POST['wcexd-clients-nonce'], 'wcexd-clients-submit' )) {
 
-		//INIZIO DOCUMENTO CSV
+		/*Inizio documento csv*/
 		header('Pragma: public');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -20,13 +23,13 @@ function wcexd_clients_download() {
 		header("Content-Transfer-Encoding: binary");
 
 
-		//Leggo il dato inserito dall'utente
+		/*Leggo il dato inserito dall'utente*/
 		$clients_val = $_POST['wcexd-clients'];
 
-		//Salvo il dato nel database
+		/*Salvo il dato nel database*/
 		update_option( 'wcexd-clients-role', $clients_val ); 
 
-		//Recupero i nomi dei campi C.Fiscale e P.IVA
+		/*Recupero i nomi dei campi C.Fiscale e P.IVA*/
 		$get_cf_name = WCtoDanea::get_italian_tax_fields_names('cf_name');
 		$get_pi_name = WCtoDanea::get_italian_tax_fields_names('pi_name');
 		  
@@ -47,7 +50,7 @@ function wcexd_clients_download() {
 
 				$client_name = get_user_meta( $client->ID, 'billing_first_name', true ) . ' ' . get_user_meta( $client->ID, 'billing_last_name', true );
 
-				//Se presente il nome dell'azienda, modifico la denominazione per Danea
+				/*Se presente il nome dell'azienda, modifico la denominazione per Danea*/
 				if(get_user_meta($client->ID, 'billing_company', true)) {
 					$denominazione = (get_user_meta($client->ID, 'billing_company', true));
 				} elseif($client_name != ' ') {
@@ -56,7 +59,7 @@ function wcexd_clients_download() {
 					$denominazione = $client->display_name;
 				}
 
-				//SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE
+				/*SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE*/
 	  			$cf_value = ($get_cf_name) ? get_user_meta($client->ID, $get_cf_name, true) : '';
 				$pi_value = ($get_pi_name) ? get_user_meta($client->ID, $get_pi_name, true) : '';
 
@@ -68,12 +71,8 @@ function wcexd_clients_download() {
 				fputcsv($fp, $data);
 			}
 
-			fclose($fp);//get_user_meta( $client->ID, 'billing_cnpj', true )
-
-		//FINE DOCUMENTO CSV
+			fclose($fp);
 
 		exit;
-
 	}
-
 }

@@ -5,7 +5,7 @@
  * Description: If you've built your online store with Woocommerce and you're using Danea Easyfatt as management software, you definitely need Woocommerce Exporter for Danea - Premium!
  * You'll be able to export suppliers, products, clients and orders.
  * Author: ilGhera
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author URI: https://ilghera.com 
  * Requires at least: 4.0
  * Tested up to: 5.0
@@ -14,20 +14,18 @@
  */
 
 
- //EVITO ACCESSO DIRETTO
+/*Evito accesso diretto*/
 if ( !defined( 'ABSPATH' ) ) exit;
 
 
-add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );	
-
 function load_wc_exporter_for_danea_premium() {
 
-	//FUNCTION CHECK 
+	/*Function check */
 	if ( !function_exists( 'is_plugin_active' ) ) {
     	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
  	}
 
- 	//OFF THE FREE ONE
+ 	/*Disattiva il plugin free se presente*/
 	if( is_plugin_active('wc-exporter-for-danea/wc-exporter-for-danea.php') || function_exists('load_wc_exporter_for_danea') ) {
 		deactivate_plugins('wc-exporter-for-danea/wc-exporter-for-danea.php');
 	    remove_action( 'plugins_loaded', 'load_wc_exporter_for_danea' );
@@ -35,7 +33,12 @@ function load_wc_exporter_for_danea_premium() {
 
 	}
 
-	//DATABASE UPDATE
+	/*Dichiarazioni costanti*/
+	define('WCEXD_DIR', plugin_dir_path(__FILE__));
+	define('WCEXD_URI', plugin_dir_url(__FILE__));
+	define('WCEXD_INCLUDES', WCEXD_DIR . 'includes/');
+
+	/*Database update*/
 	if(get_option('wcexd-database-version') < '0.9.6') {
 		global $wpdb;
 		$wpdb->query(
@@ -45,25 +48,26 @@ function load_wc_exporter_for_danea_premium() {
 			"
 		);
 
-		//UPDATE DATABASE VERSION
 		update_option('wcexd-database-version', '0.9.6');
 	}
 
-	//INTERNATIONALIZATION
+	/*Internationalization*/
 	load_plugin_textdomain('wcexd', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
-	//RICHIAMO FILE NECESSARI
-	include( plugin_dir_path( __FILE__ ) . 'includes/wcexd-admin-functions.php');
-	include( plugin_dir_path( __FILE__ ) . 'includes/wcexd-functions.php');
-	include( plugin_dir_path( __FILE__ ) . 'includes/wcexd-suppliers-download.php');
-	include( plugin_dir_path( __FILE__ ) . 'includes/wcexd-products-download.php');
-	include( plugin_dir_path( __FILE__ ) . 'includes/wcexd-clients-download.php');
-	include( plugin_dir_path( __FILE__ ) . 'includes/wcexd-orders.php');
+	/*Richiamo file necessari*/
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-admin-functions.php');
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-functions.php');
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-suppliers-download.php');
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-products-download.php');
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-clients-download.php');
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-orders.php');
+	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-checkout-fields.php');
 
 }
+add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );	
 
 
-//RICHIAMO "UPDATE-CHECKER"
+/*Richiamo "Update-Checker"*/
 require( plugin_dir_path( __FILE__ ) . 'plugin-update-checker/plugin-update-checker.php');
 $wcexdUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
     'https://www.ilghera.com/wp-update-server-2/?action=get_metadata&slug=wc-exporter-for-danea-premium',

@@ -1,8 +1,10 @@
 <?php
-/*
-WOOCOMMERCE EXPORTER FOR DANEA - PREMIUM | TEMPLATE CSV FORNITORI
-*/
-
+/**
+ * Template csv fornitori
+ * @author ilGhera
+ * @package wc-exporter-for-danea-premium/includes
+ * @version 1.0.1
+ */
 
 add_action('admin_init', 'wcexd_suppliers_download');
 
@@ -10,7 +12,7 @@ function wcexd_suppliers_download() {
 
 	if(isset($_POST['wcexd-users']) && wp_verify_nonce( $_POST['wcexd-suppliers-nonce'], 'wcexd-suppliers-submit' )) {
 	
-		//INIZIO DOCUMENTO CSV
+		/*Inizio documento csv*/
 		header('Pragma: public');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
@@ -20,13 +22,13 @@ function wcexd_suppliers_download() {
 		header("Content-Transfer-Encoding: binary");
 
 
-		//Leggo il dato inserito dall'utente
+		/*Leggo il dato inserito dall'utente*/
 		$users_val = $_POST['wcexd-users'];
 
-		//Salvo il dato nel database
+		/*Salvo il dato nel database*/
 		update_option( 'wcexd-users-role', $users_val ); 
 
-		//Recupero i nomi dei campi C.Fiscale e P.IVA
+		/*Recupero i nomi dei campi C.Fiscale e P.IVA*/
 		$get_cf_name = WCtoDanea::get_italian_tax_fields_names('cf_name');
 		$get_pi_name = WCtoDanea::get_italian_tax_fields_names('pi_name');
 		  
@@ -55,7 +57,7 @@ function wcexd_suppliers_download() {
 				$denominazione = $supplier->display_name;
 			}
 
-			//SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE
+			/*SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE*/
   			$cf_value = ($get_cf_name) ? get_user_meta($supplier->ID, $get_cf_name, true) : '';
 			$pi_value = ($get_pi_name) ? get_user_meta($supplier->ID, $get_pi_name, true) : '';
 
@@ -68,10 +70,6 @@ function wcexd_suppliers_download() {
 
 		fclose($fp);
 
-		//FINE DOCUMENTO CSV
-
 		exit;
-
 	}
-
 }

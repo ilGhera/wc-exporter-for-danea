@@ -1,10 +1,9 @@
 === Woocommerce Exporter for Danea - Premium ===
 Contributors: ghera74
-Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products
-Version: 1.0.1
+Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products, fattura elettronica, gestionale
+Version: 1.1.0
 Requires at least: 4.0
 Tested up to: 5.0
-
 
 
 Export suppliers, products, customers and orders from your Woocommerce store to Danea Easyfatt. 
@@ -41,8 +40,15 @@ Clicca sul pulsante "Carica plugin" e seleziona la cartella compressa appena sca
 Completato il processo di installazione, troverai nel menù Woocommerce la pagina opzioni con tutte le informazioni necessarie all'utilizzo di WED.
 
 
-
 == Changelog ==
+
+= 1.1.0 =
+Release Date: 23 December, 2018
+* Enhancement: Fiscal code and P.IVA fields are now available width a dedicated option
+* Enhancement: Fiscal code and P.IVA fields validation tool.
+* Enhancement: PEC and Receiver code fields are now available, ready for E-Invoice
+* Enhancement: Better plugin settings navigation
+
 
 = 1.0.1 =
 Release Date: 09 April, 2018

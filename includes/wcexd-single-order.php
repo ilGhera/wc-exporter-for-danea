@@ -1,19 +1,26 @@
-
 <?php 
-/*
-WOOCOMMERCE EXPORTER FOR DANEA - PREMIUM | SINGOLO ORDINE
-*/
+/**
+ * Singolo ordine
+ * @author ilGhera
+ * @package wc-exporter-for-danea-premium/includes
+ * @version 1.1.0
+ */
 
 
-//FORMATTAZIONE DATA ORDINE
+/*Formattazione data ordine*/
 $originalDate = $order->post_date;
 $newDate = date("Y-m-d", strtotime($originalDate));
 $customer_name =  WCtoDanea::order_details($order->ID, '_billing_first_name') . ' ' . WCtoDanea::order_details($order->ID, '_billing_last_name'); 
 $shipping_name =  WCtoDanea::order_details($order->ID, '_shipping_first_name') . ' ' . WCtoDanea::order_details($order->ID, '_shipping_last_name'); 
 
-//Recupero i nomi dei campi C.Fiscale e P.IVA
-$cf_name = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
-$pi_name = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
+/*Recupero i nomi dei campi fiscali italiani*/
+$cf_name      = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
+$pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
+$pec_name     = '_' . WCtoDanea::get_italian_tax_fields_names('pec_name');
+$pa_code_name = '_' . WCtoDanea::get_italian_tax_fields_names('pa_code_name');
+
+/*Definisco il destinatario per la fattura elettronica*/
+$e_invoice_receiver = WCtoDanea::order_details($order->ID, $pa_code_name) ? WCtoDanea::order_details($order->ID, $pa_code_name) : WCtoDanea::order_details($order->ID, $pec_name);
 ?>
 
 <Document>
@@ -27,6 +34,7 @@ $pi_name = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
   <CustomerCountry><?php echo WCtoDanea::order_details($order->ID, '_shipping_country'); ?></CustomerCountry>
   <CustomerVatCode><?php echo WCtoDanea::order_details($order->ID, $pi_name); ?></CustomerVatCode>
   <CustomerFiscalCode><?php echo WCtoDanea::order_details($order->ID, $cf_name); ?></CustomerFiscalCode>
+  <CustomerEInvoiceDestCode><?php echo $e_invoice_receiver; ?></CustomerEInvoiceDestCode>
   <CustomerTel><?php echo WCtoDanea::order_details($order->ID, '_billing_phone'); ?></CustomerTel>
   <CustomerCellPhone></CustomerCellPhone>
   <CustomerEmail><?php echo WCtoDanea::order_details($order->ID, '_billing_email'); ?></CustomerEmail>
@@ -65,13 +73,12 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $from_danea = false;
   if($variation_id) {
     $obj = get_post($variation_id);
-    if(strpos($obj->post_name, 'danea') === 0) {
+    if(isset($obj->post_name) && strpos($obj->post_name, 'danea') === 0) {
       $from_danea = true;
     }
   }
 
-
-  //PARENT OR NOT, USEFUL FOR DANEA VARS SIZE/ COLOR
+  /*Definisco se il prodotto è una variazione o un prodotto padre, utile per le taglia/ colore di Danea*/
   if($variation_id && !$from_danea) {
     $item_id = $variation_id;
   } else {
@@ -79,22 +86,22 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   }
 
 
-  //SKU (FIRST) OR ID
+  /*SKU o ID*/
   if(get_post_meta($item_id, '_sku', true)) {
     $product_id = get_post_meta($item_id, '_sku', true);
   } else {
     $product_id = $item_id;
   }
 
-  //IS THE ITEM A BUNDLE?
+  /*Verifico se il prodotto è un bundle*/
   $is_bundle = WCtoDanea::item_info($item['order_item_id'], '_bundled_items');  
 
 
-  //IS THE ITEM IN A BUNDLE?
+  /*Verifico se il prodotto appartiene a un bundle*/
   $is_bundled = WCtoDanea::item_info($item['order_item_id'], '_bundled_by');
 
 
-  //GET SINGLE ITEM DETAILS
+  /*Recupero i dettagli del singolo item*/
   $item_get_subtotal = WCtoDanea::item_info($item['order_item_id'], '_line_subtotal');
   $item_get_total = WCtoDanea::item_info($item['order_item_id'], '_line_total');
   $item_get_tax = WCtoDanea::item_info($item['order_item_id'], '_line_tax');
@@ -103,14 +110,14 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item['order_item_id'], '_qty'), 2);
     
 
-  //PRICE BEFORE DISCOUNT/ ITEM DISCOUNT
+  /*Definisco prezzo e sconto*/
   $discount = null;
   if($item_discount && !$is_bundle) {
     $item_price = number_format( (($item_get_subtotal * 100) / (100 - $item_discount)) / WCtoDanea::item_info($item['order_item_id'], '_qty'), 2);
     $discount = $item_discount . '%';
   }
 
-  //GET SIZE AND COLORS
+  /*Taglie e colori*/
   $size  = null;
   $color = null;
   if($variation_id) {
@@ -127,7 +134,7 @@ if(WCtoDanea::order_details($order->ID, '_order_shipping_tax') != 0) {
   $cart_discount = false;
   if($item_get_subtotal != $item_get_total) {
     $cart_discount = number_format( (($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 2);
-    $discount = ($item_discount) ? $item_discount . '+' . $cart_discount . '%' : $cart_discount . '%'; // + $price_details['discount']; //ERRATO, DA CONTROLLARE
+    $discount = ($item_discount) ? $item_discount . '+' . $cart_discount . '%' : $cart_discount . '%';
   } ?>
     <Row>
       <Code><?php echo $product_id; ?></Code>

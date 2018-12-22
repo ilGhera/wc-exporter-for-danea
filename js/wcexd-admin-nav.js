@@ -1,8 +1,12 @@
-//WOOCOMMERCE EXPORTER FOR DANEA - PREMIUM | NAVIGATION MENU SCRIPT
+/**
+ * Menu di navigazione
+ * @author ilGhera
+ * @package wc-exporter-for-danea-premium/js
+ * @version 1.0.1
+ */
 jQuery(document).ready(function ($) {
 
 	var wcexd_pagination = function() {
-
 		var $contents = $('.wcexd-admin')
 		var url = window.location.href.split("#")[0];
 		var hash = window.location.href.split("#")[1];
@@ -39,5 +43,4 @@ jQuery(document).ready(function ($) {
 	}
 	
     wcexd_pagination();
-
 });
