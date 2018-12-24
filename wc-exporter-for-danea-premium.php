@@ -55,13 +55,13 @@ function load_wc_exporter_for_danea_premium() {
 	load_plugin_textdomain('wcexd', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 	/*Richiamo file necessari*/
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-admin-functions.php');
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-functions.php');
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-suppliers-download.php');
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-products-download.php');
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-clients-download.php');
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-orders.php');
-	require( plugin_dir_path( __FILE__ ) . 'includes/wcexd-checkout-fields.php');
+	require( WCEXD_INCLUDES . '/wcexd-admin-functions.php');
+	require( WCEXD_INCLUDES . '/wcexd-functions.php');
+	require( WCEXD_INCLUDES . '/wcexd-suppliers-download.php');
+	require( WCEXD_INCLUDES . '/wcexd-products-download.php');
+	require( WCEXD_INCLUDES . '/wcexd-clients-download.php');
+	require( WCEXD_INCLUDES . '/wcexd-orders.php');
+	require( WCEXD_INCLUDES . '/wcexd-checkout-fields.php');
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );	
