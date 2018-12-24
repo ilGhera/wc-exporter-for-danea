@@ -2,7 +2,7 @@
 /**
  * Modifica la pagina di checkout con i campi relativi alla fatturazione
  * @author ilGhera
- * @package wc-exporter-for-danea-premium/includes
+ * @package wc-exporter-for-danea/includes
  * @version 1.1.0
  */
 class wcexd_checkout_fields {

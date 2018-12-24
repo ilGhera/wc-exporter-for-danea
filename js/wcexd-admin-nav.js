@@ -1,8 +1,8 @@
 /**
  * Menu di navigazione
  * @author ilGhera
- * @package wc-exporter-for-danea-premium/js
- * @version 1.0.1
+ * @package wc-exporter-for-danea/js
+ * @version 1.0.0
  */
 jQuery(document).ready(function ($) {
 

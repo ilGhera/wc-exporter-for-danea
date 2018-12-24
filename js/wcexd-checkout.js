@@ -1,7 +1,7 @@
 /**
  * Gestisce la visualizzazione dei campi fiscali in base al tipo di fattura selezionato
  * @author ilGhera
- * @package wc-exporter-for-danea-premium/js
+ * @package wc-exporter-for-danea/js
  * @version 1.1.0
  */
 jQuery(document).ready(function($){

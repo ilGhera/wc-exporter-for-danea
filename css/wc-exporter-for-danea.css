@@ -1,8 +1,8 @@
 /**
  * Foglio di stile
  * @author ilGhera
- * @package wc-exporter-for-danea-premium/css
- * @version 1.0.1
+ * @package wc-exporter-for-danea/css
+ * @version 1.1.0
  */
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700);
@@ -73,6 +73,16 @@ a.message {
 .wcexd-form label { 
 	display:inline-block;
 	/*width:100px;*/
+}
+
+.nav-tab.premium {
+	background-color: #9B5D90;
+	color: #fff;
+}
+
+.nav-tab.premium:hover, .nav-tab.nav-tab-active.premium {
+	background-color: inherit;
+	color: inherit;
 }
 
 .nav-tab.not-available, .nav-tab.not-available:hover {

@@ -2,7 +2,7 @@
 /**
  * Funzioni
  * @author ilGhera
- * @package wc-exporter-for-danea-premium/includes
+ * @package wc-exporter-for-danea/includes
  * @version 1.1.0
  */
 
@@ -11,46 +11,6 @@ if ( !defined( 'ABSPATH' ) ) exit;
 
 
 class WCtoDanea {
-
-	/**
-	 * Recupero gli ordini
-	 */
-	public static function get_orders() {
-
-		$orders_status = get_option('wcexd-orders-status');
-		$query_part = ($orders_status) ? "AND (t2.post_status = '" . $orders_status . "')" : "";
-		global $wpdb;
-		$query_str = "
-			SELECT t1.*, t2.*
-			FROM " . $wpdb->prefix . "woocommerce_order_items t1, $wpdb->posts t2
-			WHERE
-			(t1.order_id = t2.ID )
-			" . $query_part . "
-			GROUP BY t2.ID
-			ORDER BY t2.ID
-			DESC 
-			LIMIT 200
-     	";
-		 
-		$orders = $wpdb->get_results($query_str, OBJECT);
-	  
-		return $orders;
-	}
-	
-
-	/**
-	 * Dettagli singolo ordine
-	 * @param  int $order_ID l'id dell'ordine
-	 * @param  string $campo    il post_meta da recuperare
-	 * @return [type]           [description]
-	 */
-	public static function order_details($order_ID, $campo) {
-
-		$output = get_post_meta($order_ID, $campo, true);
-	
-		return htmlspecialchars($output);	
-	}
-
 	
 	/**
 	 * Recupero il valore dell'iva
@@ -78,61 +38,6 @@ class WCtoDanea {
 
 		return $output;
 	
-	}
-
-	
-	/**
-	 * Recupero items per ordine
-	 * @param  int $order_id l'id dell'ordine
-	 * @return array
-	 */
-	public static function get_order_items($order_id) {
-	
-	  global $wpdb;
-	  $query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_items WHERE order_id = $order_id AND order_item_type = 'line_item'";	
-	  $items = $wpdb->get_results($query, ARRAY_A);
-	  $order_items = array();
-		foreach($items as $item) {
-			array_push($order_items, $item);
-		}
-		
-		return $order_items;
-		
-	}
-
-
-	/**
-	 * Recupero il nome del metodo di spedizione
-	 * @param  int $order_id l'id dell'ordine
-	 * @return string
-	 */
-	public static function get_shipping_method_name($order_id) {
-	
-	  global $wpdb;
-	  $query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_items WHERE order_id = $order_id AND order_item_type = 'shipping'";	
-	  $items = $wpdb->get_results($query, ARRAY_A);
-	  $output = $items ? $items[0]['order_item_name'] : null; 
-	  return $output;
-		
-	}
-	
-	
-	/**
-	 * Dettagli singolo item ordine
-	 * @param  int $item    	 l'id del singolo prodotto dell'ordine
-	 * @param  string $meta_key
-	 * @return string
-	 */
-	public static function item_info($item, $meta_key) {
-	
-	  global $wpdb;
-	  $query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_itemmeta WHERE order_item_id = $item";
-	  $get_info = $wpdb->get_results($query, ARRAY_A);
-		foreach($get_info as $info) {
-		  if($info['meta_key'] === $meta_key) {
-				return $info['meta_value'];
-			}
-	   }
 	}
 	
 
@@ -334,85 +239,3 @@ class WCtoDanea {
 	}
 	
 }
-
-
-/**
- * Hide item discount 
- */
-function wcexd_hide_item_discount($array) {
-	$array[] = '_wcexd_item_discount';
-	return $array;
-}
-add_filter( 'woocommerce_hidden_order_itemmeta', 'wcexd_hide_item_discount');
-
-
-/**
- * Salva nel db la percentale di sconto per singolo item dell'ordine
- * @param  int $order_id l'id dell'ordine
- */
-function wcifd_add_item_details($order_id) {		
-	$order = new WC_Order($order_id);
-	foreach($order->get_items() as $key => $item) {
-		if($item['type'] == 'line_item') {
-			if($item['variation_id'] != 0) {
-				$regular_price = get_post_meta($item['variation_id'], '_regular_price', true);
-				$price = get_post_meta($item['variation_id'], '_price', true);
-			} else {
-				$regular_price = get_post_meta($item['product_id'], '_regular_price', true);
-				$price = get_post_meta($item['product_id'], '_price', true);
-			}
-			if($price) {
-				$math = $price * 100 / $regular_price;
-				$discount = number_format(100 - $math);
-				wc_add_order_item_meta($key, '_wcexd_item_discount', $discount);
-			}
-		}
-	}
-}
-add_action('woocommerce_thankyou', 'wcifd_add_item_details', 10, 1);
-
-
-/**
- * Random string
- * @param  int $length la lunghezza della stringa richiesta
- * @return string
- */
-function wcexd_rand_md5($length) {
-	$max = ceil($length / 32);
-	$random = '';
-	for ($i = 0; $i < $max; $i ++) {
-	$random .= md5(microtime(true).mt_rand(10000,90000));
-	}
-	return substr($random, 0, $length);
-}
-
-
-/**
- * Modifico il nome del link di verifica aggiornamento
- */
-function wcexd_check_update() {
-	return __('Verifica aggiornamenti', 'wcexd');	
-}
-add_filter('puc_manual_check_link-wc-exporter-for-danea-premium', 'wcexd_check_update');
-
-
-/**
- * Modifico il messaggio del risultato aggiornamento
- * @param  string $message
- * @param  string $status  presenza o meno di un aggiornamento disponibile, errore
- * @return string          il messaggio restituito
- */
-function wcexd_update_message($message = '', $status = '') {
-	
-	if ( $status == 'no_update' ) {
-		$message = __('E\' installata l\'ultima versione di <strong>Woocommerce Exporter for Danea - Premium</strong>', 'wcexd'); 
-	} else if ( $status == 'update_available' ) {
-		$message = __('E\' disponibile una nuova versione di <strong>Woocommerce Exporter for Danea - Premium</strong>', 'wcexd'); 
-	} else {
-		$message = __('Si è verificato un errore sconosciuto, si prega di riprovare più tardi.', 'wcexd');	
-	}
-	
-	return $message;
-
-}
-add_filter('puc_manual_check_message-wc-exporter-for-danea-premium', 'wcexd_update_message', 10, 2);

@@ -2,7 +2,7 @@
 /**
  * Pagina opzioni/ strumenti
  * @author ilGhera
- * @package wc-exporter-for-danea-premium/includes
+ * @package wc-exporter-for-danea/includes
  * @version 1.1.0
  */
 
@@ -91,21 +91,6 @@ function wcexd_options() {
 		<?php
 		/*Header*/
 		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 1.1.0</span></h1>";
-		
-
-		/*Plugin premium key*/
-		$key = sanitize_text_field(get_option('wcexd-premium-key'));
-		if(isset($_POST['wcexd-premium-key'])) {
-			$key = sanitize_text_field($_POST['wcexd-premium-key']);
-			update_option('wcexd-premium-key', $key);
-		}
-		echo '<form id="wcexd-options" method="post" action="">';
-		echo '<label>' . __('Premium Key', 'wcexd') . '</label>';
-		echo '<input type="text" class="regular-text" name="wcexd-premium-key" id="wcexd-premium-key" placeholder="' . __('Add your Premium Key', 'wcexd' ) . '" value="' . $key . '" />';
-		echo '<p class="description">' . __('Incolla qui la Premium Key che hai ricevuto via mail, potrai ricevere gli ultimi aggiornamenti di <strong>Woocommerce Exporter per Danea - Premium</strong>.', 'wcexd') . '</p>';
-		echo '<input type="hidden" name="done" value="1" />';
-		echo '<input type="submit" class="button button-primary" value="' . __('Salva ', 'wcexd') . '" />';
-		echo '</form>';
 		?>
 	</div>
 
@@ -114,8 +99,8 @@ function wcexd_options() {
 		<a href="#" data-link="wcexd-impostazioni" class="nav-tab nav-tab-active" onclick="return false;"><?php echo __('Impostazioni', 'wcexd'); ?></a>
 		<a href="#" data-link="wcexd-fornitori" class="nav-tab" onclick="return false;"><?php echo __('Fornitori', 'wcexd'); ?></a>
 		<a href="#" data-link="wcexd-prodotti" class="nav-tab" onclick="return false;"><?php echo __('Prodotti', 'wcexd'); ?></a>
-		<a href="#" data-link="wcexd-clienti" class="nav-tab" onclick="return false;"><?php echo __('Clienti', 'wcexd'); ?></a>    
-		<a href="#" data-link="wcexd-ordini" class="nav-tab" onclick="return false;"><?php echo __('Ordini', 'wcexd'); ?></a>                                        
+		<a href="#" data-link="wcexd-clienti" class="nav-tab premium" onclick="return false;"><?php echo __('Clienti', 'wcexd'); ?></a>    
+		<a href="#" data-link="wcexd-ordini" class="nav-tab premium" onclick="return false;"><?php echo __('Ordini', 'wcexd'); ?></a>                                        
 	</h2>
 
 
@@ -387,13 +372,6 @@ function wcexd_options() {
       
     <div id="wcexd-clienti" class="wcexd-admin">
 		<?php
-		/*Dichiarazione variabili*/
-		$opt_clients_role = 'wcexd-clients-role';		
-		$clients_field_role = 'wcexd-clients-role';
-
-		/*Leggo il dato se già esistente nel database*/
-		$clients_val = get_option( $opt_clients_role );
-
 		echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco clienti Woocommerce', 'wcexd' ) . "</h3>";
 		echo "<p>" . __( 'L\'importazione dei clienti in Danea avviene attraverso l\'utilizzo di un file Excel/ OpenOffice. ', 'wcexd' );
 		echo "<ul class=\"wcexd\"><li>" . __('Scegli il ruolo utente Wordpress che identifica i tuoi clienti', 'wcexd' ) . "</li>";
@@ -402,9 +380,6 @@ function wcexd_options() {
 		echo "<li>" . __('In Danea, vai in "Clienti/ Utilità", scegli "Importa con Excel/OpenOffice/LibreOffice" ed utilizza il file appena creato.', 'wcexd' ) . "</li></ul></p>";
 		echo "<p>" . __('Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . "</p>";
 		echo "<a href=\"http://www.danea.it/software/easyfatt/help/index.htm#html/Microsoft_Excel.htm\" target=\"_blank\">http://www.danea.it/software/easyfatt/help/index.htm#html/Microsoft_Excel.htm</a></p>";
-
-		global $wp_roles;
-		$roles = $wp_roles->get_names();      
 		?>
                 
 	    <!--Form Fornitori-->
@@ -413,34 +388,16 @@ function wcexd_options() {
 	    		<tr>
 	    			<th scope="row"><?php _e("Ruolo utente", 'wcexd' ); ?></th>
 	    			<td>
-						<select class="wcexd-clients" name="wcexd-clients" form="wcexd-clients-submit">
-							<?php
-							if($clients_val) {
-								echo '<option value=" ' .  $clients_val . ' " selected="selected"> ' . $clients_val . '</option>';	
-								foreach($roles as $role) {
-									if($role != $clients_val) {
-										echo '<option value=" ' .  $role . ' "> ' . $role . '</option>';
-									}
-								}
-							} else {
-								echo '<option value="Customer" selected="selected">Customer</option>';	
-								foreach($roles as $role) {
-									if($role != 'Customer') {
-										echo '<option value=" ' .  $role . ' "> ' . $role . '</option>';
-									}
-								}
-							} 
-							?>
+						<select class="wcexd-clients" name="wcexd-clients" disabled="disabled" form="wcexd-clients-submit">
+							<option value="Customer" selected="selected">Customer</option>';	
 						</select>
 						<p class="description"><?php echo __('Seleziona il livello utente corrispondente ai tuoi clienti', 'wcexd'); ?></p>
-
 	    			</td>
-
 	    		</tr>
 	    	</table>
 	        <?php wp_nonce_field( 'wcexd-clients-submit', 'wcexd-clients-nonce'); ?>
 			<p class="submit">
-				<input type="submit" name="download_csv" class="button-primary" value="<?php _e('Download elenco clienti (.csv)', 'wcexd' ) ; ?>" />
+				<input type="submit" name="download_csv" class="button-primary" disabled="disabled" value="<?php _e('Download elenco clienti (.csv)', 'wcexd' ) ; ?>" />
 			</p>
 		</form>
 	</div>
@@ -459,49 +416,16 @@ function wcexd_options() {
 		echo "<li>" . __('Nella finestra seguente, incolla l\'indirizzo del tuo elenco ordini in in "Impostazioni/ Indirizzo..."', 'wcexd' ) . "</li><ul>";
 		echo "<p>" . __('Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . "</p>";
 		echo "<a href=\"http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm\" target=\"_blank\">http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm</a></p>";
+		?>	
 
-	    /*Verifico le impostazioni dell'utente per il feed ordini*/
-	    $orders_status = get_option('wcexd-orders-status');
-	    if(isset($_POST['wcexd-orders-status'])) {
-	    	$orders_status = $_POST['wcexd-orders-status'];
-	    	update_option('wcexd-orders-status', $orders_status);
-	    }
-
-	    $wcexd_orders_tax_name = get_option('wcexd-orders-tax-name');
-	    if(isset($_POST['wcexd-orders-sent'])) {
-	    	$wcexd_orders_tax_name = isset($_POST['wcexd-orders-tax-name']) ? $_POST['wcexd-orders-tax-name'] : 0;
-	    	update_option('wcexd-orders-tax-name', $wcexd_orders_tax_name);
-	    }
-	    ?>
-	    
 	    <form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
 	        <table class="form-table">
-	        	<?php
-	        	$premium_key = strtolower(get_option('wcexd-premium-key'));
-				$url_code = get_option('wcexd-url-code');
-				if(!$url_code) {
-					$url_code = wcexd_rand_md5(6);
-					add_option('wcexd-url-code', $url_code);
-				}
-
-				$receive_orders_url = __('Please insert your <strong>Premium Key</strong>', 'wcexd');
-				if($premium_key) {
-					$receive_orders_url = home_url() . '/' . $premium_key . $url_code;
-				}
-				?>
+	        	<?php $receive_orders_url = __('Please insert your <strong>Premium Key</strong>', 'wcexd'); ?>
 	        	<tr>
 			    	<th scope="row"><?php echo __('Stato ordini', 'wcexd'); ?></th>
 			    	<td>
-				    	<select form="wcexd-orders" name="wcexd-orders-status">
-				    		<option name="all" value=""<?php echo($orders_status == null) ? ' selected="selected"' : ''; ?>><?php echo __('Tutti', 'wcexd'); ?></option>
-				    		<?php
-				    		$statuses = wc_get_order_statuses();
-				    		foreach ($statuses as $key => $value) {
-					    		echo '<option name="' . $key . '" value="' . $key . '"';
-					    		echo ($orders_status == $key) ? ' selected="selected">' : '>';
-					    		echo __($value, 'wcexd') . '</option>';
-				    		}
-				    		?>
+				    	<select form="wcexd-orders" name="wcexd-orders-status" disabled="disabled">
+				    		<option name="all" value=""><?php echo __('Tutti', 'wcexd'); ?></option>
 				    	</select>
 				    	<p class="description"><?php echo __('Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd'); ?></p>
 			    	</td>
@@ -510,7 +434,7 @@ function wcexd_options() {
 					<th scope="row"><?php echo __('Nome imposta', 'wcexd'); ?></th>
 					<td>
 						<label for="wcexd-orders-tax-name">
-							<input type="checkbox" name="wcexd-orders-tax-name" value="1"<?php echo $wcexd_orders_tax_name == 1 ? ' checked="checked"' : ''; ?>>
+							<input type="checkbox" name="wcexd-orders-tax-name" value="1" disabled="disabled">
 							<?php echo __('Esporta il nome dell\'imposta e non l\'aliquota.', 'wcexd'); ?>
 						</label>
 						<p class="description"><?php echo __('Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd'); ?></p>
@@ -519,14 +443,14 @@ function wcexd_options() {
 			    <tr>
 			    	<th scope="row"><?php echo __("Feed URL", 'wcexd' ); ?></th>
 			        <td>
-				        <div class="wcexd-copy-url"><span<?php echo(!$premium_key ? ' class="wcexd-red"' : ''); ?>><?php echo $receive_orders_url; ?></span></div>
+				        <div class="wcexd-copy-url"><span class="wcexd-red"><?php echo $receive_orders_url; ?></span></div>
 				        <p class="description"><?php echo __('Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica ordini</b> (Ctrl+O) di Danea.', 'wcexd'); ?></p>
 			        </td>
 			    </tr>
 	    	</table>                      
 	        <p class="submit">
 	        	<input type="hidden" name="wcexd-orders-sent" value="1">
-		        <input type="submit" name="Submit" class="button-primary" value="<?php esc_attr_e('Salva impostazioni', 'wcexd') ?>" />
+		        <input type="submit" name="Submit" class="button-primary" disabled="disabled" value="<?php esc_attr_e('Salva impostazioni', 'wcexd') ?>" />
 	        </p>	    
 	    </form>
     </div>
@@ -534,45 +458,10 @@ function wcexd_options() {
     </div><!--WRAP-LEFT-->
 	
 	<div class="wrap-right">
-		<iframe width="300" height="800" scrolling="no" src="http://www.ilghera.com/images/wed-premium-iframe.html"></iframe>
+		<iframe width="300" height="900" scrolling="no" src="http://www.ilghera.com/images/wed-iframe.html"></iframe>
 	</div>
 	<div class="clear"></div>
     
-</div><!--WRAP-->
-   
-<?php
+	</div><!--WRAP-->
+	<?php
 }
-
-
-/**
- * Messaggio all'utente in caso di aggiornamento disponibile e premium key assente o non valida
- * @param  array $plugin_data
- * @param  array $response
- * @return mixed il messaggio
- */
-function wcexd_update_message2( $plugin_data, $response) {
-
-	$message = null;
-	$key = get_option('wcexd-premium-key');
-
-	if(!$key) {
-		$message = 'A <b>Premium Key</b> is required for keeping this plugin up to date. Please, add yours in the <a href="' . admin_url() . 'admin.php/?page=wc-exporter-for-danea">options page</a> or click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
-	
-	} else {
-	
-		$decoded_key = explode('|', base64_decode($key));
-	    $bought_date = date( 'd-m-Y', strtotime($decoded_key[1]));
-	    $limit = strtotime($bought_date . ' + 365 day');
-	    $now = strtotime('today');
-
-	    if($limit < $now) { 
-	        $message = 'It seems like your <strong>Premium Key</strong> is expired. Please, click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
-	    } elseif(!in_array($decoded_key[2], array(140, 1582))) {
-	    	$message = 'It seems like your <strong>Premium Key</strong> is not valid. Please, click <a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/" target="_blank">here</a> for prices and details.';
-	    }
-
-	}
-	echo ($message) ? '<br><span class="wcexd-alert">' . $message . '</span>' : '';
-
-}
-add_action('in_plugin_update_message-wc-exporter-for-danea-premium/wc-exporter-for-danea-premium.php', 'wcexd_update_message2', 10, 2);
