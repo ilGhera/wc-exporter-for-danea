@@ -10,7 +10,7 @@
  * Registrzione foglio di stile
  */
 function wcexd_register_style() {
-	wp_enqueue_style( 'wcexd-style', plugins_url('css/wc-exporter-for-danea.css', 'wc-exporter-for-danea-premium/css'));
+	wp_enqueue_style( 'wcexd-style', WCEXD_URI . 'css/wc-exporter-for-danea.css');
 }
 add_action( 'admin_init', 'wcexd_register_style' );
 
@@ -19,7 +19,7 @@ add_action( 'admin_init', 'wcexd_register_style' );
  * Registrzione script necessario al menu di navigazione
  */
 function wcexd_register_js_menu() {
-	wp_register_script('wcexd-admin-nav', plugins_url('js/wcexd-admin-nav.js', 'wc-exporter-for-danea-premium/js'), array('jquery'), '1.0', true );
+	wp_register_script('wcexd-admin-nav', WCEXD_URI . 'js/wcexd-admin-nav.js', array('jquery'), '1.0', true );
 }
 add_action( 'admin_init', 'wcexd_register_js_menu' );
 
