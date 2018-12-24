@@ -6,7 +6,7 @@
  * You'll be able to export suppliers, products, clients and orders.
  * Author: ilGhera
  * Version: 1.1.0
- * Author URI: https://ilghera.com 
+ * Author URI: https://ilghera.com
  * Requires at least: 4.0
  * Tested up to: 5.0
  * WC tested up to: 3
