@@ -49,12 +49,6 @@ Release Date: 27 December, 2018
 
 
 = 1.1.0 =
-Release Date: 27 December, 2018
-
-* Enhancement: Plugin "WooCommerce P.IVA e Codice Fiscale per Italia support" updated
-
-
-= 1.1.0 =
 Release Date: 23 December, 2018
 
 * Enhancement: Fiscal code and P.IVA fields are now available width a dedicated option
