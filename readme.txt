@@ -1,6 +1,6 @@
 === Woocommerce Exporter for Danea ===
 Contributors: ghera74
-Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products, fattura elettronica, gestionale
+Tags: Fattura elettronica, Woocommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
 Version: 1.1.0
 Requires at least: 4.0
 Tested up to: 5.0
@@ -10,8 +10,6 @@ Stable tag: 1.0.0
 Export suppliers, products, customers and orders from your Woocommerce store to Danea.
 
 == Description ==
-
-**ITALIANO**
 
 Se hai realizzato il tuo negozio online con Woocommerce ed utilizzi Danea come gestionale, Woocommerce Exporter per Danea è quello che ti serve!
 Nella versione Free, permette di esportare un elenco di utenti Wordpress come fornitori, e l'elenco dei tuoi prodotti.
