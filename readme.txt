@@ -1,7 +1,7 @@
 === Woocommerce Exporter for Danea ===
 Contributors: ghera74
 Tags: Fattura elettronica, Woocommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
-Version: 1.1.0
+Version: 1.1.1
 Requires at least: 4.0
 Tested up to: 5.0
 Stable tag: 1.0.0
@@ -75,8 +75,15 @@ From WordPress.org
 
 == Changelog ==
 
+= 1.1.1 =
+Release Date: 27 December, 2018
+
+* Enhancement: Plugin "WooCommerce P.IVA e Codice Fiscale per Italia support" updated
+
+
 = 1.1.0 =
 Release Date: 23 December, 2018
+
 * Enhancement: Fiscal code and P.IVA fields are now available width a dedicated option
 * Enhancement: Fiscal code and P.IVA fields validation tool.
 * Enhancement: PEC and Receiver code fields are now available, ready for E-Invoice
