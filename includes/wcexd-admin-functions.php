@@ -90,7 +90,7 @@ function wcexd_options() {
 	<div id="wcexd-generale">
 		<?php
 		/*Header*/
-		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 1.1.0</span></h1>";
+		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 1.1.1</span></h1>";
 		?>
 	</div>
 
