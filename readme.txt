@@ -42,6 +42,12 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 == Changelog ==
 
+= 1.1.1 =
+Release Date: 27 December, 2018
+
+* Enhancement: Plugin "WooCommerce P.IVA e Codice Fiscale per Italia support" updated
+
+
 = 1.1.0 =
 Release Date: 27 December, 2018
 
