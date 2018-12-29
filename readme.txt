@@ -42,6 +42,12 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 == Changelog ==
 
+= 1.1.2 =
+Release Date: 29 December, 2018
+
+* Bug Fix: Wrong variable used for "Referente" in clients download 
+
+
 = 1.1.1 =
 Release Date: 27 December, 2018
 
