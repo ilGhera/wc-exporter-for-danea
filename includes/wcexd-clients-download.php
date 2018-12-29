@@ -65,7 +65,7 @@ function wcexd_clients_download() {
 
 
 				$data = array($client->ID, $denominazione, get_user_meta( $client->ID, 'billing_address_1', true ), get_user_meta( $client->ID, 'billing_postcode', true ), get_user_meta( $client->ID, 'billing_city', true ), 
-				get_user_meta( $client->ID, 'billing_state', true ),'', get_user_meta( $client->ID, 'billing_country', true ), $customer_name, get_user_meta( $client->ID, 'billing_phone', true ),get_user_meta( $client->ID, 'billing_cellphone', true ), '', $client->user_email,'', 
+				get_user_meta( $client->ID, 'billing_state', true ),'', get_user_meta( $client->ID, 'billing_country', true ), $client_name, get_user_meta( $client->ID, 'billing_phone', true ),get_user_meta( $client->ID, 'billing_cellphone', true ), '', $client->user_email,'', 
 				$cf_value, $pi_value,'','','','','','','','','','','','','','','','','','','','','','','','','');
 
 				fputcsv($fp, $data);

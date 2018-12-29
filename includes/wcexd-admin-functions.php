@@ -254,21 +254,8 @@ function wcexd_options() {
 	    			<td>
 	    				<select class="wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
 							<?php
-							if($users_val) {
-								echo '<option value=" ' .  $users_val . ' " selected="selected"> ' . $users_val . '</option>';	
-								foreach ($roles as $key => $value) {
-									if($key != $users_val) {
-										echo '<option value=" ' .  $key . ' "> ' . $key . '</option>';
-									}
-								}
-							  
-							} else {
-								echo '<option value="Subscriber" selected="selected">Subscriber</option>';	
-								foreach ($roles as $key => $value) {
-								    if($key != 'Subscriber') {
-										echo '<option value=" ' .  $key . ' "> ' . $key . '</option>';
-								    }
-								}
+							foreach($roles as $key => $value) {
+								echo '<option value="' .  $key . '"' . ($key === $users_val ? ' selected="selected"' : '') . '> ' . __($value, 'woocommerce') . '</option>';
 							} 
 							?>
 						</select>
@@ -407,7 +394,7 @@ function wcexd_options() {
 		$roles = $wp_roles->get_names();      
 		?>
                 
-	    <!--Form Fornitori-->
+	    <!--Form Clienti-->
 	    <form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
 	    	<table class="form-table">
 	    		<tr>
@@ -415,20 +402,8 @@ function wcexd_options() {
 	    			<td>
 						<select class="wcexd-clients" name="wcexd-clients" form="wcexd-clients-submit">
 							<?php
-							if($clients_val) {
-								echo '<option value=" ' .  $clients_val . ' " selected="selected"> ' . $clients_val . '</option>';	
-								foreach($roles as $role) {
-									if($role != $clients_val) {
-										echo '<option value=" ' .  $role . ' "> ' . $role . '</option>';
-									}
-								}
-							} else {
-								echo '<option value="Customer" selected="selected">Customer</option>';	
-								foreach($roles as $role) {
-									if($role != 'Customer') {
-										echo '<option value=" ' .  $role . ' "> ' . $role . '</option>';
-									}
-								}
+							foreach($roles as $key => $value) {
+								echo '<option value="' .  $key . '"' . ($key === $clients_val ? ' selected="selected"' : '') . '> ' . __($value, 'woocommerce') . '</option>';
 							} 
 							?>
 						</select>
