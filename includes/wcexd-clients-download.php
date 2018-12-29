@@ -3,7 +3,7 @@
  * Template csv clienti
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.0.1
+ * @version 1.1.2
  */
 
 
