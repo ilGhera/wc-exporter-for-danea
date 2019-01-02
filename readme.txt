@@ -45,6 +45,8 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 = 1.1.2 =
 Release Date: 29 December, 2018
 
+
+* Enhancement: Improved suppliers and clients download function
 * Bug Fix: Wrong variable used for "Referente" in clients download 
 
 
