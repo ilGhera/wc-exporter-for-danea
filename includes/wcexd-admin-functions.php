@@ -3,7 +3,7 @@
  * Pagina opzioni/ strumenti
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.0
+ * @version 1.1.2
  */
 
 /**
@@ -239,21 +239,8 @@ function wcexd_options() {
 	    			<td>
 	    				<select class="wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
 							<?php
-							if($users_val) {
-								echo '<option value=" ' .  $users_val . ' " selected="selected"> ' . $users_val . '</option>';	
-								foreach ($roles as $key => $value) {
-									if($key != $users_val) {
-										echo '<option value=" ' .  $key . ' "> ' . $key . '</option>';
-									}
-								}
-							  
-							} else {
-								echo '<option value="Subscriber" selected="selected">Subscriber</option>';	
-								foreach ($roles as $key => $value) {
-								    if($key != 'Subscriber') {
-										echo '<option value=" ' .  $key . ' "> ' . $key . '</option>';
-								    }
-								}
+							foreach($roles as $key => $value) {
+								echo '<option value="' .  $key . '"' . ($key === $users_val ? ' selected="selected"' : '') . '> ' . __($value, 'woocommerce') . '</option>';
 							} 
 							?>
 						</select>
@@ -382,14 +369,14 @@ function wcexd_options() {
 		echo "<a href=\"http://www.danea.it/software/easyfatt/help/index.htm#html/Microsoft_Excel.htm\" target=\"_blank\">http://www.danea.it/software/easyfatt/help/index.htm#html/Microsoft_Excel.htm</a></p>";
 		?>
                 
-	    <!--Form Fornitori-->
+	    <!--Form Clienti-->
 	    <form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
 	    	<table class="form-table">
 	    		<tr>
 	    			<th scope="row"><?php _e("Ruolo utente", 'wcexd' ); ?></th>
 	    			<td>
 						<select class="wcexd-clients" name="wcexd-clients" disabled="disabled" form="wcexd-clients-submit">
-							<option value="Customer" selected="selected">Customer</option>';	
+							<option value="customer" selected="selected"><?php echo __('Customer', 'woocommerce'); ?></option>';	
 						</select>
 						<p class="description"><?php echo __('Seleziona il livello utente corrispondente ai tuoi clienti', 'wcexd'); ?></p>
 	    			</td>
