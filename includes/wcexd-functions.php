@@ -3,7 +3,7 @@
  * Funzioni
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.0
+ * @version 1.1.3
  */
 
 /*Evito accesso diretto*/
@@ -23,9 +23,20 @@ class WCtoDanea {
 		$output = 0;
 
 		$tax_status = get_post_meta($product_id, '_tax_status', true);
-		if($tax_status == 'taxable') {
-			$tax_class = get_post_meta($product_id, '_tax_class', true);
-			
+	
+		/*In caso di variazione recupero dati del prodotto padre*/
+		$parent_id = wp_get_post_parent_id($product_id);
+		$parent_tax_status = $parent_id ? get_post_meta($parent_id, '_tax_status', true) : '';
+		
+		if($tax_status == 'taxable' || ($tax_status == '' && $parent_tax_status === 'taxable') ) {
+
+			/*Valore nullo con iva al 22, controllo necessario in caso di varizione di rodotto*/
+			$tax_class = $tax_status ? get_post_meta($product_id, '_tax_class', true) : get_post_meta($parent_id, '_tax_class', true);
+
+			if($tax_class === 'parent' && $parent_tax_status === 'taxable') {
+				$tax_class = get_post_meta($parent_id, '_tax_class', true);				
+			}
+
 			global $wpdb;
 			$query = "SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'";
 
