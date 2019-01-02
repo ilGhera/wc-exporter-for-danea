@@ -3,7 +3,7 @@
  * Pagina opzioni/ strumenti
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.2
+ * @version 1.1.3
  */
 
 /**
@@ -90,8 +90,7 @@ function wcexd_options() {
 	<div id="wcexd-generale">
 		<?php
 		/*Header*/
-		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "<span style=\"font-size:60%;\"> 1.1.2</span></h1>";
-		
+		echo "<h1 class=\"wcexd main\">" . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . "</h1>";		
 
 		/*Plugin premium key*/
 		$key = sanitize_text_field(get_option('wcexd-premium-key'));
