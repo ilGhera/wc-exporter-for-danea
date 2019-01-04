@@ -162,7 +162,7 @@ class wcexd_checkout_fields {
 	 * @return bool
 	 */
 	public function fiscal_field_checker( $valore ) {
-		$expression = '^[a-z]{6}[0-9]{2}[a-z][0-9]{2}[a-z][0-9]{3}[a-z]$';
+		$expression = '^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$';
 		if ( is_numeric( $valore ) ) {
 			$expression = '^[0-9]{11}$';
 		}
