@@ -2,7 +2,7 @@
  * Foglio di stile
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/css
- * @version 1.0.1
+ * @version 1.1.4
  */
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700);
@@ -171,4 +171,10 @@ span.wcexd-alert a {
 
 select.wcexd {
 	width: 180px;
+}
+
+.tax-document {
+	font-size: 80%;
+	text-transform: uppercase;
+	color: #000;
 }
