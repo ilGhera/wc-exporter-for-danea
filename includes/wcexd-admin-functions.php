@@ -186,19 +186,19 @@ function wcexd_options() {
 						<p style="margin-bottom: 10px;">
 							<label for="wcexd_company_invoice">
 								<input type="checkbox" name="wcexd_company_invoice" value="1"<?php echo $wcexd_company_invoice == 1 ? ' checked="checked"' : ''; ?>>
-								<?php echo __( 'Azienda (Fattura)', 'wcexd' ); ?>							
+								<?php echo '<span class="tax-document">' .  __( 'Azienda (Fattura)', 'wcexd' ) . '</span>'; ?>
 							</label>							
 						</p>
 						<p style="margin-bottom: 10px;">
 							<label for="wcexd_private_invoice">
 								<input type="checkbox" name="wcexd_private_invoice" value="1"<?php echo $wcexd_private_invoice == 1 ? ' checked="checked"' : ''; ?>>
-								<?php echo __( 'Privato (Fattura)', 'wcexd' ); ?>							
+								<?php echo '<span class="tax-document">' .  __( 'Privato (Fattura)', 'wcexd' ) . '</span>'; ?>
 							</label>
 						</p>
 						<p>
 							<label for="wcexd_private">
 								<input type="checkbox" name="wcexd_private" value="1"<?php echo $wcexd_private == 1 ? ' checked="checked"' : ''; ?>>
-								<?php echo __( 'Privato (Ricevuta)', 'wcexd' ); ?>							
+								<?php echo '<span class="tax-document">' .  __( 'Privato (Ricevuta)', 'wcexd' ) . '</span>'; ?>
 							</label>
 						</p>
 						<p class="description"><?php echo __( 'Attivando uno o più tipi di fattura, verranno visualizzati i campi P.IVA e Codice Fiscale quando necessari.', 'wcexd' ); ?></p>
