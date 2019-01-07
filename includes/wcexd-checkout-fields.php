@@ -3,7 +3,7 @@
  * Modifica la pagina di checkout con i campi relativi alla fatturazione
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.4
+ * @version 1.1.5
  */
 class wcexd_checkout_fields {
 
@@ -179,12 +179,14 @@ class wcexd_checkout_fields {
 	public function checkout_fields_check() {
 
 		/*PEC e Codice ricevente*/
-		if ( isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
-			$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( $_POST['billing_wcexd_pec'] ) : '';
-			$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( $_POST['billing_wcexd_pa_code'] ) : '';
+		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && $_POST['billing_wcexd_invoice_type'] !== 'private' ) {
+			if ( isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
+				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( $_POST['billing_wcexd_pec'] ) : '';
+				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( $_POST['billing_wcexd_pa_code'] ) : '';
 
-			if ( ! $pec && ! $pa_code ) {
-				wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice Ricevente</strong> devono essere compilati.', 'wcexd' ), 'error' );
+				if ( ! $pec && ! $pa_code ) {
+					wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice Ricevente</strong> devono essere compilati.', 'wcexd' ), 'error' );
+				}
 			}
 		}
 
