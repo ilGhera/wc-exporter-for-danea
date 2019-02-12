@@ -3,7 +3,7 @@
  * Modifica la pagina di checkout con i campi relativi alla fatturazione
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.5
+ * @version 1.1.6
  */
 class wcexd_checkout_fields {
 
@@ -86,7 +86,10 @@ class wcexd_checkout_fields {
 			),
 		);
 
-		if ( ( $select['private']['active'] + $select['private_invoice']['active'] + $select['company_invoice']['active'] ) > 1 ) {
+		/*La somma dei tipi di documenti abilitati dall'admin*/
+		$sum = ( $select['private']['active'] + $select['private_invoice']['active'] + $select['company_invoice']['active'] );
+		
+		if ( $sum > 1 ) {
 			$fields['billing']['billing_wcexd_invoice_type'] = array(
 				'type'    => 'select',
 				'options' => array(),
@@ -122,8 +125,19 @@ class wcexd_checkout_fields {
 				$fields['billing']['billing_wcexd_piva']['required'] = true;
 			}
 
+			/*Obbligatorietà cf al caricamento di pagina*/
 			if ( isset( $this->custom_fields['billing_wcexd_cf'] ) ) {
-				$fields['billing']['billing_wcexd_cf']['required'] = true;
+				if ( ( $sum === 1 && ! isset( $select['private']['active'] ) || $sum > 1 ) ) {
+
+					$fields['billing']['billing_wcexd_cf']['required'] = true;					
+				
+				} elseif ( $sum === 1 && isset( $select['private']['active'] ) ) {
+					if ( get_option( 'wcexd_cf_mandatory' ) ) {
+
+						$fields['billing']['billing_wcexd_cf']['required'] = true;					
+					
+					}
+				}
 			}
 
 			/*Rendo obbligatorio cf e p. iva quando richiesto*/
