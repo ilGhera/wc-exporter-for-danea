@@ -307,7 +307,7 @@ class WCtoDanea {
 		$parent = wp_get_post_parent_id(get_the_ID());
 		if($parent) {
 			$parent_sku = get_post_meta($parent, '_sku', true);
-			$output = array('parent_id ' => $parent, 'parent_sku' => $parent_sku);
+			$output = array('parent_id' => $parent, 'parent_sku' => $parent_sku);
 	        $attributes = get_post_meta($parent, '_product_attributes', true);
 	        $var_attributes = array();
 	        foreach ($attributes as $key => $value) {
