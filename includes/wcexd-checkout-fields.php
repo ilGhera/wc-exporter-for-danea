@@ -166,6 +166,11 @@ class wcexd_checkout_fields {
 			}
 		}
 
+		/*Temp - utile creare un tool per attivare l'ozpione*/
+		$invoice_type = $fields['billing']['billing_wcexd_invoice_type'];
+		unset( $fields['billing']['billing_wcexd_invoice_type'] );
+		array_unshift( $fields['billing'], $invoice_type );
+
 		return $fields;
 	}
 
