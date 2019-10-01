@@ -3,7 +3,7 @@
  * Pagina opzioni/ strumenti
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.4
+ * @version 1.1.6
  */
 
 /**
@@ -134,6 +134,12 @@ function wcexd_options() {
 		}
 	}
 
+	$wcexd_document_type = get_option( 'wcexd_document_type' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_document_type = isset( $_POST['wcexd_document_type'] ) ? $_POST['wcexd_document_type'] : 0;
+		update_option( 'wcexd_document_type', $wcexd_document_type );
+	}
+
 	$wcexd_cf_mandatory = get_option( 'wcexd_cf_mandatory' );
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_cf_mandatory = isset( $_POST['wcexd_cf_mandatory'] ) ? $_POST['wcexd_cf_mandatory'] : 0;
@@ -156,6 +162,12 @@ function wcexd_options() {
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_pa_code_active = isset( $_POST['wcexd_pa_code_active'] ) ? $_POST['wcexd_pa_code_active'] : 0;
 		update_option( 'billing_wcexd_pa_code_active', $wcexd_pa_code_active );
+	}
+
+	$wcexd_only_italy = get_option( 'wcexd_only_italy' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_only_italy = isset( $_POST['wcexd_only_italy'] ) ? $_POST['wcexd_only_italy'] : 0;
+		update_option( 'wcexd_only_italy', $wcexd_only_italy );
 	}
 	?>
   
@@ -187,7 +199,16 @@ function wcexd_options() {
 								<?php echo '<span class="tax-document">' .  __( 'Privato (Ricevuta)', 'wcexd' ) . '</span>'; ?>
 							</label>
 						</p>
-						<p class="description"><?php echo __( 'Attivando uno o più tipi di fattura, verranno visualizzati i campi P.IVA e Codice Fiscale quando necessari.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Attivando uno o più tipi di fattura, verranno visualizzati i campi P.IVA e Codice Fiscale quando necessari', 'wcexd' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Tipo documento', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_document_type">
+							<input type="checkbox" name="wcexd_document_type" value="1"<?php echo $wcexd_document_type == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Mostra la scelta del tipo di documento come primo campo', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>
@@ -218,14 +239,25 @@ function wcexd_options() {
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo __( 'Codice ricevente', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Codice destinatario', 'wcexd' ); ?></th>
 					<td>
 						<label for="wcexd-pa-code">
 							<input type="checkbox" name="wcexd_pa_code_active" value="1"<?php echo $wcexd_pa_code_active == 1 ? ' checked="checked"' : ''; ?>>
 						</label>
-						<p class="description"><?php echo __( 'Attiva il campo Codice ricevente per la fatturazione elettronica', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Attiva il campo Codice destinatario per la fatturazione elettronica', 'wcexd' ); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Solo Italia', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_only_italy">
+							<input type="checkbox" name="wcexd_only_italy" value="1"<?php echo $wcexd_only_italy == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Mostra PEC e Codice destinatario solo per l\'Italia'
+						, 'wcexd' ); ?></p>
+					</td>
+				</tr>
+
 			</table>
 			<?php wp_nonce_field( 'wcexd-options-submit', 'wcexd-options-nonce' ); ?>
 			<p class="submit">

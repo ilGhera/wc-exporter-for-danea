@@ -3,7 +3,7 @@
  * Funzioni
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.3
+ * @version 1.1.6
  */
 
 /*Evito accesso diretto*/
@@ -152,7 +152,7 @@ class WCtoDanea {
 				$pi_name = 'billing_cnpj';
 			} 
 			/*WooCommerce P.IVA e Codice Fiscale per Italia*/
-			elseif(class_exists('WooCommerce_Piva_Cf_Invoice_Ita') || class_exists(WC_Piva_Cf_Invoice_Ita)) {
+			elseif(class_exists('WooCommerce_Piva_Cf_Invoice_Ita') || class_exists('WC_Piva_Cf_Invoice_Ita')) {
 				$cf_name 	  = 'billing_cf';
 				$pi_name 	  = 'billing_piva';
 				$pec_name 	  = 'billing_pec';
@@ -212,7 +212,7 @@ class WCtoDanea {
 		$parent = wp_get_post_parent_id(get_the_ID());
 		if($parent) {
 			$parent_sku = get_post_meta($parent, '_sku', true);
-			$output = array('parent_id ' => $parent, 'parent_sku' => $parent_sku);
+			$output = array('parent_id' => $parent, 'parent_sku' => $parent_sku);
 	        $attributes = get_post_meta($parent, '_product_attributes', true);
 	        $var_attributes = array();
 	        foreach ($attributes as $key => $value) {
