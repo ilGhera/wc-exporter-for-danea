@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.0
+ * @version 1.1.9
  */
 
 
@@ -31,7 +31,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->ID, $pa_code_name) ? WCto
   <CustomerPostcode><?php echo WCtoDanea::order_details($order->ID, '_billing_postcode'); ?></CustomerPostcode>
   <CustomerCity><?php echo WCtoDanea::order_details($order->ID, '_billing_city'); ?></CustomerCity>
   <CustomerProvince><?php echo WCtoDanea::order_details($order->ID, '_billing_state'); ?></CustomerProvince>
-  <CustomerCountry><?php echo WCtoDanea::order_details($order->ID, '_shipping_country'); ?></CustomerCountry>
+  <CustomerCountry><?php echo WCtoDanea::get_country($order->ID); ?></CustomerCountry>
   <CustomerVatCode><?php echo WCtoDanea::order_details($order->ID, $pi_name); ?></CustomerVatCode>
   <CustomerFiscalCode><?php echo WCtoDanea::order_details($order->ID, $cf_name); ?></CustomerFiscalCode>
   <CustomerEInvoiceDestCode><?php echo $e_invoice_receiver; ?></CustomerEInvoiceDestCode>
@@ -43,7 +43,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->ID, $pa_code_name) ? WCto
   <DeliveryPostcode><?php echo WCtoDanea::order_details($order->ID, '_shipping_postcode'); ?></DeliveryPostcode>
   <DeliveryCity><?php echo WCtoDanea::order_details($order->ID, '_shipping_city'); ?></DeliveryCity>
   <DeliveryProvince><?php echo WCtoDanea::order_details($order->ID, '_shipping_state'); ?></DeliveryProvince>
-  <DeliveryCountry><?php echo WCtoDanea::order_details($order->ID, '_shipping_country'); ?></DeliveryCountry>
+  <DeliveryCountry><?php echo WCtoDanea::get_country($order->ID, true); ?></DeliveryCountry>
   <DeliveryTel></DeliveryTel>
   <DeliveryCellPhone></DeliveryCellPhone>
   <Date><?php echo $newDate; ?></Date>

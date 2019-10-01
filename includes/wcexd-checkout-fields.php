@@ -3,7 +3,7 @@
  * Modifica la pagina di checkout con i campi relativi alla fatturazione
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.7
+ * @version 1.1.9
  */
 class wcexd_checkout_fields {
 
@@ -52,7 +52,7 @@ class wcexd_checkout_fields {
 			'billing_wcexd_piva'    => __( 'Partita IVA', 'wcexd' ),
 			'billing_wcexd_cf'      => __( 'Codice fiscale', 'wcexd' ),
 			'billing_wcexd_pec'     => __( 'PEC', 'wcexd' ),
-			'billing_wcexd_pa_code' => __( 'Codice ricevente', 'wcexd' ),
+			'billing_wcexd_pa_code' => __( 'Codice destinatario', 'wcexd' ),
 		);
 
 		foreach ( $custom_fields as $key => $value ) {
@@ -166,10 +166,21 @@ class wcexd_checkout_fields {
 			}
 		}
 
-		/*Temp - utile creare un tool per attivare l'ozpione*/
-		$invoice_type = $fields['billing']['billing_wcexd_invoice_type'];
-		unset( $fields['billing']['billing_wcexd_invoice_type'] );
-		array_unshift( $fields['billing'], $invoice_type );
+		/*Posiziona in alto la scelta del tipo di documento */
+		$wcexd_document_type = get_option( 'wcexd_document_type' );
+
+			if ( $wcexd_document_type ) {
+
+			$invoice_type = isset( $fields['billing']['billing_wcexd_invoice_type'] ) ? $fields['billing']['billing_wcexd_invoice_type'] : '';
+
+			if ( isset( $fields['billing']['billing_wcexd_invoice_type'] ) ) {
+		
+				unset( $fields['billing']['billing_wcexd_invoice_type'] );
+				array_unshift( $fields['billing'], $invoice_type );
+		
+			}
+
+		}
 
 		return $fields;
 	}
@@ -197,14 +208,14 @@ class wcexd_checkout_fields {
 	 */
 	public function checkout_fields_check() {
 
-		/*PEC e Codice ricevente*/
+		/*PEC e Codice destinatario*/
 		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && $_POST['billing_wcexd_invoice_type'] !== 'private' ) {
 			if ( isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
 				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( $_POST['billing_wcexd_pec'] ) : '';
 				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( $_POST['billing_wcexd_pa_code'] ) : '';
 
 				if ( ! $pec && ! $pa_code ) {
-					wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice Ricevente</strong> devono essere compilati.', 'wcexd' ), 'error' );
+					wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice destinatario</strong> devono essere compilati.', 'wcexd' ), 'error' );
 				}
 			}
 		}
@@ -267,24 +278,28 @@ class wcexd_checkout_fields {
 	 */
 	public function display_custom_data( $order_id ) {
 
-		$order = wc_get_order( $order_id );
-
-		echo '<h2>' . __( 'Fatturazione elettronica', 'wcexd' ) . '</h2>';
-
-		echo '<table class="shop_table shop_table_responsive">';
-			echo '<tbody>';
 		if ( $this->custom_fields ) {
-			foreach ( $this->custom_fields as $key => $value ) {
-				if ( $order->get_meta( '_' . $key ) ) {
-					echo '<tr>';
-						echo '<th width="40%">' . esc_html( $value ) . ':</th>';
-						echo '<td>' . esc_html( $order->get_meta( '_' . $key ) ) . '</td>';
-					echo '</tr>';
+
+			$order = wc_get_order( $order_id );
+
+			echo '<h2>' . __( 'Dati di fatturazione', 'wcexd' ) . '</h2>';
+
+			echo '<table class="shop_table shop_table_responsive">';
+				echo '<tbody>';
+			if ( $this->custom_fields ) {
+				foreach ( $this->custom_fields as $key => $value ) {
+					if ( $order->get_meta( '_' . $key ) ) {
+						echo '<tr>';
+							echo '<th width="40%">' . esc_html( $value ) . ':</th>';
+							echo '<td>' . esc_html( $order->get_meta( '_' . $key ) ) . '</td>';
+						echo '</tr>';
+					}
 				}
 			}
+				echo '</tbody>';
+			echo '</table>';
+
 		}
-			echo '</tbody>';
-		echo '</table>';
 	}
 
 
@@ -295,11 +310,13 @@ class wcexd_checkout_fields {
 	function display_custom_data_in_admin( $order ) {
 
 		if ( $this->custom_fields ) {
+
 			foreach ( $this->custom_fields as $key => $value ) {
 				if ( $order->get_meta( '_' . $key ) ) {
 					echo '<p><strong>' . esc_html( $value ) . ': </strong><br>' . esc_html( $order->get_meta( '_' . $key ) ) . '</p>';
 				}
 			}
+			
 		}
 	}
 
@@ -315,7 +332,7 @@ class wcexd_checkout_fields {
 
 		if ( $this->custom_fields ) {
 
-			echo '<h2>' . __( 'Fatturazione elettronica', 'wcexd' ) . '</h2>';
+			echo '<h2>' . __( 'Dati fatturazione', 'wcexd' ) . '</h2>';
 			foreach ( $this->custom_fields as $key => $value ) {
 				if ( $order->get_meta( '_' . $key ) ) {
 					echo '<p style="margin: 0 0 8px;">' . esc_html( $value ) . ': <span style="font-weight: normal;">' . esc_html( $order->get_meta( '_' . $key ) ) . '</span></p>';

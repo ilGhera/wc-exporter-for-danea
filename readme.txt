@@ -1,7 +1,7 @@
 === Woocommerce Exporter for Danea - Premium ===
 Contributors: ghera74
 Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products, fattura elettronica, gestionale
-Version: 1.1.8
+Version: 1.1.9
 Requires at least: 4.0
 Tested up to: 5.0
 
@@ -42,20 +42,28 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 == Changelog ==
 
+= 1.1.9 =
+Release Date: 01 October, 2019
+
+* Enhancement: Possibility to put the invoice document type select field at the top of the form
+* Bug Fix: Order full country name as required from Danea ver. 2019.45c
+* Bug Fix: "Electronic invoice" shown in Thank you page, even if no plugin checkout fields were used  
+
+
 = 1.1.8 =
-Release Date: 14 february, 2019
+Release Date: 14 February, 2019
 
 * Bug Fix: Typo in parent_id key in products download
 
 
 = 1.1.7 =
-Release Date: 12 february, 2019
+Release Date: 12 February, 2019
 
 * Bug Fix: Fiscal code mandatory for private invoices even if not set in the plugin options
 
 
 = 1.1.6 =
-Release Date: 11 february, 2019
+Release Date: 11 February, 2019
 
 * Bug Fix: Notice PHP on class_exists() function
 
