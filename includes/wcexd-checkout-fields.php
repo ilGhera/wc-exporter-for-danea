@@ -26,6 +26,7 @@ class wcexd_checkout_fields {
 		add_action( 'edit_user_profile_update', array( $this, 'save_extra_user_profile_fields' ) );
 
 		$this->custom_fields = $this->get_active_custom_fields();
+		$this->only_italy    = get_option('wcexd_only_italy');
 
 	}
 
@@ -33,14 +34,15 @@ class wcexd_checkout_fields {
 	 * Caricamento script
 	 */
 	public function add_checkout_script() {
+
 		wp_enqueue_script( 'wcexd-checkout-script', WCEXD_URI . 'js/wcexd-checkout.js' );
 		wp_localize_script(
-			'jwppp-select',
-			'jwppp_select',
-			array(
-				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			)
-		);
+			'wcexd-checkout-script',
+			'options',
+            array( 
+            	'only_italy' => $this->only_italy,
+            )
+        );
 
 	}
 
@@ -104,6 +106,13 @@ class wcexd_checkout_fields {
 				),
 			);
 
+			/*Controllo posizione campo*/
+			if ( get_option( 'wcexd_document_type' ) ) {
+				
+				$fields['billing']['billing_wcexd_invoice_type']['priority'] = 1;
+
+			}
+
 			foreach ( $select as $key => $value ) {
 				if ( '1' === $value['active'] ) {
 					$label = key( $value['field'] );
@@ -120,8 +129,6 @@ class wcexd_checkout_fields {
 					'class' => array(
 						'field-name form-row-wide',
 					),
-					// 'placeholder' => __('xxxxx', 'wcexd'),
-					// 'required' 	  => true
 				);
 			}
 
@@ -170,23 +177,8 @@ class wcexd_checkout_fields {
 			}
 		}
 
-		/*Posiziona in alto la scelta del tipo di documento */
-		$wcexd_document_type = get_option( 'wcexd_document_type' );
-
-			if ( $wcexd_document_type ) {
-
-			$invoice_type = isset( $fields['billing']['billing_wcexd_invoice_type'] ) ? $fields['billing']['billing_wcexd_invoice_type'] : '';
-
-			if ( isset( $fields['billing']['billing_wcexd_invoice_type'] ) ) {
-		
-				unset( $fields['billing']['billing_wcexd_invoice_type'] );
-				array_unshift( $fields['billing'], $invoice_type );
-		
-			}
-
-		}
-
 		return $fields;
+
 	}
 
 
@@ -214,14 +206,24 @@ class wcexd_checkout_fields {
 
 		/*PEC e Codice destinatario*/
 		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && $_POST['billing_wcexd_invoice_type'] !== 'private' ) {
+			
 			if ( isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
+				
 				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( $_POST['billing_wcexd_pec'] ) : '';
 				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( $_POST['billing_wcexd_pa_code'] ) : '';
 
-				if ( ! $pec && ! $pa_code ) {
-					wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice destinatario</strong> devono essere compilati.', 'wcexd' ), 'error' );
+				$country = $_POST['billing_country'];
+
+				if ( ! $this->only_italy || ( $this->only_italy && 'IT' == $country ) ) {
+					
+					if ( ! $pec && ! $pa_code ) {
+						wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice destinatario</strong> devono essere compilati.', 'wcexd' ), 'error' );
+					}
+
 				}
+
 			}
+
 		}
 
 		/*Controllo campi fiscali*/
@@ -348,6 +350,10 @@ class wcexd_checkout_fields {
 	}
 
 
+	/**
+	 * Aggiunge i campi fiscali del plugin alla pagina profilo dell'utente
+	 * @param  object $user user WP
+	 */
 	public function extra_user_profile_fields( $user ) {
 
 		if ( $this->custom_fields ) {
@@ -373,7 +379,10 @@ class wcexd_checkout_fields {
 
 	}
 
-
+	/**
+	 * Consente di editare i campi fiscali del plugin nella pagina profilo dell'utente
+	 * @param  int $user_id l'id dell'utente WP
+	 */
 	public function save_extra_user_profile_fields( $user_id ) {
 
 		if ( !current_user_can( 'edit_user', $user_id ) ) { 

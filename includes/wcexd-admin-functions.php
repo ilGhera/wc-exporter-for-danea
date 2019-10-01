@@ -100,7 +100,7 @@ function wcexd_options() {
 		}
 		echo '<form id="wcexd-options" method="post" action="">';
 		echo '<label>' . __( 'Premium Key', 'wcexd' ) . '</label>';
-		echo '<input type="text" class="regular-text" name="wcexd-premium-key" id="wcexd-premium-key" placeholder="' . __( 'Add your Premium Key', 'wcexd' ) . '" value="' . $key . '" />';
+		echo '<input type="text" class="regular-text code" name="wcexd-premium-key" id="wcexd-premium-key" placeholder="' . __( 'Add your Premium Key', 'wcexd' ) . '" value="' . $key . '" />';
 		echo '<p class="description">' . __( 'Incolla qui la Premium Key che hai ricevuto via mail, potrai ricevere gli ultimi aggiornamenti di <strong>Woocommerce Exporter per Danea - Premium</strong>.', 'wcexd' ) . '</p>';
 		echo '<input type="hidden" name="done" value="1" />';
 		echo '<input type="submit" class="button button-primary" value="' . __( 'Salva ', 'wcexd' ) . '" />';
@@ -176,6 +176,12 @@ function wcexd_options() {
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_pa_code_active = isset( $_POST['wcexd_pa_code_active'] ) ? $_POST['wcexd_pa_code_active'] : 0;
 		update_option( 'billing_wcexd_pa_code_active', $wcexd_pa_code_active );
+	}
+
+	$wcexd_only_italy = get_option( 'wcexd_only_italy' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_only_italy = isset( $_POST['wcexd_only_italy'] ) ? $_POST['wcexd_only_italy'] : 0;
+		update_option( 'wcexd_only_italy', $wcexd_only_italy );
 	}
 	?>
   
@@ -255,6 +261,17 @@ function wcexd_options() {
 						<p class="description"><?php echo __( 'Attiva il campo Codice destinatario per la fatturazione elettronica', 'wcexd' ); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Solo Italia', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_only_italy">
+							<input type="checkbox" name="wcexd_only_italy" value="1"<?php echo $wcexd_only_italy == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Mostra PEC e Codice destinatario solo per l\'Italia'
+						, 'wcexd' ); ?></p>
+					</td>
+				</tr>
+
 			</table>
 			<?php wp_nonce_field( 'wcexd-options-submit', 'wcexd-options-nonce' ); ?>
 			<p class="submit">

@@ -47,6 +47,7 @@ Release Date: 01 October, 2019
 
 * Enhancement: Possibility to put the invoice document type select field at the top of the form
 * Enhancement: Plugin custom fields are now editable from the user profile page
+* Enhancement: PEC and Receiving code can now be asked only to Italians customers
 * Bug Fix: Order full country name as required from Danea ver. 2019.45c
 * Bug Fix: "Electronic invoice" shown in Thank you page, even if no plugin checkout fields were used  
 * Bug Fix: PEC and Receiver code not exported with the customers data
