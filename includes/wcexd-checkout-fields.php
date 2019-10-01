@@ -20,6 +20,10 @@ class wcexd_checkout_fields {
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'display_custom_data_in_admin' ) );
 		add_filter( 'woocommerce_email_customer_details', array( $this, 'display_custom_data_in_email' ), 10, 4 );
 		add_action( 'woocommerce_checkout_process', array( $this, 'checkout_fields_check' ) );
+		add_action( 'show_user_profile', array( $this, 'extra_user_profile_fields' ) );
+		add_action( 'edit_user_profile', array( $this, 'extra_user_profile_fields' ) );
+		add_action( 'personal_options_update', array( $this, 'save_extra_user_profile_fields' ) );
+		add_action( 'edit_user_profile_update', array( $this, 'save_extra_user_profile_fields' ) );
 
 		$this->custom_fields = $this->get_active_custom_fields();
 
@@ -307,7 +311,7 @@ class wcexd_checkout_fields {
 	 * Visualizza le informazioni personalizzate nel back-end dell'ordine
 	 * @param  object $order l'ordine
 	 */
-	function display_custom_data_in_admin( $order ) {
+	public function display_custom_data_in_admin( $order ) {
 
 		if ( $this->custom_fields ) {
 
@@ -328,7 +332,7 @@ class wcexd_checkout_fields {
 	 * @param  object $order        l'woocommerce_admin_order_data_after_shipping_address
 	 * @return array                Per motivi di formattazione, restituisco un array vuoto e stampo direttamente i campi con css in linea
 	 */
-	function display_custom_data_in_email( $order, $sent_to_admin, $plain_text, $email ) {
+	public function display_custom_data_in_email( $order, $sent_to_admin, $plain_text, $email ) {
 
 		if ( $this->custom_fields ) {
 
@@ -340,6 +344,55 @@ class wcexd_checkout_fields {
 			}
 			echo '<div style="display: block; padding-bottom: 25px;"></div>';
 		}
+
+	}
+
+
+	public function extra_user_profile_fields( $user ) {
+
+		if ( $this->custom_fields ) {
+
+			echo '<h3>' . __( 'Dati di fatturazione', 'wcexd' ) . '</h3>';
+
+		    echo '<table class="form-table">';
+
+		    	foreach ($this->custom_fields as $key => $value) {
+		
+				    echo '<tr>';
+				        echo '<th><label for="' . esc_attr( $key ) . '">' . esc_html( $value ) . '</label></th>';
+				        echo '<td>';
+							echo '<input type="text" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" value="' . esc_attr( get_the_author_meta( $key, $user->ID ) ) . '" class="regular-text" />';
+				            // echo '<span class="description">' . _e("Please enter your address.") . '</span>';
+				        echo '</td>';
+				    echo '</tr>';
+		
+		    	}
+
+		    echo '</table>';
+		}
+
+	}
+
+
+	public function save_extra_user_profile_fields( $user_id ) {
+
+		if ( !current_user_can( 'edit_user', $user_id ) ) { 
+	        
+	        return false; 
+	    
+	    } else {
+
+	    	if ( $this->custom_fields ) {
+	    		
+	    		foreach ($this->custom_fields as $key => $value) {
+
+				    update_user_meta( $user_id, $key, $_POST[ $key ] );
+	    			
+	    		}
+
+	    	}
+
+	    }
 
 	}
 

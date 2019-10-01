@@ -30,8 +30,10 @@ function wcexd_clients_download() {
 		update_option( 'wcexd-clients-role', $clients_val ); 
 
 		/*Recupero i nomi dei campi C.Fiscale e P.IVA*/
-		$get_cf_name = WCtoDanea::get_italian_tax_fields_names('cf_name');
-		$get_pi_name = WCtoDanea::get_italian_tax_fields_names('pi_name');
+		$get_cf_name      = WCtoDanea::get_italian_tax_fields_names('cf_name');
+		$get_pi_name      = WCtoDanea::get_italian_tax_fields_names('pi_name');
+		$get_pec_name     = WCtoDanea::get_italian_tax_fields_names('pec_name');
+		$get_pa_code_name = WCtoDanea::get_italian_tax_fields_names('pa_code_name');
 		  
 		$args = array('role' => $clients_val );
 
@@ -40,7 +42,7 @@ function wcexd_clients_download() {
 			$fp = fopen('php://output', 'w');
 			
 			$list = array('Cod.', 'Denominazione',	'Indirizzo', 'Cap', 'Città', 'Prov.', 'Regione', 'Nazione', 'Referente',	'Tel.', 'Cell', 'Fax',	 
-							'e-mail',	'Pec',	'Codice fiscale', 'Partita Iva',	'Sconti', 'Listino', 'Fido',	'Pagamento', 'Banca',	'Ns Banca', 'Data Mandato SDD', 
+							'e-mail',	'Pec', 'Cod. destinatario Fatt. elettr.',	'Codice fiscale', 'Partita Iva',	'Sconti', 'Listino', 'Fido',	'Pagamento', 'Banca',	'Ns Banca', 'Data Mandato SDD', 
 							'Emissione SDD', 'Rit. acconto?', 'Doc via e-mail?', 'Fatt. con Iva', 'Conto reg.', 'Resp. trasporto', 'Porto', 'Avviso nuovi doc.', 
 							'Note doc.', 'Home page', 'Login web', 'Extra 1', 'Extra 2', 'Extra 3', 'Extra 4', 'Extra 5', 'Extra 6', 'Note'	);
 					
@@ -59,13 +61,16 @@ function wcexd_clients_download() {
 					$denominazione = $client->display_name;
 				}
 
-				/*SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE*/
-	  			$cf_value = ($get_cf_name) ? get_user_meta($client->ID, $get_cf_name, true) : '';
-				$pi_value = ($get_pi_name) ? get_user_meta($client->ID, $get_pi_name, true) : '';
+				/*RECUPRO CF, P.IVA E ALTRI DATI FISCALI DEL SINGOLO UTENTE*/
+	  			$cf_value      = ($get_cf_name) ? get_user_meta($client->ID, $get_cf_name, true) : '';
+				$pi_value      = ($get_pi_name) ? get_user_meta($client->ID, $get_pi_name, true) : '';
+				$pec_value     = ($get_pec_name) ? get_user_meta($client->ID, $get_pec_name, true) : '';
+				$pa_code_value = ($get_pa_code_name) ? get_user_meta($client->ID, $get_pa_code_name, true) : '';
+				 
 
 
 				$data = array($client->ID, $denominazione, get_user_meta( $client->ID, 'billing_address_1', true ), get_user_meta( $client->ID, 'billing_postcode', true ), get_user_meta( $client->ID, 'billing_city', true ), 
-				get_user_meta( $client->ID, 'billing_state', true ),'', get_user_meta( $client->ID, 'billing_country', true ), $client_name, get_user_meta( $client->ID, 'billing_phone', true ),get_user_meta( $client->ID, 'billing_cellphone', true ), '', $client->user_email,'', 
+				get_user_meta( $client->ID, 'billing_state', true ),'', get_user_meta( $client->ID, 'billing_country', true ), $client_name, get_user_meta( $client->ID, 'billing_phone', true ),get_user_meta( $client->ID, 'billing_cellphone', true ), '', $client->user_email, $pec_value, $pa_code_value,
 				$cf_value, $pi_value,'','','','','','','','','','','','','','','','','','','','','','','','','');
 
 				fputcsv($fp, $data);
