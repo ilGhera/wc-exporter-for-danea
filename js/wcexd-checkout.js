@@ -2,7 +2,7 @@
  * Gestisce la visualizzazione dei campi fiscali in base al tipo di fattura selezionato
  * @author ilGhera
  * @package wc-exporter-for-danea/js
- * @version 1.1.6
+ * @version 1.1.6.1
  */
 jQuery(document).ready(function($){
 
@@ -31,7 +31,7 @@ jQuery(document).ready(function($){
 					receiver_code.show();					
 				}
 			
-			} else if($(this).val() === 'private') {
+			} else if($(invoice_type).val() === 'private') {
 				
 				p_iva.hide();
 				pec.hide();
