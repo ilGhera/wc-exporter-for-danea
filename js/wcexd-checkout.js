@@ -31,7 +31,7 @@ jQuery(document).ready(function($){
 					receiver_code.show();					
 				}
 			
-			} else if($(this).val() === 'private') {
+			} else if($(invoice_type).val() === 'private') {
 				
 				p_iva.hide();
 				pec.hide();
