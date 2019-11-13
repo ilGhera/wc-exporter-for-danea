@@ -183,6 +183,12 @@ function wcexd_options() {
 		$wcexd_only_italy = isset( $_POST['wcexd_only_italy'] ) ? $_POST['wcexd_only_italy'] : 0;
 		update_option( 'wcexd_only_italy', $wcexd_only_italy );
 	}
+
+	$wcexd_cf_only_italy = get_option( 'wcexd_cf_only_italy' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_cf_only_italy = isset( $_POST['wcexd_cf_only_italy'] ) ? $_POST['wcexd_cf_only_italy'] : 0;
+		update_option( 'wcexd_cf_only_italy', $wcexd_cf_only_italy );
+	}
 	?>
   
 	<div id="wcexd-impostazioni" class="wcexd-admin" style="display: block;">
@@ -271,6 +277,17 @@ function wcexd_options() {
 						, 'wcexd' ); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<label for="wcexd_cf_only_italy">
+							<input type="checkbox" name="wcexd_cf_only_italy" value="1"<?php echo $wcexd_cf_only_italy == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Mostra il campo Codice fiscale solo per l\'Italia'
+						, 'wcexd' ); ?></p>
+					</td>
+				</tr>
+
 
 			</table>
 			<?php wp_nonce_field( 'wcexd-options-submit', 'wcexd-options-nonce' ); ?>
