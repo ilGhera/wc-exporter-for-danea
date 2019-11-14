@@ -6,12 +6,16 @@
  */
 jQuery(document).ready(function($){
 
-	var invoice_type  = $('#billing_wcexd_invoice_type');
-	var cf 		      = $('#billing_wcexd_cf_field');
-	var p_iva 		  = $('#billing_wcexd_piva_field');
-	var pec           = $('#billing_wcexd_pec_field');
-	var receiver_code = $('#billing_wcexd_pa_code_field');
+	var company_req;
+	var invoice_type    = $('#billing_wcexd_invoice_type');
+	var company         = $('#billing_company_field');
+	var company_opt     = $('label span.optional', company);
+	var cf 		        = $('#billing_wcexd_cf_field');
+	var p_iva 		    = $('#billing_wcexd_piva_field');
+	var pec             = $('#billing_wcexd_pec_field');
+	var receiver_code   = $('#billing_wcexd_pa_code_field');
 	var billing_country = $('select#billing_country');
+	var cf_abbr         = $('label abbr.required', cf);
 
 	/**
 	 * Mostra solo i campi fiscali necessari
@@ -20,28 +24,60 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
-			cf.show();
+			/*Mostro il codice fiscale*/
+			if( ! cf.hasClass('wcexd-hidden-field') ) {
+				
+				cf.show();
+			}
 		
 			if($(invoice_type).val() === 'private-invoice') {
 				
+				company.show();
+				company_req.hide();
+				company_opt.show();
+
 				p_iva.hide();
 
-				if( ! pec.hasClass('wxexd-hidden-field') ) {
+				if( ! pec.hasClass('wcexd-hidden-field') ) {
 					pec.show();
 					receiver_code.show();					
 				}
 			
 			} else if($(invoice_type).val() === 'private') {
 				
+				company.hide();
 				p_iva.hide();
 				pec.hide();
 				receiver_code.hide();
+				
+				console.log('mand: ' + options.cf_mandatory);
+
+				if ( 0 == options.cf_mandatory ) {
+
+					/*Nascondi asterisco required*/
+					cf_abbr.hide();
+
+				}
 
 			} else {
 				
 				p_iva.show();
 
-				if( ! pec.hasClass('wxexd-hidden-field') ) {
+				company.show();
+				company_opt.hide();
+
+				if( null == company_req ) {
+
+					$('label', company).append('<abbr class="required">*</abbr>');
+					company_req = $('label .required', company);
+
+				} else {
+
+					company_req.show();
+
+				}
+
+				if( ! pec.hasClass('wcexd-hidden-field') ) {
 					pec.show();
 					receiver_code.show();
 				}
@@ -59,16 +95,41 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
-			if( options.only_italy && 'IT' !== $(billing_country).val() ) {
+			var is_italy = 'IT' === $(billing_country).val() ? true : false;
 
-				pec.addClass('wxexd-hidden-field').hide();          
-				receiver_code.addClass('wxexd-hidden-field').hide();		
+			/*Campi fattura elettronica*/
+			if( 1 == options.only_italy && ! is_italy ) {
+
+				pec.addClass('wcexd-hidden-field').hide();          
+				receiver_code.addClass('wcexd-hidden-field').hide();		
 
 			} else {
 
-				pec.removeClass('wxexd-hidden-field');          
-				receiver_code.removeClass('wxexd-hidden-field');		
+				pec.removeClass('wcexd-hidden-field');          
+				receiver_code.removeClass('wcexd-hidden-field');		
 
+			}
+
+			/*Codice fiscale*/
+			if( 1 == options.cf_only_italy && ! is_italy ) {
+
+				cf.addClass('wcexd-hidden-field').hide();		
+
+			} else {
+
+				cf.removeClass('wcexd-hidden-field');
+
+				if( ! is_italy ) {
+
+					cf_abbr.hide();
+	
+				} else {
+	
+					/*Mostra asterisco required se in Italia*/
+					cf_abbr.show();
+	
+				}
+				
 			}
 
 		})
@@ -79,7 +140,7 @@ jQuery(document).ready(function($){
 
 
 	/*Cambiamento paese*/
-	if( options.only_italy ) {
+	// if( options.only_italy || options.cf_only_italy ) {
 
 		$(billing_country).on('change', function(){
 			
@@ -88,7 +149,7 @@ jQuery(document).ready(function($){
 
 		})
 
-	}
+	// }
 
 
 	/*Cambiamento tipo di documento*/

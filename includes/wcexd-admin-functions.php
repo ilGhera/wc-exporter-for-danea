@@ -3,7 +3,7 @@
  * Pagina opzioni/ strumenti
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.6
+ * @version 1.2.0
  */
 
 /**
@@ -16,30 +16,11 @@ add_action( 'admin_init', 'wcexd_register_style' );
 
 
 /**
- * Registrzione script necessario al menu di navigazione
- */
-function wcexd_register_js_menu() {
-	wp_register_script( 'wcexd-admin-nav', WCEXD_URI . 'js/wcexd-admin-nav.js', array( 'jquery' ), '1.0', true );
-}
-add_action( 'admin_init', 'wcexd_register_js_menu' );
-
-
-/**
- * Richiamo script necessario al menu di navigazione
- */
-function wcexd_js_menu() {
-	wp_enqueue_script( 'wcexd-admin-nav' );
-}
-add_action( 'admin_menu', 'wcexd_js_menu' );
-
-
-/**
  * Voce di menu
  */
 function wcexd_add_menu() {
-	$wcexd_page = add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', 'wcexd_options' );
 
-	add_action( 'admin_print_scripts-' . $wcexd_page, 'wcexd_js_menu' );
+	$wcexd_page = add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', 'wcexd_options' );
 
 	return $wcexd_page;
 }
@@ -52,9 +33,17 @@ add_action( 'admin_menu', 'wcexd_add_menu' );
 function wcexd_add_scripts() {
 	$screen = get_current_screen();
 	if ( $screen->id === 'woocommerce_page_wc-exporter-for-danea' ) {
+		
+		/*css*/
 		wp_enqueue_style( 'tzcheckbox-style', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.css' );
+		wp_enqueue_style( 'chosen-style', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.min.css' );
+
+		/*js*/
+		wp_enqueue_script( 'wcexd-admin', WCEXD_URI . 'js/wcexd-admin.js', array( 'jquery' ), '1.0' );
 		wp_enqueue_script( 'tzcheckbox', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.js', array( 'jquery' ) );
 		wp_enqueue_script( 'tzcheckbox-script', WCEXD_URI . 'js/tzCheckbox/js/script.js', array( 'jquery' ) );
+		wp_enqueue_script( 'chosen', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.jquery.min.js' );
+
 	}
 }
 add_action( 'admin_enqueue_scripts', 'wcexd_add_scripts' );
@@ -169,6 +158,12 @@ function wcexd_options() {
 		$wcexd_only_italy = isset( $_POST['wcexd_only_italy'] ) ? $_POST['wcexd_only_italy'] : 0;
 		update_option( 'wcexd_only_italy', $wcexd_only_italy );
 	}
+
+	$wcexd_cf_only_italy = get_option( 'wcexd_cf_only_italy' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_cf_only_italy = isset( $_POST['wcexd_cf_only_italy'] ) ? $_POST['wcexd_cf_only_italy'] : 0;
+		update_option( 'wcexd_cf_only_italy', $wcexd_cf_only_italy );
+	}
 	?>
   
 	<div id="wcexd-impostazioni" class="wcexd-admin" style="display: block;">
@@ -257,6 +252,17 @@ function wcexd_options() {
 						, 'wcexd' ); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th></th>
+					<td>
+						<label for="wcexd_cf_only_italy">
+							<input type="checkbox" name="wcexd_cf_only_italy" value="1"<?php echo $wcexd_cf_only_italy == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Mostra il campo Codice fiscale solo per l\'Italia'
+						, 'wcexd' ); ?></p>
+					</td>
+				</tr>
+
 
 			</table>
 			<?php wp_nonce_field( 'wcexd-options-submit', 'wcexd-options-nonce' ); ?>
@@ -296,7 +302,7 @@ function wcexd_options() {
 				<tr>
 					<th scope="row"><?php echo __( 'Ruolo utente', 'wcexd' ); ?></th>
 					<td>
-						<select class="wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
+						<select class="wcexd wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
 							<?php
 							foreach ( $roles as $key => $value ) {
 								echo '<option value="' . $key . '"' . ( $key === $users_val ? ' selected="selected"' : '' ) . '> ' . __( $value, 'woocommerce' ) . '</option>';
@@ -449,7 +455,7 @@ function wcexd_options() {
 	    		<tr>
 	    			<th scope="row"><?php _e("Ruolo utente", 'wcexd' ); ?></th>
 	    			<td>
-						<select class="wcexd-clients" name="wcexd-clients" disabled="disabled" form="wcexd-clients-submit">
+						<select class="wcexd wcexd-clients" name="wcexd-clients" disabled="disabled" form="wcexd-clients-submit">
 							<option value="customer" selected="selected"><?php echo __('Customer', 'woocommerce'); ?></option>';	
 						</select>
 						<p class="description"><?php echo __('Seleziona il livello utente corrispondente ai tuoi clienti', 'wcexd'); ?></p>
@@ -485,7 +491,7 @@ function wcexd_options() {
 	        	<tr>
 			    	<th scope="row"><?php echo __('Stato ordini', 'wcexd'); ?></th>
 			    	<td>
-				    	<select form="wcexd-orders" name="wcexd-orders-status" disabled="disabled">
+				    	<select form="wcexd-orders" class="wcexd" name="wcexd-orders-status" disabled="disabled">
 				    		<option name="all" value=""><?php echo __('Tutti', 'wcexd'); ?></option>
 				    	</select>
 				    	<p class="description"><?php echo __('Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd'); ?></p>

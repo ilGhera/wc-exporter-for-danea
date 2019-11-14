@@ -1,11 +1,12 @@
 <?php
 /**
  * Modifica la pagina di checkout con i campi relativi alla fatturazione
+ *
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.1.6
+ * @version 1.2.0
  */
-class wcexd_checkout_fields {
+class WCEXD_Checkout_Fields {
 
 	public $custom_fields;
 
@@ -13,7 +14,6 @@ class wcexd_checkout_fields {
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_checkout_script' ) );
 		add_filter( 'woocommerce_checkout_fields', array( $this, 'set_custom_fields' ) );
-		add_action( 'woocommerce_before_order_notes', array( $this, 'display_fields' ) );
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'save_fields' ), 10, 2 );
 		add_action( 'woocommerce_thankyou', array( $this, 'display_custom_data' ) );
 		add_action( 'woocommerce_view_order', array( $this, 'display_custom_data' ) );
@@ -26,7 +26,9 @@ class wcexd_checkout_fields {
 		add_action( 'edit_user_profile_update', array( $this, 'save_extra_user_profile_fields' ) );
 
 		$this->custom_fields = $this->get_active_custom_fields();
-		$this->only_italy    = get_option('wcexd_only_italy');
+		$this->cf_mandatory  = get_option( 'wcexd_cf_mandatory' );
+		$this->only_italy    = get_option( 'wcexd_only_italy' );
+		$this->cf_only_italy = get_option( 'wcexd_cf_only_italy' );
 
 	}
 
@@ -39,10 +41,12 @@ class wcexd_checkout_fields {
 		wp_localize_script(
 			'wcexd-checkout-script',
 			'options',
-            array( 
-            	'only_italy' => $this->only_italy,
-            )
-        );
+			array(
+				'cf_mandatory'  => $this->cf_mandatory,
+				'only_italy'    => $this->only_italy,
+				'cf_only_italy' => $this->cf_only_italy,
+			)
+		);
 
 	}
 
@@ -73,7 +77,8 @@ class wcexd_checkout_fields {
 
 	/**
 	 * Aggiunge i field customizzati all'elenco fields di WC
-	 * @param object $fields
+	 *
+	 * @param object $fields i campi del modulo di checkout già presenti.
 	 */
 	public function set_custom_fields( $fields ) {
 
@@ -94,7 +99,7 @@ class wcexd_checkout_fields {
 
 		/*La somma dei tipi di documenti abilitati dall'admin*/
 		$sum = ( $select['private']['active'] + $select['private_invoice']['active'] + $select['company_invoice']['active'] );
-		
+
 		if ( $sum > 1 ) {
 			$fields['billing']['billing_wcexd_invoice_type'] = array(
 				'type'    => 'select',
@@ -108,7 +113,7 @@ class wcexd_checkout_fields {
 
 			/*Controllo posizione campo*/
 			if ( get_option( 'wcexd_document_type' ) ) {
-				
+
 				$fields['billing']['billing_wcexd_invoice_type']['priority'] = 1;
 
 			}
@@ -138,42 +143,58 @@ class wcexd_checkout_fields {
 
 			/*Obbligatorietà cf al caricamento di pagina*/
 			if ( isset( $this->custom_fields['billing_wcexd_cf'] ) ) {
-				if ( ( $sum === 1 && ! isset( $select['private']['active'] ) || $sum > 1 ) ) {
+				if ( ( 1 === $sum && ! isset( $select['private']['active'] ) || $sum > 1 ) ) {
 
-					$fields['billing']['billing_wcexd_cf']['required'] = true;					
-				
-				} elseif ( $sum === 1 && isset( $select['private']['active'] ) ) {
-					if ( get_option( 'wcexd_cf_mandatory' ) ) {
+					$fields['billing']['billing_wcexd_cf']['required'] = true;
 
-						$fields['billing']['billing_wcexd_cf']['required'] = true;					
-					
+				} elseif ( 1 === $sum && isset( $select['private']['active'] ) ) {
+					if ( $this->cf_mandatory ) {
+
+						$fields['billing']['billing_wcexd_cf']['required'] = true;
+
 					}
 				}
 			}
 
-			/*Rendo obbligatorio cf e p. iva quando richiesto*/
+			/*Rendo obbligatorio cf e p. iva ed azienda solo quando richiesto*/
 			if ( isset( $_POST['billing_wcexd_invoice_type'] ) ) {
 
-				if ( $_POST['billing_wcexd_invoice_type'] === 'private-invoice' ) {
+				if ( 'private-invoice' === $_POST['billing_wcexd_invoice_type'] ) {
 
 					$fields['billing']['billing_wcexd_piva']['required'] = false;
 
-				} elseif ( $_POST['billing_wcexd_invoice_type'] === 'private' ) {
+				} elseif ( 'private' === $_POST['billing_wcexd_invoice_type'] ) {
 
 					$fields['billing']['billing_wcexd_piva']['required'] = false;
 
-					if ( ! get_option( 'wcexd_cf_mandatory' ) ) {
+					if ( ! $this->cf_mandatory ) {
 
 						$fields['billing']['billing_wcexd_cf']['required'] = false;
 
 					}
+				} else {
+
+					$fields['billing']['billing_company']['required'] = true;
+
 				}
 			}
 
+
+			/*Codice fiscale non obbligatorio fuori dall'Italia*/
+			if ( isset( $_POST['billing_country'] ) && 'IT' !== $_POST['billing_country'] ) {
+				
+				$fields['billing']['billing_wcexd_cf']['required'] = false;
+
+			}
+
 			if ( ! isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
+			
 				$fields['billing']['billing_wcexd_pa_code']['required'] = true;
+			
 			} elseif ( isset( $this->custom_fields['billing_wcexd_pec'] ) && ! isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
+			
 				$fields['billing']['billing_wcexd_pec']['required'] = true;
+			
 			}
 		}
 
@@ -184,7 +205,8 @@ class wcexd_checkout_fields {
 
 	/**
 	 * Verifica la correttezza del dato fiscale inserito
-	 * @param  string $valore P.IVA o Codice Fiscale
+	 *
+	 * @param  string $valore P.IVA o Codice Fiscale.
 	 * @return bool
 	 */
 	public function fiscal_field_checker( $valore ) {
@@ -205,19 +227,23 @@ class wcexd_checkout_fields {
 	public function checkout_fields_check() {
 
 		/*PEC e Codice destinatario*/
-		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && $_POST['billing_wcexd_invoice_type'] !== 'private' ) {
-			
+		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && 'private' !== $_POST['billing_wcexd_invoice_type'] && isset( $_POST['billing_country'] ) ) {
+
 			if ( isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
-				
-				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( $_POST['billing_wcexd_pec'] ) : '';
-				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( $_POST['billing_wcexd_pa_code'] ) : '';
 
-				$country = $_POST['billing_country'];
+				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_wcexd_pec'] ) ) : '';
+				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_wcexd_pa_code'] ) ) : '';
 
-				if ( ! $this->only_italy || ( $this->only_italy && 'IT' == $country ) ) {
-					
+				$country = sanitize_text_field( wp_unslash( $_POST['billing_country'] ) );
+
+				if ( ! $this->only_italy || ( $this->only_italy && 'IT' === $country ) ) {
+
 					if ( ! $pec && ! $pa_code ) {
-						wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice destinatario</strong> devono essere compilati.', 'wcexd' ), 'error' );
+						// wc_add_notice( __( 'Il campo <strong>PEC</strong> o il campo <strong>Codice destinatario</strong> devono essere compilati.', 'wcexd' ), 'error' );
+						
+						$code = 'IT' === $country ? '0000000' : 'xxxxxxx';
+
+						wc_add_notice( sprintf( __( 'Non hai inserito <strong>PEC</strong> o <strong>Codice destinatario</strong>, puoi utilizzare il Codice destinatario generico <strong><u>%s</u></strong>.', 'wcexd' ), $code ), 'error' );
 					}
 
 				}
@@ -230,30 +256,18 @@ class wcexd_checkout_fields {
 		if ( get_option( 'wcexd_fields_check' ) ) {
 
 			/*Codice fiscale*/
-			if ( isset( $_POST['billing_wcexd_cf'] ) && $_POST['billing_wcexd_cf'] !== '' && $this->fiscal_field_checker( $_POST['billing_wcexd_cf'] ) === false ) {
+			if ( isset( $_POST['billing_wcexd_cf'] ) && '' !== $_POST['billing_wcexd_cf'] && false === $this->fiscal_field_checker( $_POST['billing_wcexd_cf'] ) ) {
+
 				wc_add_notice( 'ATTENZIONE! Sembra che il <strong>Codice Fiscale</strong> inserito non sia corretto.', 'error' );
+
 			}
 
 			/*Partita IVA*/
-			if ( isset( $_POST['billing_wcexd_invoice_type'] ) && $_POST['billing_wcexd_invoice_type'] === 'company-invoice' ) {
-				if ( isset( $_POST['billing_wcexd_piva'] ) && $_POST['billing_wcexd_piva'] !== '' && $this->fiscal_field_checker( $_POST['billing_wcexd_piva'] ) === false ) {
+			if ( isset( $_POST['billing_wcexd_invoice_type'] ) && 'company-invoice' === $_POST['billing_wcexd_invoice_type'] ) {
+				if ( isset( $_POST['billing_wcexd_piva'] ) && '' !== $_POST['billing_wcexd_piva'] && false === $this->fiscal_field_checker( $_POST['billing_wcexd_piva'] ) ) {
+
 					wc_add_notice( 'ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserito non sia corretta.', 'error' );
-				}
-			}
-		}
-	}
 
-
-	/**
-	 * Inserisci i campi personalizzati nella pagina di checkout
-	 * @param object $checkout
-	 */
-	public function display_fields( $checkout ) {
-
-		if ( $this->custom_fields ) {
-			foreach ( $this->custom_fields as $key => $value ) {
-				if ( isset( $checkout->checkout_fields[ $key ] ) ) {
-					// woocommerce_form_field( $key, array('label' => $value), $checkout->get_value( $key ) );
 				}
 			}
 		}
@@ -262,8 +276,9 @@ class wcexd_checkout_fields {
 
 	/**
 	 * Salva i campi personalizzati
-	 * @param  object $order l'ordine in questione
-	 * @param  array $data  i dati dell'ordine
+	 *
+	 * @param  object $order l'ordine in questione.
+	 * @param  array  $data  i dati dell'ordine.
 	 */
 	public function save_fields( $order, $data ) {
 
@@ -280,7 +295,8 @@ class wcexd_checkout_fields {
 
 	/**
 	 * Visualizza le informazioni personalizzate nella pagina di checkout e in front-end, nell'area profilo dell'utente.
-	 * @param  int $order_id   l'id dell'ordine
+	 *
+	 * @param  int $order_id   l'id dell'ordine.
 	 */
 	public function display_custom_data( $order_id ) {
 
@@ -288,7 +304,7 @@ class wcexd_checkout_fields {
 
 			$order = wc_get_order( $order_id );
 
-			echo '<h2>' . __( 'Dati di fatturazione', 'wcexd' ) . '</h2>';
+			echo '<h2>' . esc_html__( 'Dati di fatturazione', 'wcexd' ) . '</h2>';
 
 			echo '<table class="shop_table shop_table_responsive">';
 				echo '<tbody>';
@@ -311,7 +327,8 @@ class wcexd_checkout_fields {
 
 	/**
 	 * Visualizza le informazioni personalizzate nel back-end dell'ordine
-	 * @param  object $order l'ordine
+	 *
+	 * @param  object $order l'ordine.
 	 */
 	public function display_custom_data_in_admin( $order ) {
 
@@ -322,23 +339,21 @@ class wcexd_checkout_fields {
 					echo '<p><strong>' . esc_html( $value ) . ': </strong><br>' . esc_html( $order->get_meta( '_' . $key ) ) . '</p>';
 				}
 			}
-			
+
 		}
 	}
 
 
 	/**
 	 * Mostra le informaizoni personalizzate nella email di conferma ordine
-	 * @param  array $fields        i campi da restituire
-	 * @param  bool  $sent_to_admin da includere anche nella mail per l'admin, default true
-	 * @param  object $order        l'woocommerce_admin_order_data_after_shipping_address
-	 * @return array                Per motivi di formattazione, restituisco un array vuoto e stampo direttamente i campi con css in linea
+	 *
+	 * @param object $order l'ordine WC.
 	 */
-	public function display_custom_data_in_email( $order, $sent_to_admin, $plain_text, $email ) {
+	public function display_custom_data_in_email( $order ) {
 
 		if ( $this->custom_fields ) {
 
-			echo '<h2>' . __( 'Dati fatturazione', 'wcexd' ) . '</h2>';
+			echo '<h2>' . esc_html__( 'Dati fatturazione', 'wcexd' ) . '</h2>';
 			foreach ( $this->custom_fields as $key => $value ) {
 				if ( $order->get_meta( '_' . $key ) ) {
 					echo '<p style="margin: 0 0 8px;">' . esc_html( $value ) . ': <span style="font-weight: normal;">' . esc_html( $order->get_meta( '_' . $key ) ) . '</span></p>';
@@ -352,58 +367,65 @@ class wcexd_checkout_fields {
 
 	/**
 	 * Aggiunge i campi fiscali del plugin alla pagina profilo dell'utente
-	 * @param  object $user user WP
+	 *
+	 * @param  object $user user WP.
 	 */
 	public function extra_user_profile_fields( $user ) {
 
 		if ( $this->custom_fields ) {
 
-			echo '<h3>' . __( 'Dati di fatturazione', 'wcexd' ) . '</h3>';
+			echo '<h3>' . esc_html__( 'Dati di fatturazione', 'wcexd' ) . '</h3>';
 
-		    echo '<table class="form-table">';
+			echo '<table class="form-table">';
 
-		    	foreach ($this->custom_fields as $key => $value) {
-		
-				    echo '<tr>';
-				        echo '<th><label for="' . esc_attr( $key ) . '">' . esc_html( $value ) . '</label></th>';
-				        echo '<td>';
+				foreach ( $this->custom_fields as $key => $value ) {
+
+					echo '<tr>';
+						echo '<th><label for="' . esc_attr( $key ) . '">' . esc_html( $value ) . '</label></th>';
+						echo '<td>';
 							echo '<input type="text" name="' . esc_attr( $key ) . '" id="' . esc_attr( $key ) . '" value="' . esc_attr( get_the_author_meta( $key, $user->ID ) ) . '" class="regular-text" />';
-				            // echo '<span class="description">' . _e("Please enter your address.") . '</span>';
-				        echo '</td>';
-				    echo '</tr>';
-		
-		    	}
+						echo '</td>';
+					echo '</tr>';
 
-		    echo '</table>';
+				}
+
+			echo '</table>';
 		}
 
 	}
 
 	/**
 	 * Consente di editare i campi fiscali del plugin nella pagina profilo dell'utente
-	 * @param  int $user_id l'id dell'utente WP
+	 *
+	 * @param  int $user_id l'id dell'utente WP.
 	 */
 	public function save_extra_user_profile_fields( $user_id ) {
 
-		if ( !current_user_can( 'edit_user', $user_id ) ) { 
-	        
-	        return false; 
-	    
-	    } else {
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
 
-	    	if ( $this->custom_fields ) {
-	    		
-	    		foreach ($this->custom_fields as $key => $value) {
+			return false;
 
-				    update_user_meta( $user_id, $key, $_POST[ $key ] );
-	    			
-	    		}
+		} else {
 
-	    	}
+			if ( $this->custom_fields ) {
 
-	    }
+				foreach ( $this->custom_fields as $key => $value ) {
+
+					$new_value = isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '';
+
+					if ( $new_value ) {
+
+						update_user_meta( $user_id, $key, $new_value );
+
+					}
+
+				}
+
+			}
+
+		}
 
 	}
 
 }
-new wcexd_checkout_fields();
+new WCEXD_Checkout_Fields();
