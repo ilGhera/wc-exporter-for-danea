@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.9
+ * @version 1.2.0
  */
 
 /*Evito accesso diretto*/
@@ -19,26 +19,29 @@ class WCtoDanea {
 	 */
 	public static function get_orders() {
 
-		$orders_status = get_option( 'wcexd-orders-status' );
-		$query_part = ( $orders_status ) ? "AND ( t2.post_status = '" . $orders_status . "' )" : "";
+		$statuses = get_option( 'wcexd-orders-statuses' );
+		
 
-		global $wpdb;
+		$args = array(
+			'post_type'      => 'shop_order',
+			'posts_per_page' => -1,			
+		);
 
-		$query_str = "
-			SELECT t1.*, t2.*
-			FROM " . $wpdb->prefix . "woocommerce_order_items t1, $wpdb->posts t2
-			WHERE
-			(t1.order_id = t2.ID )
-			" . $query_part . "
-			GROUP BY t2.ID
-			ORDER BY t2.ID
-			DESC 
-			LIMIT 200
-     	";
+		/*Se presente aggiungo lo/ gli stati selezionati dall'admin*/
+		if ( is_array( $statuses ) && ! empty( $statuses ) ) {
 
-		$orders = $wpdb->get_results( $query_str, OBJECT );
+			$args['post_status'] = $statuses;
 
-		return $orders;
+		}
+
+		$orders = get_posts( $args );
+
+		if ( $orders ) {
+
+			return $orders;
+		
+		}
+
 	}
 
 
@@ -128,21 +131,15 @@ class WCtoDanea {
 	 */
 	public static function get_order_items( $order_id ) {
 
-		global $wpdb;
+		$order = new WC_Order( $order_id );
 
-		$query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_items WHERE order_id = $order_id AND order_item_type = 'line_item'";
+		$order_items = $order->get_items();
 
-		$items = $wpdb->get_results( $query, ARRAY_A );
+		if ( $order_items ) {
 
-		$order_items = array();
+			return $order_items;
 
-		foreach ( $items as $item ) {
-
-			array_push( $order_items, $item );
-
-		}
-
-		return $order_items;
+		} 
 
 	}
 

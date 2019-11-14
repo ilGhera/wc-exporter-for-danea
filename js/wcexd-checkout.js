@@ -15,7 +15,7 @@ jQuery(document).ready(function($){
 	var pec             = $('#billing_wcexd_pec_field');
 	var receiver_code   = $('#billing_wcexd_pa_code_field');
 	var billing_country = $('select#billing_country');
-	var cf_abbr         = $('abbr.required', cf);
+	var cf_abbr         = $('label abbr.required', cf);
 
 	/**
 	 * Mostra solo i campi fiscali necessari
@@ -24,14 +24,10 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
-			/*Se in Italia, mostro il codice fiscale*/
+			/*Mostro il codice fiscale*/
 			if( ! cf.hasClass('wcexd-hidden-field') ) {
 				
 				cf.show();
-				
-				/*Mostra asterisco required se in Italia*/
-				$('abbr.required', cf).show();
-
 			}
 		
 			if($(invoice_type).val() === 'private-invoice') {
@@ -59,7 +55,7 @@ jQuery(document).ready(function($){
 				if ( 0 == options.cf_mandatory ) {
 
 					/*Nascondi asterisco required*/
-					$('abbr.required', cf).hide();
+					cf_abbr.hide();
 
 				}
 
@@ -101,9 +97,6 @@ jQuery(document).ready(function($){
 
 			var is_italy = 'IT' === $(billing_country).val() ? true : false;
 
-			console.log('only ITALY: ' + options.only_italy);
-			console.log('only ITALY CF: ' + options.cf_only_italy);
-
 			/*Campi fattura elettronica*/
 			if( 1 == options.only_italy && ! is_italy ) {
 
@@ -124,8 +117,19 @@ jQuery(document).ready(function($){
 
 			} else {
 
-				cf.removeClass('wcexd-hidden-field');		
+				cf.removeClass('wcexd-hidden-field');
 
+				if( ! is_italy ) {
+
+					cf_abbr.hide();
+	
+				} else {
+	
+					/*Mostra asterisco required se in Italia*/
+					cf_abbr.show();
+	
+				}
+				
 			}
 
 		})

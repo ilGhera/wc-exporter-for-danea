@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.9
+ * @version 1.2.0
  */
 class WCEXD_Checkout_Fields {
 

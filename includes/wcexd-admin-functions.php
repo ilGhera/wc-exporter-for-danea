@@ -3,7 +3,7 @@
  * Pagina opzioni/ strumenti
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.1.9
+ * @version 1.2.0
  */
 
 /**
@@ -16,30 +16,11 @@ add_action( 'admin_init', 'wcexd_register_style' );
 
 
 /**
- * Registrzione script necessario al menu di navigazione
- */
-function wcexd_register_js_menu() {
-	wp_register_script( 'wcexd-admin-nav', WCEXD_URI . 'js/wcexd-admin-nav.js', array( 'jquery' ), '1.0', true );
-}
-add_action( 'admin_init', 'wcexd_register_js_menu' );
-
-
-/**
- * Richiamo script necessario al menu di navigazione
- */
-function wcexd_js_menu() {
-	wp_enqueue_script( 'wcexd-admin-nav' );
-}
-add_action( 'admin_menu', 'wcexd_js_menu' );
-
-
-/**
  * Voce di menu
  */
 function wcexd_add_menu() {
-	$wcexd_page = add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', 'wcexd_options' );
 
-	add_action( 'admin_print_scripts-' . $wcexd_page, 'wcexd_js_menu' );
+	$wcexd_page = add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', 'wcexd_options' );
 
 	return $wcexd_page;
 }
@@ -52,9 +33,17 @@ add_action( 'admin_menu', 'wcexd_add_menu' );
 function wcexd_add_scripts() {
 	$screen = get_current_screen();
 	if ( $screen->id === 'woocommerce_page_wc-exporter-for-danea' ) {
+		
+		/*css*/
 		wp_enqueue_style( 'tzcheckbox-style', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.css' );
+		wp_enqueue_style( 'chosen-style', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.min.css' );
+
+		/*js*/
+		wp_enqueue_script( 'wcexd-admin', WCEXD_URI . 'js/wcexd-admin.js', array( 'jquery' ), '1.0' );
 		wp_enqueue_script( 'tzcheckbox', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.js', array( 'jquery' ) );
 		wp_enqueue_script( 'tzcheckbox-script', WCEXD_URI . 'js/tzCheckbox/js/script.js', array( 'jquery' ) );
+		wp_enqueue_script( 'chosen', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.jquery.min.js' );
+
 	}
 }
 add_action( 'admin_enqueue_scripts', 'wcexd_add_scripts' );
@@ -327,7 +316,7 @@ function wcexd_options() {
 				<tr>
 					<th scope="row"><?php echo __( 'Ruolo utente', 'wcexd' ); ?></th>
 					<td>
-						<select class="wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
+						<select class="wcexd wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
 							<?php
 							foreach ( $roles as $key => $value ) {
 								echo '<option value="' . $key . '"' . ( $key === $users_val ? ' selected="selected"' : '' ) . '> ' . __( $value, 'woocommerce' ) . '</option>';
@@ -490,7 +479,7 @@ function wcexd_options() {
 				<tr>
 					<th scope="row"><?php _e( 'Ruolo utente', 'wcexd' ); ?></th>
 					<td>
-						<select class="wcexd-clients" name="wcexd-clients" form="wcexd-clients-submit">
+						<select class="wcexd wcexd-clients" name="wcexd-clients" form="wcexd-clients-submit">
 							<?php
 							foreach ( $roles as $key => $value ) {
 								echo '<option value="' . $key . '"' . ( $key === $clients_val ? ' selected="selected"' : '' ) . '> ' . __( $value, 'woocommerce' ) . '</option>';
@@ -526,10 +515,11 @@ function wcexd_options() {
 		echo '<a href="http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm" target="_blank">http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm</a></p>';
 
 		/*Verifico le impostazioni dell'utente per il feed ordini*/
-		$orders_status = get_option( 'wcexd-orders-status' );
-		if ( isset( $_POST['wcexd-orders-status'] ) ) {
-			$orders_status = $_POST['wcexd-orders-status'];
-			update_option( 'wcexd-orders-status', $orders_status );
+		$orders_statuses = get_option( 'wcexd-orders-statuses' );
+		
+		if ( isset( $_POST['wcexd-orders-sent'] ) ) {
+			$orders_statuses = isset( $_POST['wcexd-orders-statuses'] ) ? $_POST['wcexd-orders-statuses'] : array( 'any' );
+			update_option( 'wcexd-orders-statuses', $orders_statuses );
 		}
 
 		$wcexd_orders_tax_name = get_option( 'wcexd-orders-tax-name' );
@@ -557,13 +547,12 @@ function wcexd_options() {
 				<tr>
 					<th scope="row"><?php echo __( 'Stato ordini', 'wcexd' ); ?></th>
 					<td>
-						<select form="wcexd-orders" name="wcexd-orders-status">
-							<option name="all" value=""<?php echo( $orders_status == null ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Tutti', 'wcexd' ); ?></option>
+						<select form="wcexd-orders" class="wcexd" name="wcexd-orders-statuses[]" multiple data-placeholder="<?php echo __( 'Tutti gli ordini', 'wcexd' ); ?>">
 							<?php
 							$statuses = wc_get_order_statuses();
 							foreach ( $statuses as $key => $value ) {
 								echo '<option name="' . $key . '" value="' . $key . '"';
-								echo ( $orders_status == $key ) ? ' selected="selected">' : '>';
+								echo ( in_array( $key, $orders_statuses ) ) ? ' selected="selected">' : '>';
 								echo __( $value, 'wcexd' ) . '</option>';
 							}
 							?>
