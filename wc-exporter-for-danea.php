@@ -35,7 +35,7 @@ function load_wc_exporter_for_danea() {
 	include( WCEXD_INCLUDES . 'wcexd-functions.php');
 	include( WCEXD_INCLUDES . 'wcexd-suppliers-download.php');
 	include( WCEXD_INCLUDES . 'wcexd-products-download.php');
-	require( WCEXD_INCLUDES . '/wcexd-checkout-fields.php');
+	require( WCEXD_INCLUDES . '/class-wcexd-checkout-fields.php');
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea', 100 );	

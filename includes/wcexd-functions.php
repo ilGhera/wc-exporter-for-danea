@@ -381,3 +381,5 @@ class WCtoDanea {
 
 		}
 	}
+
+}
