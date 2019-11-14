@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 /*Evito accesso diretto*/
@@ -19,7 +19,7 @@ class WCtoDanea {
 	 */
 	public static function get_orders() {
 
-		$statuses = get_option( 'wcexd-orders-statuses' );
+		$statuses = get_option( 'wcexd-orders-statuses' ) ? get_option( 'wcexd-orders-statuses' ) : array( 'any' );
 		
 
 		$args = array(
@@ -131,15 +131,19 @@ class WCtoDanea {
 	 */
 	public static function get_order_items( $order_id ) {
 
+		$output = array();
+
 		$order = new WC_Order( $order_id );
 
 		$order_items = $order->get_items();
 
-		if ( $order_items ) {
+		if ( is_array( $order_items ) ) {
 
-			return $order_items;
+			$output = $order_items;
 
 		} 
+
+		return $output;
 
 	}
 

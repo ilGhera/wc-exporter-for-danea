@@ -3,7 +3,7 @@
  * Pagina opzioni/ strumenti
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 /**
@@ -515,8 +515,7 @@ function wcexd_options() {
 		echo '<a href="http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm" target="_blank">http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm</a></p>';
 
 		/*Verifico le impostazioni dell'utente per il feed ordini*/
-		$orders_statuses = get_option( 'wcexd-orders-statuses' );
-		
+		$orders_statuses = get_option( 'wcexd-orders-statuses' ) ? get_option( 'wcexd-orders-statuses' ) : array( 'any' );
 		if ( isset( $_POST['wcexd-orders-sent'] ) ) {
 			$orders_statuses = isset( $_POST['wcexd-orders-statuses'] ) ? $_POST['wcexd-orders-statuses'] : array( 'any' );
 			update_option( 'wcexd-orders-statuses', $orders_statuses );

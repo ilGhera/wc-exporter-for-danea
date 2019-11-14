@@ -3,7 +3,7 @@
  * Esportazione degli ordini
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 /*Creazione feed per prodotti e ordini*/
@@ -32,16 +32,19 @@ function addOrdersFeed() {
 
 	$orders = WCtoDanea::get_orders();
 
-	$include_tax = get_option('woocommerce_prices_include_tax');
-		
-	foreach($orders as $order) { 
-		if($order->post_status != 'trash') {
+	if ( is_array( $orders ) && ! empty( $orders ) ) {
+
+		$include_tax = get_option('woocommerce_prices_include_tax');
 			
-			/*Richiamo il singolo "document"*/
-			require( 'wcexd-single-order.php');
+		foreach($orders as $order) { 
+			if($order->post_status != 'trash') {
+				
+				/*Richiamo il singolo "document"*/
+				require( 'wcexd-single-order.php');
+			}
 		}
+		
 	}
-	
 	echo "\n</Documents>\n";
 	echo"</EasyfattDocuments>";
 }

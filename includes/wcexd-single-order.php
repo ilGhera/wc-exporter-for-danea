@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.2.0
+ * @version 1.2.1
  */
 
 $order = new WC_Order( $order );
@@ -139,8 +139,7 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   } ?>
     <Row>
       <Code><?php echo $product_id; ?></Code>
-<?php $item_product = $item->get_product(); ?>
-      <Description><?php echo esc_html($item_product->get_title()); ?></Description>
+      <Description><?php echo esc_html($item['name']); ?></Description>
 <?php echo $size; ?>
 <?php echo $color; ?>
       <Qty><?php echo WCtoDanea::item_info($item->get_id(), '_qty'); ?></Qty>
