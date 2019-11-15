@@ -133,7 +133,7 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   }
 
   $cart_discount = false;
-  if($item_get_subtotal != $item_get_total) {
+  if( $item_get_subtotal && $item_get_subtotal != $item_get_total) {
     $cart_discount = number_format( (($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 2);
     $discount = ($item_discount) ? $item_discount . '+' . $cart_discount . '%' : $cart_discount . '%';
   } ?>
