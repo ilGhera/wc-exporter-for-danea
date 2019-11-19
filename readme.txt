@@ -1,7 +1,7 @@
 === Woocommerce Exporter for Danea - Premium ===
 Contributors: ghera74
 Tags: Woocommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products, fattura elettronica, gestionale
-Version: 1.2.1
+Version: 1.2.2
 Requires at least: 4.0
 Tested up to: 5.3
 
@@ -41,6 +41,12 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 
 == Changelog ==
+
+= 1.2.2 =
+Release Date: 19 November, 2019
+
+* Bug Fix: "PHP Fatal error: Allowed memory size..." in some cases on exporting orders
+
 
 = 1.2.1 =
 Release Date: 15 November, 2019
