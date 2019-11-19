@@ -24,7 +24,7 @@ class WCtoDanea {
 
 		$args = array(
 			'post_type'      => 'shop_order',
-			'posts_per_page' => -1,			
+			'posts_per_page' => 150,			
 		);
 
 		/*Se presente aggiungo lo/ gli stati selezionati dall'admin*/
