@@ -25,9 +25,9 @@ Ecco il dettaglio dei contenuti che è possibile esportare:
 
 **Pronto per l'Obbligo di  Fatturazione Elettronica 2019**
 
-* Possibilità di attivare i campi Codice Fiscale e P.IVA
-* Controllo validità campi Codice Fiscale e P.IVA
-* Possibilità di attivare i campi PEC e Codice Ricevente, necessari per la fattura elettronica
+* (Premium) Possibilità di esportare ordini con stato differente
+* Possibilità di disattivare il codice fiscale per gli acquisti esteri
+* Nel caso in cui l'utente non inserisca PEC e Codice Destinatario, il sistema suggerisce ora il Codice destinatario generico 
 
 Fatturazione elettronica con Danea Easyfatt
 
@@ -43,10 +43,9 @@ With Premium version, you'll be able also to export clients and orders.
 
 **NEW ON THIS VERSION**
 
-* Fiscal code and P.IVA fields are now available width a dedicated option
-* Fiscal code and P.IVA fields validation tool.
-* PEC and Receiver code fields are now available, ready for the Italian eletronic invoice
-
+* (Premium) Multiselect for exporting orders with different statuses
+* Option to deactivate fiscal code outside Italy
+* Generic recipient code suggested in case of empty fields
 
 == Installation ==
 From your WordPress dashboard
