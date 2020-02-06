@@ -50,20 +50,20 @@ With Premium version, you'll be able also to export clients and orders.
 
 == Installation ==
 From your WordPress dashboard
-<ul>
-<li>Visit 'Plugins > Add New'</li>
-<li>Search for 'Woocommerce Exporter for Danea' and download it.</li>
-<li>Activate Woocommerce Exporter for Danea from your Plugins page.</li>
-<li>Once Activated, go to Woocommerce/ Woocommerce Exporter for Danea.</li>
-</ul>
+
+* Visit 'Plugins > Add New'
+* Search for 'Woocommerce Exporter for Danea' and download it.
+* Activate Woocommerce Exporter for Danea from your Plugins page.
+* Once Activated, go to Woocommerce/ Woocommerce Exporter for Danea.
+
 
 From WordPress.org
-<ul>
-<li>Download Woocommerce Exporter for Danea</li>
-<li>Upload the 'woocommerce-exporter-for-danea' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)</li>
-<li>Activate Woocommerce Exporter for Danea from your Plugins page.</li>
-<li>Once Activated, go to Woocommerce/ Woocommerce Exporter for Danea.</li>
-</ul>
+
+* Download Woocommerce Exporter for Danea
+* Upload the 'woocommerce-exporter-for-danea' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
+* Activate Woocommerce Exporter for Danea from your Plugins page.
+* Once Activated, go to Woocommerce/ Woocommerce Exporter for Danea.
+
 
 == Screenshots ==
 1. Activate custom checkout fields
@@ -75,14 +75,13 @@ From WordPress.org
 == Changelog ==
 
 = 1.2.0 =
-Release Date: 14 November, 2019
+Release Date: 6 February, 2020
 
 * Enhancement: (Premium) Multiselect for exporting orders with different statuses
 * Enhancement: Option to deactivate fiscal code outside Italy
 * Enhancement: Generic recipient code suggested in case of empty fields
 * Enhancement: Code improvements
 * Bug Fix: Billing company not mandatory with company invoice selected
-* Bug Fix: Sub-categories not fully exported in download products
 
 
 = 1.1.6.1 =
