@@ -3,7 +3,7 @@
  * Template csv prodotti
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @version 1.0.0
+ * @since 1.0.0
  */
 
 add_action('admin_init', 'wcexd_products_download');
