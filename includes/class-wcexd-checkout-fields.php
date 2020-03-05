@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.2.0
+ * @since 1.2.3
  */
 class WCEXD_Checkout_Fields {
 
@@ -182,19 +182,26 @@ class WCEXD_Checkout_Fields {
 
 			/*Codice fiscale non obbligatorio fuori dall'Italia*/
 			if ( isset( $_POST['billing_country'] ) && 'IT' !== $_POST['billing_country'] ) {
-				
+
 				$fields['billing']['billing_wcexd_cf']['required'] = false;
 
 			}
 
-			if ( ! isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
-			
-				$fields['billing']['billing_wcexd_pa_code']['required'] = true;
-			
-			} elseif ( isset( $this->custom_fields['billing_wcexd_pec'] ) && ! isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
-			
-				$fields['billing']['billing_wcexd_pec']['required'] = true;
-			
+			/*Rendo obbligatorio cf e p. iva ed azienda solo quando richiesto*/
+			if ( isset( $_POST['billing_wcexd_invoice_type'] ) ) {
+
+				if ( 'private' !== $_POST['billing_wcexd_invoice_type'] ) {
+
+					if ( ! isset( $this->custom_fields['billing_wcexd_pec'] ) && isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
+
+						$fields['billing']['billing_wcexd_pa_code']['required'] = true;
+
+					} elseif ( isset( $this->custom_fields['billing_wcexd_pec'] ) && ! isset( $this->custom_fields['billing_wcexd_pa_code'] ) ) {
+
+						$fields['billing']['billing_wcexd_pec']['required'] = true;
+
+					}
+				}
 			}
 		}
 

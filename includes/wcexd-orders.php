@@ -3,7 +3,7 @@
  * Esportazione degli ordini
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @version 1.2.1
+ * @since 1.2.1
  */
 
 /*Creazione feed per prodotti e ordini*/

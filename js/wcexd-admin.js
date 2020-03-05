@@ -3,7 +3,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/js
- * @version 1.2.0
+ * @since 1.2.0
  */
 
 var wcexdAdminController = function() {
