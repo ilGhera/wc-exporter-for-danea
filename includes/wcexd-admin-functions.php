@@ -475,7 +475,6 @@ function wcexd_options() {
 	<div id="wcexd-ordini" class="wcexd-admin">
 		<?php
 		/*Header form ordini*/
-<<<<<<< HEAD
 		echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco ordini Woocommerce', 'wcexd' ) . "</h3>"; 
 		echo "<p>" . __( 'L\'importazione degli ordini in Danea avviene attraverso l\'utilizzo di un file xml. ', 'wcexd' );
 		echo "<ul class=\"wcexd\">";
@@ -498,62 +497,6 @@ function wcexd_options() {
 				    	<p class="description"><?php echo __('Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd'); ?></p>
 			    	</td>
 			    </tr>
-=======
-		echo '<h3 class="wcexd">' . __( 'Esportazione elenco ordini Woocommerce', 'wcexd' ) . '</h3>';
-		echo '<p>' . __( 'L\'importazione degli ordini in Danea avviene attraverso l\'utilizzo di un file xml. ', 'wcexd' );
-		echo '<ul class="wcexd">';
-		echo '<li>' . __( 'Copia l\'indirizzo completo del tuo feed con l\'elenco ordini Woocommerce aggiornato.', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'In Danea, scegli "Scarica ordini" dal menù "Strumenti/ E-commerce"', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'Nella finestra seguente, incolla l\'indirizzo del tuo elenco ordini in in "Impostazioni/ Indirizzo..."', 'wcexd' ) . '</li><ul>';
-		echo '<p>' . __( 'Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . '</p>';
-		echo '<a href="http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm" target="_blank">http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm</a></p>';
-
-		/*Verifico le impostazioni dell'utente per il feed ordini*/
-		$orders_statuses = get_option( 'wcexd-orders-statuses' ) ? get_option( 'wcexd-orders-statuses' ) : array( 'any' );
-		if ( isset( $_POST['wcexd-orders-sent'] ) ) {
-			$orders_statuses = isset( $_POST['wcexd-orders-statuses'] ) ? $_POST['wcexd-orders-statuses'] : array( 'any' );
-			update_option( 'wcexd-orders-statuses', $orders_statuses );
-		}
-
-		$wcexd_orders_tax_name = get_option( 'wcexd-orders-tax-name' );
-		if ( isset( $_POST['wcexd-orders-sent'] ) ) {
-			$wcexd_orders_tax_name = isset( $_POST['wcexd-orders-tax-name'] ) ? $_POST['wcexd-orders-tax-name'] : 0;
-			update_option( 'wcexd-orders-tax-name', $wcexd_orders_tax_name );
-		}
-		?>
-		
-		<form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
-			<table class="form-table">
-				<?php
-				$premium_key = strtolower( get_option( 'wcexd-premium-key' ) );
-				$url_code = get_option( 'wcexd-url-code' );
-				if ( ! $url_code ) {
-					$url_code = wcexd_rand_md5( 6 );
-					add_option( 'wcexd-url-code', $url_code );
-				}
-
-				$receive_orders_url = __( 'Please insert your <strong>Premium Key</strong>', 'wcexd' );
-				if ( $premium_key ) {
-					$receive_orders_url = home_url() . '/' . $premium_key . $url_code;
-				}
-				?>
-				<tr>
-					<th scope="row"><?php echo __( 'Stato ordini', 'wcexd' ); ?></th>
-					<td>
-						<select form="wcexd-orders" class="wcexd" name="wcexd-orders-statuses[]" multiple data-placeholder="<?php echo __( 'Tutti gli ordini', 'wcexd' ); ?>">
-							<?php
-							$statuses = wc_get_order_statuses();
-							foreach ( $statuses as $key => $value ) {
-								echo '<option name="' . $key . '" value="' . $key . '"';
-								echo ( in_array( $key, $orders_statuses ) ) ? ' selected="selected">' : '>';
-								echo __( $value, 'wcexd' ) . '</option>';
-							}
-							?>
-						</select>
-						<p class="description"><?php echo __( 'Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd' ); ?></p>
-					</td>
-				</tr>
->>>>>>> master
 				<tr>
 					<th scope="row"><?php echo __( 'Nome imposta', 'wcexd' ); ?></th>
 					<td>
