@@ -2,7 +2,7 @@
  * Gestisce la visualizzazione dei campi fiscali in base al tipo di fattura selezionato
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/js
- * @since 1.1.9.1
+ * @since 1.2.3
  */
 jQuery(document).ready(function($){
 
@@ -32,8 +32,11 @@ jQuery(document).ready(function($){
 		
 			if($(invoice_type).val() === 'private-invoice') {
 				
+				if ( null != company_req ) {
+					company_req.hide();
+				}
+
 				company.show();
-				company_req.hide();
 				company_opt.show();
 
 				p_iva.hide();
@@ -42,7 +45,7 @@ jQuery(document).ready(function($){
 					pec.show();
 					receiver_code.show();					
 				}
-			
+
 			} else if($(invoice_type).val() === 'private') {
 				
 				company.hide();
@@ -50,8 +53,6 @@ jQuery(document).ready(function($){
 				pec.hide();
 				receiver_code.hide();
 				
-				console.log('mand: ' + options.cf_mandatory);
-
 				if ( 0 == options.cf_mandatory ) {
 
 					/*Nascondi asterisco required*/
