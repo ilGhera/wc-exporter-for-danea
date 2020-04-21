@@ -2,7 +2,7 @@
  * Gestisce la visualizzazione dei campi fiscali in base al tipo di fattura selezionato
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/js
- * @since 1.2.3
+ * @since 1.2.4
  */
 jQuery(document).ready(function($){
 
@@ -14,7 +14,7 @@ jQuery(document).ready(function($){
 	var p_iva 		    = $('#billing_wcexd_piva_field');
 	var pec             = $('#billing_wcexd_pec_field');
 	var receiver_code   = $('#billing_wcexd_pa_code_field');
-	var billing_country = $('select#billing_country');
+	var billing_country = $('#billing_country');
 	var cf_abbr         = $('label abbr.required', cf);
 
 	/**
