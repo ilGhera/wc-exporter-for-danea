@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.1
+ * @since 1.2.5
  */
 
 $order = new WC_Order( $order );
@@ -44,7 +44,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <DeliveryPostcode><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_postcode'); ?></DeliveryPostcode>
   <DeliveryCity><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_city'); ?></DeliveryCity>
   <DeliveryProvince><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_state'); ?></DeliveryProvince>
-  <DeliveryCountry><?php echo WCtoDanea::get_country($order->get_id(), true); ?></DeliveryCountry>
+  <DeliveryCountry><?php echo WCtoDanea::get_country($order->get_id(), false, true); ?></DeliveryCountry>
   <DeliveryTel></DeliveryTel>
   <DeliveryCellPhone></DeliveryCellPhone>
   <Date><?php echo $newDate; ?></Date>

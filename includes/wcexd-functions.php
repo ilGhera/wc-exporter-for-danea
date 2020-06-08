@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.2
+ * @since 1.2.5
  */
 
 /*Evito accesso diretto*/
@@ -60,23 +60,25 @@ class WCtoDanea {
 
 
 	/**
-	 * Restiruisce il nome della nazione dell'ordine relativa al cliente o alla spedizione
+	 * Restiruisce il nome o il codice ISO della nazione dell'ordine relativa al cliente o alla spedizione
 	 *
 	 * @param  int     $order_id l'id dell'ordine.
+	 * @param  boolean $name     true per il nome completo dello stato.
 	 * @param  boolean $delivery paese di spedizione se true.
 	 * @return string
 	 */
-	public static function get_country( $order_id, $delivery = false ) {
+	public static function get_country( $order_id, $name = false, $delivery = false ) {
 
 		$country = $delivery ? self::order_details( $order_id, '_shipping_country' ) : self::order_details( $order_id, '_billing_country' );
 
-		if ( isset( WC()->countries->countries[ $country ] ) ) {
+		if ( ! $name ) {
+			
+			return $country;
+
+		} elseif ( isset( WC()->countries->countries[ $country ] ) ) {
 
 			return WC()->countries->countries[ $country ];
 
-		} else {
-
-			return $country;
 		}
 
 	}
