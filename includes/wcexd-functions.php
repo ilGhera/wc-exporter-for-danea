@@ -87,6 +87,7 @@ class WCtoDanea {
 	/**
 	 * Recupero il valore dell'iva
 	 *
+	 * @deprecated [<version>] [<description>] // temp.
 	 * @param  int    $product_id l'id del prodotto.
 	 * @param  string $type       il tipo di dato da restituire, nome o aliquota.
 	 * @return mixed
@@ -103,7 +104,7 @@ class WCtoDanea {
 
 		if ( 'taxable' == $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
 
-			/*Valore nullo con iva al 22, controllo necessario in caso di varizione di rodotto*/
+			/*Valore nullo con iva al 22, controllo necessario in caso di varizione di prodotto*/
 			$tax_class = $tax_status ? get_post_meta( $product_id, '_tax_class', true ) : get_post_meta( $parent_id, '_tax_class', true );
 
 			if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
@@ -121,6 +122,64 @@ class WCtoDanea {
 		}
 
 		return $output;
+
+	}
+
+
+	/**
+	 * Get the order tax items
+	 *
+	 * @param  object $order the WC order.		
+	 * @return array
+	 */
+	public static function get_order_tax_items( $order ) {
+
+		$output = array();
+
+		foreach ( $order->get_items( 'tax' ) as $tax_item ) {
+
+		    $output[ $tax_item->get_rate_id() ] = array(
+		    	'label'   => $tax_item->get_label(),
+		    	'percent' => $tax_item->get_rate_percent(),
+		    );
+		}
+
+		return $output;
+
+	}
+
+	
+	/**
+	 * Get item vat percentage or label
+	 *
+	 * @param  object $order the wc order.
+	 * @param  object $item  the specific order utem.
+	 * @return string
+	 */
+	public static function get_item_tax_rate( $order, $item ) {
+
+		$output    = null;
+		$use_label = get_option('wcexd-orders-tax-name');
+		$tax_items = self::get_order_tax_items($order);
+
+		$taxes = $item->get_taxes();
+
+		foreach( $taxes['subtotal'] as $rate_id => $tax ){
+
+			if ( $use_label ) {
+
+				$output   = $tax_items[ $rate_id ]['label'];
+
+			} else {
+
+				$output = $tax_items[ $rate_id ]['percent'];
+
+			}
+
+			return $output;
+		}
+
+
 
 	}
 
