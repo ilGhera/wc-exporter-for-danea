@@ -20,6 +20,13 @@ $pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
 $pec_name     = '_' . WCtoDanea::get_italian_tax_fields_names('pec_name');
 $pa_code_name = '_' . WCtoDanea::get_italian_tax_fields_names('pa_code_name');
 
+/*Recupero i campi fiscali*/
+$cf      = WCtoDanea::order_details($order->get_id(), $cf_name);
+$pi      = is_numeric( WCtoDanea::order_details($order->get_id(), $pi_name) ) ? WCtoDanea::order_details($order->get_id(), $pi_name) : null;
+$pec     = ! is_numeric( WCtoDanea::order_details($order->get_id(), $pec_name) ) ? WCtoDanea::order_details($order->get_id(), $pec_name) : null;
+$pa_code = is_numeric( WCtoDanea::order_details($order->get_id(), $pia_code_name) ) ? WCtoDanea::order_details($order->get_id(), $pia_code_name) : null;
+
+
 /*Definisco il destinatario per la fattura elettronica*/
 $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) ? WCtoDanea::order_details($order->get_id(), $pa_code_name) : WCtoDanea::order_details($order->get_id(), $pec_name);
 ?>
@@ -33,8 +40,8 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <CustomerCity><?php echo WCtoDanea::order_details($order->get_id(), '_billing_city'); ?></CustomerCity>
   <CustomerProvince><?php echo WCtoDanea::order_details($order->get_id(), '_billing_state'); ?></CustomerProvince>
   <CustomerCountry><?php echo WCtoDanea::get_country($order->get_id()); ?></CustomerCountry>
-  <CustomerVatCode><?php echo WCtoDanea::order_details($order->get_id(), $pi_name); ?></CustomerVatCode>
-  <CustomerFiscalCode><?php echo WCtoDanea::order_details($order->get_id(), $cf_name); ?></CustomerFiscalCode>
+  <CustomerVatCode><?php echo $pi; ?></CustomerVatCode>
+  <CustomerFiscalCode><?php echo $cf; ?></CustomerFiscalCode>
   <CustomerEInvoiceDestCode><?php echo $e_invoice_receiver; ?></CustomerEInvoiceDestCode>
   <CustomerTel><?php echo WCtoDanea::order_details($order->get_id(), '_billing_phone'); ?></CustomerTel>
   <CustomerCellPhone></CustomerCellPhone>
