@@ -87,7 +87,7 @@ class WCtoDanea {
 	/**
 	 * Recupero il valore dell'iva
 	 *
-	 * @deprecated [<version>] [<description>] // temp.
+	 * @deprecated 1.2.5 unused.
 	 * @param  int    $product_id l'id del prodotto.
 	 * @param  string $type       il tipo di dato da restituire, nome o aliquota.
 	 * @return mixed
