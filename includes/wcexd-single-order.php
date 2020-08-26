@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.5
+ * @since 1.2.6
  */
 
 $order = new WC_Order( $order );
@@ -73,7 +73,7 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   <SalesAgent></SalesAgent>
   <Rows>
   <?php
-  $items     = WCtoDanea::get_order_items($order->get_id());
+  $items = WCtoDanea::get_order_items($order->get_id());
 
   foreach($items as $item) {
 
@@ -116,7 +116,6 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   $item_get_total = WCtoDanea::item_info($item->get_id(), '_line_total');
   $item_get_tax = WCtoDanea::item_info($item->get_id(), '_line_tax');
   $item_discount = wc_get_order_item_meta($item->get_id(), '_wcexd_item_discount');
-  // $tax_rate = get_option('wcexd-orders-tax-name') == 1 ? WCtoDanea::get_tax_rate($item_id, 'name') : WCtoDanea::get_tax_rate($item_id);
   $tax_rate = WCtoDanea::get_item_tax_rate($order, $item);
   $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item->get_id(), '_qty'), 2);
     
