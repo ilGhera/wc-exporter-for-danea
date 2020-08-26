@@ -471,6 +471,14 @@ class WCtoDanea {
 				$pi_name = 'billing_iva';
 			}
 
+			/*WooCommerce Italian Add-on Plus*/
+			elseif ( class_exists( 'WooCommerce_Italian_add_on_plus' ) ) {
+				$cf_name      = 'billing_cf';
+				$pi_name      = 'billing_cf'; // temp.
+				$pec_name     = 'billing_PEC';
+				$pa_code_name = 'billing_PEC';
+
+			}
 
 		}
 
