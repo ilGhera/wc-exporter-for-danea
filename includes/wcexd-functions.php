@@ -17,6 +17,7 @@ class WCtoDanea {
 	/**
 	 * Recupero il valore dell'iva
 	 *
+	 * @deprecated 1.2.5 unused.
 	 * @param  int    $product_id l'id del prodotto.
 	 * @param  string $type       il tipo di dato da restituire, nome o aliquota.
 	 * @return mixed
@@ -33,7 +34,7 @@ class WCtoDanea {
 
 		if ( 'taxable' == $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
 
-			/*Valore nullo con iva al 22, controllo necessario in caso di varizione di rodotto*/
+			/*Valore nullo con iva al 22, controllo necessario in caso di varizione di prodotto*/
 			$tax_class = $tax_status ? get_post_meta( $product_id, '_tax_class', true ) : get_post_meta( $parent_id, '_tax_class', true );
 
 			if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
@@ -268,6 +269,14 @@ class WCtoDanea {
 				$pi_name = 'billing_iva';
 			}
 
+			/*WooCommerce Italian Add-on Plus*/
+			elseif ( class_exists( 'WooCommerce_Italian_add_on_plus' ) ) {
+				$cf_name      = 'billing_cf';
+				$pi_name      = 'billing_cf'; // temp.
+				$pec_name     = 'billing_PEC';
+				$pa_code_name = 'billing_PEC';
+
+			}
 
 		}
 
