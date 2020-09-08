@@ -75,6 +75,7 @@ From WordPress.org
 = 1.2.2 =
 Release Date: 08 September, 2020
 
+* Enhancement: WooCommerce Italian Add-on Plus plugin in now supported
 * Bug fix: Receiver code and PEC not set to mandatory when used individually
 
 
