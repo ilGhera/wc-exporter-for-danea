@@ -2,7 +2,7 @@
  * Gestisce la visualizzazione dei campi fiscali in base al tipo di fattura selezionato
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/js
- * @since 1.2.4
+ * @since 1.2.7
  */
 jQuery(document).ready(function($){
 
@@ -16,6 +16,41 @@ jQuery(document).ready(function($){
 	var receiver_code   = $('#billing_wcexd_pa_code_field');
 	var billing_country = $('#billing_country');
 	var cf_abbr         = $('label abbr.required', cf);
+
+
+	/**
+	 * Modifica l'obbligatorietà dei campi PEC e Codice destinatario in base ai campi attivati dall'admin
+	 *
+	 * @return {void}
+	 */
+	var check_pec_code_mandatory = function() {
+
+		jQuery(function($){
+
+			if ( 1 > $(pec).length ) {
+
+				$('.optional', receiver_code).hide(); 
+
+				if ( ! $('label abbr', receiver_code).hasClass('required') ) {
+
+					$('label', receiver_code).append('<abbr class="required">*</abbr>');
+				}
+
+			} else if ( 1 > $(receiver_code).length ) {
+
+				$('.optional', pec).hide(); 
+
+				if ( ! $('label abbr', pec).hasClass('required') ) {
+
+					$('label', pec).append('<abbr class="required">*</abbr>');
+
+				}
+			
+			}
+
+		})
+
+	}
 
 	/**
 	 * Mostra solo i campi fiscali necessari
@@ -43,7 +78,9 @@ jQuery(document).ready(function($){
 
 				if( ! pec.hasClass('wcexd-hidden-field') ) {
 					pec.show();
-					receiver_code.show();					
+					receiver_code.show();
+
+					check_pec_code_mandatory();				
 				}
 
 			} else if($(invoice_type).val() === 'private') {
@@ -81,6 +118,9 @@ jQuery(document).ready(function($){
 				if( ! pec.hasClass('wcexd-hidden-field') ) {
 					pec.show();
 					receiver_code.show();
+
+					check_pec_code_mandatory();
+
 				}
 			
 			}
