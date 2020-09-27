@@ -3,7 +3,7 @@
  * Template csv prodotti
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.0.1
+ * @since 1.2.8
  */
 
 add_action('admin_init', 'wcexd_products_download');
@@ -117,12 +117,17 @@ function wcexd_products_download() {
 						$denominazione = $supplier_name;
 					}					
 				}
-				
+
+				$regular_price = null;
+				$sale_price    = null;
+					
 				/*Scorporo iva*/
 				if(get_option('woocommerce_prices_include_tax') == 'yes') {
-					$get_price = $product->get_price();
+					$get_regular_price = $product->get_regular_price()/ ( 1 + ( WCtoDanea::get_tax_rate($product->get_id())/ 100 ) );
+					$get_sale_price    = $product->get_sale_price()/ ( 1 + ( WCtoDanea::get_tax_rate($product->get_id())/ 100 ) );
 				} else {
-					$get_price = $product->get_price()/ ( 1 + ( WCtoDanea::get_tax_rate($product->get_id())/ 100 ) );
+					$get_regular_price = $product->get_regular_price();
+					$get_sale_price    = $product->get_sale_price();
 				}
 				
 				/*Articolo con gestione magazzino o meno*/
@@ -134,8 +139,13 @@ function wcexd_products_download() {
 				}
 
 				/*Trasformo il formato del prezzo*/
-				$price = round($get_price, 2);
-				$prezzo = str_replace('.', ',', $price);
+				$regular_price = round($get_regular_price, 2);
+				$regular_price = str_replace('.', ',', $regular_price);
+
+				if ( $get_sale_price ) {
+					$sale_price = round($get_sale_price, 2);
+					$sale_price = str_replace('.', ',', $sale_price);
+				}
 
 
 				/*Pesi e misure*/
@@ -178,7 +188,7 @@ function wcexd_products_download() {
 				$tax_rate = $wcexd_products_tax_name == 1 ? WCtoDanea::get_tax_rate($product->get_id(), 'name') : WCtoDanea::get_tax_rate($product->get_id());
 				
 				$data = array($product_id, $product->get_title(), $product_type, $product_category['cat'],$product_category['sub'],'', $tax_rate, 
-				$prezzo, '','','','','', WCtoDanea::get_product_notes(),'','', '',$product->get_description(),'','','','','', $id_fornitore, $denominazione,'','','','','','','','','', 
+				$regular_price, $sale_price,'','','','', WCtoDanea::get_product_notes(),'','', '',$product->get_description(),'','','','','', $id_fornitore, $denominazione,'','','','','','','','','', 
 				$product->get_stock_quantity(),'','','','','','','','','','','','','',$size_unit,$net_width,$net_height,$net_length,'',$gross_width,$gross_height,$gross_length,'',$weight_unit,$net_weight,$gross_weight,'');	
 				fputcsv($fp, $data);
 
