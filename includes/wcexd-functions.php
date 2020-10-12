@@ -543,14 +543,18 @@ class WCtoDanea {
 
 			$var_attributes = array();
 
-			foreach ( $attributes as $key => $value ) {
-				$meta = 'attribute_' . $key;
-				$meta_val = get_post_meta( get_the_ID(), $meta, true );
+			if ( is_array( $attributes ) ) {
 
-				if ( $meta_val ) {
-					$name = $value['name'];
-					$var_attributes[ $name ] = $meta_val;
+				foreach ( $attributes as $key => $value ) {
+					$meta = 'attribute_' . $key;
+					$meta_val = get_post_meta( get_the_ID(), $meta, true );
+
+					if ( $meta_val ) {
+						$name = $value['name'];
+						$var_attributes[ $name ] = $meta_val;
+					}
 				}
+
 			}
 
 			$output['var_attributes'] = $var_attributes;
@@ -573,15 +577,28 @@ class WCtoDanea {
 
 				$get_attributes = get_post_meta( get_the_ID(), '_product_attributes', true );
 
-				if ( $get_attributes ) {
+				if ( is_array( $get_attributes ) ) {
 
 					$attributes = array();
 
 					foreach ( $get_attributes as $key => $value ) {
 
-						$terms = wp_get_object_terms( get_the_ID(), $key, array( 'fields' => 'slugs' ) );
-						$attributes[ $key ] = $terms;
+						if ( isset( $value['is_taxonomy'] ) && 1 == $value['is_taxonomy']  ) {
 
+							$terms = wp_get_object_terms( get_the_ID(), $key, array( 'fields' => 'slugs' ) );
+
+						} elseif ( isset( $value['value'] ) && null != $value['value'] ) {
+							
+							$terms = explode( ' | ' , $value['value'] );
+
+						}
+
+						if ( ! is_wp_error( $terms ) ) {
+
+							$attributes[ $key ] = $terms;
+
+						}
+						
 					}
 
 					$output['attributes'] = $attributes;
