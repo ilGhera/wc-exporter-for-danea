@@ -215,9 +215,6 @@ function wcexd_products_download() {
 				$get_regular_price = $product->get_regular_price();
 				$get_sale_price    = $product->get_sale_price();
 
-				error_log( '$get_regular_price: ' . $get_regular_price );
-				error_log( 'Include: ' . get_option( 'woocommerce_prices_include_tax' ) );
-
 				/*Scorporo iva*/
 				if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
 

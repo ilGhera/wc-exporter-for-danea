@@ -158,7 +158,7 @@ class WCtoDanea {
 	 */
 	public static function get_item_tax_rate( $order, $item ) {
 
-		$output        = 'FC';
+		$output = 'FC';
 
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 			
