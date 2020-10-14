@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.6
+ * @since 1.2.9
  */
 
 $order = new WC_Order( $order );
@@ -24,7 +24,7 @@ $pa_code_name = '_' . WCtoDanea::get_italian_tax_fields_names('pa_code_name');
 $cf      = WCtoDanea::order_details($order->get_id(), $cf_name);
 $pi      = is_numeric( WCtoDanea::order_details($order->get_id(), $pi_name) ) ? WCtoDanea::order_details($order->get_id(), $pi_name) : null;
 $pec     = ! is_numeric( WCtoDanea::order_details($order->get_id(), $pec_name) ) ? WCtoDanea::order_details($order->get_id(), $pec_name) : null;
-$pa_code = is_numeric( WCtoDanea::order_details($order->get_id(), $pia_code_name) ) ? WCtoDanea::order_details($order->get_id(), $pia_code_name) : null;
+$pa_code = is_numeric( WCtoDanea::order_details($order->get_id(), $pa_code_name) ) ? WCtoDanea::order_details($order->get_id(), $pa_code_name) : null;
 
 
 /*Definisco il destinatario per la fattura elettronica*/

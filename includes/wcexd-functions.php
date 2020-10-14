@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.6
+ * @since 1.2.9
  */
 
 /*Evito accesso diretto*/
@@ -158,29 +158,31 @@ class WCtoDanea {
 	 */
 	public static function get_item_tax_rate( $order, $item ) {
 
-		$output    = null;
-		$use_label = get_option('wcexd-orders-tax-name');
-		$tax_items = self::get_order_tax_items($order);
+		$output        = 'FC';
 
-		$taxes = $item->get_taxes();
+		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
+			
+			$use_label = get_option('wcexd-orders-tax-name');
+			$tax_items = self::get_order_tax_items($order);
+			$taxes     = $item->get_taxes();
 
-		foreach( $taxes['subtotal'] as $rate_id => $tax ){
+			foreach( $taxes['subtotal'] as $rate_id => $tax ){
 
-			if ( $use_label ) {
+				if ( $use_label ) {
 
-				$output   = $tax_items[ $rate_id ]['label'];
+					$output   = $tax_items[ $rate_id ]['label'];
 
-			} else {
+				} else {
 
-				$output = $tax_items[ $rate_id ]['percent'];
+					$output = $tax_items[ $rate_id ]['percent'];
+
+				}
 
 			}
 
-			return $output;
 		}
 
-
-
+		return $output;
 	}
 
 
