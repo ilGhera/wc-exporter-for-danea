@@ -87,40 +87,44 @@ class WCtoDanea {
 	/**
 	 * Recupero il valore dell'iva
 	 *
-	 * @deprecated 1.2.5 unused.
 	 * @param  int    $product_id l'id del prodotto.
 	 * @param  string $type       il tipo di dato da restituire, nome o aliquota.
 	 * @return mixed
 	 */
 	public static function get_tax_rate( $product_id, $type = '' ) {
 
-		$output = 0;
+		$output = 'FC';
 
-		$tax_status = get_post_meta( $product_id, '_tax_status', true );
+		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
-		/*In caso di variazione recupero dati del prodotto padre*/
-		$parent_id = wp_get_post_parent_id( $product_id );
-		$parent_tax_status = $parent_id ? get_post_meta( $parent_id, '_tax_status', true ) : '';
+			$output = 0;
 
-		if ( 'taxable' == $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
+			$tax_status = get_post_meta( $product_id, '_tax_status', true );
 
-			/*Valore nullo con iva al 22, controllo necessario in caso di varizione di prodotto*/
-			$tax_class = $tax_status ? get_post_meta( $product_id, '_tax_class', true ) : get_post_meta( $parent_id, '_tax_class', true );
+			/*In caso di variazione recupero dati del prodotto padre*/
+			$parent_id = wp_get_post_parent_id( $product_id );
+			$parent_tax_status = $parent_id ? get_post_meta( $parent_id, '_tax_status', true ) : '';
 
-			if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
-				$tax_class = get_post_meta( $parent_id, '_tax_class', true );
-			}
+			if ( 'taxable' == $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
 
-			global $wpdb;
-			$query = "SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'";
+				/*Valore nullo con iva al 22, controllo necessario in caso di varizione di prodotto*/
+				$tax_class = $tax_status ? get_post_meta( $product_id, '_tax_class', true ) : get_post_meta( $parent_id, '_tax_class', true );
 
-			$results = $wpdb->get_results( $query, ARRAY_A );
+				if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
+					$tax_class = get_post_meta( $parent_id, '_tax_class', true );
+				}
 
-			if ( $results ) {
-				$output = 'name' === $type ? $results[0]['tax_rate_name'] : intval( $results[0]['tax_rate'] );
+				global $wpdb;
+				$query = "SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'";
+
+				$results = $wpdb->get_results( $query, ARRAY_A );
+
+				if ( $results ) {
+					$output = 'name' === $type ? $results[0]['tax_rate_name'] : intval( $results[0]['tax_rate'] );
+				}
 			}
 		}
-
+		
 		return $output;
 
 	}
