@@ -61,7 +61,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
 <?php 
 $cost_vat_code = null;
 if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
-  $cost_vat_code = number_format(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') * 100 / WCtoDanea::order_details($order->get_id(), '_order_shipping'));
+  $cost_vat_code = floatval( wc_format_decimal( WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') * 100 / WCtoDanea::order_details($order->get_id(), '_order_shipping'), 10 ) );
 }
 ?>
   <CostVatCode><?php echo $cost_vat_code ? $cost_vat_code : 'FC'; ?></CostVatCode>
@@ -117,13 +117,13 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   $item_get_tax = WCtoDanea::item_info($item->get_id(), '_line_tax');
   $item_discount = wc_get_order_item_meta($item->get_id(), '_wcexd_item_discount');
   $tax_rate = WCtoDanea::get_item_tax_rate($order, $item);
-  $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item->get_id(), '_qty'), 2);
+  $item_price = floatval( wc_format_decimal( $item_get_subtotal / WCtoDanea::item_info($item->get_id(), '_qty'), 10 ) );
     
 
   /*Definisco prezzo e sconto*/
   $discount = null;
   if($item_discount && !$is_bundle) {
-    $item_price = number_format( (($item_get_subtotal * 100) / (100 - $item_discount)) / WCtoDanea::item_info($item->get_id(), '_qty'), 2);
+    $item_price = floatval( wc_format_decimal( ( ($item_get_subtotal * 100) / (100 - $item_discount) ) / WCtoDanea::item_info($item->get_id(), '_qty'), 10 ) );
     $discount = $item_discount . '%';
   }
 
@@ -143,7 +143,7 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
 
   $cart_discount = false;
   if( $item_get_subtotal && $item_get_subtotal != $item_get_total) {
-    $cart_discount = number_format( (($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 2);
+    $cart_discount = floatval( wc_format_decimal( (($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 10 ) );
     $discount = ($item_discount) ? $item_discount . '+' . $cart_discount . '%' : $cart_discount . '%';
   } ?>
     <Row>
