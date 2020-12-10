@@ -155,6 +155,12 @@ function wcexd_options() {
 		update_option( 'wcexd_fields_check', $wcexd_fields_check );
 	}
 
+	$wcexd_vies_check = get_option( 'wcexd_vies_check' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_vies_check = isset( $_POST['wcexd_vies_check'] ) ? $_POST['wcexd_vies_check'] : 0;
+		update_option( 'wcexd_vies_check', $wcexd_vies_check );
+	}
+
 	$wcexd_pec_active = get_option( 'billing_wcexd_pec_active' );
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_pec_active = isset( $_POST['wcexd_pec_active'] ) ? $_POST['wcexd_pec_active'] : 0;
@@ -230,12 +236,21 @@ function wcexd_options() {
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo __( 'Controllo campi', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Verifica C.F.', 'wcexd' ); ?></th>
 					<td>
 						<label for="wcexd_fields_check">
 							<input type="checkbox" name="wcexd_fields_check" value="1"<?php echo $wcexd_fields_check == 1 ? ' checked="checked"' : ''; ?>>
 						</label>
-						<p class="description"><?php echo __( 'Attiva il controllo dei Campi P.IVA e Codice Fiscale', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Attiva il controllo di validità del Codice Fiscale', 'wcexd' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Verifica VIES', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_vies_check">
+							<input type="checkbox" name="wcexd_vies_check" value="1"<?php echo $wcexd_vies_check == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Attiva il controllo VIES per la Partita IVA <i>( Richiede che SOAP sia attivo sul server )</i>', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>

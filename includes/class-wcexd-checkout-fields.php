@@ -218,9 +218,13 @@ class WCEXD_Checkout_Fields {
 	 */
 	public function fiscal_field_checker( $valore ) {
 		$expression = '^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$';
+		
+		/* Controllo Partita IVA - Non utilizzato */
 		if ( is_numeric( $valore ) ) {
 			$expression = '^[0-9]{11}$';
 		}
+
+		/* Controllo Codice Fiscale */
 		if ( preg_match( '/' . $expression . '/', $valore ) ) {
 			return true;
 		}
@@ -229,9 +233,43 @@ class WCEXD_Checkout_Fields {
 
 
 	/**
+	 * Controllo VIES Partita IVA
+	 *
+	 * @param  int $piva    il numero di Partita IVA da controllare.
+	 * @param  int $country lo stato di appartenenza del cliente.
+	 *
+	 * @return bool
+	 */
+	public function vies_piva_check( $piva, $country ) {
+
+	    $output = true;
+	    $eu     = array( 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LU', 'LV', 'LT', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB' );
+	    
+	    if ( in_array( $country , $eu ) ) {
+	    	
+	    	$client  = new SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
+			$check   = $client->checkVat(
+				array(
+					'countryCode' => $country,
+					'vatNumber'   => $piva,
+				)
+			);
+
+			$output = $check->valid;
+
+	    }
+
+		return $output;
+
+	}
+
+
+	/**
 	 * Verifica i campi di checkout al click per la creazione dell'ordine
 	 */
 	public function checkout_fields_check() {
+				
+		$country = sanitize_text_field( wp_unslash( $_POST['billing_country'] ) );
 
 		/*PEC e Codice destinatario*/
 		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && 'private' !== $_POST['billing_wcexd_invoice_type'] && isset( $_POST['billing_country'] ) ) {
@@ -240,8 +278,6 @@ class WCEXD_Checkout_Fields {
 
 				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_wcexd_pec'] ) ) : '';
 				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_wcexd_pa_code'] ) ) : '';
-
-				$country = sanitize_text_field( wp_unslash( $_POST['billing_country'] ) );
 
 				if ( ! $this->only_italy || ( $this->only_italy && 'IT' === $country ) ) {
 
@@ -259,7 +295,7 @@ class WCEXD_Checkout_Fields {
 
 		}
 
-		/*Controllo campi fiscali*/
+		/* Controllo Codice Fiscale */
 		if ( get_option( 'wcexd_fields_check' ) ) {
 
 			/*Codice fiscale*/
@@ -269,15 +305,23 @@ class WCEXD_Checkout_Fields {
 
 			}
 
+		}
+
+		/* Controllo VIES Partita IVA */
+		if ( get_option( 'wcexd_vies_check' ) ) {
+
 			/*Partita IVA*/
 			if ( isset( $_POST['billing_wcexd_invoice_type'] ) && 'company-invoice' === $_POST['billing_wcexd_invoice_type'] ) {
-				if ( isset( $_POST['billing_wcexd_piva'] ) && '' !== $_POST['billing_wcexd_piva'] && false === $this->fiscal_field_checker( $_POST['billing_wcexd_piva'] ) ) {
+					
+				if ( isset( $_POST['billing_wcexd_piva'] ) && '' !== $_POST['billing_wcexd_piva'] && false === $this->vies_piva_check( $_POST['billing_wcexd_piva'], $country ) ) {
 
-					wc_add_notice( 'ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserito non sia corretta.', 'error' );
+					wc_add_notice( 'ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserita non sia corretta.', 'error' );
 
 				}
 			}
+
 		}
+
 	}
 
 
