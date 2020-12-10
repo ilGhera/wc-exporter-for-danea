@@ -244,7 +244,7 @@ class WCEXD_Checkout_Fields {
 				}
 			}
 		}
-
+		
 		return $fields;
 
 	}

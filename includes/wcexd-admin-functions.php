@@ -230,7 +230,7 @@ function wcexd_options() {
 					<th scope="row"><?php echo __( 'CF obbligatorio', 'wcexd' ); ?></th>
 					<td>
 						<label for="wcexd_cf_mandatory">
-							<select name="wcexd_cf_mandatory">
+							<select class="wcexd" name="wcexd_cf_mandatory">
 								<option value="0"<?php echo 0 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Mai', 'wcexd' ); ?></option>
 								<option value="1"<?php echo 1 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Solo Ricevuta', 'wcexd' ); ?></option>
 								<option value="2"<?php echo 2 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Solo Fattura', 'wcexd' ); ?></option>

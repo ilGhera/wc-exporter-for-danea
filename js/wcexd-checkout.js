@@ -218,21 +218,21 @@ jQuery(document).ready(function($){
 		})
 
 	}
+	
+	/* Select style */
+	$(invoice_type).select2();
+	$('#billing_wcexd_invoice_type_field .select2').css('width', '100%');
+
 	check_country_for_fields();
 	check_invoice_type();
 
 
-	/*Cambiamento paese*/
-	// if( options.only_italy || options.cf_only_italy ) {
+	$(billing_country).on('change', function(){
+		
+		check_country_for_fields();
+		check_invoice_type();
 
-		$(billing_country).on('change', function(){
-			
-			check_country_for_fields();
-			check_invoice_type();
-
-		})
-
-	// }
+	})
 
 
 	/*Cambiamento tipo di documento*/
