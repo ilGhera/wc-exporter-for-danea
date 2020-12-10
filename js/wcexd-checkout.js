@@ -6,7 +6,7 @@
  */
 jQuery(document).ready(function($){
 
-	var company_req;
+	var company_req, cf_opt ;
 	var invoice_type    = $('#billing_wcexd_invoice_type');
 	var company         = $('#billing_company_field');
 	var company_opt     = $('label span.optional', company);
@@ -16,7 +16,7 @@ jQuery(document).ready(function($){
 	var receiver_code   = $('#billing_wcexd_pa_code_field');
 	var billing_country = $('#billing_country');
 	var cf_abbr         = $('label abbr.required', cf);
-
+	var optional        = $(company_opt).text();
 
 	/**
 	 * Modifica l'obbligatorietà dei campi PEC e Codice destinatario in base ai campi attivati dall'admin
@@ -59,6 +59,8 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
+			cf_opt = $('label span.optional', cf);
+
 			/*Mostro il codice fiscale*/
 			if( ! cf.hasClass('wcexd-hidden-field') ) {
 				
@@ -83,6 +85,9 @@ jQuery(document).ready(function($){
 					check_pec_code_mandatory();				
 				}
 
+				cf_abbr.show();
+				cf_opt.hide();
+
 			} else if($(invoice_type).val() === 'private') {
 				
 				company.hide();
@@ -90,15 +95,30 @@ jQuery(document).ready(function($){
 				pec.hide();
 				receiver_code.hide();
 				
-				if ( 0 == options.cf_mandatory ) {
+				if ( options.cf_mandatory != 1 && options.cf_mandatory != 3 ) {
 
 					/*Nascondi asterisco required*/
 					cf_abbr.hide();
 
+					if ( $(cf_opt).length ) {
+
+						cf_opt.show();
+
+					} else {
+
+						$('label', cf).append( '<span class="optional">' + optional + '</span>' );
+
+					}
+
+				} else {
+
+					cf_abbr.show();
+					cf_opt.hide();
+
 				}
 
 			} else {
-				
+
 				p_iva.show();
 
 				company.show();
@@ -120,6 +140,28 @@ jQuery(document).ready(function($){
 					receiver_code.show();
 
 					check_pec_code_mandatory();
+
+				}
+
+				if ( options.cf_mandatory != 2 && options.cf_mandatory != 3 ) {
+
+					/*Nascondi asterisco required*/
+					cf_abbr.hide();
+
+					if ( $(cf_opt).length ) {
+
+						cf_opt.show();
+
+					} else {
+
+						$('label', cf).append( '<span class="optional">' + optional + '</span>' );
+
+					}
+
+				} else {
+
+					cf_abbr.show();
+					cf_opt.hide();
 
 				}
 			

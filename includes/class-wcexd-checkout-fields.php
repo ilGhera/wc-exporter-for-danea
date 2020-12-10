@@ -85,15 +85,15 @@ class WCEXD_Checkout_Fields {
 		$select = array(
 			'private' => array(
 				'active' => get_option( 'wcexd_private' ),
-				'field'  => array( 'private' => __( 'Privato (Ricevuta)', 'wcexd' ) ),
+				'field'  => array( 'private' => __( 'Privato ( Ricevuta )', 'wcexd' ) ),
 			),
 			'private_invoice' => array(
 				'active' => get_option( 'wcexd_private_invoice' ),
-				'field' => array( 'private-invoice' => __( 'Privato (Fattura)', 'wcexd' ) ),
+				'field' => array( 'private-invoice' => __( 'Privato ( Fattura )', 'wcexd' ) ),
 			),
 			'company_invoice' => array(
 				'active' => get_option( 'wcexd_company_invoice' ),
-				'field' => array( 'company-invoice' => __( 'Azienda (Fattura)', 'wcexd' ) ),
+				'field' => array( 'company-invoice' => __( 'Azienda ( Fattura )', 'wcexd' ) ),
 			),
 		);
 
@@ -143,40 +143,80 @@ class WCEXD_Checkout_Fields {
 
 			/*Obbligatorietà cf al caricamento di pagina*/
 			if ( isset( $this->custom_fields['billing_wcexd_cf'] ) ) {
+				
+				/*
 				if ( ( 1 === $sum && ! isset( $select['private']['active'] ) || $sum > 1 ) ) {
 
 					$fields['billing']['billing_wcexd_cf']['required'] = true;
 
 				} elseif ( 1 === $sum && isset( $select['private']['active'] ) ) {
-					if ( $this->cf_mandatory ) {
+					if ( in_array( $this->cf_mandatory, array(  ) ) ) {
 
 						$fields['billing']['billing_wcexd_cf']['required'] = true;
 
 					}
 				}
+				*/
+
+				if ( $select['private_invoice']['active'] ) {
+
+					$fields['billing']['billing_wcexd_cf']['required'] = true;
+			
+				} elseif ( $select['private']['active'] && in_array( $this->cf_mandatory, array( 1, 3 ) ) ) {
+
+					$fields['billing']['billing_wcexd_cf']['required'] = true;
+
+				
+				} elseif ( $select['company_invoice']['active'] && in_array( $this->cf_mandatory, array( 2, 3 ) ) ) {
+
+					$fields['billing']['billing_wcexd_cf']['required'] = true;
+
+				}
+
 			}
 
 			/*Rendo obbligatorio cf e p. iva ed azienda solo quando richiesto*/
 			if ( isset( $_POST['billing_wcexd_invoice_type'] ) ) {
 
-				if ( 'private-invoice' === $_POST['billing_wcexd_invoice_type'] ) {
+				/* Reset */
+				$fields['billing']['billing_wcexd_cf']['required'] = false;
 
-					$fields['billing']['billing_wcexd_piva']['required'] = false;
+				switch ( $_POST['billing_wcexd_invoice_type'] ) {
+					
+					case 'private':
 
-				} elseif ( 'private' === $_POST['billing_wcexd_invoice_type'] ) {
+						$fields['billing']['billing_wcexd_piva']['required'] = false;
 
-					$fields['billing']['billing_wcexd_piva']['required'] = false;
+						if ( in_array( $this->cf_mandatory, array( 1, 3 ) ) ) {
 
-					if ( ! $this->cf_mandatory ) {
+							$fields['billing']['billing_wcexd_cf']['required'] = true;
 
-						$fields['billing']['billing_wcexd_cf']['required'] = false;
+						}
 
-					}
-				} else {
+						break;
+					
+					case 'private-invoice':
 
-					$fields['billing']['billing_company']['required'] = true;
+						$fields['billing']['billing_wcexd_piva']['required'] = false;
+						$fields['billing']['billing_wcexd_cf']['required'] = true;
+
+						break;
+
+					case 'company-invoice':
+
+						$fields['billing']['billing_company']['required'] = true;
+
+						if ( in_array( $this->cf_mandatory, array( 2, 3 ) ) ) {
+
+							$fields['billing']['billing_wcexd_cf']['required'] = true;
+
+						}
+	
+						break;
 
 				}
+
+
 			}
 
 
