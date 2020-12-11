@@ -69,13 +69,7 @@ jQuery(document).ready(function($){
 		
 			if($(invoice_type).val() === 'private-invoice') {
 				
-				if ( null != company_req ) {
-					company_req.hide();
-				}
-
-				company.show();
-				company_opt.show();
-
+				company.hide();
 				p_iva.hide();
 
 				if( ! pec.hasClass('wcexd-hidden-field') ) {
