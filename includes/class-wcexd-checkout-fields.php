@@ -27,8 +27,11 @@ class WCEXD_Checkout_Fields {
 
 		$this->custom_fields = $this->get_active_custom_fields();
 		$this->cf_mandatory  = get_option( 'wcexd_cf_mandatory' );
+		$this->piva_only_ue  = get_option( 'wcexd_piva_only_ue' );
 		$this->only_italy    = get_option( 'wcexd_only_italy' );
 		$this->cf_only_italy = get_option( 'wcexd_cf_only_italy' );
+	    $this->ue            = array( 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LU', 'LV', 'LT', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB' );
+
 
 	}
 
@@ -43,6 +46,8 @@ class WCEXD_Checkout_Fields {
 			'options',
 			array(
 				'cf_mandatory'  => $this->cf_mandatory,
+				'piva_only_ue'  => $this->piva_only_ue,
+				'ue'            => $this->ue,
 				'only_italy'    => $this->only_italy,
 				'cf_only_italy' => $this->cf_only_italy,
 			)
@@ -144,20 +149,6 @@ class WCEXD_Checkout_Fields {
 			/*Obbligatorietà cf al caricamento di pagina*/
 			if ( isset( $this->custom_fields['billing_wcexd_cf'] ) ) {
 				
-				/*
-				if ( ( 1 === $sum && ! isset( $select['private']['active'] ) || $sum > 1 ) ) {
-
-					$fields['billing']['billing_wcexd_cf']['required'] = true;
-
-				} elseif ( 1 === $sum && isset( $select['private']['active'] ) ) {
-					if ( in_array( $this->cf_mandatory, array(  ) ) ) {
-
-						$fields['billing']['billing_wcexd_cf']['required'] = true;
-
-					}
-				}
-				*/
-
 				if ( $select['private_invoice']['active'] ) {
 
 					$fields['billing']['billing_wcexd_cf']['required'] = true;
@@ -211,19 +202,30 @@ class WCEXD_Checkout_Fields {
 							$fields['billing']['billing_wcexd_cf']['required'] = true;
 
 						}
-	
+
 						break;
 
 				}
 
-
 			}
 
-
-			/*Codice fiscale non obbligatorio fuori dall'Italia*/
+			/* Ordine estero */
 			if ( isset( $_POST['billing_country'] ) && 'IT' !== $_POST['billing_country'] ) {
 
+				/* Codice fiscale non obbligatorio fuori dall'Italia */
 				$fields['billing']['billing_wcexd_cf']['required'] = false;
+
+				/* Se impostato, P.IVA non obbligatoria fuori dall'UE */
+				if ( $this->piva_only_ue && isset( $this->custom_fields['billing_wcexd_piva'] ) ) {
+
+					if ( ! in_array( $_POST['billing_country'] , $this->ue ) ) {
+
+						$fields['billing']['billing_wcexd_piva']['required'] = false;
+
+					}
+				
+				}
+
 
 			}
 
@@ -283,9 +285,8 @@ class WCEXD_Checkout_Fields {
 	public function vies_piva_check( $piva, $country ) {
 
 	    $output = true;
-	    $eu     = array( 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LU', 'LV', 'LT', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB' );
 	    
-	    if ( in_array( $country , $eu ) ) {
+	    if ( in_array( $country , $this->ue ) ) {
 	    	
 	    	$client  = new SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
 			$check   = $client->checkVat(

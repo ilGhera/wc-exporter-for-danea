@@ -173,6 +173,12 @@ function wcexd_options() {
 		update_option( 'billing_wcexd_pa_code_active', $wcexd_pa_code_active );
 	}
 
+	$wcexd_piva_only_ue = get_option( 'wcexd_piva_only_ue' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_piva_only_ue = isset( $_POST['wcexd_piva_only_ue'] ) ? $_POST['wcexd_piva_only_ue'] : 0;
+		update_option( 'wcexd_piva_only_ue', $wcexd_piva_only_ue );
+	}
+
 	$wcexd_only_italy = get_option( 'wcexd_only_italy' );
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_only_italy = isset( $_POST['wcexd_only_italy'] ) ? $_POST['wcexd_only_italy'] : 0;
@@ -274,6 +280,15 @@ function wcexd_options() {
 							<input type="checkbox" name="wcexd_pa_code_active" value="1"<?php echo $wcexd_pa_code_active == 1 ? ' checked="checked"' : ''; ?>>
 						</label>
 						<p class="description"><?php echo __( 'Attiva il campo Codice destinatario per la fatturazione elettronica', 'wcexd' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Solo UE', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_piva_only_ue">
+							<input type="checkbox" name="wcexd_piva_only_ue" value="1"<?php echo $wcexd_piva_only_ue == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'P.IVA obbligatoria solo per i paesi dell\'UE', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>

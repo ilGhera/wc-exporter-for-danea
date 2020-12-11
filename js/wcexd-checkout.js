@@ -6,7 +6,7 @@
  */
 jQuery(document).ready(function($){
 
-	var company_req, cf_opt ;
+	var company_req, cf_opt;
 	var invoice_type    = $('#billing_wcexd_invoice_type');
 	var company         = $('#billing_company_field');
 	var company_opt     = $('label span.optional', company);
@@ -178,13 +178,15 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
-			var is_italy = 'IT' === $(billing_country).val() ? true : false;
+			var country  = $(billing_country).val();
+			var is_italy = 'IT' === country ? true : false;
+			var piva_opt = $('label span.optional', p_iva);
 
 			/*Campi fattura elettronica*/
 			if( 1 == options.only_italy && ! is_italy ) {
 
 				pec.addClass('wcexd-hidden-field').hide();          
-				receiver_code.addClass('wcexd-hidden-field').hide();		
+				receiver_code.addClass('wcexd-hidden-fixeld').hide();		
 
 			} else {
 
@@ -192,6 +194,34 @@ jQuery(document).ready(function($){
 				receiver_code.removeClass('wcexd-hidden-field');		
 
 			}
+
+			/*Partita IVA solo in UE*/
+			if ( options.piva_only_ue ) {
+
+				if ( options.ue.indexOf( country ) < '0' ) {
+
+					$('label abbr.required', p_iva).hide();
+
+					if ( $(piva_opt).length ) {
+
+						piva_opt.show();
+
+					} else {
+
+						$('label', p_iva).append( '<span class="optional">' + optional + '</span>' );
+
+					}
+
+				} else {
+
+					piva_opt.hide();
+					$('label abbr.required', p_iva).show();
+
+				}
+
+			}
+
+
 
 			/*Codice fiscale*/
 			if( 1 == options.cf_only_italy && ! is_italy ) {
