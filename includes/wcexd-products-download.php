@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.9
+ * @since 1.3.0
  */
 function wcexd_products_download() {
 
