@@ -1,12 +1,13 @@
 /**
  * Gestisce la visualizzazione dei campi fiscali in base al tipo di fattura selezionato
+ *
  * @author ilGhera
  * @package wc-exporter-for-danea/js
- * @since 1.2.2
+ * @since 1.3.0
  */
 jQuery(document).ready(function($){
 
-	var company_req;
+	var company_req, cf_opt;
 	var invoice_type    = $('#billing_wcexd_invoice_type');
 	var company         = $('#billing_company_field');
 	var company_opt     = $('label span.optional', company);
@@ -16,7 +17,7 @@ jQuery(document).ready(function($){
 	var receiver_code   = $('#billing_wcexd_pa_code_field');
 	var billing_country = $('#billing_country');
 	var cf_abbr         = $('label abbr.required', cf);
-
+	var optional        = $(company_opt).text();
 
 	/**
 	 * Modifica l'obbligatorietà dei campi PEC e Codice destinatario in base ai campi attivati dall'admin
@@ -59,6 +60,8 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
+			cf_opt = $('label span.optional', cf);
+
 			/*Mostro il codice fiscale*/
 			if( ! cf.hasClass('wcexd-hidden-field') ) {
 				
@@ -67,13 +70,7 @@ jQuery(document).ready(function($){
 		
 			if($(invoice_type).val() === 'private-invoice') {
 				
-				if ( null != company_req ) {
-					company_req.hide();
-				}
-
-				company.show();
-				company_opt.show();
-
+				company.hide();
 				p_iva.hide();
 
 				if( ! pec.hasClass('wcexd-hidden-field') ) {
@@ -83,6 +80,9 @@ jQuery(document).ready(function($){
 					check_pec_code_mandatory();				
 				}
 
+				cf_abbr.show();
+				cf_opt.hide();
+
 			} else if($(invoice_type).val() === 'private') {
 				
 				company.hide();
@@ -90,15 +90,30 @@ jQuery(document).ready(function($){
 				pec.hide();
 				receiver_code.hide();
 				
-				if ( 0 == options.cf_mandatory ) {
+				if ( options.cf_mandatory != 1 && options.cf_mandatory != 3 ) {
 
 					/*Nascondi asterisco required*/
 					cf_abbr.hide();
 
+					if ( $(cf_opt).length ) {
+
+						cf_opt.show();
+
+					} else {
+
+						$('label', cf).append( '<span class="optional">' + optional + '</span>' );
+
+					}
+
+				} else {
+
+					cf_abbr.show();
+					cf_opt.hide();
+
 				}
 
 			} else {
-				
+
 				p_iva.show();
 
 				company.show();
@@ -122,6 +137,28 @@ jQuery(document).ready(function($){
 					check_pec_code_mandatory();
 
 				}
+
+				if ( options.cf_mandatory != 2 && options.cf_mandatory != 3 ) {
+
+					/*Nascondi asterisco required*/
+					cf_abbr.hide();
+
+					if ( $(cf_opt).length ) {
+
+						cf_opt.show();
+
+					} else {
+
+						$('label', cf).append( '<span class="optional">' + optional + '</span>' );
+
+					}
+
+				} else {
+
+					cf_abbr.show();
+					cf_opt.hide();
+
+				}
 			
 			}
 
@@ -136,13 +173,15 @@ jQuery(document).ready(function($){
 
 		jQuery(function($){
 
-			var is_italy = 'IT' === $(billing_country).val() ? true : false;
+			var country  = $(billing_country).val();
+			var is_italy = 'IT' === country ? true : false;
+			var piva_opt = $('label span.optional', p_iva);
 
 			/*Campi fattura elettronica*/
 			if( 1 == options.only_italy && ! is_italy ) {
 
 				pec.addClass('wcexd-hidden-field').hide();          
-				receiver_code.addClass('wcexd-hidden-field').hide();		
+				receiver_code.addClass('wcexd-hidden-fixeld').hide();		
 
 			} else {
 
@@ -150,6 +189,34 @@ jQuery(document).ready(function($){
 				receiver_code.removeClass('wcexd-hidden-field');		
 
 			}
+
+			/*Partita IVA solo in UE*/
+			if ( options.piva_only_ue ) {
+
+				if ( options.ue.indexOf( country ) < '0' ) {
+
+					$('label abbr.required', p_iva).hide();
+
+					if ( $(piva_opt).length ) {
+
+						piva_opt.show();
+
+					} else {
+
+						$('label', p_iva).append( '<span class="optional">' + optional + '</span>' );
+
+					}
+
+				} else {
+
+					piva_opt.hide();
+					$('label abbr.required', p_iva).show();
+
+				}
+
+			}
+
+
 
 			/*Codice fiscale*/
 			if( 1 == options.cf_only_italy && ! is_italy ) {
@@ -176,21 +243,21 @@ jQuery(document).ready(function($){
 		})
 
 	}
+	
+	/* Select style */
+	$(invoice_type).select2();
+	$('#billing_wcexd_invoice_type_field .select2').css('width', '100%');
+
 	check_country_for_fields();
 	check_invoice_type();
 
 
-	/*Cambiamento paese*/
-	// if( options.only_italy || options.cf_only_italy ) {
+	$(billing_country).on('change', function(){
+		
+		check_country_for_fields();
+		check_invoice_type();
 
-		$(billing_country).on('change', function(){
-			
-			check_country_for_fields();
-			check_invoice_type();
-
-		})
-
-	// }
+	})
 
 
 	/*Cambiamento tipo di documento*/

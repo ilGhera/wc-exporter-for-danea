@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @since 1.2.4
+ * @since 1.3.0
  */
 function wcexd_products_download() {
 
@@ -214,23 +214,6 @@ function wcexd_products_download() {
 				$sale_price        = null;
 				$get_regular_price = $product->get_regular_price();
 				$get_sale_price    = $product->get_sale_price();
-
-				/*Scorporo iva*/
-				if ( 'no' === get_option( 'woocommerce_prices_include_tax' ) ) {
-
-					if ( $get_regular_price ) {
-
-						$get_regular_price = $get_regular_price / ( 1 + ( WCtoDanea::get_tax_rate( $product->get_id() ) / 100 ) );
-
-					}
-
-					if ( $get_sale_price ) {
-
-						$get_sale_price = $get_sale_price / ( 1 + ( WCtoDanea::get_tax_rate( $product->get_id() ) / 100 ) );
-
-					}
-
-				}
 
 				/* Articolo con gestione magazzino o meno */
 				$manage_stock = get_post_meta( get_the_ID(), '_manage_stock', true );

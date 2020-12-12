@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @since 1.2.1
+ * @since 1.3.0
  */
 class WCEXD_Checkout_Fields {
 
@@ -27,8 +27,11 @@ class WCEXD_Checkout_Fields {
 
 		$this->custom_fields = $this->get_active_custom_fields();
 		$this->cf_mandatory  = get_option( 'wcexd_cf_mandatory' );
+		$this->piva_only_ue  = get_option( 'wcexd_piva_only_ue' );
 		$this->only_italy    = get_option( 'wcexd_only_italy' );
 		$this->cf_only_italy = get_option( 'wcexd_cf_only_italy' );
+	    $this->ue            = array( 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LU', 'LV', 'LT', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB' );
+
 
 	}
 
@@ -43,6 +46,8 @@ class WCEXD_Checkout_Fields {
 			'options',
 			array(
 				'cf_mandatory'  => $this->cf_mandatory,
+				'piva_only_ue'  => $this->piva_only_ue,
+				'ue'            => $this->ue,
 				'only_italy'    => $this->only_italy,
 				'cf_only_italy' => $this->cf_only_italy,
 			)
@@ -85,15 +90,15 @@ class WCEXD_Checkout_Fields {
 		$select = array(
 			'private' => array(
 				'active' => get_option( 'wcexd_private' ),
-				'field'  => array( 'private' => __( 'Privato (Ricevuta)', 'wcexd' ) ),
+				'field'  => array( 'private' => __( 'Privato ( Ricevuta )', 'wcexd' ) ),
 			),
 			'private_invoice' => array(
 				'active' => get_option( 'wcexd_private_invoice' ),
-				'field' => array( 'private-invoice' => __( 'Privato (Fattura)', 'wcexd' ) ),
+				'field' => array( 'private-invoice' => __( 'Privato ( Fattura )', 'wcexd' ) ),
 			),
 			'company_invoice' => array(
 				'active' => get_option( 'wcexd_company_invoice' ),
-				'field' => array( 'company-invoice' => __( 'Azienda (Fattura)', 'wcexd' ) ),
+				'field' => array( 'company-invoice' => __( 'Azienda ( Fattura )', 'wcexd' ) ),
 			),
 		);
 
@@ -143,47 +148,84 @@ class WCEXD_Checkout_Fields {
 
 			/*Obbligatorietà cf al caricamento di pagina*/
 			if ( isset( $this->custom_fields['billing_wcexd_cf'] ) ) {
-				if ( ( 1 === $sum && ! isset( $select['private']['active'] ) || $sum > 1 ) ) {
+				
+				if ( $select['private_invoice']['active'] ) {
+
+					$fields['billing']['billing_wcexd_cf']['required'] = true;
+			
+				} elseif ( $select['private']['active'] && in_array( $this->cf_mandatory, array( 1, 3 ) ) ) {
 
 					$fields['billing']['billing_wcexd_cf']['required'] = true;
 
-				} elseif ( 1 === $sum && isset( $select['private']['active'] ) ) {
-					if ( $this->cf_mandatory ) {
+				
+				} elseif ( $select['company_invoice']['active'] && in_array( $this->cf_mandatory, array( 2, 3 ) ) ) {
 
-						$fields['billing']['billing_wcexd_cf']['required'] = true;
+					$fields['billing']['billing_wcexd_cf']['required'] = true;
 
-					}
 				}
+
 			}
 
 			/*Rendo obbligatorio cf e p. iva ed azienda solo quando richiesto*/
 			if ( isset( $_POST['billing_wcexd_invoice_type'] ) ) {
 
-				if ( 'private-invoice' === $_POST['billing_wcexd_invoice_type'] ) {
+				/* Reset */
+				$fields['billing']['billing_wcexd_cf']['required'] = false;
 
-					$fields['billing']['billing_wcexd_piva']['required'] = false;
+				switch ( $_POST['billing_wcexd_invoice_type'] ) {
+					
+					case 'private':
 
-				} elseif ( 'private' === $_POST['billing_wcexd_invoice_type'] ) {
+						$fields['billing']['billing_wcexd_piva']['required'] = false;
 
-					$fields['billing']['billing_wcexd_piva']['required'] = false;
+						if ( in_array( $this->cf_mandatory, array( 1, 3 ) ) ) {
 
-					if ( ! $this->cf_mandatory ) {
+							$fields['billing']['billing_wcexd_cf']['required'] = true;
 
-						$fields['billing']['billing_wcexd_cf']['required'] = false;
+						}
 
-					}
-				} else {
+						break;
+					
+					case 'private-invoice':
 
-					$fields['billing']['billing_company']['required'] = true;
+						$fields['billing']['billing_wcexd_piva']['required'] = false;
+						$fields['billing']['billing_wcexd_cf']['required'] = true;
+
+						break;
+
+					case 'company-invoice':
+
+						$fields['billing']['billing_company']['required'] = true;
+
+						if ( in_array( $this->cf_mandatory, array( 2, 3 ) ) ) {
+
+							$fields['billing']['billing_wcexd_cf']['required'] = true;
+
+						}
+
+						break;
 
 				}
+
 			}
 
-
-			/*Codice fiscale non obbligatorio fuori dall'Italia*/
+			/* Ordine estero */
 			if ( isset( $_POST['billing_country'] ) && 'IT' !== $_POST['billing_country'] ) {
 
+				/* Codice fiscale non obbligatorio fuori dall'Italia */
 				$fields['billing']['billing_wcexd_cf']['required'] = false;
+
+				/* Se impostato, P.IVA non obbligatoria fuori dall'UE */
+				if ( $this->piva_only_ue && isset( $this->custom_fields['billing_wcexd_piva'] ) ) {
+
+					if ( ! in_array( $_POST['billing_country'] , $this->ue ) ) {
+
+						$fields['billing']['billing_wcexd_piva']['required'] = false;
+
+					}
+				
+				}
+
 
 			}
 
@@ -204,7 +246,7 @@ class WCEXD_Checkout_Fields {
 				}
 			}
 		}
-
+		
 		return $fields;
 
 	}
@@ -218,9 +260,13 @@ class WCEXD_Checkout_Fields {
 	 */
 	public function fiscal_field_checker( $valore ) {
 		$expression = '^[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]$';
+		
+		/* Controllo Partita IVA - Non utilizzato */
 		if ( is_numeric( $valore ) ) {
 			$expression = '^[0-9]{11}$';
 		}
+
+		/* Controllo Codice Fiscale */
 		if ( preg_match( '/' . $expression . '/', $valore ) ) {
 			return true;
 		}
@@ -229,9 +275,42 @@ class WCEXD_Checkout_Fields {
 
 
 	/**
+	 * Controllo VIES Partita IVA
+	 *
+	 * @param  int $piva    il numero di Partita IVA da controllare.
+	 * @param  int $country lo stato di appartenenza del cliente.
+	 *
+	 * @return bool
+	 */
+	public function vies_piva_check( $piva, $country ) {
+
+	    $output = true;
+	    
+	    if ( in_array( $country , $this->ue ) ) {
+	    	
+	    	$client  = new SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
+			$check   = $client->checkVat(
+				array(
+					'countryCode' => $country,
+					'vatNumber'   => $piva,
+				)
+			);
+
+			$output = $check->valid;
+
+	    }
+
+		return $output;
+
+	}
+
+
+	/**
 	 * Verifica i campi di checkout al click per la creazione dell'ordine
 	 */
 	public function checkout_fields_check() {
+				
+		$country = sanitize_text_field( wp_unslash( $_POST['billing_country'] ) );
 
 		/*PEC e Codice destinatario*/
 		if ( isset( $_POST['billing_wcexd_invoice_type'] ) && 'private' !== $_POST['billing_wcexd_invoice_type'] && isset( $_POST['billing_country'] ) ) {
@@ -240,8 +319,6 @@ class WCEXD_Checkout_Fields {
 
 				$pec = isset( $_POST['billing_wcexd_pec'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_wcexd_pec'] ) ) : '';
 				$pa_code = isset( $_POST['billing_wcexd_pa_code'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_wcexd_pa_code'] ) ) : '';
-
-				$country = sanitize_text_field( wp_unslash( $_POST['billing_country'] ) );
 
 				if ( ! $this->only_italy || ( $this->only_italy && 'IT' === $country ) ) {
 
@@ -259,7 +336,7 @@ class WCEXD_Checkout_Fields {
 
 		}
 
-		/*Controllo campi fiscali*/
+		/* Controllo Codice Fiscale */
 		if ( get_option( 'wcexd_fields_check' ) ) {
 
 			/*Codice fiscale*/
@@ -269,15 +346,23 @@ class WCEXD_Checkout_Fields {
 
 			}
 
+		}
+
+		/* Controllo VIES Partita IVA */
+		if ( get_option( 'wcexd_vies_check' ) ) {
+
 			/*Partita IVA*/
 			if ( isset( $_POST['billing_wcexd_invoice_type'] ) && 'company-invoice' === $_POST['billing_wcexd_invoice_type'] ) {
-				if ( isset( $_POST['billing_wcexd_piva'] ) && '' !== $_POST['billing_wcexd_piva'] && false === $this->fiscal_field_checker( $_POST['billing_wcexd_piva'] ) ) {
+					
+				if ( isset( $_POST['billing_wcexd_piva'] ) && '' !== $_POST['billing_wcexd_piva'] && false === $this->vies_piva_check( $_POST['billing_wcexd_piva'], $country ) ) {
 
-					wc_add_notice( 'ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserito non sia corretta.', 'error' );
+					wc_add_notice( 'ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserita non sia corretta.', 'error' );
 
 				}
 			}
+
 		}
+
 	}
 
 

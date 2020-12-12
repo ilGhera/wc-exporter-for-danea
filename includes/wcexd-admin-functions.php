@@ -1,9 +1,10 @@
 <?php
 /**
  * Pagina opzioni/ strumenti
+ *
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @since 1.2.0
+ * @since 1.3.0
  */
 
 /**
@@ -141,6 +142,12 @@ function wcexd_options() {
 		update_option( 'wcexd_fields_check', $wcexd_fields_check );
 	}
 
+	$wcexd_vies_check = get_option( 'wcexd_vies_check' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_vies_check = isset( $_POST['wcexd_vies_check'] ) ? $_POST['wcexd_vies_check'] : 0;
+		update_option( 'wcexd_vies_check', $wcexd_vies_check );
+	}
+
 	$wcexd_pec_active = get_option( 'billing_wcexd_pec_active' );
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_pec_active = isset( $_POST['wcexd_pec_active'] ) ? $_POST['wcexd_pec_active'] : 0;
@@ -151,6 +158,12 @@ function wcexd_options() {
 	if ( isset( $_POST['wcexd-options-sent'] ) ) {
 		$wcexd_pa_code_active = isset( $_POST['wcexd_pa_code_active'] ) ? $_POST['wcexd_pa_code_active'] : 0;
 		update_option( 'billing_wcexd_pa_code_active', $wcexd_pa_code_active );
+	}
+
+	$wcexd_piva_only_ue = get_option( 'wcexd_piva_only_ue' );
+	if ( isset( $_POST['wcexd-options-sent'] ) ) {
+		$wcexd_piva_only_ue = isset( $_POST['wcexd_piva_only_ue'] ) ? $_POST['wcexd_piva_only_ue'] : 0;
+		update_option( 'wcexd_piva_only_ue', $wcexd_piva_only_ue );
 	}
 
 	$wcexd_only_italy = get_option( 'wcexd_only_italy' );
@@ -179,19 +192,19 @@ function wcexd_options() {
 						<p style="margin-bottom: 10px;">
 							<label for="wcexd_company_invoice">
 								<input type="checkbox" name="wcexd_company_invoice" value="1"<?php echo $wcexd_company_invoice == 1 ? ' checked="checked"' : ''; ?>>
-								<?php echo '<span class="tax-document">' .  __( 'Azienda (Fattura)', 'wcexd' ) . '</span>'; ?>
+								<?php echo '<span class="tax-document">' .  __( 'Azienda ( Fattura )', 'wcexd' ) . '</span>'; ?>
 							</label>							
 						</p>
 						<p style="margin-bottom: 10px;">
 							<label for="wcexd_private_invoice">
 								<input type="checkbox" name="wcexd_private_invoice" value="1"<?php echo $wcexd_private_invoice == 1 ? ' checked="checked"' : ''; ?>>
-								<?php echo '<span class="tax-document">' .  __( 'Privato (Fattura)', 'wcexd' ) . '</span>'; ?>
+								<?php echo '<span class="tax-document">' .  __( 'Privato ( Fattura )', 'wcexd' ) . '</span>'; ?>
 							</label>
 						</p>
 						<p>
 							<label for="wcexd_private">
 								<input type="checkbox" name="wcexd_private" value="1"<?php echo $wcexd_private == 1 ? ' checked="checked"' : ''; ?>>
-								<?php echo '<span class="tax-document">' .  __( 'Privato (Ricevuta)', 'wcexd' ) . '</span>'; ?>
+								<?php echo '<span class="tax-document">' .  __( 'Privato ( Ricevuta )', 'wcexd' ) . '</span>'; ?>
 							</label>
 						</p>
 						<p class="description"><?php echo __( 'Attivando uno o più tipi di fattura, verranno visualizzati i campi P.IVA e Codice Fiscale quando necessari', 'wcexd' ); ?></p>
@@ -210,18 +223,32 @@ function wcexd_options() {
 					<th scope="row"><?php echo __( 'CF obbligatorio', 'wcexd' ); ?></th>
 					<td>
 						<label for="wcexd_cf_mandatory">
-							<input type="checkbox" name="wcexd_cf_mandatory" value="1"<?php echo $wcexd_cf_mandatory == 1 ? ' checked="checked"' : ''; ?>>
+							<select class="wcexd" name="wcexd_cf_mandatory">
+								<option value="0"<?php echo 0 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Mai', 'wcexd' ); ?></option>
+								<option value="1"<?php echo 1 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Solo Ricevuta', 'wcexd' ); ?></option>
+								<option value="2"<?php echo 2 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Solo Fattura', 'wcexd' ); ?></option>
+								<option value="3"<?php echo 3 == $wcexd_cf_mandatory ? ' selected="selected"' : null;  ?>><?php esc_html_e( 'Sempre', 'wcexd' ); ?></option>
+							</select>
 						</label>
-						<p class="description"><?php echo __( 'Rendi obbligatorio il campo Codice Fiscale per le ricevute a privati', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Rendi obbligatorio il campo Codice Fiscale', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo __( 'Controllo campi', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Verifica C.F.', 'wcexd' ); ?></th>
 					<td>
 						<label for="wcexd_fields_check">
 							<input type="checkbox" name="wcexd_fields_check" value="1"<?php echo $wcexd_fields_check == 1 ? ' checked="checked"' : ''; ?>>
 						</label>
-						<p class="description"><?php echo __( 'Attiva il controllo dei Campi P.IVA e Codice Fiscale', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Attiva il controllo di validità del Codice Fiscale', 'wcexd' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Verifica VIES', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_vies_check">
+							<input type="checkbox" name="wcexd_vies_check" value="1"<?php echo $wcexd_vies_check == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'Attiva il controllo VIES per la Partita IVA <i>( Richiede che SOAP sia attivo sul server )</i>', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>
@@ -240,6 +267,15 @@ function wcexd_options() {
 							<input type="checkbox" name="wcexd_pa_code_active" value="1"<?php echo $wcexd_pa_code_active == 1 ? ' checked="checked"' : ''; ?>>
 						</label>
 						<p class="description"><?php echo __( 'Attiva il campo Codice destinatario per la fatturazione elettronica', 'wcexd' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Solo UE', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd_piva_only_ue">
+							<input type="checkbox" name="wcexd_piva_only_ue" value="1"<?php echo $wcexd_piva_only_ue == 1 ? ' checked="checked"' : ''; ?>>
+						</label>
+						<p class="description"><?php echo __( 'P.IVA obbligatoria solo per i paesi dell\'UE', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>
