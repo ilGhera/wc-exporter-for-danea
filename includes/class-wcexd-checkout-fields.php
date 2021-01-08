@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.3.0
+ * @since 1.3.1
  */
 class WCEXD_Checkout_Fields {
 
@@ -30,7 +30,7 @@ class WCEXD_Checkout_Fields {
 		$this->piva_only_ue  = get_option( 'wcexd_piva_only_ue' );
 		$this->only_italy    = get_option( 'wcexd_only_italy' );
 		$this->cf_only_italy = get_option( 'wcexd_cf_only_italy' );
-	    $this->ue            = array( 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LU', 'LV', 'LT', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK', 'GB' );
+	    $this->ue            = array( 'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL', 'ES', 'FI', 'FR', 'HR', 'HU', 'IE', 'IT', 'LU', 'LV', 'LT', 'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK' );
 
 
 	}
