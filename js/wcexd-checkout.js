@@ -3,7 +3,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/js
- * @since 1.3.0
+ * @since 1.3.2
  */
 jQuery(document).ready(function($){
 
