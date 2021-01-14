@@ -3,7 +3,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea/js
- * @since 1.3.0
+ * @since 1.3.2
  */
 jQuery(document).ready(function($){
 
@@ -245,8 +245,10 @@ jQuery(document).ready(function($){
 	}
 	
 	/* Select style */
-	$(invoice_type).select2();
-	$('#billing_wcexd_invoice_type_field .select2').css('width', '100%');
+    if ($.fn.select2) {
+        $(invoice_type).select2();
+        $('#billing_wcexd_invoice_type_field .select2').css('width', '100%');
+    }
 
 	check_country_for_fields();
 	check_invoice_type();
