@@ -2,5 +2,5 @@
 	path = plugin-update-checker
 	url = https://github.com/YahnisElsts/plugin-update-checker.git
 [submodule "includes/wcexd-checkout-fields"]
-	path = includes/wcexd-checkout-fields
+	path = includes/wc-checkout-fields
 	url = https://ilGhera@bitbucket.org/ilGhera/wc-checkout-fields.git
