@@ -659,7 +659,7 @@ function wcifd_add_item_details( $order_id ) {
 				$price = get_post_meta( $item['product_id'], '_price', true );
 			}
 
-			if ( $price ) {
+			if ( $price && 0 < $regular_price ) {
 
 				$math = $price * 100 / $regular_price;
 				$discount = number_format( 100 - $math );
