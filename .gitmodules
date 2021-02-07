@@ -1,0 +1,3 @@
+[submodule "includes/wcexd-checkout-fields"]
+	path = includes/wc-checkout-fields
+	url = https://ilGhera@bitbucket.org/ilGhera/wc-checkout-fields.git

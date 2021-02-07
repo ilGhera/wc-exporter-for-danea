@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WED\n"
-"POT-Creation-Date: 2020-12-11 13:10+0100\n"
-"PO-Revision-Date: 2020-12-11 13:27+0100\n"
+"POT-Creation-Date: 2021-02-03 15:26+0100\n"
+"PO-Revision-Date: 2021-02-03 15:28+0100\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -16,44 +16,44 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html__\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/class-wcexd-checkout-fields.php:67
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:66
 msgid "Partita IVA"
 msgstr "VAT Number"
 
-#: includes/class-wcexd-checkout-fields.php:68
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:67
 msgid "Codice fiscale"
 msgstr "Fiscal code"
 
-#: includes/class-wcexd-checkout-fields.php:69
-#: includes/wcexd-admin-functions.php:268
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:68
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:166
 msgid "PEC"
 msgstr ""
 
-#: includes/class-wcexd-checkout-fields.php:70
-#: includes/wcexd-admin-functions.php:277
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:69
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:175
 msgid "Codice destinatario"
 msgstr "Recipient code"
 
-#: includes/class-wcexd-checkout-fields.php:93
-#: includes/wcexd-admin-functions.php:220
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:92
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:118
 msgid "Privato ( Ricevuta )"
 msgstr "Private ( Receipt )"
 
-#: includes/class-wcexd-checkout-fields.php:97
-#: includes/wcexd-admin-functions.php:214
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:96
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:112
 msgid "Privato ( Fattura )"
 msgstr "Private ( Invoice )"
 
-#: includes/class-wcexd-checkout-fields.php:101
-#: includes/wcexd-admin-functions.php:208
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:100
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:106
 msgid "Azienda ( Fattura )"
 msgstr "Company ( Invoice )"
 
-#: includes/class-wcexd-checkout-fields.php:112
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:111
 msgid "Documento fiscale"
 msgstr "Fiscal document"
 
-#: includes/class-wcexd-checkout-fields.php:330
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:329
 #, php-format
 msgid ""
 "Non hai inserito <strong>PEC</strong> o <strong>Codice destinatario</"
@@ -63,38 +63,150 @@ msgstr ""
 "You didn't add a <strong>PEC</strong> or your <strong>Recipient code</"
 "strong>, you can use the generic Recipient code <strong><u>%s</u></strong>."
 
-#: includes/class-wcexd-checkout-fields.php:399
-#: includes/class-wcexd-checkout-fields.php:469
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:344
+msgid ""
+"ATTENZIONE! Sembra che il <strong>Codice Fiscale</strong> inserito non sia "
+"corretto."
+msgstr ""
+"ATTENTION! It seems like the <strong>Fiscal Code</strong> entered is not "
+"correct."
+
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:358
+msgid ""
+"ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserita non sia "
+"corretta."
+msgstr ""
+"ATTENTION! It seems like the <strong>VAT Number</strong> entered is not "
+"correct."
+
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:398
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:468
 msgid "Dati di fatturazione"
 msgstr "Billing information"
 
-#: includes/class-wcexd-checkout-fields.php:448
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:447
 msgid "Dati fatturazione"
 msgstr "Billing information"
 
-#: includes/wcexd-admin-functions.php:59
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:95
+msgid "Pagina di checkout"
+msgstr "Checkout page"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:101
+msgid "Documenti fiscali"
+msgstr "Fiscal documents"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:121
+msgid ""
+"Attivando uno o più tipi di fattura, verranno visualizzati i campi P.IVA e "
+"Codice Fiscale quando necessari"
+msgstr ""
+"Activating one or more invoice types, VAT Number and Fiscal Code fields will "
+"be shown if necessary "
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:125
+msgid "Tipo documento"
+msgstr "Document type"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:130
+msgid "Mostra la scelta del tipo di documento come primo campo"
+msgstr "Put the document type selector on the top of the form"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:134
+msgid "CF obbligatorio"
+msgstr "FC Mandatory"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:138
+msgid "Mai"
+msgstr "Never"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:139
+msgid "Solo Ricevuta"
+msgstr "Only with receipts"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:140
+msgid "Solo Fattura"
+msgstr "Only with invoices"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:141
+msgid "Sempre"
+msgstr "Always"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:144
+msgid "Rendi obbligatorio il campo Codice Fiscale"
+msgstr "Make the Fiscal Code field mandatory"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:148
+msgid "Verifica C.F."
+msgstr "C.F. validation"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:153
+msgid "Attiva il controllo di validità del Codice Fiscale"
+msgstr "Activate the fiscal code validity check"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:157
+msgid "Verifica VIES"
+msgstr "VIES validation"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:162
+msgid ""
+"Attiva il controllo VIES per la Partita IVA <i>( Richiede che SOAP sia "
+"attivo sul server )</i>"
+msgstr ""
+"Activate the VIES validity check for the VAT Number <i>( SOAP activated on "
+"server is required )</i>"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:171
+msgid "Attiva il campo PEC per la fatturazione elettronica"
+msgstr "Activate the PEC field for eletronic invoicing"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:180
+msgid "Attiva il campo Codice destinatario per la fatturazione elettronica"
+msgstr "Activate the Receiver code field for electronic invoicing"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:184
+msgid "Solo UE"
+msgstr "Only UE"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:189
+msgid "P.IVA obbligatoria solo per i paesi dell'UE"
+msgstr "Make VAT Number field mandatory only for European Union countries "
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:193
+msgid "Solo Italia"
+msgstr "Only Italy"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:198
+msgid "Mostra PEC e Codice destinatario solo per l'Italia"
+msgstr "Show PEC and Recipient code fields only to Italian customers"
+
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:208
+msgid "Mostra il campo Codice fiscale solo per l'Italia"
+msgstr "Show the Fiscal code field only to Italian customers"
+
+#: includes/wcexd-admin-functions.php:60
 msgid ""
 "Sembra che tu non abbia i permessi sufficienti per visualizzare questa "
 "pagina."
 msgstr "Ops, you have not permissions to do that!"
 
-#: includes/wcexd-admin-functions.php:70
+#: includes/wcexd-admin-functions.php:71
 msgid "ATTENZIONE! Sembra che Woocommerce non sia installato."
 msgstr "Attention! It seems like Woocommerce is not installed."
 
-#: includes/wcexd-admin-functions.php:82
+#: includes/wcexd-admin-functions.php:83
 msgid "Woocommmerce Exporter per Danea"
 msgstr "Woocommmerce Exporter for Danea"
 
-#: includes/wcexd-admin-functions.php:91
+#: includes/wcexd-admin-functions.php:92
 msgid "Premium Key"
 msgstr "Premium Key"
 
-#: includes/wcexd-admin-functions.php:92
+#: includes/wcexd-admin-functions.php:93
 msgid "Add your Premium Key"
 msgstr "Add your Premium Key"
 
-#: includes/wcexd-admin-functions.php:93
+#: includes/wcexd-admin-functions.php:94
 msgid ""
 "Incolla qui la Premium Key che hai ricevuto via mail, potrai ricevere gli "
 "ultimi aggiornamenti di <strong>Woocommerce Exporter per Danea - Premium</"
@@ -103,153 +215,57 @@ msgstr ""
 "Add here the Premium Key that you received by email, you will keep your copy "
 "of <strong>Woocommerce Exporter for Danea - Premium</strong> updated."
 
-#: includes/wcexd-admin-functions.php:95
+#: includes/wcexd-admin-functions.php:96
 msgid "Salva "
 msgstr "Save"
 
-#: includes/wcexd-admin-functions.php:102
+#: includes/wcexd-admin-functions.php:103
 msgid "Impostazioni"
 msgstr "Settings"
 
-#: includes/wcexd-admin-functions.php:103
-#: includes/wcexd-admin-functions.php:394
+#: includes/wcexd-admin-functions.php:104
+#: includes/wcexd-admin-functions.php:183
 msgid "Fornitori"
 msgstr "Suppliers"
 
-#: includes/wcexd-admin-functions.php:104
+#: includes/wcexd-admin-functions.php:105
 msgid "Prodotti"
 msgstr "Products"
 
-#: includes/wcexd-admin-functions.php:105
+#: includes/wcexd-admin-functions.php:106
 msgid "Clienti"
 msgstr "Clients"
 
-#: includes/wcexd-admin-functions.php:106
+#: includes/wcexd-admin-functions.php:107
 msgid "Ordini"
 msgstr "Orders"
 
-#: includes/wcexd-admin-functions.php:197
-msgid "Pagina di checkout"
-msgstr "Checkout page"
-
-#: includes/wcexd-admin-functions.php:203
-msgid "Documenti fiscali"
-msgstr "Fiscal documents"
-
-#: includes/wcexd-admin-functions.php:223
-msgid ""
-"Attivando uno o più tipi di fattura, verranno visualizzati i campi P.IVA e "
-"Codice Fiscale quando necessari"
-msgstr ""
-"Activating one or more invoice types, VAT Number and Fiscal Code fields will "
-"be shown if necessary "
-
-#: includes/wcexd-admin-functions.php:227
-msgid "Tipo documento"
-msgstr "Document type"
-
-#: includes/wcexd-admin-functions.php:232
-msgid "Mostra la scelta del tipo di documento come primo campo"
-msgstr "Put the document type selector on the top of the form"
-
-#: includes/wcexd-admin-functions.php:236
-msgid "CF obbligatorio"
-msgstr "FC Mandatory"
-
-#: includes/wcexd-admin-functions.php:240
-msgid "Mai"
-msgstr "Never"
-
-#: includes/wcexd-admin-functions.php:241
-msgid "Solo Ricevuta"
-msgstr "Only with receipts"
-
-#: includes/wcexd-admin-functions.php:242
-msgid "Solo Fattura"
-msgstr "Only with invoices"
-
-#: includes/wcexd-admin-functions.php:243
-msgid "Sempre"
-msgstr "Always"
-
-#: includes/wcexd-admin-functions.php:246
-msgid "Rendi obbligatorio il campo Codice Fiscale"
-msgstr "Make the Fiscal Code field mandatory"
-
-#: includes/wcexd-admin-functions.php:250
-msgid "Verifica C.F."
-msgstr "C.F. validation"
-
-#: includes/wcexd-admin-functions.php:255
-msgid "Attiva il controllo di validità del Codice Fiscale"
-msgstr "Activate the fiscal code validity check"
-
-#: includes/wcexd-admin-functions.php:259
-msgid "Verifica VIES"
-msgstr "VIES validation"
-
-#: includes/wcexd-admin-functions.php:264
-msgid ""
-"Attiva il controllo VIES per la Partita IVA <i>( Richiede che SOAP sia "
-"attivo sul server )</i>"
-msgstr ""
-"Activate the VIES validity check for the VAT Number <i>( SOAP activated on "
-"server is required )</i>"
-
-#: includes/wcexd-admin-functions.php:273
-msgid "Attiva il campo PEC per la fatturazione elettronica"
-msgstr "Activate the PEC field for eletronic invoicing"
-
-#: includes/wcexd-admin-functions.php:282
-msgid "Attiva il campo Codice destinatario per la fatturazione elettronica"
-msgstr "Activate the Receiver code field for electronic invoicing"
-
-#: includes/wcexd-admin-functions.php:286
-msgid "Solo UE"
-msgstr "Only UE"
-
-#: includes/wcexd-admin-functions.php:291
-msgid "P.IVA obbligatoria solo per i paesi dell'UE"
-msgstr "Make VAT Number field mandatory only for European Union countries "
-
-#: includes/wcexd-admin-functions.php:295
-msgid "Solo Italia"
-msgstr "Only Italy"
-
-#: includes/wcexd-admin-functions.php:300
-msgid "Mostra PEC e Codice destinatario solo per l'Italia"
-msgstr "Show PEC and Recipient code fields only to Italian customers"
-
-#: includes/wcexd-admin-functions.php:310
-msgid "Mostra il campo Codice fiscale solo per l'Italia"
-msgstr "Show the Fiscal code field only to Italian customers"
-
-#: includes/wcexd-admin-functions.php:336
+#: includes/wcexd-admin-functions.php:125
 msgid "Esportazione elenco fornitori Woocommerce"
 msgstr "Woocommerce suppliers export"
 
-#: includes/wcexd-admin-functions.php:337
+#: includes/wcexd-admin-functions.php:126
 msgid ""
 "L'importazione dei fornitori in Danea avviene attraverso l'utilizzo di un "
 "file Excel/ OpenOffice. "
 msgstr ""
 "The import of suppliers in Danea is done by using an Excel/ OpenIffice file."
 
-#: includes/wcexd-admin-functions.php:338
+#: includes/wcexd-admin-functions.php:127
 msgid "Scegli il ruolo utente Wordpress che identifica i tuoi fornitori"
 msgstr "Choose the Wordpress user role that identifies your suppliers"
 
-#: includes/wcexd-admin-functions.php:339
+#: includes/wcexd-admin-functions.php:128
 msgid "Scarica l'elenco aggiornato dei tuoi fornitori"
 msgstr "Download your suppliers list"
 
-#: includes/wcexd-admin-functions.php:340
-#: includes/wcexd-admin-functions.php:381
-#: includes/wcexd-admin-functions.php:502
+#: includes/wcexd-admin-functions.php:129
+#: includes/wcexd-admin-functions.php:170
+#: includes/wcexd-admin-functions.php:291
 msgid "Apri e salva il file con uno dei programmi sopra indicati."
 msgstr "Download your suppliers index"
 
-#: includes/wcexd-admin-functions.php:341
+#: includes/wcexd-admin-functions.php:130
 msgid ""
 "In Danea, vai in \"Fornitori/ Utilità\", scegli \"Importa con Excel/"
 "OpenOffice/LibreOffice\" ed utilizza il file appena creato."
@@ -257,42 +273,42 @@ msgstr ""
 "In Danea, go to \"Fornitori/ Utilità\", choose \"Importa con Excel/"
 "OpenOffice/LibreOffice\" and use the file just created."
 
-#: includes/wcexd-admin-functions.php:342
-#: includes/wcexd-admin-functions.php:383
-#: includes/wcexd-admin-functions.php:504
-#: includes/wcexd-admin-functions.php:549
+#: includes/wcexd-admin-functions.php:131
+#: includes/wcexd-admin-functions.php:172
+#: includes/wcexd-admin-functions.php:293
+#: includes/wcexd-admin-functions.php:338
 msgid "Per maggiori informazioni, visita questa pagina:"
 msgstr "Need more information? Please, visit this page:"
 
-#: includes/wcexd-admin-functions.php:352
-#: includes/wcexd-admin-functions.php:515
+#: includes/wcexd-admin-functions.php:141
+#: includes/wcexd-admin-functions.php:304
 msgid "Ruolo utente"
 msgstr "User role"
 
-#: includes/wcexd-admin-functions.php:361
+#: includes/wcexd-admin-functions.php:150
 msgid "Seleziona il livello utente corrispondente ai tuoi fornitori."
 msgstr "Select the user level of your suppliers."
 
-#: includes/wcexd-admin-functions.php:368
+#: includes/wcexd-admin-functions.php:157
 msgid "Download elenco fornitori (.csv)"
 msgstr "Download suppliers list (.csv)"
 
-#: includes/wcexd-admin-functions.php:378
+#: includes/wcexd-admin-functions.php:167
 msgid "Esportazione elenco prodotti Woocommerce"
 msgstr "Export your Woocommerce product list."
 
-#: includes/wcexd-admin-functions.php:379
+#: includes/wcexd-admin-functions.php:168
 msgid ""
 "L'importazione dei prodotti in Danea avviene attraverso l'utilizzo di un "
 "file Excel/ OpenOffice. "
 msgstr ""
 "The import of products in Danea is done by using an Excel/ OpenIffice file."
 
-#: includes/wcexd-admin-functions.php:380
+#: includes/wcexd-admin-functions.php:169
 msgid "Scarica l'elenco aggiornato dei tuoi prodotti Woocommerce"
 msgstr "Download your Woocommerce products list"
 
-#: includes/wcexd-admin-functions.php:382
+#: includes/wcexd-admin-functions.php:171
 msgid ""
 "In Danea, vai in \"Prodotti/ Utilità\", scegli \"Importa con Excel/"
 "OpenOffice/LibreOffice\" ed utilizza il file appena creato."
@@ -300,22 +316,22 @@ msgstr ""
 "In Danea, go to \"Prodotti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
 "LibreOffice\" and use the file just created."
 
-#: includes/wcexd-admin-functions.php:404
+#: includes/wcexd-admin-functions.php:193
 msgid "Utilizza l'autore del prodotto come fornitore"
 msgstr "Use the product author as supplier"
 
-#: includes/wcexd-admin-functions.php:410
-#: includes/wcexd-admin-functions.php:598
+#: includes/wcexd-admin-functions.php:199
+#: includes/wcexd-admin-functions.php:387
 msgid "Nome imposta"
 msgstr "Tax name"
 
-#: includes/wcexd-admin-functions.php:414
-#: includes/wcexd-admin-functions.php:602
+#: includes/wcexd-admin-functions.php:203
+#: includes/wcexd-admin-functions.php:391
 msgid "Esporta il nome dell'imposta e non l'aliquota."
 msgstr "Export the tax name instead of the rate."
 
-#: includes/wcexd-admin-functions.php:416
-#: includes/wcexd-admin-functions.php:604
+#: includes/wcexd-admin-functions.php:205
+#: includes/wcexd-admin-functions.php:393
 msgid ""
 "Opzione consigliata se le aliquote sono state precedentemente importate da "
 "Danea Easyfatt."
@@ -323,15 +339,15 @@ msgstr ""
 "Recommended option if the tax rates were imported from Danea Easyfatt "
 "previously."
 
-#: includes/wcexd-admin-functions.php:420
+#: includes/wcexd-admin-functions.php:209
 msgid "Danea taglie e colori"
 msgstr "Danea sizes and color"
 
-#: includes/wcexd-admin-functions.php:430
+#: includes/wcexd-admin-functions.php:219
 msgid "Escludi taglie e colori"
 msgstr "Exclude sizes and colors"
 
-#: includes/wcexd-admin-functions.php:433
+#: includes/wcexd-admin-functions.php:222
 msgid ""
 "Le variazioni taglie/ colori create da Danea, trasferite a Woocommerce "
 "precedentemente, non possono essere importate attraverso un file. Escluderle "
@@ -340,11 +356,11 @@ msgstr ""
 "The Danea sizes and colors variations, transferred previously in "
 "Woocommerce, cannot be imported with a file. Do you want to exclude them?"
 
-#: includes/wcexd-admin-functions.php:438
+#: includes/wcexd-admin-functions.php:227
 msgid "Sensei"
 msgstr "Sensei"
 
-#: includes/wcexd-admin-functions.php:448
+#: includes/wcexd-admin-functions.php:237
 msgid ""
 "Se utilizzi Woothemes Sensei, potresti voler abbinare ogni prodotto dello "
 "store all'autore (Teacher) del corso ad esso associato, importandolo in "
@@ -353,65 +369,65 @@ msgstr ""
 "If you're using Woothemes Sensei, you may want to link every Woocommerce "
 "product with the Teacher of the course associate."
 
-#: includes/wcexd-admin-functions.php:456
+#: includes/wcexd-admin-functions.php:245
 msgid "Misure prodotti"
 msgstr "Products measures"
 
-#: includes/wcexd-admin-functions.php:459
+#: includes/wcexd-admin-functions.php:248
 msgid "Misure lorde"
 msgstr "Gross measures"
 
-#: includes/wcexd-admin-functions.php:460
+#: includes/wcexd-admin-functions.php:249
 msgid "Misure nette"
 msgstr "Net measures"
 
-#: includes/wcexd-admin-functions.php:462
+#: includes/wcexd-admin-functions.php:251
 msgid ""
 "Scegli se le misure esportate verranno usate in danea come lorde o nette."
 msgstr ""
 "Choose if the exported values will be used in Danea as gross or net measures."
 
-#: includes/wcexd-admin-functions.php:467
+#: includes/wcexd-admin-functions.php:256
 msgid "Peso prodotti"
 msgstr "Product weight"
 
-#: includes/wcexd-admin-functions.php:470
+#: includes/wcexd-admin-functions.php:259
 msgid "Peso lordo"
 msgstr "Gross weight"
 
-#: includes/wcexd-admin-functions.php:471
+#: includes/wcexd-admin-functions.php:260
 msgid "Peso netto"
 msgstr "Net weight"
 
-#: includes/wcexd-admin-functions.php:473
+#: includes/wcexd-admin-functions.php:262
 msgid "Scegli se il peso esportato sarà usato in Danea come lordo o netto."
 msgstr ""
 "Choose if the value exported will be used in Danea as gross or net weight."
 
-#: includes/wcexd-admin-functions.php:481
+#: includes/wcexd-admin-functions.php:270
 msgid "Download elenco prodotti (.csv)"
 msgstr "Download products list (.csv)"
 
-#: includes/wcexd-admin-functions.php:498
+#: includes/wcexd-admin-functions.php:287
 msgid "Esportazione elenco clienti Woocommerce"
 msgstr "Export your Woocommerce clients list."
 
-#: includes/wcexd-admin-functions.php:499
+#: includes/wcexd-admin-functions.php:288
 msgid ""
 "L'importazione dei clienti in Danea avviene attraverso l'utilizzo di un file "
 "Excel/ OpenOffice. "
 msgstr ""
 "The import of clients in Danea is done by using an Excel/ OpenIffice file."
 
-#: includes/wcexd-admin-functions.php:500
+#: includes/wcexd-admin-functions.php:289
 msgid "Scegli il ruolo utente Wordpress che identifica i tuoi clienti"
 msgstr "Choose the Wordpress user role that identifies your clients"
 
-#: includes/wcexd-admin-functions.php:501
+#: includes/wcexd-admin-functions.php:290
 msgid "Scarica l'elenco aggiornato dei tuoi clienti"
 msgstr "Download your Woocommerce clients list"
 
-#: includes/wcexd-admin-functions.php:503
+#: includes/wcexd-admin-functions.php:292
 msgid ""
 "In Danea, vai in \"Clienti/ Utilità\", scegli \"Importa con Excel/OpenOffice/"
 "LibreOffice\" ed utilizza il file appena creato."
@@ -419,37 +435,37 @@ msgstr ""
 "In Danea, go to \"Clienti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
 "LibreOffice\" and use the file just created."
 
-#: includes/wcexd-admin-functions.php:524
+#: includes/wcexd-admin-functions.php:313
 msgid "Seleziona il livello utente corrispondente ai tuoi clienti"
 msgstr "Select the user level of your clients."
 
-#: includes/wcexd-admin-functions.php:532
+#: includes/wcexd-admin-functions.php:321
 msgid "Download elenco clienti (.csv)"
 msgstr "Download clients list (.csv)"
 
-#: includes/wcexd-admin-functions.php:543
+#: includes/wcexd-admin-functions.php:332
 msgid "Esportazione elenco ordini Woocommerce"
 msgstr "Export your Woocommerce orders list."
 
-#: includes/wcexd-admin-functions.php:544
+#: includes/wcexd-admin-functions.php:333
 msgid ""
 "L'importazione degli ordini in Danea avviene attraverso l'utilizzo di un "
 "file xml. "
 msgstr "The import of orders in Danea is done by using a xml file"
 
-#: includes/wcexd-admin-functions.php:546
+#: includes/wcexd-admin-functions.php:335
 msgid ""
 "Copia l'indirizzo completo del tuo feed con l'elenco ordini Woocommerce "
 "aggiornato."
 msgstr ""
 "Copy the full url of your feed with your updated Woocommerce orders list "
 
-#: includes/wcexd-admin-functions.php:547
+#: includes/wcexd-admin-functions.php:336
 msgid "In Danea, scegli \"Scarica ordini\" dal menù \"Strumenti/ E-commerce\""
 msgstr ""
 "In Danea, choose \"Scarica ordini\" from the menu \"Strumenti/ E-commerce\""
 
-#: includes/wcexd-admin-functions.php:548
+#: includes/wcexd-admin-functions.php:337
 msgid ""
 "Nella finestra seguente, incolla l'indirizzo del tuo elenco ordini in in "
 "\"Impostazioni/ Indirizzo...\""
@@ -457,27 +473,27 @@ msgstr ""
 "In the next window, paste the url of your Woocommerce orders list in "
 "\"Impostazioni/ indirizzo...\""
 
-#: includes/wcexd-admin-functions.php:576
+#: includes/wcexd-admin-functions.php:365
 msgid "Please insert your <strong>Premium Key</strong>"
 msgstr "Per cortesia, inserisci la tua <strong>Premium Key</strong>"
 
-#: includes/wcexd-admin-functions.php:582
+#: includes/wcexd-admin-functions.php:371
 msgid "Stato ordini"
 msgstr "Orders state"
 
-#: includes/wcexd-admin-functions.php:584
+#: includes/wcexd-admin-functions.php:373
 msgid "Tutti gli ordini"
 msgstr "All orders"
 
-#: includes/wcexd-admin-functions.php:594
+#: includes/wcexd-admin-functions.php:383
 msgid "Seleziona lo stato dell'ordine che desideri importare in Danea"
 msgstr "Select the order's state that you want to import in Danea"
 
-#: includes/wcexd-admin-functions.php:608
+#: includes/wcexd-admin-functions.php:397
 msgid "Feed URL"
 msgstr ""
 
-#: includes/wcexd-admin-functions.php:611
+#: includes/wcexd-admin-functions.php:400
 msgid ""
 "Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica "
 "ordini</b> (Ctrl+O) di Danea."
@@ -508,25 +524,25 @@ msgstr ""
 msgid "Si è verificato un errore sconosciuto, si prega di riprovare più tardi."
 msgstr "An error occurred, please try again later."
 
-#: plugin-update-checker/Puc/v4p8/Plugin/Ui.php:54
+#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:54
 msgid "View details"
 msgstr "Vedi dettagli"
 
-#: plugin-update-checker/Puc/v4p8/Plugin/Ui.php:77
+#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:77
 #, php-format
 msgid "More information about %s"
 msgstr "Più informazioni su %s"
 
-#: plugin-update-checker/Puc/v4p8/Plugin/Ui.php:128
+#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:128
 msgid "Check for updates"
 msgstr "Verifica aggiornamenti"
 
-#: plugin-update-checker/Puc/v4p8/Plugin/Ui.php:223
+#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:223
 #, php-format
 msgid "Unknown update checker status \"%s\""
 msgstr "Si è verificato un errore sconosciuto \"%s\""
 
-#: plugin-update-checker/Puc/v4p8/Vcs/PluginUpdateChecker.php:98
+#: plugin-update-checker/Puc/v4p10/Vcs/PluginUpdateChecker.php:98
 msgid "There is no changelog available."
 msgstr ""
 
