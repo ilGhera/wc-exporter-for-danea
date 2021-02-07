@@ -5,7 +5,7 @@
  * Description: If you've built your online store with Woocommerce and you're using Danea Easyfatt as management software, you definitely need Woocommerce Exporter for Danea - Premium!
  * You'll be able to export suppliers, products, clients and orders.
  * Author: ilGhera
- * Version: 1.3.2
+ * Version: 1.3.3
  * Author URI: https://ilghera.com
  * Requires at least: 4.0
  * Tested up to: 5.6
@@ -35,7 +35,7 @@ function load_wc_exporter_for_danea() {
 	include( WCEXD_INCLUDES . 'wcexd-functions.php');
 	include( WCEXD_INCLUDES . 'wcexd-suppliers-download.php');
 	include( WCEXD_INCLUDES . 'wcexd-products-download.php');
-	require( WCEXD_INCLUDES . '/class-wcexd-checkout-fields.php');
+	require( WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php');
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea', 100 );	
