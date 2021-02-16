@@ -73,13 +73,13 @@ From WordPress.org
 
 
 = 1.3.4 =
-Release Date: 16 January 2021 
+Release Date: 16 February 2021 
 
 * Bug fix: Billing data entered not recognized 
 
 
 = 1.3.3 =
-Release Date: 7 January 2021 
+Release Date: 7 February 2021 
 
 * Enhancement: Generic code improvements
 * Bug fix: VIES check not working in some cases with italian VAT number
