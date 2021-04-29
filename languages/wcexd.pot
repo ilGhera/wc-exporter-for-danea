@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WED\n"
-"POT-Creation-Date: 2021-02-03 15:27+0100\n"
+"POT-Creation-Date: 2021-04-29 19:15+0200\n"
 "PO-Revision-Date: 2016-05-26 13:25+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
@@ -54,32 +54,29 @@ msgstr ""
 msgid "Documento fiscale"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:329
-#, php-format
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:379
 msgid ""
-"Non hai inserito <strong>PEC</strong> o <strong>Codice destinatario</"
-"strong>, puoi utilizzare il Codice destinatario generico <strong><u>%s</u></"
-"strong>."
+"ATTENZIONE! Sembra che la <strong>PEC</strong> inserita non sia corretta."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:344
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:390
 msgid ""
 "ATTENZIONE! Sembra che il <strong>Codice Fiscale</strong> inserito non sia "
 "corretto."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:358
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:404
 msgid ""
 "ATTENZIONE! Sembra che la <strong>Partita IVA</strong> inserita non sia "
 "corretta."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:398
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:468
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:458
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:528
 msgid "Dati di fatturazione"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:447
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:507
 msgid "Dati fatturazione"
 msgstr ""
 
