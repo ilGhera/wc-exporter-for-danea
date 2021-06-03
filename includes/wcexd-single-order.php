@@ -14,6 +14,9 @@ $newDate = date("Y-m-d", strtotime($originalDate));
 $customer_name =  WCtoDanea::order_details($order->get_id(), '_billing_first_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_billing_last_name'); 
 $shipping_name =  WCtoDanea::order_details($order->get_id(), '_shipping_first_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_shipping_last_name'); 
 
+/*Prezzi a carrello IVA inclusa o meno*/
+$tax_included = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
+
 /*Recupero i nomi dei campi fiscali italiani*/
 $cf_name      = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
 $pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
@@ -66,7 +69,7 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
 ?>
   <CostVatCode><?php echo $cost_vat_code ? $cost_vat_code : 'FC'; ?></CostVatCode>
   <CostAmount><?php echo round(WCtoDanea::order_details($order->get_id(), '_order_shipping'), 2); ?></CostAmount>
-  <PricesIncludeVat>false</PricesIncludeVat>
+  <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>
   <InternalComment><?php echo $order->get_customer_note(); ?></InternalComment>
   <CustomField2></CustomField2>
@@ -78,7 +81,8 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   foreach($items as $item) {
 
   $get_product_id = WCtoDanea::item_info($item->get_id(), '_product_id');
-  $variation_id = wc_get_order_item_meta($item->get_id(), '_variation_id');
+  $product        =  wc_get_product( $get_product_id );
+  $variation_id   = wc_get_order_item_meta($item->get_id(), '_variation_id');
 
   $from_danea = false;
   if($variation_id) {
@@ -95,7 +99,6 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
     $item_id = $get_product_id; 
   }
 
-
   /*SKU o ID*/
   if(get_post_meta($item_id, '_sku', true)) {
     $product_id = get_post_meta($item_id, '_sku', true);
@@ -106,10 +109,8 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   /*Verifico se il prodotto è un bundle*/
   $is_bundle = WCtoDanea::item_info($item->get_id(), '_bundled_items');  
 
-
   /*Verifico se il prodotto appartiene a un bundle*/
   $is_bundled = WCtoDanea::item_info($item->get_id(), '_bundled_by');
-
 
   /*Recupero i dettagli del singolo item*/
   $item_get_subtotal = WCtoDanea::item_info($item->get_id(), '_line_subtotal');
@@ -117,13 +118,14 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   $item_get_tax = WCtoDanea::item_info($item->get_id(), '_line_tax');
   $item_discount = wc_get_order_item_meta($item->get_id(), '_wcexd_item_discount');
   $tax_rate = WCtoDanea::get_item_tax_rate($order, $item);
-  $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item->get_id(), '_qty'), 2);
-    
+
+  /* $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item->get_id(), '_qty'), 2); */
+  $item_price = number_format( $product->get_price(), 2 );
 
   /*Definisco prezzo e sconto*/
   $discount = null;
   if($item_discount && !$is_bundle) {
-    $item_price = number_format( (($item_get_subtotal * 100) / (100 - $item_discount)) / WCtoDanea::item_info($item->get_id(), '_qty'), 2);
+    $item_price = number_format( ( ($item_price * 100) / (100 - $item_discount) ), 2);
     $discount = $item_discount . '%';
   }
 
