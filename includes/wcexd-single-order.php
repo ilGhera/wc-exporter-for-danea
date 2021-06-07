@@ -81,7 +81,6 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   foreach($items as $item) {
 
   $get_product_id = WCtoDanea::item_info($item->get_id(), '_product_id');
-  $product        =  wc_get_product( $get_product_id );
   $variation_id   = wc_get_order_item_meta($item->get_id(), '_variation_id');
 
   $from_danea = false;
@@ -114,13 +113,11 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
 
   /*Recupero i dettagli del singolo item*/
   $item_get_subtotal = WCtoDanea::item_info($item->get_id(), '_line_subtotal');
-  $item_get_total = WCtoDanea::item_info($item->get_id(), '_line_total');
-  $item_get_tax = WCtoDanea::item_info($item->get_id(), '_line_tax');
-  $item_discount = wc_get_order_item_meta($item->get_id(), '_wcexd_item_discount');
-  $tax_rate = WCtoDanea::get_item_tax_rate($order, $item);
-
-  /* $item_price = number_format($item_get_subtotal / WCtoDanea::item_info($item->get_id(), '_qty'), 2); */
-  $item_price = number_format( $product->get_price(), 2 );
+  $item_get_total    = WCtoDanea::item_info($item->get_id(), '_line_total');
+  $item_get_tax      = WCtoDanea::item_info($item->get_id(), '_line_tax');
+  $item_discount     = wc_get_order_item_meta($item->get_id(), '_wcexd_item_discount');
+  $tax_rate          = WCtoDanea::get_item_tax_rate($order, $item);
+  $item_price        = $order->get_item_subtotal( $item, $tax_included, 2 ); 
 
   /*Definisco prezzo e sconto*/
   $discount = null;
