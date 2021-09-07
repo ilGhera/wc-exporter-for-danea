@@ -147,7 +147,7 @@ if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
   } ?>
     <Row>
       <Code><?php echo $product_id; ?></Code>
-      <Description><?php echo esc_html($item['name']); ?></Description>
+      <Description><?php echo htmlspecialchars( html_entity_decode( $item['name'] ) ); ?></Description>
 <?php echo $size; ?>
 <?php echo $color; ?>
       <Qty><?php echo WCtoDanea::item_info($item->get_id(), '_qty'); ?></Qty>
