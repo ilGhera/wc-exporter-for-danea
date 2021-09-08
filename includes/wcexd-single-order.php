@@ -12,7 +12,8 @@ $order = new WC_Order( $order );
 $originalDate = $order->get_date_created();
 $newDate = date("Y-m-d", strtotime($originalDate));
 $customer_name =  WCtoDanea::order_details($order->get_id(), '_billing_first_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_billing_last_name'); 
-$shipping_name =  WCtoDanea::order_details($order->get_id(), '_shipping_first_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_shipping_last_name'); 
+$shipping_name =  WCtoDanea::order_details($order->get_id(), '_shipping_last_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_shipping_first_name'); 
+$delivery_name = (WCtoDanea::order_details($order->get_id(), '_shipping_company')) ? $shipping_name . ' c/o ' . WCtoDanea::order_details($order->get_id(), '_shipping_company') : $shipping_name;
 
 /*Prezzi a carrello IVA inclusa o meno*/
 $tax_included = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
@@ -49,7 +50,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <CustomerTel><?php echo WCtoDanea::order_details($order->get_id(), '_billing_phone'); ?></CustomerTel>
   <CustomerCellPhone></CustomerCellPhone>
   <CustomerEmail><?php echo WCtoDanea::order_details($order->get_id(), '_billing_email'); ?></CustomerEmail>
-  <DeliveryName><?php echo (WCtoDanea::order_details($order->get_id(), '_shipping_company')) ? WCtoDanea::order_details($order->get_id(), '_shipping_company') : $shipping_name; ?></DeliveryName>
+  <DeliveryName><?php echo $delivery_name; ?></DeliveryName>
   <DeliveryAddress><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_address_1'); ?></DeliveryAddress>
   <DeliveryPostcode><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_postcode'); ?></DeliveryPostcode>
   <DeliveryCity><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_city'); ?></DeliveryCity>
