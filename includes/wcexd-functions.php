@@ -172,15 +172,19 @@ class WCtoDanea {
 
 			foreach( $taxes['subtotal'] as $rate_id => $tax ){
 
-				if ( $use_label ) {
+                if ( $tax ) {
 
-					$output   = $tax_items[ $rate_id ]['label'];
+                    if ( $use_label ) {
 
-				} else {
+                        $output   = $tax_items[ $rate_id ]['label'];
 
-					$output = $tax_items[ $rate_id ]['percent'];
+                    } else {
 
-				}
+                        $output = $tax_items[ $rate_id ]['percent'];
+
+                    }
+
+                }
 
 			}
 
