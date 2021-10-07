@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WED\n"
-"POT-Creation-Date: 2021-04-29 18:30+0200\n"
-"PO-Revision-Date: 2021-04-29 18:32+0200\n"
+"POT-Creation-Date: 2021-10-07 10:09+0200\n"
+"PO-Revision-Date: 2021-10-07 10:13+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -479,27 +479,19 @@ msgstr ""
 "Add this URL to the <b>Settings</b> tab of the function <b>Download orders</"
 "b> (Ctrl+O) in Danea."
 
-#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:54
-msgid "View details"
-msgstr "Vedi dettagli"
+#~ msgid "View details"
+#~ msgstr "Vedi dettagli"
 
-#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:77
 #, php-format
-msgid "More information about %s"
-msgstr "Più informazioni su %s"
+#~ msgid "More information about %s"
+#~ msgstr "Più informazioni su %s"
 
-#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:128
-msgid "Check for updates"
-msgstr "Verifica aggiornamenti"
+#~ msgid "Check for updates"
+#~ msgstr "Verifica aggiornamenti"
 
-#: plugin-update-checker/Puc/v4p10/Plugin/Ui.php:223
 #, php-format
-msgid "Unknown update checker status \"%s\""
-msgstr "Si è verificato un errore sconosciuto \"%s\""
-
-#: plugin-update-checker/Puc/v4p10/Vcs/PluginUpdateChecker.php:98
-msgid "There is no changelog available."
-msgstr ""
+#~ msgid "Unknown update checker status \"%s\""
+#~ msgstr "Si è verificato un errore sconosciuto \"%s\""
 
 #~ msgid ""
 #~ "WARNING! The <strong>PEC</strong> entered is not a valid email address."

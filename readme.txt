@@ -1,17 +1,20 @@
-=== Woocommerce Exporter for Danea ===
+=== WooCommerce Exporter for Danea ===
 Contributors: ghera74
-Tags: Fattura elettronica, Woocommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
-Version: 1.3.5
+Tags: Fattura elettronica, WooCommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
+Version: 1.4.0
 Requires at least: 4.0
-Tested up to: 5.7
+Tested up to: 5.8
 
 Export suppliers, products, customers and orders from your Woocommerce store to Danea.
 
 == Description ==
 
-Se hai realizzato il tuo negozio online con Woocommerce ed utilizzi Danea come gestionale, Woocommerce Exporter per Danea è quello che ti serve!
+Se hai realizzato il tuo negozio online con WooCommerce ed utilizzi Danea come gestionale, WooCommerce Exporter per Danea è quello che ti serve!
 Nella versione Free, permette di esportare un elenco di utenti Wordpress come fornitori, e l'elenco dei tuoi prodotti.
 Nella versione Premium, potrai esportare anche clienti e ordini.
+
+*Software certificato Danea Easyfatt*
+
 Ecco il dettaglio dei contenuti che è possibile esportare:
 
 * L'elenco dei fornitori, sotto forma di utenti Wordpress a cui si è assegnato un ruolo specifico (CSV).
@@ -37,6 +40,7 @@ If you've built your online store with Woocommerce and you're using Danea as man
 With this Free version you can export the suppliers and the products from your store.
 With Premium version, you'll be able also to export clients and orders.
 
+*Danea Easyfatt certified*
 
 **ELECTRONIC INVOICE**
 
@@ -49,17 +53,17 @@ With Premium version, you'll be able also to export clients and orders.
 From your WordPress dashboard
 
 * Visit 'Plugins > Add New'
-* Search for 'Woocommerce Exporter for Danea' and download it.
-* Activate Woocommerce Exporter for Danea from your Plugins page.
-* Once Activated, go to Woocommerce/ Woocommerce Exporter for Danea.
+* Search for 'WooCommerce Exporter for Danea' and download it.
+* Activate WooCommerce Exporter for Danea from your Plugins page.
+* Once Activated, go to WooCommerce/ WooCommerce Exporter for Danea.
 
 
 From WordPress.org
 
-* Download Woocommerce Exporter for Danea
+* Download WooCommerce Exporter for Danea
 * Upload the 'woocommerce-exporter-for-danea' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
-* Activate Woocommerce Exporter for Danea from your Plugins page.
-* Once Activated, go to Woocommerce/ Woocommerce Exporter for Danea.
+* Activate WooCommerce Exporter for Danea from your Plugins page.
+* Once Activated, go to WooCommerce/ WooCommerce Exporter for Danea.
 
 
 == Screenshots ==
@@ -70,6 +74,15 @@ From WordPress.org
 
 
 == Changelog ==
+
+
+= 1.4.0 =
+Release Date: 7 October 2021 
+
+* Enhancement: Danea Easyfatt certification
+* Enhancement: (Premium) The DeliveryName field now includes the customer name in addition to the company name when present
+* Enhancement: (Premium) Prices are now exported including VAT or not based on WooCommerce settings
+* Bug fix: (Premium) Failure to export special chars in order products name
 
 
 = 1.3.5 =
