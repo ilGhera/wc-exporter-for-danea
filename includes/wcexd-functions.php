@@ -640,13 +640,17 @@ add_filter( 'woocommerce_hidden_order_itemmeta', 'wcexd_hide_item_discount' );
 
 
 /**
- * Salva nel db la percentale di sconto per singolo item dell'ordine
+ * Salva nel db la percentuale di sconto per singolo item dell'ordine
  *
  * @param  int $order_id l'id dell'ordine.
  */
 function wcifd_add_item_details( $order_id ) {
 
-	$order = new WC_Order( $order_id );
+	$order         = new WC_Order( $order_id );
+    $user_data     = get_userdata( $order->get_user_id() ); 
+    $user_role     = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
+    $regular_price = null;
+    $price         = null;
 
 	foreach ( $order->get_items() as $key => $item ) {
 
@@ -654,13 +658,37 @@ function wcifd_add_item_details( $order_id ) {
 
 			if ( 0 != $item['variation_id'] ) {
 
-				$regular_price = get_post_meta( $item['variation_id'], '_regular_price', true );
-				$price = get_post_meta( $item['variation_id'], '_price', true );
+                /*WooCommerce Role Based Price*/
+                $wc_rbp = get_post_meta( $item['variation_id'], '_role_based_price', true );
+
+                if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
+
+                    $regular_price = isset( $wc_rbp[ $user_role ]['regular_price'] ) ? $wc_rbp[ $user_role ]['regular_price'] : null; 
+                    $price         = isset( $wc_rbp[ $user_role ]['selling_price'] ) ? $wc_rbp[ $user_role ]['selling_price'] : null;
+
+                } else {
+
+                    $regular_price = $reguar_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
+                    $price         = $price ? $price : get_post_meta( $item['variation_id'], '_price', true );
+                    
+                }
 
 			} else {
 
-				$regular_price = get_post_meta( $item['product_id'], '_regular_price', true );
-				$price = get_post_meta( $item['product_id'], '_price', true );
+                /*WooCommerce Role Based Price*/
+                $wc_rbp = get_post_meta( $item['product_id'], '_role_based_price', true );
+
+                if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
+
+                    $regular_price = isset( $wc_rbp[ $user_role ]['regular_price'] ) ? $wc_rbp[ $user_role ]['regular_price'] : null; 
+                    $price         = isset( $wc_rbp[ $user_role ]['selling_price'] ) ? $wc_rbp[ $user_role ]['selling_price'] : null;
+
+                } else {
+
+                    $regular_price = $regular_price ? $regular_price : get_post_meta( $item['product_id'], '_regular_price', true );
+                    $price         = $price ? $price : get_post_meta( $item['product_id'], '_price', true );
+
+                }
 			}
 
 			if ( $price && 0 < $regular_price ) {
