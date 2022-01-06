@@ -649,11 +649,17 @@ function wcifd_add_item_details( $order_id ) {
 	$order         = new WC_Order( $order_id );
     $user_data     = get_userdata( $order->get_user_id() ); 
     $user_role     = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
-    $regular_price = null;
-    $price         = null;
+
+    $n = 0;
+
+    error_log( 'ITEMS: ' . print_r( $order->get_items(), true ) );
 
 	foreach ( $order->get_items() as $key => $item ) {
 
+        $regular_price = null;
+        $price         = null;
+        $n++;
+        
 		if ( 'line_item' === $item['type'] ) {
 
 			if ( 0 != $item['variation_id'] ) {
@@ -668,8 +674,10 @@ function wcifd_add_item_details( $order_id ) {
 
                 } else {
 
-                    $regular_price = $reguar_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
+                    $regular_price = $regular_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
                     $price         = $price ? $price : get_post_meta( $item['variation_id'], '_price', true );
+                    error_log( 'REGULAR PRICE ' . $n . ': ' . $regular_price );
+                    error_log( 'PRICE ' . $n .  ': ' . $price );
                     
                 }
 
@@ -695,6 +703,8 @@ function wcifd_add_item_details( $order_id ) {
 
 				$math = $price * 100 / $regular_price;
 				$discount = number_format( 100 - $math );
+
+                error_log( 'MATH ' . $n .  ': ' . $math );
 
 				wc_add_order_item_meta( $key, '_wcexd_item_discount', $discount );
 
@@ -765,3 +775,4 @@ function wcexd_update_message( $message = '', $status = '' ) {
 
 }
 add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', 'wcexd_update_message', 10, 2 );
+
