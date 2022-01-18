@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.0
+ * @since 1.4.2
 */
 
 $order = new WC_Order( $order );
@@ -17,6 +17,12 @@ $delivery_name = (WCtoDanea::order_details($order->get_id(), '_shipping_company'
 
 /*Prezzi a carrello IVA inclusa o meno*/
 $tax_included = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
+
+/*Spese di spedizione*/
+$cost_amount = round(WCtoDanea::order_details($order->get_id(), '_order_shipping'), 2);
+if ( $tax_included ) {
+    $cost_amount = round($cost_amount + WCtoDanea::order_details($order->get_id(), '_order_shipping_tax'), 2);
+}
 
 /*Recupero i nomi dei campi fiscali italiani*/
 $cf_name      = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
@@ -62,8 +68,8 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <Number><?php echo $order->get_id(); ?></Number>
   <Total><?php echo WCtoDanea::order_details($order->get_id(), '_order_total'); ?></Total>
   <CostDescription><?php echo WCtoDanea::get_shipping_method_name($order->get_id()); ?></CostDescription>
-  <CostVatCode><?php echo WCtoDanea::get_shipping_tax_rate($order, true); ?></CostVatCode>
-  <CostAmount><?php echo round(WCtoDanea::order_details($order->get_id(), '_order_shipping'), 2); ?></CostAmount>
+  <CostVatCode><?php echo WCtoDanea::get_shipping_tax_rate($order); ?></CostVatCode>
+  <CostAmount><?php echo $cost_amount; ?></CostAmount>
   <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>
   <InternalComment><?php echo $order->get_customer_note(); ?></InternalComment>
