@@ -62,13 +62,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <Number><?php echo $order->get_id(); ?></Number>
   <Total><?php echo WCtoDanea::order_details($order->get_id(), '_order_total'); ?></Total>
   <CostDescription><?php echo WCtoDanea::get_shipping_method_name($order->get_id()); ?></CostDescription>
-<?php 
-$cost_vat_code = null;
-if(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') != 0) {
-  $cost_vat_code = number_format(WCtoDanea::order_details($order->get_id(), '_order_shipping_tax') * 100 / WCtoDanea::order_details($order->get_id(), '_order_shipping'));
-}
-?>
-  <CostVatCode><?php echo $cost_vat_code ? $cost_vat_code : 'FC'; ?></CostVatCode>
+  <CostVatCode><?php echo WCtoDanea::get_shipping_tax_rate($order, true); ?></CostVatCode>
   <CostAmount><?php echo round(WCtoDanea::order_details($order->get_id(), '_order_shipping'), 2); ?></CostAmount>
   <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>

@@ -133,31 +133,79 @@ class WCtoDanea {
 	/**
 	 * Get the order tax items
 	 *
-	 * @param  object $order the WC order.		
+	 * @param object $order the WC order.		
+     * @param bool $shipping get just tax classes used for shipping.
 	 * @return array
 	 */
-	public static function get_order_tax_items( $order ) {
+	public static function get_order_tax_items( $order, $shipping = false ) {
 
 		$output = array();
 
 		foreach ( $order->get_items( 'tax' ) as $tax_item ) {
 
-		    $output[ $tax_item->get_rate_id() ] = array(
-		    	'label'   => $tax_item->get_label(),
-		    	'percent' => $tax_item->get_rate_percent(),
-		    );
+            if ( $shipping && 0 < $tax_item->get_shipping_tax_total() ) {
+
+                $output[ $tax_item->get_rate_id() ] = array(
+                    'label'   => $tax_item->get_label(),
+                    'percent' => $tax_item->get_rate_percent(),
+                );
+            
+            } else {
+
+                $output[ $tax_item->get_rate_id() ] = array(
+                    'label'   => $tax_item->get_label(),
+                    'percent' => $tax_item->get_rate_percent(),
+                );
+
+            }
 		}
 
 		return $output;
 
 	}
 
+
+    /**
+     * Get the shipping tax rate
+     *
+     * @param object $order the WC order
+     * @return array 
+     */
+    public static function get_shipping_tax_rate( $order ) {
+
+		$output = 'FC';
+
+		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
+			
+			$use_label = get_option('wcexd-orders-tax-name');
+			$tax_items = self::get_order_tax_items( $order, true );
+
+			foreach( $tax_items as $rate_id => $tax ){
+
+                if ( $use_label ) {
+
+                    $output   = $tax_items[ $rate_id ]['label'];
+
+                } else {
+
+                    $output = $tax_items[ $rate_id ]['percent'];
+
+                }
+
+			}
+
+		}
+
+		return $output;
+
+    }
+
 	
 	/**
 	 * Get item vat percentage or label
 	 *
 	 * @param  object $order the wc order.
-	 * @param  object $item  the specific order utem.
+	 * @param  object $item  the specific order item.
 	 * @return string
 	 */
 	public static function get_item_tax_rate( $order, $item ) {
@@ -167,7 +215,7 @@ class WCtoDanea {
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 			
 			$use_label = get_option('wcexd-orders-tax-name');
-			$tax_items = self::get_order_tax_items($order);
+			$tax_items = self::get_order_tax_items( $order );
 			$taxes     = $item->get_taxes();
 
 			foreach( $taxes['subtotal'] as $rate_id => $tax ){
