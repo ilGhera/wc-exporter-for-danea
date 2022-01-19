@@ -123,7 +123,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   /*Definisco prezzo e sconto*/
   $discount = null;
   if($item_discount && !$is_bundle) {
-    $item_price = number_format( ( ($item_price * 100) / (100 - $item_discount) ), 2);
+    $item_price = number_format( ( ($item_price * 100) / (100 - $item_discount) ), 2, '.', '' );
     $discount = $item_discount . '%';
   }
 
@@ -143,7 +143,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
 
   $cart_discount = false;
   if( $item_get_subtotal && $item_get_subtotal != $item_get_total) {
-    $cart_discount = number_format( (($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 2);
+    $cart_discount = number_format( ( ($item_get_subtotal - $item_get_total) / $item_get_subtotal * 100), 2, '.', '' );
     $discount = ($item_discount) ? $item_discount . '+' . $cart_discount . '%' : $cart_discount . '%';
   } ?>
     <Row>
