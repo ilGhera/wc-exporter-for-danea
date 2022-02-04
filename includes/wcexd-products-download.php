@@ -118,7 +118,7 @@ function wcexd_products_download() {
 				'Dim. imballo Y',
 				'Dim. imballo Z',
 				'Volume imballo',
-				'Udm peso',
+				'Udm Peso',
 				'Peso netto',
 				'Peso lordo',
 				'Immagine',
