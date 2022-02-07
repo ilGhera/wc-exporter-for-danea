@@ -49,6 +49,7 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 = 1.4.4 =
 Release Date: 7 February 2022 
 
+    * Enhancement: Plugin Update Checker updated
     * Bug fix: Incorrect unit of weight in export products
     * Bug fix: Error exporting float values as weight or product dimensions
 
