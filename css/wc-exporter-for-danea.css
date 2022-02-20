@@ -75,16 +75,6 @@ a.message {
 	/*width:100px;*/
 }
 
-.nav-tab.premium {
-	background-color: #9B5D90;
-	color: #fff;
-}
-
-.nav-tab.premium:hover, .nav-tab.nav-tab-active.premium {
-	background-color: inherit;
-	color: inherit;
-}
-
 .nav-tab.not-available, .nav-tab.not-available:hover {
 	border-width: 1px 1px medium;
     border-style: solid solid none;
