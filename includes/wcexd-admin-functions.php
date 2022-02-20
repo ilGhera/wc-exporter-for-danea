@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @since 1.3.0
+ * @since 1.4.1
  */
 
 /**
@@ -48,6 +48,32 @@ function wcexd_add_scripts() {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'wcexd_add_scripts' );
+
+
+/**
+ * Go premium button
+ */
+function wcexd_go_premium() {
+
+	$title = __( 'This is a premium functionality, click here for more information', 'wcexd' );
+	$output = '<span class="wcexd label label-warning premium">';
+		$output .= '<a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium" target="_blank" title="' . esc_attr( $title ) . '">Premium</a>';
+	$output .= '</span>';
+
+	$allowed = array(
+		'span' => array(
+			'class' => [],
+		),
+		'a'    => array(
+			'target' => [],
+			'title'  => [],
+			'href'   => [],
+		),
+	);
+
+	echo wp_kses( $output, $allowed );
+
+}
 
 
 /**
@@ -285,6 +311,10 @@ function wcexd_options() {
 						<p class="description"><?php echo __('Seleziona il livello utente corrispondente ai tuoi clienti', 'wcexd'); ?></p>
 	    			</td>
 	    		</tr>
+                <tr>
+                    <th></th>
+                    <td><?php wcexd_go_premium(); ?></td>
+                </tr>
 	    	</table>
 	        <?php wp_nonce_field( 'wcexd-clients-submit', 'wcexd-clients-nonce'); ?>
 			<p class="submit">
@@ -338,6 +368,10 @@ function wcexd_options() {
 				        <p class="description"><?php echo __('Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica ordini</b> (Ctrl+O) di Danea.', 'wcexd'); ?></p>
 			        </td>
 			    </tr>
+                <tr>
+                    <th></th>
+                    <td><?php wcexd_go_premium(); ?></td>
+                </tr>
 	    	</table>                      
 	        <p class="submit">
 	        	<input type="hidden" name="wcexd-orders-sent" value="1">
@@ -349,7 +383,7 @@ function wcexd_options() {
     </div><!--WRAP-LEFT-->
 	
 	<div class="wrap-right">
-		<iframe width="300" height="900" scrolling="no" src="http://www.ilghera.com/images/wed-iframe.html"></iframe>
+		<iframe width="300" height="1200" scrolling="no" src="http://www.ilghera.com/images/wed-iframe.html"></iframe>
 	</div>
 	<div class="clear"></div>
     

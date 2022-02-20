@@ -2,7 +2,7 @@
  * Foglio di stile
  * @author ilGhera
  * @package wc-exporter-for-danea/css
- * @since 1.1.4
+ * @since 1.4.1
  */
 
 @import url(http://fonts.googleapis.com/css?family=Raleway:200,300,400,500,600,700);
@@ -178,3 +178,28 @@ select.wcexd {
 	text-transform: uppercase;
 	color: #23282d;
 }
+
+.wcexd.label-warning.premium {
+	display: inline-block;
+	margin: 10px 0 0;
+	padding: 7px 14px;
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25em;
+	background-color: #f0ad4e;
+	cursor: pointer;
+}
+
+.label-warning a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.label-warning a:hover {
+	color: #0073aa;
+}
+
