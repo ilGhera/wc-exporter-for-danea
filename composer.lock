@@ -53,6 +53,9 @@
                 "select",
                 "ui"
             ],
+            "support": {
+                "source": "https://github.com/harvesthq/chosen-package/tree/v1.8.7"
+            },
             "time": "2018-06-28T20:32:51+00:00"
         }
     ],
@@ -63,5 +66,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
