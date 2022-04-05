@@ -748,7 +748,7 @@ function wcifd_add_item_details( $order_id ) {
 			if ( $price && 0 < $regular_price ) {
 
 				$math = $price * 100 / $regular_price;
-				$discount = number_format( 100 - $math );
+				$discount = number_format( ( 100 - $math ), 2, '.', '' );
 
 				wc_add_order_item_meta( $key, '_wcexd_item_discount', $discount );
 

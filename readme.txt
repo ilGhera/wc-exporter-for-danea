@@ -50,6 +50,7 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 Release Date: 5 April 2022 
 
     * Bug fix: Tax Classes with value equal to zero always exported ad FC 
+    * Bug fix: Decimal numbers missed in order item discount
 
 
 = 1.4.4 =
