@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.2
+ * @since 1.4.5
  */
 
 /*Evito accesso diretto*/
@@ -225,7 +225,7 @@ class WCtoDanea {
 
 			foreach( $taxes['subtotal'] as $rate_id => $tax ){
 
-                if ( $tax ) {
+                if ( null !== $tax ) {
 
                     if ( $use_label ) {
 
