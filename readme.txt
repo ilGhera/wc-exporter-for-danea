@@ -47,10 +47,12 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 
 = 1.4.5 =
-Release Date: 5 April 2022 
+Release Date: 6 April 2022 
 
     * Bug fix: Tax Classes with value equal to zero always exported ad FC 
     * Bug fix: Decimal numbers missed in order item discount
+    * Bug fix: Billing information title displayed even with no values in thank you page
+    * Bug fix: Billing information title displayed even with no values in emails
 
 
 = 1.4.4 =
