@@ -81,6 +81,8 @@ Release Date: 7 April 2022
 
     * Bug fix: Billing information title displayed even with no values in thank you page
     * Bug fix: Billing information title displayed even with no values in emails
+    * Bug fix: Incorrect unit of weight in export products
+    * Bug fix: Error exporting float values as weight or product dimensions
     * Bug fix: (Premium) Tax Classes with value equal to zero always exported ad FC 
     * Bug fix: (Premium) Decimal numbers missed in order item discount
 
