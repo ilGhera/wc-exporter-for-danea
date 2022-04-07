@@ -118,7 +118,7 @@ function wcexd_products_download() {
 				'Dim. imballo Y',
 				'Dim. imballo Z',
 				'Volume imballo',
-				'Udm peso',
+				'Udm Peso',
 				'Peso netto',
 				'Peso lordo',
 				'Immagine',
@@ -248,11 +248,11 @@ function wcexd_products_download() {
 
 				if ( 'net-weight' === $weight_type ) {
 
-					$net_weight = $weight;
+					$net_weight = number_format( floatval( $weight ), 2, ',', '' );
 
 				} else {
 
-					$gross_weight = $weight;
+					$gross_weight = number_format( floatval( $weight ), 2, ',', '' );
 
 				}
 
@@ -262,11 +262,15 @@ function wcexd_products_download() {
 				$height    = get_post_meta( get_the_ID(), '_height', true );
 				$length    = get_post_meta( get_the_ID(), '_length', true );
 
-				$net_width = null;
+				$width     = number_format( floatval( $width ), 2, ',', '' ); 
+				$height    = number_format( floatval( $height ), 2, ',', '' );
+				$length    = number_format( floatval( $length ), 2, ',', '' );
+
+				$net_width  = null;
 				$net_height = null;
 				$net_length = null;
 
-				$gross_width = null;
+				$gross_width  = null;
 				$gross_height = null;
 				$gross_length = null;
 
