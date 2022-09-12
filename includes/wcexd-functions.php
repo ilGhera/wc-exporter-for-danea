@@ -288,6 +288,20 @@ class WCtoDanea {
 
 		$output = $items ? $items[0]['order_item_name'] : null;
 
+        /* Spese aggiuntive */
+        $order = wc_get_order( $order_id );
+        $fees  = $order->get_fees();
+        
+        if ( is_array( $fees ) ) {
+
+            foreach ( $fees as $fee ) {
+
+                $output .= ' + ' . $fee->get_name();
+
+            }
+
+        }
+
 		return $output;
 
 	}

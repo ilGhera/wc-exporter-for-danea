@@ -24,6 +24,14 @@ if ( $tax_included ) {
     $cost_amount = round($cost_amount + WCtoDanea::order_details($order->get_id(), '_order_shipping_tax'), 2);
 }
 
+/* Spese aggiuntive */
+$fees = $order->get_fees();
+if ( is_array( $fees ) ) {
+    foreach ( $fees as $fee ) {
+        $cost_amount += $fee->get_total() + $fee->get_total_tax();
+    }
+}
+
 /*Recupero i nomi dei campi fiscali italiani*/
 $cf_name      = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
 $pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
