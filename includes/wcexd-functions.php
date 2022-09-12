@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.5
+ * @since 1.4.7
  */
 
 /*Evito accesso diretto*/
