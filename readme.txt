@@ -27,7 +27,7 @@ Ecco il dettaglio dei contenuti che è possibile esportare:
 
 * (Premium) Possibilità di esportare ordini con stato differente
 * Possibilità di disattivare il codice fiscale per gli acquisti esteri
-* Nel caso in cui l'utente non inserisca PEC e Codice Destinatario, il sistema suggerisce ora il Codice destinatario generico 
+* Nel caso in cui l'utente non inserisca PEC e Codice Destinatario, il sistema utilizza ora il Codice destinatario generico 
 
 Fatturazione elettronica con Danea Easyfatt
 
@@ -46,7 +46,7 @@ With Premium version, you'll be able also to export clients and orders.
 
 * (Premium) Multiselect for exporting orders with different statuses
 * Option to deactivate fiscal code outside Italy
-* Generic recipient code suggested in case of empty fields
+* Generic recipient code used in case of empty fields
 
 
 == Installation ==
@@ -79,8 +79,8 @@ From WordPress.org
 = 1.4.4 =
 Release Date: 14 September 2022 
 
-    * Enhancement: Export of the extra fees of the order 
-    * Enhancement: Plugin Update Checker updated
+    * Enhancement: (Premium) Export of the extra fees of the order 
+    * Enhancement: (Premium) Plugin Update Checker updated
 
 
 = 1.4.3 =
