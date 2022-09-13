@@ -228,7 +228,7 @@ function wcexd_products_download() {
 				}
 
 				/*Trasformo il formato del prezzo*/
-				$regular_price = round( $get_regular_price, 2 );
+				$regular_price = $get_regular_price ? round( $get_regular_price, 2 ) : $get_regular_price;
 				$regular_price = str_replace( '.', ',', $regular_price );
 
 				if ( $get_sale_price ) {
