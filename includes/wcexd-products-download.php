@@ -289,10 +289,14 @@ function wcexd_products_download() {
 				}
 
 				$tax_rate = 1 === intval( $wcexd_products_tax_name ) ? WCtoDanea::get_tax_rate( $product->get_id(), 'name' ) : WCtoDanea::get_tax_rate( $product->get_id() );
+				
+				$variation = new WC_Product_Variation($product_id);
+
+				$variationName = implode(" / ", $variation->get_variation_attributes());
 
 				$data = array(
 					$product_id,
-					$product->get_title(),
+					$product->get_title()." ".$variationName,
 					$product_type,
 					$product_category_cat,
 					$product_category_sub,
