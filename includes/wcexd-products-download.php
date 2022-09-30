@@ -131,6 +131,9 @@ function wcexd_products_download() {
 				/* Richiamo il singolo "document" */
 				$product = wc_get_product( get_the_ID() );
 
+                /* Controllo se si tratta di una variazione di prodotto */
+                $is_variation = $product->get_parent_id() ? true : false;
+
 				/* Se richiesto, escludo le variabili taglie/ colori generate da danea */
 				if ( $exclude_danea_vars ) {
 
@@ -289,10 +292,18 @@ function wcexd_products_download() {
 				}
 
 				$tax_rate = 1 === intval( $wcexd_products_tax_name ) ? WCtoDanea::get_tax_rate( $product->get_id(), 'name' ) : WCtoDanea::get_tax_rate( $product->get_id() );
+				
+                $details = null;
+                if ( $is_variation ) {
+
+                    $variation = new WC_Product_Variation( get_the_ID() );
+                    $details   = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_variation_attributes() ) );
+
+                }
 
 				$data = array(
 					$product_id,
-					$product->get_title(),
+					$product->get_title() . $details,
 					$product_type,
 					$product_category_cat,
 					$product_category_sub,
