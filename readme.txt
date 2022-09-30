@@ -77,8 +77,9 @@ From WordPress.org
 
 
 = 1.4.4 =
-Release Date: 14 September 2022 
+Release Date: 30 September 2022 
 
+    * Enhancement: Display the attributes in the product's name of the variations exported
     * Enhancement: (Premium) Export of the extra fees of the order 
     * Enhancement: (Premium) Plugin Update Checker updated
 
