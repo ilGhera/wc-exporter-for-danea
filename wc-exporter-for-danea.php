@@ -8,8 +8,8 @@
  * Version: 1.4.4
  * Author URI: https://ilghera.com
  * Requires at least: 4.0
- * Tested up to: 6.0
- * WC tested up to: 6
+ * Tested up to: 6.1
+ * WC tested up to: 7
  * Text Domain: wcexd
  */
 
