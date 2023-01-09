@@ -3,7 +3,7 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.7
+ * @since 1.4.11
 */
 
 $order = new WC_Order( $order );
