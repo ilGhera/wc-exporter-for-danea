@@ -50,6 +50,7 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 Release Date: 9 January 2023 
 
     * Bug Fix: Error with special chars in order notes
+    * Update: Plugin Update Checker
 
 
 = 1.4.10 =
