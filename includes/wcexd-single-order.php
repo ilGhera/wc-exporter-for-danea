@@ -80,7 +80,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <CostAmount><?php echo $cost_amount; ?></CostAmount>
   <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>
-  <InternalComment><?php echo $order->get_customer_note(); ?></InternalComment>
+  <InternalComment><?php echo htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ); ?></InternalComment>
   <CustomField2></CustomField2>
   <SalesAgent></SalesAgent>
   <Rows>
