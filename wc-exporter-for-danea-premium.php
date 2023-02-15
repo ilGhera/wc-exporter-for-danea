@@ -61,6 +61,7 @@ function load_wc_exporter_for_danea_premium() {
 	require( WCEXD_INCLUDES . 'wcexd-products-download.php');
 	require( WCEXD_INCLUDES . 'wcexd-clients-download.php');
 	require( WCEXD_INCLUDES . 'wcexd-orders.php');
+	require( WCEXD_INCLUDES . 'ilghera-notice/class-ilghera-notice.php');
 	require( WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php');
 
 }
