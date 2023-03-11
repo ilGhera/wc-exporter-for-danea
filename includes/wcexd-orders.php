@@ -32,6 +32,25 @@ function addOrdersFeed() {
 
 	$orders = WCtoDanea::get_orders();
 
+    /* Tasso di cambio */
+
+    $base_url = 'https://tassidicambio.bancaditalia.it/terzevalute-wf-web/rest/v1.0/';
+    $response = wp_remote_request(
+        $base_url . 'latestRates',
+        array(
+            'method' => 'GET',
+            'headers' => array(
+                'Accept' => 'application/json',
+            ),
+            'timeout' => 20,
+            /* 'body'    => $body, */
+        )
+    );
+    error_log( 'RESPONSE: ' . print_r( json_decode( $response['body'] ), true ) );
+
+
+    /* End */
+
 	if ( is_array( $orders ) && ! empty( $orders ) ) {
 
 		$include_tax = get_option('woocommerce_prices_include_tax');
