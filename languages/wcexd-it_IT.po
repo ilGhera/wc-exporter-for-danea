@@ -1,10 +1,9 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: WED\n"
-"POT-Creation-Date: 2023-03-13 19:08+0100\n"
-"PO-Revision-Date: 2016-05-26 13:25+0200\n"
-"Last-Translator: ilGhera <info@ilghera.com>\n"
+"POT-Creation-Date: 2023-03-13 19:09+0100\n"
+"PO-Revision-Date: 2023-03-13 19:14+0100\n"
+"Last-Translator: \n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
@@ -19,25 +18,29 @@ msgstr ""
 
 #: includes/ilghera-notice/class-ilghera-notice.php:66
 msgid "Renew now"
-msgstr ""
+msgstr "Aggiorna ora"
 
 #: includes/ilghera-notice/class-ilghera-notice.php:66
 msgid "Get a license"
-msgstr ""
+msgstr "Ottieni una licenza"
 
 #: includes/ilghera-notice/class-ilghera-notice.php:107
 msgid "Your license is <u>expired</u> and you're unable to receive updates."
 msgstr ""
+"La tua licenza è <u>scaduta</u> e non sei in grado di ricevere aggiornamenti."
 
 #: includes/ilghera-notice/class-ilghera-notice.php:123
 msgid ""
 "It seems like your license is <u>not valid</u> and you're unable to receive "
 "updates."
 msgstr ""
+"Sembra che la tua licenza non sia <u>valida</u> e non sei in grado di "
+"ricevere aggiornamenti."
 
 #: includes/ilghera-notice/class-ilghera-notice.php:139
 msgid "You have not set up a license key and you cannot receive updates."
 msgstr ""
+"Non hai impostato una licenza e non sei in grado di ricevere aggiornamenti."
 
 #: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:66
 msgid "Partita IVA"
