@@ -53,6 +53,7 @@ Release Date: 13 March 2023
     * Enhancement: Default receiver code in capital letters 
     * Update: Plugin Update Checker
     * Bug Fix: Receiver code field not hidden with private invoices
+    * Bug Fix: Missing translations 
 
 
 = 1.4.12 =
