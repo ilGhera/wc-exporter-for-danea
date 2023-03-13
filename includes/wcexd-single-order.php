@@ -59,7 +59,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <CustomerProvince><?php echo WCtoDanea::order_details($order->get_id(), '_billing_state'); ?></CustomerProvince>
   <CustomerCountry><?php echo WCtoDanea::get_country($order->get_id()); ?></CustomerCountry>
   <CustomerVatCode><?php echo $pi; ?></CustomerVatCode>
-  <CustomerFiscalCode><?php echo $cf; ?></CustomerFiscalCode>
+  <CustomerFiscalCode><?php echo strtoupper($cf); ?></CustomerFiscalCode>
   <CustomerEInvoiceDestCode><?php echo $e_invoice_receiver; ?></CustomerEInvoiceDestCode>
   <CustomerTel><?php echo WCtoDanea::order_details($order->get_id(), '_billing_phone'); ?></CustomerTel>
   <CustomerCellPhone></CustomerCellPhone>
