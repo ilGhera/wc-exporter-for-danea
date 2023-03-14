@@ -1,6 +1,3 @@
 [submodule "includes/wcexd-checkout-fields"]
 	path = includes/wc-checkout-fields
 	url = https://ilGhera@bitbucket.org/ilGhera/wc-checkout-fields.git
-[submodule "includes/ilghera-notice"]
-	path = includes/ilghera-notice
-	url = https://ilGhera@bitbucket.org/ilGhera/ilghera-notice.git
