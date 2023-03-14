@@ -1,7 +1,7 @@
 === WooCommerce Exporter for Danea ===
 Contributors: ghera74
 Tags: Fattura elettronica, WooCommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
-Version: 1.4.4
+Version: 1.4.5
 Requires at least: 4.0
 Tested up to: 6.1
 
@@ -74,6 +74,15 @@ From WordPress.org
 
 
 == Changelog ==
+
+
+= 1.4.5 =
+Release Date: 14 March 2023 
+
+    * Enhancement: Fiscal code in capital letters 
+    * Enhancement: Default receiver code in capital letters 
+    * Update: (Premium) Plugin Update Checker
+    * Bug Fix: Receiver code field not hidden with private invoices
 
 
 = 1.4.4 =
