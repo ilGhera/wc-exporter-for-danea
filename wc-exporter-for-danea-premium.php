@@ -57,6 +57,7 @@ function load_wc_exporter_for_danea_premium() {
 	/*Richiamo file necessari*/
 	require( WCEXD_INCLUDES . 'wcexd-admin-functions.php');
 	require( WCEXD_INCLUDES . 'wcexd-functions.php');
+	require( WCEXD_INCLUDES . 'wcexd-currency-exchange.php');
 	require( WCEXD_INCLUDES . 'wcexd-suppliers-download.php');
 	require( WCEXD_INCLUDES . 'wcexd-products-download.php');
 	require( WCEXD_INCLUDES . 'wcexd-clients-download.php');
