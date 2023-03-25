@@ -351,6 +351,12 @@ function wcexd_options() {
 			$wcexd_orders_tax_name = isset( $_POST['wcexd-orders-tax-name'] ) ? $_POST['wcexd-orders-tax-name'] : 0;
 			update_option( 'wcexd-orders-tax-name', $wcexd_orders_tax_name );
 		}
+
+		$wcexd_currency_exchange = get_option( 'wcexd-currency-exchange' );
+		if ( isset( $_POST['wcexd-orders-sent'] ) ) {
+			$wcexd_currency_exchange = isset( $_POST['wcexd-currency-exchange'] ) ? $_POST['wcexd-currency-exchange'] : 0;
+			update_option( 'wcexd-currency-exchange', $wcexd_currency_exchange );
+		}
 		?>
 		
 		<form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
@@ -392,6 +398,16 @@ function wcexd_options() {
 							<?php echo __( 'Esporta il nome dell\'imposta e non l\'aliquota.', 'wcexd' ); ?>
 						</label>
 						<p class="description"><?php echo __( 'Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Cambio valuta', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd-currency-exchange">
+							<input type="checkbox" name="wcexd-currency-exchange" value="1"<?php echo $wcexd_currency_exchange == 1 ? ' checked="checked"' : ''; ?>>
+							<?php echo __( 'Esporta gli ordini in euro.', 'wcexd' ); ?>
+						</label>
+						<p class="description"><?php echo __( 'Esporta in euro gli ordini ricevuti in dollari utilizzando il tasso di cambio più recente della Banca d\'Italia.', 'wcexd' ); ?></p>
 					</td>
 				</tr>
 				<tr>
@@ -453,3 +469,4 @@ function wcexd_update_message2( $plugin_data, $response ) {
 
 }
 add_action( 'in_plugin_update_message-wc-exporter-for-danea-premium/wc-exporter-for-danea-premium.php', 'wcexd_update_message2', 10, 2 );
+
