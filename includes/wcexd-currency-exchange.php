@@ -1,9 +1,10 @@
 <?php
 /**
  * Currency exchange class
+ *
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.14
+ * @since 1.5.0
  */
 
 class WCEXD_Currency_Exchange {
