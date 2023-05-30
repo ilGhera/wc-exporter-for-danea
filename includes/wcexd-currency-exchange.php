@@ -133,7 +133,7 @@ class WCEXD_Currency_Exchange {
 
             $usd_rate = $this->get_usd_rate();
 
-            return number_format( $price / $usd_rate, 2 );
+            return number_format( $price / $usd_rate, 2, '.', '' );
 
         }
 
