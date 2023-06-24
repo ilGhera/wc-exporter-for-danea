@@ -46,6 +46,12 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 == Changelog ==
 
 
+= 1.5.0 =
+Release Date: xxxxxxxx
+
+    * Bug Fix: Tax class applied to shipping costs even when not set in the options
+
+
 = 1.4.15 =
 Release Date: 31 March 2023 
 

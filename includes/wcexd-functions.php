@@ -145,7 +145,7 @@ class WCtoDanea {
 
             if ( $shipping ) {
                 
-                if ( null !== $tax_item->get_shipping_tax_total() ) {
+                if ( $tax_item->get_shipping_tax_total() ) {
 
                     $output[ $tax_item->get_rate_id() ] = array(
                         'label'   => $tax_item->get_label(),
