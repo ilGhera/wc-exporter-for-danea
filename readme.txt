@@ -1,9 +1,10 @@
 === WooCommerce Exporter for Danea ===
 Contributors: ghera74
+<<<<<<< HEAD
 Tags: Fattura elettronica, WooCommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
-Version: 1.4.5
+Version: 1.5.0
 Requires at least: 4.0
-Tested up to: 6.1
+Tested up to: 6.2
 
 Export suppliers, products, customers and orders from your Woocommerce store to Danea.
 
@@ -74,6 +75,14 @@ From WordPress.org
 
 
 == Changelog ==
+
+
+= 1.5.0 =
+Release Date: 24 June 2023 
+
+    * Enhancement: (Premium) Export USD orders in EUR to Danea with a new exchange rate option
+    * Bug Fix: (Premium) Tax class applied to shipping costs even when not set in the options
+    * Bug Fix: (Premium) HTML tags in product name 
 
 
 = 1.4.5 =

@@ -4,7 +4,7 @@
  *
  * @author ilGhera
  * @package wc-exporter-for-danea/includes
- * @since 1.4.5
+ * @since 1.5.0
  */
 
 /**
@@ -361,6 +361,16 @@ function wcexd_options() {
 						<p class="description"><?php echo __( 'Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd' ); ?></p>
 					</td>
 				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Cambio valuta', 'wcexd' ); ?></th>
+					<td>
+						<label for="wcexd-currency-exchange">
+							<input type="checkbox" name="wcexd-currency-exchange" value="1" disabled="disabled">
+							<?php echo __( 'Esporta gli ordini in euro.', 'wcexd' ); ?>
+						</label>
+						<p class="description"><?php echo __( 'Esporta in euro gli ordini ricevuti in dollari utilizzando il tasso di cambio più recente della Banca d\'Italia.', 'wcexd' ); ?></p>
+					</td>
+				</tr>
 			    <tr>
 			    	<th scope="row"><?php echo __("Feed URL", 'wcexd' ); ?></th>
 			        <td>
@@ -390,3 +400,4 @@ function wcexd_options() {
 	</div><!--WRAP-->
 	<?php
 }
+
