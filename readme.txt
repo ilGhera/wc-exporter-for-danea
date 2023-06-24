@@ -47,10 +47,11 @@ Completato il processo di installazione, troverai nel menù Woocommerce la pagin
 
 
 = 1.5.0 =
-Release Date: xxxxxxxx
+Release Date: 24 June 2023 
 
     * Enhancement: Export USD orders in EUR to Danea with a new exchange rate option
     * Bug Fix: Tax class applied to shipping costs even when not set in the options
+    * Bug Fix: HTML tags in product name 
 
 
 = 1.4.15 =
