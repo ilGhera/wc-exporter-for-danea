@@ -3,10 +3,11 @@
  * Singolo ordine
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.13
+ * @since 1.5.0
 */
 
-$order = new WC_Order( $order );
+$order    = new WC_Order( $order );
+$exchange = new WCEXD_Currency_Exchange( $order );
 
 /*Formattazione data ordine*/
 $originalDate = $order->get_date_created();
@@ -74,14 +75,14 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <DeliveryCellPhone></DeliveryCellPhone>
   <Date><?php echo $newDate; ?></Date>
   <Number><?php echo $order->get_id(); ?></Number>
-  <Total><?php echo WCtoDanea::order_details($order->get_id(), '_order_total'); ?></Total>
+  <Total><?php echo $exchange->filter_price( WCtoDanea::order_details($order->get_id(), '_order_total') ); ?></Total>
   <CostDescription><?php echo WCtoDanea::get_shipping_method_name($order->get_id()); ?></CostDescription>
   <CostVatCode><?php echo WCtoDanea::get_shipping_tax_rate($order); ?></CostVatCode>
-  <CostAmount><?php echo $cost_amount; ?></CostAmount>
+  <CostAmount><?php echo $exchange->filter_price( $cost_amount ); ?></CostAmount>
   <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>
   <InternalComment><?php echo htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ); ?></InternalComment>
-  <CustomField2></CustomField2>
+  <CustomField1><?php $exchange->the_usd_exchange_rate(); ?></CustomField1>
   <SalesAgent></SalesAgent>
   <Rows>
   <?php
@@ -161,7 +162,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
 <?php echo $color; ?>
       <Qty><?php echo WCtoDanea::item_info($item->get_id(), '_qty'); ?></Qty>
       <Um>pz</Um>
-      <Price><?php echo $item_price; ?></Price>
+      <Price><?php echo $exchange->filter_price( $item_price ); ?></Price>
       <VatCode><?php echo $tax_rate; ?></VatCode>
       <Discounts><?php echo $discount; ?></Discounts>
     </Row>
@@ -170,7 +171,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <Payment>
     <Advance>false</Advance>
     <Date></Date>
-    <Amount><?php echo WCtoDanea::order_details($order->get_id(), '_order_total'); ?></Amount>
+    <Amount><?php echo $exchange->filter_price ( WCtoDanea::order_details($order->get_id(), '_order_total') ); ?></Amount>
     <Paid><?php echo(get_post_status($order->get_id()) == 'wc-completed') ? 'true' : 'false'; ?></Paid>
   </Payment>        
 </Document>
