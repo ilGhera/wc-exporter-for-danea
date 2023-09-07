@@ -2,6 +2,7 @@
 /**
  * Singolo ordine
  * @author ilGhera
+ *
  * @package wc-exporter-for-danea-premium/includes
  * @since 1.5.0
 */

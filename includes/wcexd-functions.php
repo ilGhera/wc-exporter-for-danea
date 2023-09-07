@@ -796,7 +796,7 @@ function wcexd_rand_md5( $length ) {
  */
 function wcexd_check_update() {
 
-	return __( 'Verifica aggiornamenti', 'wcexd' );
+	return __( 'Verifica aggiornamenti', 'wc-exporter-for-danea' );
 
 }
 add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', 'wcexd_check_update' );
@@ -813,15 +813,15 @@ function wcexd_update_message( $message = '', $status = '' ) {
 
 	if ( 'no_update' === $status ) {
 
-		$message = __( 'E\' installata l\'ultima versione di <strong>Woocommerce Exporter for Danea - Premium</strong>', 'wcexd' );
+		$message = __( 'E\' installata l\'ultima versione di <strong>Woocommerce Exporter for Danea - Premium</strong>', 'wc-exporter-for-danea' );
 
 	} else if ( 'update_available' === $status ) {
 
-		$message = __( 'E\' disponibile una nuova versione di <strong>Woocommerce Exporter for Danea - Premium</strong>', 'wcexd' );
+		$message = __( 'E\' disponibile una nuova versione di <strong>Woocommerce Exporter for Danea - Premium</strong>', 'wc-exporter-for-danea' );
 
 	} else {
 
-		$message = __( 'Si è verificato un errore sconosciuto, si prega di riprovare più tardi.', 'wcexd' );
+		$message = __( 'Si è verificato un errore sconosciuto, si prega di riprovare più tardi.', 'wc-exporter-for-danea' );
 
 	}
 

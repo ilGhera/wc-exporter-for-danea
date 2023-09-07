@@ -10,7 +10,7 @@
  * Requires at least: 4.0
  * Tested up to: 6.2
  * WC tested up to: 7
- * Text Domain: wcexd
+ * Text Domain: wc-exporter-for-danea 
  */
 
 
@@ -52,7 +52,7 @@ function load_wc_exporter_for_danea_premium() {
 	}
 
 	/*Internationalization*/
-	load_plugin_textdomain('wcexd', false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain('wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 	/*Richiamo file necessari*/
 	require( WCEXD_INCLUDES . 'wcexd-admin-functions.php');
