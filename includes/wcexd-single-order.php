@@ -157,7 +157,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   } ?>
     <Row>
       <Code><?php echo $product_id; ?></Code>
-      <Description><?php echo strip_tags( $item['name'] ); ?></Description>
+      <Description><?php echo wp_kses_post( strip_tags( html_entity_decode( $item['name'] ) ) ); ?></Description>
 <?php echo $size; ?>
 <?php echo $color; ?>
       <Qty><?php echo WCtoDanea::item_info($item->get_id(), '_qty'); ?></Qty>
