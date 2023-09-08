@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2023-09-08 19:42+0200\n"
+"POT-Creation-Date: 2023-09-08 19:57+0200\n"
 "PO-Revision-Date: 2016-05-26 13:25+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
@@ -301,7 +301,7 @@ msgid "Select the user level of your suppliers."
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:159
-msgid "Download suppliers list (.csv)"
+msgid "Download suppliers list (.CSV)"
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:169
@@ -403,7 +403,7 @@ msgid ""
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:272
-msgid "Download products list (.csv)"
+msgid "Download products list (.CSV)"
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:289
@@ -434,7 +434,7 @@ msgid "Select the user level of your clients."
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:323
-msgid "Download customers list (.csv)"
+msgid "Download customers list (.CSV)"
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:334
@@ -442,12 +442,12 @@ msgid "Export your WooCommerce orders list."
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:335
-msgid "The import of orders in Danea is done by using a xml file"
+msgid "The import of orders in Danea is done by using a xml file."
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:337
 msgid ""
-"Copy the full url of your feed with your updated WooCommerce orders list"
+"Copy the full URL of your feed with your updated WooCommerce orders list"
 msgstr ""
 
 #: includes/wcexd-admin-functions.php:338
@@ -457,7 +457,7 @@ msgstr ""
 
 #: includes/wcexd-admin-functions.php:339
 msgid ""
-"In the next window, paste the url of your WooCommerce orders list in "
+"In the next window, paste the URL of your WooCommerce orders list in "
 "\"Impostazioni/ indirizzo...\""
 msgstr ""
 

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2023-09-08 19:46+0200\n"
-"PO-Revision-Date: 2023-09-08 19:48+0200\n"
+"POT-Creation-Date: 2023-09-08 19:56+0200\n"
+"PO-Revision-Date: 2023-09-08 19:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -325,8 +325,8 @@ msgid "Select the user level of your suppliers."
 msgstr "Select the user level of your suppliers."
 
 #: includes/wcexd-admin-functions.php:159
-msgid "Download suppliers list (.csv)"
-msgstr "Download elenco fornitori (.csv)"
+msgid "Download suppliers list (.CSV)"
+msgstr "Download elenco fornitori (.CSV)"
 
 #: includes/wcexd-admin-functions.php:169
 msgid "WooCommerce products export"
@@ -440,8 +440,8 @@ msgid ""
 msgstr "Scegli se il peso esportato sarà usato in Danea come lordo o netto."
 
 #: includes/wcexd-admin-functions.php:272
-msgid "Download products list (.csv)"
-msgstr "Download elenco prodotti (.csv)"
+msgid "Download products list (.CSV)"
+msgstr "Download elenco prodotti (.CSV)"
 
 #: includes/wcexd-admin-functions.php:289
 msgid "Export your WooCommerce customers list."
@@ -475,8 +475,8 @@ msgid "Select the user level of your clients."
 msgstr "Seleziona il livello utente corrispondente ai tuoi clienti."
 
 #: includes/wcexd-admin-functions.php:323
-msgid "Download customers list (.csv)"
-msgstr "Download elenco clienti (.csv)"
+msgid "Download customers list (.CSV)"
+msgstr "Download elenco clienti (.CSV)"
 
 #: includes/wcexd-admin-functions.php:334
 msgid "Export your WooCommerce orders list."
@@ -490,7 +490,7 @@ msgstr ""
 
 #: includes/wcexd-admin-functions.php:337
 msgid ""
-"Copy the full url of your feed with your updated WooCommerce orders list"
+"Copy the full URL of your feed with your updated WooCommerce orders list"
 msgstr ""
 "Copia l'indirizzo completo del tuo feed con l'elenco ordini WooCommerce "
 "aggiornato."
@@ -502,7 +502,7 @@ msgstr "In Danea, scegli \"Scarica ordini\" dal menù \"Strumenti/ E-commerce\""
 
 #: includes/wcexd-admin-functions.php:339
 msgid ""
-"In the next window, paste the url of your WooCommerce orders list in "
+"In the next window, paste the URL of your WooCommerce orders list in "
 "\"Impostazioni/ indirizzo...\""
 msgstr ""
 "Nella finestra seguente, incolla l'indirizzo del tuo elenco ordini in in "
