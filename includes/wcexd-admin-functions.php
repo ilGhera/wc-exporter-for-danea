@@ -69,7 +69,7 @@ function wcexd_options() {
 	if ( ! class_exists( 'WooCommerce' ) ) { ?>
 		<div id="message" class="error">
 			<p>
-				<strong><?php echo __( 'Attention! It seems like Woocommerce is not installed.', 'wc-exporter-for-danea' ); ?></strong>
+				<strong><?php echo __( 'WARNING! It seems like Woocommerce is not installed.', 'wc-exporter-for-danea' ); ?></strong>
 			</p>
 		</div>
 		<?php
@@ -166,7 +166,7 @@ function wcexd_options() {
    
 	<div id="wcexd-prodotti" class="wcexd-admin">
 		<?php
-		echo '<h3 class="wcexd">' . __( 'Export your Woocommerce product list.', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<h3 class="wcexd">' . __( 'WooCommerce products export', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of products in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
 		echo '<ul class="wcexd"><li>' . __( 'Download your Woocommerce products list.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
@@ -396,7 +396,7 @@ function wcexd_options() {
 					<td>
 						<label for="wcexd-orders-tax-name">
 							<input type="checkbox" name="wcexd-orders-tax-name" value="1"<?php echo $wcexd_orders_tax_name == 1 ? ' checked="checked"' : ''; ?>>
-							<?php echo __( 'Export the tax name instead of the rate.', 'wc-exporter-for-danea' ); ?>
+							<?php echo __( 'Export the tax name instead of the rate', 'wc-exporter-for-danea' ); ?>
 						</label>
 						<p class="description"><?php echo __( 'Recommended option if the tax rates were imported from Danea Easyfatt previously.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
