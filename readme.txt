@@ -26,7 +26,7 @@ WC Exporter for Danea - Premium ti permette di esportare:
 * L'elenco dei fornitori, sotto forma di utenti WordPress a cui si è assegnato un ruolo specifico (CSV).
 * L'elenco dei prodotti WooCommerce (CSV).
 * L'elenco dei clienti WooCommerce (CSV).
-* L'elenco degli ordini WooCommerce, attraverso un feed (xml) che potrà essere usato in ogni momento in Danea per scaricare gli ordini effettuati sul tuo sito.
+* L'elenco degli ordini WooCommerce, attraverso un feed (XML) che potrà essere usato in ogni momento in Danea per scaricare gli ordini effettuati sul tuo sito.
 
 *Software certificato Danea Easyfatt*
 

@@ -156,7 +156,7 @@ function wcexd_options() {
 
 			<?php wp_nonce_field( 'wcexd-suppliers-submit', 'wcexd-suppliers-nonce' ); ?>
 			<p class="submit">
-				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download suppliers list (.csv)', 'wc-exporter-for-danea' ); ?>" />
+				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download suppliers list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
 			</p>
 		</form>
 	</div>
@@ -269,7 +269,7 @@ function wcexd_options() {
 			<p class="submit">
 				<input type="hidden" name="wcexd-products-hidden" value="1" />
 				<?php wp_nonce_field( 'wcexd-products-submit', 'wcexd-products-nonce' ); ?>
-				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download products list (.csv)', 'wc-exporter-for-danea' ); ?>" />
+				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download products list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
 			</p>
 		</form>    
 	</div>
@@ -320,7 +320,7 @@ function wcexd_options() {
 			</table>
 			<?php wp_nonce_field( 'wcexd-clients-submit', 'wcexd-clients-nonce' ); ?>
 			<p class="submit">
-				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download customers list (.csv)', 'wc-exporter-for-danea' ); ?>" />
+				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download customers list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
 			</p>
 		</form>
 	</div>
@@ -334,9 +334,9 @@ function wcexd_options() {
 		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce orders list.', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of orders in Danea is done by using a xml file.', 'wc-exporter-for-danea' );
 		echo '<ul class="wcexd">';
-		echo '<li>' . __( 'Copy the full url of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Copy the full URL of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'In Danea, choose "Scarica ordini" from the menu "Strumenti/ E-commerce"', 'wc-exporter-for-danea' ) . '</li>';
-		echo '<li>' . __( 'In the next window, paste the url of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ) . '</li><ul>';
+		echo '<li>' . __( 'In the next window, paste the URL of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ) . '</li><ul>';
 		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
 		echo '<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a></p>';
 
