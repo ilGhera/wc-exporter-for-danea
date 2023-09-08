@@ -23,10 +23,10 @@ You'll be able to export suppliers, products, clients and orders.
 Se hai realizzato il tuo negozio online con WooCommerce ed utilizzi Danea Easyfatt come gestionale, WooCommerce Exporter per Danea è lo strumento che ti serve perché le due piattaforme siano in grado di comunicare.
 WC Exporter for Danea - Premium ti permette di esportare:
 
-* L'elenco dei fornitori, sotto forma di utenti Wordpress a cui si è assegnato un ruolo specifico (CSV).
-* L'elenco dei prodotti Woocommerce (CSV).
-* L'elenco dei clienti Woocommerce (CSV).
-* L'elenco degli ordini Woocommerce, attraverso un feed (xml) che potrà essere usato in ogni momento in Danea per scaricare gli ordini effettuati sul tuo sito.
+* L'elenco dei fornitori, sotto forma di utenti WordPress a cui si è assegnato un ruolo specifico (CSV).
+* L'elenco dei prodotti WooCommerce (CSV).
+* L'elenco dei clienti WooCommerce (CSV).
+* L'elenco degli ordini WooCommerce, attraverso un feed (xml) che potrà essere usato in ogni momento in Danea per scaricare gli ordini effettuati sul tuo sito.
 
 *Software certificato Danea Easyfatt*
 
@@ -38,9 +38,9 @@ Once Activated, go to WooCommerce/ WooCommerce Exporter for Danea.
 
 ----
 
-Per installare WooCommerce Exporter for Danea, dalla Bacheca del tuo sito Wordpress vai alla voce Plugin/ Aggiungi nuovo.
+Per installare WooCommerce Exporter for Danea, dalla Bacheca del tuo sito WordPress vai alla voce Plugin/ Aggiungi nuovo.
 Clicca sul pulsante "Carica plugin" e seleziona la cartella compressa appena scaricata.
-Completato il processo di installazione, troverai nel menù Woocommerce la pagina opzioni con tutte le informazioni necessarie all'utilizzo di WC Exporter for Danea.
+Completato il processo di installazione, troverai nel menù WooCommerce la pagina opzioni con tutte le informazioni necessarie all'utilizzo di WC Exporter for Danea.
 
 
 == Changelog ==
@@ -448,7 +448,7 @@ Release Date: 27 October, 2016
 * Enhancement: Added the shipping costs.
 * Enhancement: Added the customer comments in every single order.
 * Enhancement: Products export improved with all them variations.
-* Enhancement: If present, the SKU will be used as product id, instead of the Wordpress post id.
+* Enhancement: If present, the SKU will be used as product id, instead of the WordPress post id.
 * Enhancement: Now you can choose if export orders, completed orders or both.
 * Enhancement: Fiscal code and P.IVA fields are now recognized by checking the specific plugin installed.
 * Bug Fix: The db query didn't work in case the tables prefix was different than wp_

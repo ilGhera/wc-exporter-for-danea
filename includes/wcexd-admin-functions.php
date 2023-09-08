@@ -69,7 +69,7 @@ function wcexd_options() {
 	if ( ! class_exists( 'WooCommerce' ) ) { ?>
 		<div id="message" class="error">
 			<p>
-				<strong><?php echo __( 'WARNING! It seems like Woocommerce is not installed.', 'wc-exporter-for-danea' ); ?></strong>
+				<strong><?php echo __( 'WARNING! It seems like WooCommerce is not installed.', 'wc-exporter-for-danea' ); ?></strong>
 			</p>
 		</div>
 		<?php
@@ -92,7 +92,7 @@ function wcexd_options() {
 		echo '<form id="wcexd-options" method="post" action="">';
 		echo '<label>' . __( 'Premium Key', 'wc-exporter-for-danea' ) . '</label>';
 		echo '<input type="text" class="regular-text code" name="wcexd-premium-key" id="wcexd-premium-key" placeholder="' . __( 'Add your Premium Key', 'wc-exporter-for-danea' ) . '" value="' . $key . '" />';
-		echo '<p class="description">' . __( 'Add here the Premium Key that you received by email, you will keep your copy of <strong>Woocommerce Exporter for Danea - Premium</strong> updated.', 'wc-exporter-for-danea' ) . '</p>';
+		echo '<p class="description">' . __( 'Add here the Premium Key that you received by email, you will keep your copy of <strong>WooCommerce Exporter for Danea - Premium</strong> updated.', 'wc-exporter-for-danea' ) . '</p>';
 		echo '<input type="hidden" name="done" value="1" />';
 		wp_nonce_field( 'wcexd-premium-key', 'wcexd-premium-key-nonce' );
 		echo '<input type="submit" class="button button-primary" value="' . __( 'Save', 'wc-exporter-for-danea' ) . '" />';
@@ -124,9 +124,9 @@ function wcexd_options() {
 		/*Leggo il dato se già esistente nel database*/
 		$users_val = get_option( $opt_users_role );
 
-		echo '<h3 class="wcexd">' . __( 'Woocommerce suppliers export', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<h3 class="wcexd">' . __( 'WooCommerce suppliers export', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of suppliers in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
-		echo '<ul class="wcexd"><li>' . __( 'Choose the Wordpress user role that identifies your suppliers.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<ul class="wcexd"><li>' . __( 'Choose the WordPress user role that identifies your suppliers.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'Download your suppliers list.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'In Danea, go to "Fornitori/ Utilità", choose "Importa con Excel/OpenOffice/LibreOffice" and use the file just created.', 'wc-exporter-for-danea' ) . '</li></ul></p>';
@@ -168,7 +168,7 @@ function wcexd_options() {
 		<?php
 		echo '<h3 class="wcexd">' . __( 'WooCommerce products export', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of products in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
-		echo '<ul class="wcexd"><li>' . __( 'Download your Woocommerce products list.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<ul class="wcexd"><li>' . __( 'Download your WooCommerce products list.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'In Danea, go to "Prodotti/ Utilità", choose "Importa con Excel/OpenOffice/LibreOffice" and use the file just created.', 'wc-exporter-for-danea' ) . '</li></ul></p>';
 		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
@@ -221,7 +221,7 @@ function wcexd_options() {
 								<?php echo __( 'Exclude sizes and colors', 'wc-exporter-for-danea' ); ?>
 							</label>
 						</fieldset>
-						<p class="description"><?php echo __( 'The Danea sizes and colors variations, transferred previously in Woocommerce, cannot be imported with a file. Do you want to exclude them?', 'wc-exporter-for-danea' ); ?></p>
+						<p class="description"><?php echo __( 'The Danea sizes and colors variations, transferred previously in WooCommerce, cannot be imported with a file. Do you want to exclude them?', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 				<?php if ( class_exists( 'WooThemes_Sensei' ) ) { ?>
@@ -236,7 +236,7 @@ function wcexd_options() {
 										echo 'checked="checked"'; }
 									?>
 									/>
-									<?php echo __( 'If you\'re using Woothemes Sensei, you may want to link every Woocommerce product with the Teacher of the course associate.', 'wc-exporter-for-danea' ); ?>
+									<?php echo __( 'If you\'re using Woothemes Sensei, you may want to link every WooCommerce product with the Teacher of the course associate.', 'wc-exporter-for-danea' ); ?>
 								</label>
 							</fieldset>
 						</td>
@@ -286,10 +286,10 @@ function wcexd_options() {
 		/*Leggo il dato se già esistente nel database*/
 		$clients_val = get_option( $opt_clients_role );
 
-		echo '<h3 class="wcexd">' . __( 'Export your Woocommerce customers list.', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce customers list.', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of clients in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
-		echo '<ul class="wcexd"><li>' . __( 'Choose the Wordpress user role that identifies your customers.', 'wc-exporter-for-danea' ) . '</li>';
-		echo '<li>' . __( 'Download your Woocommerce customers list.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<ul class="wcexd"><li>' . __( 'Choose the WordPress user role that identifies your customers.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Download your WooCommerce customers list.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'In Danea, go to "Clienti/ Utilità", choose "Importa con Excel/OpenOffice/LibreOffice" and use the file just created.', 'wc-exporter-for-danea' ) . '</li></ul></p>';
 		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
@@ -334,9 +334,9 @@ function wcexd_options() {
 		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce orders list.', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of orders in Danea is done by using a xml file', 'wc-exporter-for-danea' );
 		echo '<ul class="wcexd">';
-		echo '<li>' . __( 'Copy the full url of your feed with your updated Woocommerce orders list', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Copy the full url of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'In Danea, choose "Scarica ordini" from the menu "Strumenti/ E-commerce"', 'wc-exporter-for-danea' ) . '</li>';
-		echo '<li>' . __( 'In the next window, paste the url of your Woocommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ) . '</li><ul>';
+		echo '<li>' . __( 'In the next window, paste the url of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ) . '</li><ul>';
 		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
 		echo '<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a></p>';
 

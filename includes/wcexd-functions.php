@@ -813,11 +813,11 @@ function wcexd_update_message( $message = '', $status = '' ) {
 
 	if ( 'no_update' === $status ) {
 
-		$message = __( ' <strong>Woocommerce Exporter for Danea - Premium</strong> is up to date.', 'wc-exporter-for-danea' );
+		$message = __( ' <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date.', 'wc-exporter-for-danea' );
 
 	} else if ( 'update_available' === $status ) {
 
-		$message = __( 'A new version of <strong>Woocommerce Exporter for Danea - Premium</strong> is available.', 'wc-exporter-for-danea' );
+		$message = __( 'A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> is available.', 'wc-exporter-for-danea' );
 
 	} else {
 
