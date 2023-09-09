@@ -3,8 +3,9 @@
  * Pagina opzioni/ strumenti
  *
  * @author ilGhera
+ *
  * @package wc-exporter-for-danea/includes
- * @since 1.5.0
+ * @since 1.5.1
  */
 
 /**
@@ -83,7 +84,7 @@ function wcexd_options() {
 
 	/*Controllo se l'utente ha i diritti d'accessso necessari*/
 	if ( ! current_user_can( 'manage_woocommerce' ) ) {
-		wp_die( __( 'Sembra che tu non abbia i permessi sufficienti per visualizzare questa pagina.', 'wcexd' ) );
+		wp_die( __( 'Ops, you have not permissions to do that!', 'wc-exporter-for-danea' ) );
 	}
 
 	/*Inizio template di pagina*/
@@ -94,7 +95,7 @@ function wcexd_options() {
 	if ( ! class_exists( 'WooCommerce' ) ) { ?>
 		<div id="message" class="error">
 			<p>
-				<strong><?php echo __( 'ATTENZIONE! Sembra che Woocommerce non sia installato.', 'wcexd' ); ?></strong>
+				<strong><?php echo __( 'WARNING! It seems like WooCommerce is not installed.', 'wc-exporter-for-danea' ); ?></strong>
 			</p>
 		</div>
 		<?php
@@ -106,17 +107,17 @@ function wcexd_options() {
 	<div id="wcexd-generale">
 		<?php
 		/*Header*/
-		echo '<h1 class="wcexd main">' . __( 'Woocommmerce Exporter per Danea', 'wcexd' ) . '</h1>';
+		echo '<h1 class="wcexd main">' . __( 'Woocommmerce Exporter per Danea', 'wc-exporter-for-danea' ) . '</h1>';
 		?>
 	</div>
 
 	<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br /></div>
 	<h2 id="wcexd-admin-menu" class="nav-tab-wrapper woo-nav-tab-wrapper">
-		<a href="#" data-link="wcexd-impostazioni" class="nav-tab nav-tab-active" onclick="return false;"><?php echo __('Impostazioni', 'wcexd'); ?></a>
-		<a href="#" data-link="wcexd-fornitori" class="nav-tab" onclick="return false;"><?php echo __('Fornitori', 'wcexd'); ?></a>
-		<a href="#" data-link="wcexd-prodotti" class="nav-tab" onclick="return false;"><?php echo __('Prodotti', 'wcexd'); ?></a>
-		<a href="#" data-link="wcexd-clienti" class="nav-tab premium" onclick="return false;"><?php echo __('Clienti', 'wcexd'); ?></a>    
-		<a href="#" data-link="wcexd-ordini" class="nav-tab premium" onclick="return false;"><?php echo __('Ordini', 'wcexd'); ?></a>                                        
+		<a href="#" data-link="wcexd-impostazioni" class="nav-tab nav-tab-active" onclick="return false;"><?php echo __( 'Settings', 'wc-exporter-for-danea' ); ?></a>
+		<a href="#" data-link="wcexd-fornitori" class="nav-tab" onclick="return false;"><?php echo __( 'Suppliers', 'wc-exporter-for-danea' ); ?></a>
+		<a href="#" data-link="wcexd-prodotti" class="nav-tab" onclick="return false;"><?php echo __( 'Products', 'wc-exporter-for-danea' ); ?></a>
+		<a href="#" data-link="wcexd-clienti" class="nav-tab premium" onclick="return false;"><?php echo __( 'Customers', 'wc-exporter-for-danea' ); ?></a>    
+		<a href="#" data-link="wcexd-ordini" class="nav-tab premium" onclick="return false;"><?php echo __( 'Orders', 'wc-exporter-for-danea' ); ?></a>                                        
 	</h2>
 
 
@@ -134,14 +135,14 @@ function wcexd_options() {
 		/*Leggo il dato se già esistente nel database*/
 		$users_val = get_option( $opt_users_role );
 
-		echo '<h3 class="wcexd">' . __( 'Esportazione elenco fornitori Woocommerce', 'wcexd' ) . '</h3>';
-		echo '<p>' . __( 'L\'importazione dei fornitori in Danea avviene attraverso l\'utilizzo di un file Excel/ OpenOffice. ', 'wcexd' );
-		echo '<ul class="wcexd"><li>' . __( 'Scegli il ruolo utente Wordpress che identifica i tuoi fornitori', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'Scarica l\'elenco aggiornato dei tuoi fornitori', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'Apri e salva il file con uno dei programmi sopra indicati.', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'In Danea, vai in "Fornitori/ Utilità", scegli "Importa con Excel/OpenOffice/LibreOffice" ed utilizza il file appena creato.', 'wcexd' ) . '</li></ul></p>';
-		echo '<p>' . __( 'Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . '</p>';
-		echo '<a href="http://www.danea.it/software/domustudio/help/index.htm#html/importare_anagrafiche_e_fornitori.htm" target="_blank">http://www.danea.it/software/domustudio/help/index.htm#html/importare_anagrafiche_e_fornitori.htm</a></p>';
+		echo '<h3 class="wcexd">' . __( 'WooCommerce suppliers export', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<p>' . __( 'The import of suppliers in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
+		echo '<ul class="wcexd"><li>' . __( 'Choose the WordPress user role that identifies your suppliers.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Download your suppliers list.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'In Danea, go to "Fornitori/ Utilità", choose "Importa con Excel/OpenOffice/LibreOffice" and use the file just created.', 'wc-exporter-for-danea' ) . '</li></ul></p>';
+		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
+		echo '<a href="https://www.danea.it/software/easyfatt/supporto/import-altri-software/" target="_blank">https://www.danea.it/software/easyfatt/supporto/import-altri-software/</a></p>';
 		global $wp_roles;
 		$roles = $wp_roles->get_names();
 		?>
@@ -150,7 +151,7 @@ function wcexd_options() {
 		<form name="wcexd-suppliers-submit" id="wcexd-suppliers-submit" class="wcexd-form"  method="post" action="">
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php echo __( 'Ruolo utente', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'User role', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<select class="wcexd wcexd-users" name="wcexd-users" form="wcexd-suppliers-submit">
 							<?php
@@ -159,14 +160,14 @@ function wcexd_options() {
 							}
 							?>
 						</select>
-						<p class="description"><?php echo __( 'Seleziona il livello utente corrispondente ai tuoi fornitori.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Select the user level of your suppliers.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 			</table>
 
 			<?php wp_nonce_field( 'wcexd-suppliers-submit', 'wcexd-suppliers-nonce' ); ?>
 			<p class="submit">
-				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download elenco fornitori (.csv)', 'wcexd' ); ?>" />
+				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download suppliers list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
 			</p>
 		</form>
 	</div>
@@ -176,13 +177,13 @@ function wcexd_options() {
    
 	<div id="wcexd-prodotti" class="wcexd-admin">
 		<?php
-		echo '<h3 class="wcexd">' . __( 'Esportazione elenco prodotti Woocommerce', 'wcexd' ) . '</h3>';
-		echo '<p>' . __( 'L\'importazione dei prodotti in Danea avviene attraverso l\'utilizzo di un file Excel/ OpenOffice. ', 'wcexd' );
-		echo '<ul class="wcexd"><li>' . __( 'Scarica l\'elenco aggiornato dei tuoi prodotti Woocommerce', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'Apri e salva il file con uno dei programmi sopra indicati.', 'wcexd' ) . '</li>';
-		echo '<li>' . __( 'In Danea, vai in "Prodotti/ Utilità", scegli "Importa con Excel/OpenOffice/LibreOffice" ed utilizza il file appena creato.', 'wcexd' ) . '</li></ul></p>';
-		echo '<p>' . __( 'Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . '</p>';
-		echo '<a href="http://www.danea.it/software/easyfatt/ecommerce/specifiche/ricezione_prodotti.asp" target="_blank">http://www.danea.it/software/easyfatt/ecommerce/specifiche/ricezione_prodotti.asp</a></p>';
+		echo '<h3 class="wcexd">' . __( 'WooCommerce products export', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<p>' . __( 'The import of products in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
+		echo '<ul class="wcexd"><li>' . __( 'Download your WooCommerce products list.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'In Danea, go to "Prodotti/ Utilità", choose "Importa con Excel/OpenOffice/LibreOffice" and use the file just created.', 'wc-exporter-for-danea' ) . '</li></ul></p>';
+		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
+		echo '<a href="https://www.danea.it/software/easyfatt/supporto/import-altri-software/" target="_blank">https://www.danea.it/software/easyfatt/supporto/import-altri-software/</a></p>';
 
 		$size_type = get_option( 'wcexd-size-type' );
 		$weight_type = get_option( 'wcexd-weight-type' );
@@ -192,7 +193,7 @@ function wcexd_options() {
 		<form name="wcexd-products-submit" id="wcexd-products-submit" class="wcexd-form"  method="post" action="">
 			<table class="form-table">
 				<tr>
-					<th scope="row"><?php _e( 'Fornitori', 'wcexd' ); ?></th>
+					<th scope="row"><?php _e( 'Suppliers', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<fieldset>
 							<label for="wcexd-use-suppliers">
@@ -202,23 +203,23 @@ function wcexd_options() {
 									echo 'checked="checked"'; }
 								?>
 								>
-								<?php echo __( 'Utilizza l\'autore del prodotto come fornitore', 'wcexd' ); ?>
+								<?php echo __( 'Use the product author as supplier', 'wc-exporter-for-danea' ); ?>
 							</label>
 						</fieldset>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo __( 'Nome imposta', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Tax name', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<label for="wcexd-products-tax-name">
 							<input type="checkbox" name="wcexd-products-tax-name" value="1"<?php echo $wcexd_products_tax_name == 1 ? ' checked="checked"' : ''; ?>>
-							<?php echo __( 'Esporta il nome dell\'imposta e non l\'aliquota.', 'wcexd' ); ?>
+							<?php echo __( 'Export the tax name instead of the rate', 'wc-exporter-for-danea' ); ?>
 						</label>
-						<p class="description"><?php echo __( 'Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Recommended option if the tax rates were imported from Danea Easyfatt previously.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php _e( 'Danea taglie e colori', 'wcexd' ); ?></th>
+					<th scope="row"><?php _e( 'Danea sizes and color', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<fieldset>
 							<label for="wcexd-exclude-danea-vars">
@@ -228,15 +229,15 @@ function wcexd_options() {
 									echo 'checked="checked"'; }
 								?>
 								>
-								<?php echo __( 'Escludi taglie e colori', 'wcexd' ); ?>
+								<?php echo __( 'Exclude sizes and colors', 'wc-exporter-for-danea' ); ?>
 							</label>
 						</fieldset>
-						<p class="description"><?php echo __( 'Le variazioni taglie/ colori create da Danea, trasferite a Woocommerce precedentemente, non possono essere importate attraverso un file. Escluderle dall\'esportazione?', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'The Danea sizes and colors variations, transferred previously in WooCommerce, cannot be imported with a file. Do you want to exclude them?', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 				<?php if ( class_exists( 'WooThemes_Sensei' ) ) { ?>
 					<tr>
-						<th scope="row"><?php _e( 'Sensei', 'wcexd' ); ?></th>
+						<th scope="row"><?php _e( 'Sensei', 'wc-exporter-for-danea' ); ?></th>
 						<td>
 							<fieldset>
 								<label for="sensei">
@@ -246,7 +247,7 @@ function wcexd_options() {
 										echo 'checked="checked"'; }
 									?>
 									/>
-									<?php echo __( 'Se utilizzi Woothemes Sensei, potresti voler abbinare ogni prodotto dello store all\'autore (Teacher) del corso ad esso associato, importandolo in Danea come fornitore.', 'wcexd' ); ?>
+									<?php echo __( 'If you\'re using Woothemes Sensei, you may want to link every WooCommerce product with the Teacher of the course associate.', 'wc-exporter-for-danea' ); ?>
 								</label>
 							</fieldset>
 						</td>
@@ -254,24 +255,24 @@ function wcexd_options() {
 				<?php } ?>
 
 				<tr>
-					<th scope="row"><?php echo __( 'Misure prodotti', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Products measures', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<select name="wcexd-size-type" class="wcexd">
-							<option value="gross-size"<?php echo( $size_type == 'gross-size' ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Misure lorde', 'wcexd' ); ?></option>
-							<option value="net-size"<?php echo( $size_type == 'net-size' ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Misure nette', 'wcexd' ); ?></option>
+							<option value="gross-size"<?php echo( $size_type == 'gross-size' ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Gross measures', 'wc-exporter-for-danea' ); ?></option>
+							<option value="net-size"<?php echo( $size_type == 'net-size' ) ? ' selected="selected"' : ''; ?>><?php echo __( 'Net measures', 'wc-exporter-for-danea' ); ?></option>
 						</select>
-						<p class="description"><?php echo __( 'Scegli se le misure esportate verranno usate in danea come lorde o nette.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Choose if the exported values will be used in Danea as gross or net measures.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 				<tr>
 				<tr>
-					<th scope="row"><?php echo __( 'Peso prodotti', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Product weight', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<select name="wcexd-weight-type" class="wcexd">
-							<option value="gross-weight"<?php echo( $weight_type == 'gross-weight' ) ? 'selected="selected"' : ''; ?>><?php echo __( 'Peso lordo', 'wcexd' ); ?></option>
-							<option value="net-weight"<?php echo( $weight_type == 'net-weight' ) ? 'selected="selected"' : ''; ?>><?php echo __( 'Peso netto', 'wcexd' ); ?></option>
+							<option value="gross-weight"<?php echo( $weight_type == 'gross-weight' ) ? 'selected="selected"' : ''; ?>><?php echo __( 'Gross weight', 'wc-exporter-for-danea' ); ?></option>
+							<option value="net-weight"<?php echo( $weight_type == 'net-weight' ) ? 'selected="selected"' : ''; ?>><?php echo __( 'Net weight', 'wc-exporter-for-danea' ); ?></option>
 						</select>
-						<p class="description"><?php echo __( 'Scegli se il peso esportato sarà usato in Danea come lordo o netto.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Choose if the value exported will be used in Danea as gross or net weight.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 			</table>
@@ -279,116 +280,105 @@ function wcexd_options() {
 			<p class="submit">
 				<input type="hidden" name="wcexd-products-hidden" value="1" />
 				<?php wp_nonce_field( 'wcexd-products-submit', 'wcexd-products-nonce' ); ?>
-				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download elenco prodotti (.csv)', 'wcexd' ); ?>" />
+				<input type="submit" name="download_csv" class="button-primary" value="<?php _e( 'Download products list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
 			</p>
 		</form>    
 	</div>
 
-
 	<!-- ESPORTAZIONE ELENCO CLIENTI (WORDPRESS USERS) WOOCOMMERCE -->     
-	  
 	<div id="wcexd-clienti" class="wcexd-admin">
 		<?php
-		echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco clienti Woocommerce', 'wcexd' ) . "</h3>";
-		echo "<p>" . __( 'L\'importazione dei clienti in Danea avviene attraverso l\'utilizzo di un file Excel/ OpenOffice. ', 'wcexd' );
-		echo "<ul class=\"wcexd\"><li>" . __('Scegli il ruolo utente Wordpress che identifica i tuoi clienti', 'wcexd' ) . "</li>";
-		echo "<li>" . __('Scarica l\'elenco aggiornato dei tuoi clienti', 'wcexd' ) . "</li>";
-		echo "<li>" . __('Apri e salva il file con uno dei programmi sopra indicati.', 'wcexd' ) . "</li>";
-		echo "<li>" . __('In Danea, vai in "Clienti/ Utilità", scegli "Importa con Excel/OpenOffice/LibreOffice" ed utilizza il file appena creato.', 'wcexd' ) . "</li></ul></p>";
-		echo "<p>" . __('Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . "</p>";
-		echo "<a href=\"http://www.danea.it/software/easyfatt/help/index.htm#html/Microsoft_Excel.htm\" target=\"_blank\">http://www.danea.it/software/easyfatt/help/index.htm#html/Microsoft_Excel.htm</a></p>";
+		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce customers list.', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<p>' . __( 'The import of clients in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
+		echo '<ul class="wcexd"><li>' . __( 'Choose the WordPress user role that identifies your customers.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Download your WooCommerce customers list.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'Open and save the file with one of the above programs.', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'In Danea, go to "Clienti/ Utilità", choose "Importa con Excel/OpenOffice/LibreOffice" and use the file just created.', 'wc-exporter-for-danea' ) . '</li></ul></p>';
+		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
+		echo '<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a></p>';
 		?>
-                
-	    <!--Form Clienti-->
-	    <form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
-	    	<table class="form-table">
-	    		<tr>
-	    			<th scope="row"><?php _e("Ruolo utente", 'wcexd' ); ?></th>
-	    			<td>
+				
+		<!--Form Clienti-->
+		<form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
+			<table class="form-table">
+				<tr>
+					<th scope="row"><?php _e( 'User role', 'wc-exporter-for-danea' ); ?></th>
+					<td>
 						<select class="wcexd wcexd-clients" name="wcexd-clients" disabled="disabled" form="wcexd-clients-submit">
 							<option value="customer" selected="selected"><?php echo __('Customer', 'woocommerce'); ?></option>';	
 						</select>
-						<p class="description"><?php echo __('Seleziona il livello utente corrispondente ai tuoi clienti', 'wcexd'); ?></p>
-	    			</td>
-	    		</tr>
-                <tr>
-                    <th></th>
-                    <td><?php wcexd_go_premium(); ?></td>
-                </tr>
-	    	</table>
-	        <?php wp_nonce_field( 'wcexd-clients-submit', 'wcexd-clients-nonce'); ?>
+						<p class="description"><?php echo __( 'Select the user level of your clients.', 'wc-exporter-for-danea' ); ?></p>
+
+					</td>
+
+				</tr>
+			</table>
+			<?php wp_nonce_field( 'wcexd-clients-submit', 'wcexd-clients-nonce' ); ?>
 			<p class="submit">
-				<input type="submit" name="download_csv" class="button-primary" disabled="disabled" value="<?php _e('Download elenco clienti (.csv)', 'wcexd' ) ; ?>" />
+				<input type="submit" name="download_csv" class="button-primary" disabled="disabled" value="<?php _e( 'Download customers list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
 			</p>
 		</form>
 	</div>
  
- 
 	<!-- ESPORTAZIONE ELENCO ORDINI WOOCOMMERCE -->
- 
 	<div id="wcexd-ordini" class="wcexd-admin">
 		<?php
 		/*Header form ordini*/
-		echo "<h3 class=\"wcexd\">" . __( 'Esportazione elenco ordini Woocommerce', 'wcexd' ) . "</h3>"; 
-		echo "<p>" . __( 'L\'importazione degli ordini in Danea avviene attraverso l\'utilizzo di un file xml. ', 'wcexd' );
-		echo "<ul class=\"wcexd\">";
-		echo "<li>" . __('Copia l\'indirizzo completo del tuo feed con l\'elenco ordini Woocommerce aggiornato.', 'wcexd' ) . "</li>";
-		echo "<li>" . __('In Danea, scegli "Scarica ordini" dal menù "Strumenti/ E-commerce"', 'wcexd' ) . "</li>";
-		echo "<li>" . __('Nella finestra seguente, incolla l\'indirizzo del tuo elenco ordini in in "Impostazioni/ Indirizzo..."', 'wcexd' ) . "</li><ul>";
-		echo "<p>" . __('Per maggiori informazioni, visita questa pagina:', 'wcexd' ) . "</p>";
-		echo "<a href=\"http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm\" target=\"_blank\">http://www.danea.it/software/easyfatt/help/index.htm#Ricezione_ordini_di_acquisto.htm</a></p>";
-		?>	
+		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce orders list.', 'wc-exporter-for-danea' ) . '</h3>';
+		echo '<p>' . __( 'The import of orders in Danea is done by using a XML file.', 'wc-exporter-for-danea' );
+		echo '<ul class="wcexd">';
+		echo '<li>' . __( 'Copy the full URL of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'In Danea, choose "Scarica ordini" from the menu "Strumenti/ E-commerce"', 'wc-exporter-for-danea' ) . '</li>';
+		echo '<li>' . __( 'In the next window, paste the URL of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ) . '</li><ul>';
+		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
+		echo '<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a></p>';
 
-	    <form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
-	        <table class="form-table">
-	        	<?php $receive_orders_url = __('Please insert your <strong>Premium Key</strong>', 'wcexd'); ?>
-	        	<tr>
-			    	<th scope="row"><?php echo __('Stato ordini', 'wcexd'); ?></th>
-			    	<td>
-				    	<select form="wcexd-orders" class="wcexd" name="wcexd-orders-status" disabled="disabled">
-				    		<option name="all" value=""><?php echo __('Tutti', 'wcexd'); ?></option>
-				    	</select>
-				    	<p class="description"><?php echo __('Seleziona lo stato dell\'ordine che desideri importare in Danea', 'wcexd'); ?></p>
-			    	</td>
-			    </tr>
+		<form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
+			<table class="form-table">
+				<?php $receive_orders_url = __( 'Please insert your <strong>Premium Key</strong>', 'wc-exporter-for-danea' ); ?>
 				<tr>
-					<th scope="row"><?php echo __( 'Nome imposta', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Orders status', 'wc-exporter-for-danea' ); ?></th>
+					<td>
+				    	<select form="wcexd-orders" class="wcexd" name="wcexd-orders-status" disabled="disabled">
+				    		<option name="all" value=""><?php echo __('All', 'wc-exporter-for-danea'); ?></option>
+						</select>
+						<p class="description"><?php echo __( 'Select the order\'s status that you want to import in Danea', 'wc-exporter-for-danea' ); ?></p>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><?php echo __( 'Tax name', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<label for="wcexd-orders-tax-name">
 							<input type="checkbox" name="wcexd-orders-tax-name" value="1" disabled="disabled">
-							<?php echo __('Esporta il nome dell\'imposta e non l\'aliquota.', 'wcexd'); ?>
+							<?php echo __( 'Export the tax name instead of the rate', 'wc-exporter-for-danea' ); ?>
 						</label>
-						<p class="description"><?php echo __( 'Opzione consigliata se le aliquote sono state precedentemente importate da Danea Easyfatt.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Recommended option if the tax rates were imported from Danea Easyfatt previously.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
 				<tr>
-					<th scope="row"><?php echo __( 'Cambio valuta', 'wcexd' ); ?></th>
+					<th scope="row"><?php echo __( 'Currency Exchange', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<label for="wcexd-currency-exchange">
 							<input type="checkbox" name="wcexd-currency-exchange" value="1" disabled="disabled">
-							<?php echo __( 'Esporta gli ordini in euro.', 'wcexd' ); ?>
+							<?php echo __( 'Export orders in euros', 'wc-exporter-for-danea' ); ?>
 						</label>
-						<p class="description"><?php echo __( 'Esporta in euro gli ordini ricevuti in dollari utilizzando il tasso di cambio più recente della Banca d\'Italia.', 'wcexd' ); ?></p>
+						<p class="description"><?php echo __( 'Export orders received in dollars into euros using the most recent exchange rate from the Bank of Italy.', 'wc-exporter-for-danea' ); ?></p>
 					</td>
 				</tr>
-			    <tr>
-			    	<th scope="row"><?php echo __("Feed URL", 'wcexd' ); ?></th>
-			        <td>
+				<tr>
+					<th scope="row"><?php echo __( 'Feed URL', 'wc-exporter-for-danea' ); ?></th>
+					<td>
 				        <div class="wcexd-copy-url"><span class="wcexd-red"><?php echo $receive_orders_url; ?></span></div>
-				        <p class="description"><?php echo __('Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica ordini</b> (Ctrl+O) di Danea.', 'wcexd'); ?></p>
-			        </td>
-			    </tr>
-                <tr>
-                    <th></th>
-                    <td><?php wcexd_go_premium(); ?></td>
-                </tr>
-	    	</table>                      
-	        <p class="submit">
-	        	<input type="hidden" name="wcexd-orders-sent" value="1">
-		        <input type="submit" name="Submit" class="button-primary" disabled="disabled" value="<?php esc_attr_e('Salva impostazioni', 'wcexd') ?>" />
-	        </p>	    
-	    </form>
-    </div>
+						<p class="description"><?php echo __( 'Add this URL to the <b>Settings</b> tab of the function <b>Download orders</b> (Ctrl+O) in Danea.', 'wc-exporter-for-danea' ); ?></p>
+					</td>
+				</tr>
+			</table>                      
+			<p class="submit">
+				<input type="hidden" name="wcexd-orders-sent" value="1">
+				<input type="submit" name="Submit" class="button-primary" disabled="disabled" value="<?php esc_attr_e( 'Save options', 'wc-exporter-for-danea' ); ?>" />
+			</p>	    
+		</form>
+	</div>
 
     </div><!--WRAP-LEFT-->
 	
