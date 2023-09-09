@@ -332,6 +332,7 @@ function wcexd_options() {
 		echo '<li>' . __( 'In the next window, paste the URL of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ) . '</li><ul>';
 		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
 		echo '<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a></p>';
+        ?>
 
 		<form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
 			<table class="form-table">
