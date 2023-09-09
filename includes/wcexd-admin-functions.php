@@ -469,5 +469,5 @@ function wcexd_update_message2( $plugin_data, $response ) {
 	echo ( $message ) ? '<br><span class="wcexd-alert">' . $message . '</span>' : '';
 
 }
-add_action( 'in_plugin_update_message-wc-exporter-for-danea-premium/wc-exporter-for-danea-premium.php', 'wcexd_update_message2', 10, 2 );
+add_action( 'in_plugin_update_message-wc-exporter-for-danea-premium/wc-exporter-for-danea.php', 'wcexd_update_message2', 10, 2 );
 
