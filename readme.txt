@@ -5,20 +5,20 @@ Version: 1.5.1
 Requires at least: 4.0
 Tested up to: 6.3
 
-Export suppliers, products, customers and orders from your Woocommerce store to Danea.
+Export suppliers, products, customers and orders from your WooCommerce store to Danea.
 
 == Description ==
 
-If you've built your online store with Woocommerce and you're using Danea as management software, you definitely need Woocommerce Exporter for Danea!
+If you've built your online store with WooCommerce and you're using Danea as management software, you definitely need WooCommerce Exporter for Danea!
 
 *Danea Easyfatt certified*
 
 WC Exporter for Danea allows you to export:
 
-* The list of suppliers, in the form of Wordpress users who have been assigned a specific role (CSV).
-* The Woocommerce product list (CSV).
-* (Premium) The Woocommerce customer list (CSV).
-* (Premium) The list of Woocommerce orders, through a feed (xml) that can be used at any time in Danea to download the orders placed on your site.
+* The list of suppliers, in the form of WordPress users who have been assigned a specific role (CSV).
+* The WooCommerce product list (CSV).
+* (Premium) The WooCommerce customer list (CSV).
+* (Premium) The list of WooCommerce orders, through a feed (xml) that can be used at any time in Danea to download the orders placed on your site.
 
 **ELECTRONIC INVOICE**
 
@@ -316,7 +316,7 @@ Release Date: 27 October, 2016
 * Enhancement: If the Company field is presents, the name will be moved to referent.
 * Enhancement: Added the Shipping address.
 * Enhancement: Products export improved with all them variations.
-* Enhancement: If present, the SKU will be used as product id, instead of the Wordpress post id.
+* Enhancement: If present, the SKU will be used as product id, instead of the WordPress post id.
 * Enhancement: Fiscal code and P.IVA fields are now recognized by checking the specific plugin installed.
 * Bug Fix: The db query didn't work in case the tables prefix was different than wp_
 
