@@ -332,7 +332,7 @@ function wcexd_options() {
 		<?php
 		/*Header form ordini*/
 		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce orders list.', 'wc-exporter-for-danea' ) . '</h3>';
-		echo '<p>' . __( 'The import of orders in Danea is done by using a xml file.', 'wc-exporter-for-danea' );
+		echo '<p>' . __( 'The import of orders in Danea is done by using a XML file.', 'wc-exporter-for-danea' );
 		echo '<ul class="wcexd">';
 		echo '<li>' . __( 'Copy the full URL of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ) . '</li>';
 		echo '<li>' . __( 'In Danea, choose "Scarica ordini" from the menu "Strumenti/ E-commerce"', 'wc-exporter-for-danea' ) . '</li>';
