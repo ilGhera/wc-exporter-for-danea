@@ -4,7 +4,7 @@
  * @author ilGhera
  *
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.5.0
+ * @since 1.5.1
 */
 
 $order    = new WC_Order( $order );
