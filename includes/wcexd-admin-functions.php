@@ -102,7 +102,6 @@ function wcexd_options() {
 		exit;
 	}
 	?>
-		
 
 	<div id="wcexd-generale">
 		<?php
@@ -119,7 +118,6 @@ function wcexd_options() {
 		<a href="#" data-link="wcexd-clienti" class="nav-tab premium" onclick="return false;"><?php echo __( 'Customers', 'wc-exporter-for-danea' ); ?></a>    
 		<a href="#" data-link="wcexd-ordini" class="nav-tab premium" onclick="return false;"><?php echo __( 'Orders', 'wc-exporter-for-danea' ); ?></a>                                        
 	</h2>
-
 
 	<!-- IMPOSTAZIONI -->
     <?php include( WCEXD_INCLUDES . 'wc-checkout-fields/templates/wcexd-checkout-template.php' ); ?>
@@ -309,8 +307,8 @@ function wcexd_options() {
 						</select>
 						<p class="description"><?php echo __( 'Select the user level of your clients.', 'wc-exporter-for-danea' ); ?></p>
 
+                        <?php wcexd_go_premium(); ?>
 					</td>
-
 				</tr>
 			</table>
 			<?php wp_nonce_field( 'wcexd-clients-submit', 'wcexd-clients-nonce' ); ?>
@@ -371,6 +369,7 @@ function wcexd_options() {
 					<td>
 				        <div class="wcexd-copy-url"><span class="wcexd-red"><?php echo $receive_orders_url; ?></span></div>
 						<p class="description"><?php echo __( 'Add this URL to the <b>Settings</b> tab of the function <b>Download orders</b> (Ctrl+O) in Danea.', 'wc-exporter-for-danea' ); ?></p>
+                        <?php wcexd_go_premium(); ?>
 					</td>
 				</tr>
 			</table>                      
