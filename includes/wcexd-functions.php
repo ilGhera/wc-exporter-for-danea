@@ -831,3 +831,62 @@ function wcexd_update_message( $message = '', $status = '' ) {
 }
 add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', 'wcexd_update_message', 10, 2 );
 
+
+/**
+ * Listino Danea per prezzo base livello utente
+ *
+ * @param string $billing_email the customer email.
+ *
+ * @return string
+ */
+function the_price_list( $billing_email ) {
+
+    /* Il listino di default per il prezzo base */
+    $regular_price_list = get_option( 'wcifd-regular-price-list' );
+
+    /* WooCommerce Role Based Price */
+	$wc_rbp = get_wc_rbp();
+
+    /* Il plugin RBP non è installato */
+    if ( ! $wc_rbp ) {
+
+        $output = $regular_price_list;
+
+    } elseif ( is_array( $wc_rbp ) ) {
+
+        /* Recupero l'utente se registrato */
+        $user = get_user_by( 'email', $billing_email );
+
+        if ( is_object( $user ) && ! is_wp_error( $user ) ) {
+
+            /* Ruolo utente */
+            $role = isset( $user->roles[0] ) ? $user->roles[0] : null;
+
+        } else {
+
+            /* Ruolo utente */
+            $role = 'logedout';
+
+        }
+
+        if ( $role ) {
+
+            if ( array_key_exists( $role, $wc_rbp ) ) {
+
+                /* Il listino di default previsto per questo livello utente */
+                $result = isset( $wc_rbp[ $role ]['regular_price'] ) ? $wc_rbp[ $role ]['regular_price'] : $regular_price_list;
+                $output = $result ? $result : $regular_price_list;
+
+            } else {
+
+                $output = $regular_price_list;
+            }
+
+        }
+
+        echo esc_html( sprintf( 'Listino %s', intval( $output ) ) );
+
+    }
+
+}
+

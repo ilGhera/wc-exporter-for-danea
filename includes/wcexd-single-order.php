@@ -49,8 +49,10 @@ $pa_code = is_numeric( WCtoDanea::order_details($order->get_id(), $pa_code_name)
 
 /*Definisco il destinatario per la fattura elettronica*/
 $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) ? WCtoDanea::order_details($order->get_id(), $pa_code_name) : WCtoDanea::order_details($order->get_id(), $pec_name);
-?>
 
+/* Customer email */
+$billing_email = WCtoDanea::order_details($order->get_id(), '_billing_email');
+?>
 <Document>
   <DocumentType>C</DocumentType>
   <CustomerWebLogin><?php echo (WCtoDanea::order_details($order->get_id(), '_customer_user') == 0) ? '' : WCtoDanea::order_details($order->get_id(), '_customer_user'); ?></CustomerWebLogin>
@@ -65,7 +67,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <CustomerEInvoiceDestCode><?php echo $e_invoice_receiver; ?></CustomerEInvoiceDestCode>
   <CustomerTel><?php echo WCtoDanea::order_details($order->get_id(), '_billing_phone'); ?></CustomerTel>
   <CustomerCellPhone></CustomerCellPhone>
-  <CustomerEmail><?php echo WCtoDanea::order_details($order->get_id(), '_billing_email'); ?></CustomerEmail>
+  <CustomerEmail><?php echo $billing_email; ?></CustomerEmail>
   <DeliveryName><?php echo $delivery_name; ?></DeliveryName>
   <DeliveryAddress><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_address_1'); ?></DeliveryAddress>
   <DeliveryPostcode><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_postcode'); ?></DeliveryPostcode>
@@ -84,7 +86,7 @@ $e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) 
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>
   <InternalComment><?php echo htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ); ?></InternalComment>
   <CustomField1><?php $exchange->the_usd_exchange_rate(); ?></CustomField1>
-  <SalesAgent></SalesAgent>
+  <PriceList><?php the_price_list( $billing_email ); ?></PriceList>
   <Rows>
   <?php
   $items = WCtoDanea::get_order_items($order->get_id());
