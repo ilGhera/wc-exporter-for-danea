@@ -845,7 +845,7 @@ function the_price_list( $billing_email ) {
     $regular_price_list = get_option( 'wcifd-regular-price-list' );
 
     /* WooCommerce Role Based Price */
-	$wc_rbp = get_wc_rbp();
+	$wc_rbp = function_exists( 'get_wc_rbp' ) ? get_wc_rbp() : null;
 
     /* Il plugin RBP non è installato */
     if ( ! $wc_rbp ) {
