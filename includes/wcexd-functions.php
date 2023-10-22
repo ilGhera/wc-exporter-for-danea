@@ -24,18 +24,19 @@ class WCtoDanea {
 		
 
 		$args = array(
-			'post_type'      => 'shop_order',
-			'posts_per_page' => 150,			
+			'limit' => 150,
 		);
 
 		/*Se presente aggiungo lo/ gli stati selezionati dall'admin*/
 		if ( is_array( $statuses ) && ! empty( $statuses ) ) {
 
-			$args['post_status'] = $statuses;
+			$args['status'] = $statuses;
 
 		}
 
-		$orders = get_posts( $args );
+		$orders = wc_get_orders( $args );
+
+        error_log( 'ORDERS: ' . print_r( $orders, true ) );
 
 		if ( $orders ) {
 
