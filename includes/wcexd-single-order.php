@@ -34,9 +34,6 @@ if ( is_array( $fees ) ) {
     }
 }
 
-$cost_vat_code = WCtoDanea::get_shipping_tax_rate($order);
-$cost_vat_code = 'FC' !== $cost_vat_code ? $cost_vat_code : WCtoDanea::get_fees_tax_rate( $fees );
-
 /*Recupero i nomi dei campi fiscali italiani*/
 $cf_name      = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
 $pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
@@ -83,7 +80,7 @@ $billing_email = WCtoDanea::order_details($order->get_id(), '_billing_email');
   <Number><?php echo $order->get_id(); ?></Number>
   <Total><?php echo $exchange->filter_price( WCtoDanea::order_details($order->get_id(), '_order_total') ); ?></Total>
   <CostDescription><?php echo WCtoDanea::get_shipping_method_name($order->get_id()); ?></CostDescription>
-  <CostVatCode><?php echo $cost_vat_code; ?></CostVatCode>
+  <CostVatCode><?php echo WCtoDanea::get_shipping_tax_rate($order); ?></CostVatCode>
   <CostAmount><?php echo $exchange->filter_price( $cost_amount ); ?></CostAmount>
   <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
   <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>

@@ -207,32 +207,6 @@ class WCtoDanea {
     }
 
 	
-    /**
-     * Get the fees tax rate
-     *
-     * @param array $fees the fees applied to the order.
-     *
-     * @return mixed
-     */
-    public static function get_fees_tax_rate( $fees ) {
-
-        $output = array();
-
-        if ( is_array( $fees ) ) {
-
-            foreach ( $fees as $fee ) {
-
-                $output[] = ( $fee->get_total_tax() / $fee->get_total() ) * 100;
-
-            }
-
-        }
-
-        return isset( $output[0] ) ? number_format( $output[0], 0 ) : 'FC';
-
-    }
-
-
 	/**
 	 * Get item vat percentage or label
 	 *
