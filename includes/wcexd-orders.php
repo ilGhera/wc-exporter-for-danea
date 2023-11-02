@@ -37,7 +37,7 @@ function addOrdersFeed() {
 		$include_tax = get_option('woocommerce_prices_include_tax');
 			
 		foreach($orders as $order) { 
-			if($order->post_status != 'trash') {
+			if($order->get_status() != 'trash') {
 				
 				/*Richiamo il singolo "document"*/
 				require( 'wcexd-single-order.php');
