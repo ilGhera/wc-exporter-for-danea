@@ -16,77 +16,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WCtoDanea {
 
 	/**
-	 * Recupero gli ordini
-	 */
-	public static function get_orders() {
-
-		$statuses = get_option( 'wcexd-orders-statuses' ) ? get_option( 'wcexd-orders-statuses' ) : array( 'any' );
-		
-
-		$args = array(
-			'limit' => 150,
-		);
-
-		/*Se presente aggiungo lo/ gli stati selezionati dall'admin*/
-		if ( is_array( $statuses ) && ! empty( $statuses ) ) {
-
-			$args['status'] = $statuses;
-
-		}
-
-		$orders = wc_get_orders( $args );
-
-        error_log( 'ORDERS: ' . print_r( $orders, true ) );
-
-		if ( $orders ) {
-
-			return $orders;
-		
-		}
-
-	}
-
-
-	/**
-	 * Dettagli singolo ordine
-	 *
-	 * @param  int    $order_id l'id dell'ordine.
-	 * @param  string $campo    il post_meta da recuperare.
-	 */
-	public static function order_details( $order_id, $campo ) {
-
-		$output = get_post_meta( $order_id, $campo, true );
-
-		return htmlspecialchars( $output );
-	}
-
-
-	/**
-	 * Restiruisce il nome o il codice ISO della nazione dell'ordine relativa al cliente o alla spedizione
-	 *
-	 * @param  int     $order_id l'id dell'ordine.
-	 * @param  boolean $name     true per il nome completo dello stato.
-	 * @param  boolean $delivery paese di spedizione se true.
-	 * @return string
-	 */
-	public static function get_country( $order_id, $name = false, $delivery = false ) {
-
-		$country = $delivery ? self::order_details( $order_id, '_shipping_country' ) : self::order_details( $order_id, '_billing_country' );
-
-		if ( ! $name ) {
-			
-			return $country;
-
-		} elseif ( isset( WC()->countries->countries[ $country ] ) ) {
-
-			return WC()->countries->countries[ $country ];
-
-		}
-
-	}
-
-
-	/**
 	 * Recupero il valore dell'iva
 	 *
 	 * @param  int    $product_id l'id del prodotto.
@@ -246,31 +175,6 @@ class WCtoDanea {
 
 
 	/**
-	 * Recupero items per ordine
-	 *
-	 * @param  int $order_id l'id dell'ordine.
-	 * @return array
-	 */
-	public static function get_order_items( $order_id ) {
-
-		$output = array();
-
-		$order = new WC_Order( $order_id );
-
-		$order_items = $order->get_items();
-
-		if ( is_array( $order_items ) ) {
-
-			$output = $order_items;
-
-		} 
-
-		return $output;
-
-	}
-
-
-	/**
 	 * Recupero il nome del metodo di spedizione
 	 *
 	 * @param  int $order_id l'id dell'ordine.
@@ -279,15 +183,19 @@ class WCtoDanea {
 	public static function get_shipping_method_name( $order_id ) {
 
 		global $wpdb;
+        $order = wc_get_order( $order_id );
 
 		$query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_items WHERE order_id = $order_id AND order_item_type = 'shipping'";
 
 		$items = $wpdb->get_results( $query, ARRAY_A );
 
 		$output = $items ? $items[0]['order_item_name'] : null;
+        /* error_log( 'SHIPPING METHOD NAME 1: ' . $output ); */
+
+        $order->get_shipping_to_display( $order->get_id() );
+        /* error_log( 'SHIPPING METHOD NAME 1: ' . $output ); */
 
         /* Spese aggiuntive */
-        $order = wc_get_order( $order_id );
         $fees  = $order->get_fees();
         
         if ( is_array( $fees ) ) {
@@ -301,34 +209,6 @@ class WCtoDanea {
         }
 
 		return $output;
-
-	}
-
-
-	/**
-	 * Dettagli singolo item ordine
-	 *
-	 * @param  int    $item     l'id del singolo prodotto dell'ordine.
-	 * @param  string $meta_key the neta key.
-	 * @return string
-	 */
-	public static function item_info( $item, $meta_key ) {
-
-		global $wpdb;
-
-		$query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_itemmeta WHERE order_item_id = $item";
-
-		$get_info = $wpdb->get_results( $query, ARRAY_A );
-
-		foreach ( $get_info as $info ) {
-
-			if ( $info['meta_key'] === $meta_key ) {
-
-				return $info['meta_value'];
-
-			}
-
-		}
 
 	}
 
@@ -456,7 +336,7 @@ class WCtoDanea {
 	 */
 	public static function get_image_product() {
 
-		$thumb_id = get_post_thumbnail_id();
+		$thumb_id  = get_post_thumbnail_id();
 		$thumb_url = wp_get_attachment_image_src( $thumb_id, 200, true );
 
 		return $thumb_url[0];
@@ -485,7 +365,7 @@ class WCtoDanea {
 		if ( null != $courses ) {
 
 			$course_id = get_object_vars( $courses[0] );
-			$author = get_post_field( 'post_author', $course_id['post_id'] );
+			$author    = get_post_field( 'post_author', $course_id['post_id'] );
 
 			return $author;
 
@@ -711,9 +591,9 @@ add_filter( 'woocommerce_hidden_order_itemmeta', 'wcexd_hide_item_discount' );
  */
 function wcifd_add_item_details( $order_id ) {
 
-	$order         = new WC_Order( $order_id );
-    $user_data     = get_userdata( $order->get_user_id() ); 
-    $user_role     = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
+	$order     = new WC_Order( $order_id );
+    $user_data = get_userdata( $order->get_user_id() ); 
+    $user_role = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
 
 	foreach ( $order->get_items() as $key => $item ) {
 
@@ -840,7 +720,7 @@ add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', 'wcexd_upd
  *
  * @return string
  */
-function the_price_list( $billing_email ) {
+function get_the_price_list( $billing_email ) {
 
     /* Il listino di default per il prezzo base */
     $regular_price_list = get_option( 'wcifd-regular-price-list' );
@@ -885,7 +765,7 @@ function the_price_list( $billing_email ) {
 
         }
 
-        echo esc_html( sprintf( 'Listino %s', intval( $output ) ) );
+        return ( sprintf( 'Listino %s', intval( $output ) ) );
 
     }
 

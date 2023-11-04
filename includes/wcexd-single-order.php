@@ -7,23 +7,22 @@
  * @since 1.5.1
 */
 
-$order    = new WC_Order( $order );
+$order    = wc_get_order( $order );
 $exchange = new WCEXD_Currency_Exchange( $order );
-
 /*Formattazione data ordine*/
 $originalDate = $order->get_date_created();
 $newDate = date("Y-m-d", strtotime($originalDate));
-$customer_name =  WCtoDanea::order_details($order->get_id(), '_billing_first_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_billing_last_name'); 
-$shipping_name =  WCtoDanea::order_details($order->get_id(), '_shipping_last_name') . ' ' . WCtoDanea::order_details($order->get_id(), '_shipping_first_name'); 
-$delivery_name = (WCtoDanea::order_details($order->get_id(), '_shipping_company')) ? $shipping_name . ' c/o ' . WCtoDanea::order_details($order->get_id(), '_shipping_company') : $shipping_name;
+$customer_name = $order->get_billing_first_name() . ' ' . $order->get_billing_last_name();
+$shipping_name = $order->get_shipping_first_name() . ' ' . $order->get_shipping_last_name();
+$delivery_name = $order->get_shipping_company() ? $shipping_name . ' c/o ' . $order->get_shipping_company() : $shipping_name;
 
 /*Prezzi a carrello IVA inclusa o meno*/
 $tax_included = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
 
 /*Spese di spedizione*/
-$cost_amount = round(WCtoDanea::order_details($order->get_id(), '_order_shipping'), 2);
+$cost_amount = round($order->get_shipping_total(), 2);
 if ( $tax_included ) {
-    $cost_amount = round($cost_amount + WCtoDanea::order_details($order->get_id(), '_order_shipping_tax'), 2);
+    $cost_amount = round($cost_amount + $order->get_shipping_tax(), 2);
 }
 
 /* Spese aggiuntive */
@@ -40,53 +39,52 @@ $pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
 $pec_name     = '_' . WCtoDanea::get_italian_tax_fields_names('pec_name');
 $pa_code_name = '_' . WCtoDanea::get_italian_tax_fields_names('pa_code_name');
 
+/* error_log( 'META DATA: ' . $order->get_meta( 'wc-codice-docente' ) ); */
+
 /*Recupero i campi fiscali*/
-$cf      = WCtoDanea::order_details($order->get_id(), $cf_name);
-$pi      = is_numeric( WCtoDanea::order_details($order->get_id(), $pi_name) ) ? WCtoDanea::order_details($order->get_id(), $pi_name) : null;
-$pec     = ! is_numeric( WCtoDanea::order_details($order->get_id(), $pec_name) ) ? WCtoDanea::order_details($order->get_id(), $pec_name) : null;
-$pa_code = is_numeric( WCtoDanea::order_details($order->get_id(), $pa_code_name) ) ? WCtoDanea::order_details($order->get_id(), $pa_code_name) : null;
+$cf      = $order->get_meta( $cf_name );
+$pi      = is_numeric( $order->get_meta( $pi_name ) ) ? $order->get_meta( $pi_name ) : null;
+$pec     = ! is_numeric( $order->get_meta( $pec_name ) ) ? $order->get_meta( $pec_name ) : null;
+$pa_code = is_numeric( $order->get_meta( $pa_code_name ) ) ? $order->get_meta( $pa_code_name ) : null;
 
 
 /*Definisco il destinatario per la fattura elettronica*/
-$e_invoice_receiver = WCtoDanea::order_details($order->get_id(), $pa_code_name) ? WCtoDanea::order_details($order->get_id(), $pa_code_name) : WCtoDanea::order_details($order->get_id(), $pec_name);
-
-/* Customer email */
-$billing_email = WCtoDanea::order_details($order->get_id(), '_billing_email');
+$e_invoice_receiver = $order->get_meta( $pa_code_name ) ? $order->get_meta( $pa_code_name ) : $order->get_meta( $pec_name );
 ?>
 <Document>
   <DocumentType>C</DocumentType>
-  <CustomerWebLogin><?php echo (WCtoDanea::order_details($order->get_id(), '_customer_user') == 0) ? '' : WCtoDanea::order_details($order->get_id(), '_customer_user'); ?></CustomerWebLogin>
-  <CustomerName><?php echo (WCtoDanea::order_details($order->get_id(), '_billing_company')) ? WCtoDanea::order_details($order->get_id(), '_billing_company') : $customer_name; ?></CustomerName>
-  <CustomerAddress><?php echo WCtoDanea::order_details($order->get_id(), '_billing_address_1'); ?></CustomerAddress>
-  <CustomerPostcode><?php echo WCtoDanea::order_details($order->get_id(), '_billing_postcode'); ?></CustomerPostcode>
-  <CustomerCity><?php echo WCtoDanea::order_details($order->get_id(), '_billing_city'); ?></CustomerCity>
-  <CustomerProvince><?php echo WCtoDanea::order_details($order->get_id(), '_billing_state'); ?></CustomerProvince>
-  <CustomerCountry><?php echo WCtoDanea::get_country($order->get_id()); ?></CustomerCountry>
+  <CustomerWebLogin><?php echo ( 0 === $order->get_customer_id() ) ? '' : $order->get_customer_id(); ?></CustomerWebLogin>
+  <CustomerName><?php echo esc_html( $customer_name ); ?></CustomerName>
+  <CustomerAddress><?php echo $order->get_billing_address_1(); ?></CustomerAddress>
+  <CustomerPostcode><?php echo $order->get_billing_postcode(); ?></CustomerPostcode>
+  <CustomerCity><?php echo $order->get_billing_city(); ?></CustomerCity>
+  <CustomerProvince><?php echo $order->get_billing_state(); ?></CustomerProvince>
+  <CustomerCountry><?php echo $order->get_billing_country(); ?></CustomerCountry>
   <CustomerVatCode><?php echo $pi; ?></CustomerVatCode>
   <CustomerFiscalCode><?php echo strtoupper($cf); ?></CustomerFiscalCode>
   <CustomerEInvoiceDestCode><?php echo $e_invoice_receiver; ?></CustomerEInvoiceDestCode>
-  <CustomerTel><?php echo WCtoDanea::order_details($order->get_id(), '_billing_phone'); ?></CustomerTel>
+  <CustomerTel><?php echo $order->get_billing_phone(); ?></CustomerTel>
   <CustomerCellPhone></CustomerCellPhone>
-  <CustomerEmail><?php echo $billing_email; ?></CustomerEmail>
+  <CustomerEmail><?php echo $order->get_billing_email(); ?></CustomerEmail>
   <DeliveryName><?php echo $delivery_name; ?></DeliveryName>
-  <DeliveryAddress><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_address_1'); ?></DeliveryAddress>
-  <DeliveryPostcode><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_postcode'); ?></DeliveryPostcode>
-  <DeliveryCity><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_city'); ?></DeliveryCity>
-  <DeliveryProvince><?php echo WCtoDanea::order_details($order->get_id(), '_shipping_state'); ?></DeliveryProvince>
-  <DeliveryCountry><?php echo WCtoDanea::get_country($order->get_id(), false, true); ?></DeliveryCountry>
+  <DeliveryAddress><?php echo $order->get_shipping_address_1(); ?></DeliveryAddress>
+  <DeliveryPostcode><?php echo $order->get_shipping_postcode(); ?></DeliveryPostcode>
+  <DeliveryCity><?php echo $order->get_shipping_city(); ?></DeliveryCity>
+  <DeliveryProvince><?php echo $order->get_shipping_state(); ?></DeliveryProvince>
+  <DeliveryCountry><?php echo $order->get_shipping_country(); ?></DeliveryCountry>
   <DeliveryTel></DeliveryTel>
   <DeliveryCellPhone></DeliveryCellPhone>
   <Date><?php echo $newDate; ?></Date>
   <Number><?php echo $order->get_id(); ?></Number>
-  <Total><?php echo $exchange->filter_price( WCtoDanea::order_details($order->get_id(), '_order_total') ); ?></Total>
+  <Total><?php echo $exchange->filter_price( $order->get_total() ); ?></Total>
   <CostDescription><?php echo WCtoDanea::get_shipping_method_name($order->get_id()); ?></CostDescription>
   <CostVatCode><?php echo WCtoDanea::get_shipping_tax_rate($order); ?></CostVatCode>
   <CostAmount><?php echo $exchange->filter_price( $cost_amount ); ?></CostAmount>
   <PricesIncludeVat><?php echo $tax_included ? 'true' : 'false'; ?></PricesIncludeVat>
-  <PaymentName><?php echo WCtoDanea::order_details($order->get_id(), '_payment_method_title'); ?></PaymentName>
+  <PaymentName><?php echo $order->get_payment_method_title(); ?></PaymentName>
   <InternalComment><?php echo htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ); ?></InternalComment>
   <CustomField1><?php $exchange->the_usd_exchange_rate(); ?></CustomField1>
-  <PriceList><?php the_price_list( $billing_email ); ?></PriceList>
+  <PriceList><?php echo get_the_price_list( $order->get_billing_email() ); ?></PriceList>
   <Rows>
   <?php
   $items = WCtoDanea::get_order_items($order->get_id());
