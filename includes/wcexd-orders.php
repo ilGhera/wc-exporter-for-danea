@@ -196,6 +196,7 @@ class WCEXD_Orders {
         $item_get_subtotal = $item->get_subtotal();
         $item_get_total    = $item->get_total(); 
         $item_discount     = $item->get_meta( '_wcexd_item_discount', true ); // Temp.
+        $item_discount     = number_format( floatval( $item_discount ), 2, '.', '' );
         $item_price        = $item->get_subtotal(); 
 
         /* Item discount */
@@ -204,17 +205,17 @@ class WCEXD_Orders {
             $item_price = number_format( ( ( $item_price * 100 ) / ( 100 - $item_discount ) ), 2, '.', '' );
 
             /* Translators: the item discount */
-            $output = sprintf( '%d%%', $item_discount );
+            $output = sprintf( '%.2f%%', $item_discount );
 
         }
 
         /* Add the cart discount */
-        if ( $item_get_subtotal && $item_get_subtotal != $item_get_total ) {
+        if ( $item_get_subtotal && $item_get_subtotal !== $item_get_total ) {
 
-            $cart_discount = number_format( ( ( $item_get_subtotal - $item_get_total ) / $item_get_subtotal * 100), 2, '.', '' );
+            $cart_discount = number_format( ( ( $item_get_subtotal - $item_get_total ) / $item_get_subtotal * 100 ), 2, '.', '' );
 
             /* Translators: the item and the cart discount */
-            $output = $item_discount ?  sprintf( '%1$d+%2$d%%', $item_discount, $cart_discount ) : sprintf( '%d%%', $cart_discount );
+            $output = $item_discount ?  sprintf( '%1$.2f+%2$.2f%%', $item_discount, $cart_discount ) : sprintf( '%.2f%%', $cart_discount );
 
         }
 
@@ -235,7 +236,11 @@ class WCEXD_Orders {
     public function feed_single_item_details( $writer, $order, $item ) {
 
         $variation_id = $item->get_variation_id();
-        $tax_rate     = WCtoDanea::get_item_tax_rate( $order, $item ); // Temp.
+        $vat_code     = WCtoDanea::get_item_tax_rate( $order, $item ); // Temp.
+        $quantity     = $item->get_quantity();
+        $price        = $item->get_subtotal();
+        $price        = $this->tax_included ? $price + $item->get_subtotal_tax() : $price;
+        $price        = $price / $quantity;
         $exchange     = new WCEXD_Currency_Exchange( $order );
 
         $writer->startElement( 'Row' );
@@ -262,10 +267,10 @@ class WCEXD_Orders {
 
         }
 
-        $writer->writeElement( 'Qty', $item->get_quantity() ); // Temp.
+        $writer->writeElement( 'Qty', $quantity ); // Temp.
         $writer->writeElement( 'Um', 'pz' );
-        $writer->writeElement( 'Price', $exchange->filter_price( $item->get_subtotal() ) ); // Temp.
-        $writer->writeElement( 'VatCode', $tax_rate );
+        $writer->writeElement( 'Price', $exchange->filter_price( $price ) ); // Temp.
+        $writer->writeElement( 'VatCode', $vat_code );
         $writer->writeElement( 'Discounts', $this->get_item_discounts( $item ) );
         $writer->endElement(); // Row.
 
@@ -327,6 +332,30 @@ class WCEXD_Orders {
 
 
     /**
+     * The XML part about the order payment 
+     *
+ 	 * @param object $writer the xml writer.
+ 	 * @param object $order  the WC order.
+     *
+     * @return void
+     */
+    public function feed_payment_details( $writer, $order ) {
+
+        $exchange = new WCEXD_Currency_Exchange( $order );
+        $amount   = $exchange->filter_price( $order->get_total() );
+        $paid     = 'wc-completed' === $order->get_status() ? true : false;
+        
+        $writer->startElement( 'Payment' );
+            $writer->writeElement( 'Advance', 'false' );
+            $writer->writeElement( 'Date', null );
+            $writer->writeElement( 'Amount', $amount );
+            $writer->writeElement( 'Paid', $paid );
+        $writer->endElement(); // Payment.
+
+    }
+
+
+    /**
      * The order XML feed.
      *
      * @return void 
@@ -375,6 +404,9 @@ class WCEXD_Orders {
                     /* Items details */
                     $this->feed_items_details( $writer, $order );
                     
+                    /* Payment details */
+                    $this->feed_payment_details( $writer, $order );
+
                     $writer->endElement(); // Document.
 
                 }
