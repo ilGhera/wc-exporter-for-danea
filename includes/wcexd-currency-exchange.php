@@ -127,7 +127,7 @@ class WCEXD_Currency_Exchange {
 
         if ( ! $this->is_active || ! $this->is_usd ) {
 
-            return $price;
+            return number_format( $price, 2, '.', '' );
 
         } else {
 
