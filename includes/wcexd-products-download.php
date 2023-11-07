@@ -350,16 +350,17 @@ class WCEXD_Products_Download {
         $tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? WCtoDanea::get_tax_rate( $product->get_id(), 'name' ) : WCtoDanea::get_tax_rate( $product->get_id() );
         
         $details = null;
+
         if ( $is_variation ) {
 
-            $variation = new WC_Product_Variation( get_the_ID() );
-            $details   = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_variation_attributes() ) );
+            $details   = ' | ' . implode( ' - ', array_map( 'ucfirst', $product->get_attributes() ) );
 
         }
 
         $data = array(
             $product_code,
-            $product->get_title() . $details,
+            /* Translators: 1. The product title 2. The variable attributes */
+            sprintf( '%1$s%2$s', $product->get_title(), $details ),
             $product_type,
             $product_category_cat,
             $product_category_sub,
@@ -428,5 +429,4 @@ class WCEXD_Products_Download {
 
 }
 new WCEXD_Products_Download();
-
 
