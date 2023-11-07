@@ -482,86 +482,71 @@ class WCtoDanea {
 
 
 	/**
-	 * Ottengo gli attributi della singola variabile di prodotto
+     * Get the attributes of the single product variation
 	 *
-	 * @return string il contenuto del campo Note
+     * @param object $product      the WC product.
+     * @param bool   $is_variation variatio object with true.
+     *
+	 * @return string
 	 */
-	public static function get_product_notes() {
+	public static function get_product_notes( $product, $is_variation = false ) {
 
-		$parent = wp_get_post_parent_id( get_the_ID() );
+		if ( $is_variation ) {
 
-		if ( $parent ) {
-
-			$parent_sku = get_post_meta( $parent, '_sku', true );
+            $parent = wc_get_product( $product->get_parent_id() );
 			$output = array(
-				'parent_id' => $parent,
-				'parent_sku' => $parent_sku,
+				'parent_id'  => $parent->get_id(),
+				'parent_sku' => $parent->get_sku(),
 			);
+            
+			if ( $product->get_attributes() ) {
 
-			$attributes = get_post_meta( $parent, '_product_attributes', true );
+                $output['var_attributes'] = $product->get_attributes(); 
 
-			$var_attributes = array();
-
-			if ( is_array( $attributes ) ) {
-
-				foreach ( $attributes as $key => $value ) {
-					$meta = 'attribute_' . $key;
-					$meta_val = get_post_meta( get_the_ID(), $meta, true );
-
-					if ( $meta_val ) {
-						$name = $value['name'];
-						$var_attributes[ $name ] = $meta_val;
-					}
-				}
+                return json_encode( $output );
 
 			}
 
-			$output['var_attributes'] = $var_attributes;
-
-			return json_encode( $output );
-
 		} else {
-
-			$args = array(
-				'post_parent' => get_the_ID(),
-				'post_type'   => 'product_variation',
-				'post_status' => 'publish',
-			);
 
 			$output = array();
 
-			if ( get_children( $args ) ) {
+            /* error_log( 'PRODUCT: ' . print_r( $product, true ) ); */
+
+			if ( $product->get_children() ) {
 
 				$output['product_type'] = 'variable';
 
-				$get_attributes = get_post_meta( get_the_ID(), '_product_attributes', true );
-
-				if ( is_array( $get_attributes ) ) {
+				if ( is_array( $product->get_attributes() ) ) {
 
 					$attributes = array();
 
-					foreach ( $get_attributes as $key => $value ) {
+					foreach ( $product->get_attributes() as $key => $value ) {
 
-						if ( isset( $value['is_taxonomy'] ) && 1 == $value['is_taxonomy']  ) {
+                        $attributes[ $key ] = explode( ', ', strtolower( $product->get_attribute( $key ) ) );
 
-							$terms = wp_get_object_terms( get_the_ID(), $key, array( 'fields' => 'slugs' ) );
+						/* if ( isset( $value['is_taxonomy'] ) && 1 == $value['is_taxonomy']  ) { */
 
-						} elseif ( isset( $value['value'] ) && null != $value['value'] ) {
+						/* 	$terms = wp_get_object_terms( get_the_ID(), $key, array( 'fields' => 'slugs' ) ); */
+
+						/* } elseif ( isset( $value['value'] ) && null != $value['value'] ) { */
 							
-							$terms = explode( ' | ' , $value['value'] );
+						/* 	$terms = explode( ' | ' , $value['value'] ); */
 
-						}
+						/* } */
 
-						if ( ! is_wp_error( $terms ) ) {
+						/* if ( ! is_wp_error( $terms ) ) { */
 
-							$attributes[ $key ] = $terms;
+						/* 	$attributes[ $key ] = $terms; */
 
-						}
+						/* } */
 						
 					}
 
 					$output['attributes'] = $attributes;
+
 				}
+
 				return json_encode( $output );
 
 			}
