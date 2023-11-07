@@ -371,7 +371,7 @@ class WCEXD_Products_Download {
             '',
             '',
             '',
-            WCtoDanea::get_product_notes(),
+            WCtoDanea::get_product_notes( $product, $is_variation ),
             '',
             '',
             '',
