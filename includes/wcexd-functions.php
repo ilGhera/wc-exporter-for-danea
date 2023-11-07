@@ -28,21 +28,24 @@ class WCtoDanea {
 
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
-			$output = 0;
-
-			$tax_status = get_post_meta( $product_id, '_tax_status', true );
+			$output     = 0;
+            $product    = wc_get_product( $product_id );
+			$tax_status = $product->get_tax_status();
 
 			/*In caso di variazione recupero dati del prodotto padre*/
-			$parent_id = wp_get_post_parent_id( $product_id );
-			$parent_tax_status = $parent_id ? get_post_meta( $parent_id, '_tax_status', true ) : '';
+			$parent_id         = wp_get_post_parent_id( $product_id );
+            $parent_product    = wc_get_product( $parent_id );
+			$parent_tax_status = $parent_id ? $parent_product->get_tax_status() : '';
 
-			if ( 'taxable' == $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
+			if ( 'taxable' === $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
 
 				/*Valore nullo con iva al 22, controllo necessario in caso di varizione di prodotto*/
-				$tax_class = $tax_status ? get_post_meta( $product_id, '_tax_class', true ) : get_post_meta( $parent_id, '_tax_class', true );
+				$tax_class = $tax_status ? $product->get_tax_class() : $parent_product->get_tax_class();
 
 				if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
-					$tax_class = get_post_meta( $parent_id, '_tax_class', true );
+
+					$tax_class = $parent_product->get_tax_class();
+
 				}
 
 				global $wpdb;
@@ -56,6 +59,7 @@ class WCtoDanea {
 			}
 		}
 		
+        /* error_log( 'OUTPUT: ' . print_r( $output, true ) ); */
 		return $output;
 
 	}
