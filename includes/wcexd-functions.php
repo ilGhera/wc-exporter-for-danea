@@ -501,6 +501,8 @@ class WCtoDanea {
             
 			if ( $product->get_attributes() ) {
 
+                error_log( 'ATTRIBUTES VAR: ' . print_r( $product->get_attributes(), true ) );
+
                 $output['var_attributes'] = $product->get_attributes(); 
 
                 return json_encode( $output );
@@ -511,8 +513,6 @@ class WCtoDanea {
 
 			$output = array();
 
-            /* error_log( 'PRODUCT: ' . print_r( $product, true ) ); */
-
 			if ( $product->get_children() ) {
 
 				$output['product_type'] = 'variable';
@@ -521,26 +521,18 @@ class WCtoDanea {
 
 					$attributes = array();
 
-					foreach ( $product->get_attributes() as $key => $value ) {
+					foreach ( $product->get_attributes() as $key => $attr ) {
 
-                        $attributes[ $key ] = explode( ', ', strtolower( $product->get_attribute( $key ) ) );
+                        if ( $attr->get_id() ) {
 
-						/* if ( isset( $value['is_taxonomy'] ) && 1 == $value['is_taxonomy']  ) { */
+                            $attributes[ $key ] = array_map( 'trim', explode( ', ', $product->get_attribute( $key ) ) );
 
-						/* 	$terms = wp_get_object_terms( get_the_ID(), $key, array( 'fields' => 'slugs' ) ); */
+                        } else {
 
-						/* } elseif ( isset( $value['value'] ) && null != $value['value'] ) { */
-							
-						/* 	$terms = explode( ' | ' , $value['value'] ); */
+                            $attributes[ $key ] = array_map( 'trim', explode( '|', $product->get_attribute( $key ) ) );
 
-						/* } */
+                        }
 
-						/* if ( ! is_wp_error( $terms ) ) { */
-
-						/* 	$attributes[ $key ] = $terms; */
-
-						/* } */
-						
 					}
 
 					$output['attributes'] = $attributes;
