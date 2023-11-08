@@ -240,7 +240,7 @@ class WCEXD_Products_Download {
         $product_code = $product->get_sku() ? $product->get_sku() : $product->get_id();
 
         /* Get the product category */
-        $product_category     = WCtoDanea::get_product_category_name( $product->get_id() );
+        $product_category     = WCtoDanea::get_product_category_name( $product, $is_variation );
         $product_category_cat = isset( $product_category['cat'] ) ? $product_category['cat'] : null;
         $product_category_sub = isset( $product_category['sub'] ) ? $product_category['sub'] : null;
 

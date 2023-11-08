@@ -218,11 +218,12 @@ class WCtoDanea {
 
 
 	/**
-	 * Sambia la posizione del singolo termine di tassonomia in base al parent_id
+     * Move the single taxonomy term based od its parent ID
 	 *
-	 * @param  object $a il termine di tasssonomia.
-	 * @param  object $b un altro termine di tassonomia da confrontare.
-	 * @return mixed la nuova posizione
+	 * @param  object $a the first taxonomy term.
+	 * @param  object $b the second taxonomy term.
+     *
+	 * @return mixed
 	 */
 	public static function sort_sub_categories( $a, $b ) {
 
@@ -242,12 +243,13 @@ class WCtoDanea {
 
 
 	/**
-	 * Prepara le sottocategorie al download
+	 * The sub-categories string used for the products download
 	 *
-	 * @param  array $child i termini di tassonomia.
+	 * @param  array $child the taxonomy terms.
+     *
 	 * @return string la lista formattata per Danea Easyfatt
 	 */
-	public static function prepare_sub_categories( $child, $sku ) { // temp.
+	public static function prepare_sub_categories( $child ) {
 
 		$list = array();
 
@@ -272,22 +274,31 @@ class WCtoDanea {
 
 
 	/**
-	 * Ottengo la categoria di appartenenza del prodotto
+	 * Get the product category name 
 	 *
-	 * @param  int $product_id l'id del prodotto.
+     * @param object $product      the WC product.
+     * @param bool   $is_variation variatio object with true.
+     *
 	 * @return string
 	 */
-	public static function get_product_category_name( $product_id ) {
+	public static function get_product_category_name( $product, $is_variation = false ) {
 
-		$parent = null;
-		$child  = array();
-		$product_cat = get_the_terms( $product_id, 'product_cat' );
+		$parent  = null;
+		$child   = array();
+        $cat_ids = $product->get_category_ids(); 
 
-		$sku = get_post_meta( $product_id, '_sku', true );
+        if ( $is_variation ) {
 
-		if ( null != $product_cat ) {
+            $parent_p = wc_get_product( $product->get_parent_id() );
+            $cat_ids  = $parent_p->get_category_ids();
 
-			foreach ( $product_cat as $cat ) {
+        }
+
+		if ( $cat_ids ) {
+
+			foreach ( $cat_ids as $cat_id ) {
+
+                $cat = get_term_by( 'id', $cat_id, 'product_cat' );
 
 				if ( 0 != $cat->parent ) {
 
@@ -306,7 +317,7 @@ class WCtoDanea {
 
 			if ( $child ) {
 
-				$child_string = self::prepare_sub_categories( $child, $sku ); // temp.
+				$child_string = self::prepare_sub_categories( $child ); // temp.
 
 				$cat_name = array(
 					'cat' => $parent,
@@ -500,8 +511,6 @@ class WCtoDanea {
 			);
             
 			if ( $product->get_attributes() ) {
-
-                error_log( 'ATTRIBUTES VAR: ' . print_r( $product->get_attributes(), true ) );
 
                 $output['var_attributes'] = $product->get_attributes(); 
 
