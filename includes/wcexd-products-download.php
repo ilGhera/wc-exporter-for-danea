@@ -245,11 +245,12 @@ class WCEXD_Products_Download {
         $product_category_sub = isset( $product_category['sub'] ) ? $product_category['sub'] : null;
 
         /* Check if Sensei is active */
-        $id_supplier = null;
+        $id_supplier      = null;
+        $course_author_id = WCtoDanea::get_sensei_author( $product->get_id() );
 
-        if ( isset( $_POST['sensei'] ) && ( ! WCtoDanea::get_sensei_author( $product->get_id() ) ) ) {
+        if ( isset( $_POST['sensei'] ) && ( $course_author_id ) ) {
 
-            $id_supplier = WCtoDanea::get_sensei_author( $product->get_id() );
+            $id_supplier = $course_author_id;
 
             /* Save to the database */
             update_option( 'wcexd-sensei-option', 1 );

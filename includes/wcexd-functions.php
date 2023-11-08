@@ -347,24 +347,31 @@ class WCtoDanea {
 
 
 	/**
-	 * Recupero l'autore del corso sensei legato al prodotto woocommerce
+     * Get the author of the Sensei course linked to the product
 	 *
-	 * @param  int $product_id l'id del prodotto.
+	 * @param  int $product_id the WC product ID. 
+     *
+     * @return int the author ID.
 	 */
 	public static function get_sensei_author( $product_id ) {
 
 		global $wpdb;
-		$query_course = "
+
+        $query = $wpdb->prepare(
+            "
 			SELECT post_id
-			FROM $wpdb->postmeta
+			FROM %s 
 			WHERE
 			meta_key = '_course_woocommerce_product'
-			AND meta_value = $product_id
-		";
+			AND meta_value = %d 
+            ",
+            $wpdb->postmeta,
+            $product_id
+        );
 
-		$courses = $wpdb->get_results( $query_course );
+		$courses = $wpdb->get_results( $query );
 
-		if ( null != $courses ) {
+		if ( is_array( $courses ) && isset( $courses[0] ) ) {
 
 			$course_id = get_object_vars( $courses[0] );
 			$author    = get_post_field( 'post_author', $course_id['post_id'] );
