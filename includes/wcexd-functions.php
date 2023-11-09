@@ -189,29 +189,18 @@ class WCtoDanea {
 
 
 	/**
-	 * Recupero il nome del metodo di spedizione
+	 * Get the shipping method name plus fees 
 	 *
-	 * @param  int $order_id l'id dell'ordine.
+	 * @param object $order the WC order. 
      *
 	 * @return string
 	 */
-	public static function get_shipping_method_name( $order_id ) {
+	public static function get_cost_description( $order ) {
 
-		global $wpdb;
-        $order = wc_get_order( $order_id );
+        $output = $order->get_shipping_method();
 
-		$query = "SELECT * FROM " . $wpdb->prefix . "woocommerce_order_items WHERE order_id = $order_id AND order_item_type = 'shipping'";
-
-		$items = $wpdb->get_results( $query, ARRAY_A );
-
-		$output = $items ? $items[0]['order_item_name'] : null;
-        /* error_log( 'SHIPPING METHOD NAME 1: ' . $output ); */
-
-        $order->get_shipping_to_display( $order->get_id() );
-        /* error_log( 'SHIPPING METHOD NAME 1: ' . $output ); */
-
-        /* Spese aggiuntive */
-        $fees  = $order->get_fees();
+        /* Fees */
+        $fees = $order->get_fees();
         
         if ( is_array( $fees ) ) {
 

@@ -168,7 +168,7 @@ class WCEXD_Orders {
         $writer->writeElement( 'Date', $new_date );
         $writer->writeElement( 'Number', $order->get_id() );
         $writer->writeElement( 'Total', $exchange->filter_price( $order->get_total() ) );
-        $writer->writeElement( 'CostDescription', WCtoDanea::get_shipping_method_name($order->get_id()) ); // Temp.
+        $writer->writeElement( 'CostDescription', WCtoDanea::get_cost_description( $order ) ); // Temp.
         $writer->writeElement( 'CostVatCode', WCtoDanea::get_shipping_tax_rate($order) );
         $writer->writeElement( 'CostAmount', $exchange->filter_price( $this->get_cost_amount( $order ) ) );
         $writer->writeElement( 'PricesIncludeVat', $this->tax_included ? 'true' : 'false' );
