@@ -16,6 +16,14 @@ class WCEXD_Products_Download {
 
 
     /**
+     * The plugin functions
+     *
+     * @var object
+     */
+    public $functions;
+
+
+    /**
      * The admin settings for the products download
      */
     public $use_suppliers;
@@ -32,7 +40,10 @@ class WCEXD_Products_Download {
      */
     public function __construct() {
 
-        add_action( 'admin_init', array( $this, 'init_action' ) );
+        /* Actions */
+        add_action( 'admin_init', array( $this, 'init' ) );
+
+        $this->functions = new WCEFD_Functions();
 
     }
 
@@ -42,7 +53,7 @@ class WCEXD_Products_Download {
      *
      * @return void
      */
-    public function init_action() {
+    public function init() {
 
         if ( isset( $_POST['wcexd-products-hidden'] ) && wp_verify_nonce( $_POST['wcexd-products-nonce'], 'wcexd-products-submit' ) ) {
 
@@ -94,9 +105,9 @@ class WCEXD_Products_Download {
                 'Sottocategoria',
                 'Cod. Udm',
                 'Cod. Iva',
-                WCtoDanea::get_prices_col_name( 1 ),
-                WCtoDanea::get_prices_col_name( 2 ),
-                WCtoDanea::get_prices_col_name( 3 ),
+                $this->functions->get_prices_col_name( 1 ),
+                $this->functions->get_prices_col_name( 2 ),
+                $this->functions->get_prices_col_name( 3 ),
                 'Formula listino 1',
                 'Formula listino 2',
                 'Formula listino 3',
@@ -240,13 +251,13 @@ class WCEXD_Products_Download {
         $product_code = $product->get_sku() ? $product->get_sku() : $product->get_id();
 
         /* Get the product category */
-        $product_category     = WCtoDanea::get_product_category_name( $product, $is_variation );
+        $product_category     = $this->functions->get_product_category_name( $product, $is_variation );
         $product_category_cat = isset( $product_category['cat'] ) ? $product_category['cat'] : null;
         $product_category_sub = isset( $product_category['sub'] ) ? $product_category['sub'] : null;
 
         /* Check if Sensei is active */
         $id_supplier      = null;
-        $course_author_id = WCtoDanea::get_sensei_author( $product->get_id() );
+        $course_author_id = $this->functions->get_sensei_author( $product->get_id() );
 
         if ( isset( $_POST['sensei'] ) && ( $course_author_id ) ) {
 
@@ -348,7 +359,7 @@ class WCEXD_Products_Download {
 
         }
 
-        $tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? WCtoDanea::get_tax_rate( $product, 'name' ) : WCtoDanea::get_tax_rate( $product );
+        $tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? $this->functions->get_tax_rate( $product, 'name' ) : $this->functions->get_tax_rate( $product );
         
         $details = null;
 
@@ -373,7 +384,7 @@ class WCEXD_Products_Download {
             '',
             '',
             '',
-            WCtoDanea::get_product_notes( $product, $is_variation ),
+            $this->functions->get_product_notes( $product, $is_variation ),
             '',
             '',
             '',
