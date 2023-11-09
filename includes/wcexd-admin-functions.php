@@ -174,9 +174,9 @@ function wcexd_options() {
 		echo '<p>' . __( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ) . '</p>';
 		echo '<a href="https://www.danea.it/software/easyfatt/supporto/import-altri-software/" target="_blank">https://www.danea.it/software/easyfatt/supporto/import-altri-software/</a></p>';
 
-		$size_type = get_option( 'wcexd-size-type' );
-		$weight_type = get_option( 'wcexd-weight-type' );
-		$wcexd_products_tax_name = get_option( 'wcexd_products_tax_name' );
+		$size_type               = get_option( 'wcexd-size-type' );
+		$weight_type             = get_option( 'wcexd-weight-type' );
+		$wcexd_products_tax_name = get_option( 'wcexd-products-tax-name' );
 		?>
 
 		<form name="wcexd-products-submit" id="wcexd-products-submit" class="wcexd-form"  method="post" action="">

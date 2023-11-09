@@ -13,31 +13,31 @@ defined( 'ABSPATH' ) || exit;
 class WCtoDanea {
 
 	/**
-	 * Recupero il valore dell'iva
+	 * Get the product VAT value
 	 *
-	 * @param  int    $product_id l'id del prodotto.
-	 * @param  string $type       il tipo di dato da restituire, nome o aliquota.
+	 * @param  object $product the WC product ID. 
+	 * @param  string $type    the field to return (name or value). 
      *
 	 * @return mixed
 	 */
-	public static function get_tax_rate( $product_id, $type = '' ) {
+	public static function get_tax_rate( $product, $type = null ) {
 
 		$output = 'FC';
 
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
-			$output     = 0;
-            $product    = wc_get_product( $product_id );
-			$tax_status = $product->get_tax_status();
+			$output        = 0;
+			$tax_status    = $product->get_tax_status();
+            $base_location = isset( wc_get_base_location()['country'] ) ? wc_get_base_location()['country'] : 'IT';
 
-			/*In caso di variazione recupero dati del prodotto padre*/
-			$parent_id         = wp_get_post_parent_id( $product_id );
+			/* Get parent data in case of variation */
+			$parent_id         = $product->get_parent_id(); 
             $parent_product    = wc_get_product( $parent_id );
-			$parent_tax_status = $parent_id ? $parent_product->get_tax_status() : '';
+			$parent_tax_status = $parent_id ? $parent_product->get_tax_status() : null;
 
-			if ( 'taxable' === $tax_status || ( '' == $tax_status && 'taxable' === $parent_tax_status ) ) {
+			if ( 'taxable' === $tax_status || ( null == $tax_status && 'taxable' === $parent_tax_status ) ) {
 
-				/*Valore nullo con iva al 22, controllo necessario in caso di varizione di prodotto*/
+				/* Null with standard class (22%) */
 				$tax_class = $tax_status ? $product->get_tax_class() : $parent_product->get_tax_class();
 
 				if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
@@ -46,18 +46,27 @@ class WCtoDanea {
 
 				}
 
-				global $wpdb;
-				$query = "SELECT tax_rate, tax_rate_name FROM " . $wpdb->prefix . "woocommerce_tax_rates WHERE tax_rate_class = '" . $tax_class . "'";
+                $rates = WC_Tax::get_rates_for_tax_class( $tax_class );
 
-				$results = $wpdb->get_results( $query, ARRAY_A );
+                if ( is_array( $rates ) ) {
 
-				if ( $results ) {
-					$output = 'name' === $type ? $results[0]['tax_rate_name'] : intval( $results[0]['tax_rate'] );
-				}
+                    foreach ( $rates as $rate ) {
+
+                        if ( $rate->tax_rate_country === $base_location ) {
+
+                            $output = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
+
+                            continue;
+
+                        }
+
+                    }
+
+                }
+
 			}
 		}
 		
-        /* error_log( 'OUTPUT: ' . print_r( $output, true ) ); */
 		return $output;
 
 	}
@@ -360,12 +369,11 @@ class WCtoDanea {
         $query = $wpdb->prepare(
             "
 			SELECT post_id
-			FROM %s 
+			FROM $wpdb->postmeta
 			WHERE
 			meta_key = '_course_woocommerce_product'
 			AND meta_value = %d 
             ",
-            $wpdb->postmeta,
             $product_id
         );
 

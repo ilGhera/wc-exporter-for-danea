@@ -348,7 +348,7 @@ class WCEXD_Products_Download {
 
         }
 
-        $tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? WCtoDanea::get_tax_rate( $product->get_id(), 'name' ) : WCtoDanea::get_tax_rate( $product->get_id() );
+        $tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? WCtoDanea::get_tax_rate( $product, 'name' ) : WCtoDanea::get_tax_rate( $product );
         
         $details = null;
 
