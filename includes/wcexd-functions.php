@@ -133,7 +133,7 @@ class WCtoDanea {
 
                 if ( $use_label ) {
 
-                    $output   = $tax_items[ $rate_id ]['label'];
+                    $output = $tax_items[ $rate_id ]['label'];
 
                 } else {
 
@@ -172,7 +172,7 @@ class WCtoDanea {
 
                 if ( $use_label ) {
 
-                    $output   = $tax_items[ $rate_id ]['label'];
+                    $output = $tax_items[ $rate_id ]['label'];
 
                 } else {
 
@@ -573,7 +573,7 @@ add_filter( 'woocommerce_hidden_order_itemmeta', 'wcexd_hide_item_discount' );
  */
 function wcifd_add_item_details( $order_id ) {
 
-	$order     = new WC_Order( $order_id );
+	$order     = wc_get_order( $order_id );
     $user_data = get_userdata( $order->get_user_id() ); 
     $user_role = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
 
@@ -584,10 +584,10 @@ function wcifd_add_item_details( $order_id ) {
         
 		if ( 'line_item' === $item['type'] ) {
 
-			if ( 0 != $item['variation_id'] ) {
+			if ( $item->get_variation_id() ) {
 
                 /*WooCommerce Role Based Price*/
-                $wc_rbp = get_post_meta( $item['variation_id'], '_role_based_price', true );
+                $wc_rbp = $item->get_meta( '_role_based_price', true );
 
                 if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
 
@@ -604,7 +604,7 @@ function wcifd_add_item_details( $order_id ) {
 			} else {
 
                 /*WooCommerce Role Based Price*/
-                $wc_rbp = get_post_meta( $item['product_id'], '_role_based_price', true );
+                $wc_rbp = $item->get_meta( '_role_based_price', true );
 
                 if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
 
@@ -621,7 +621,7 @@ function wcifd_add_item_details( $order_id ) {
 
 			if ( $price && 0 < $regular_price ) {
 
-				$math = $price * 100 / $regular_price;
+				$math     = $price * 100 / $regular_price;
 				$discount = number_format( ( 100 - $math ), 2, '.', '' );
 
 				wc_add_order_item_meta( $key, '_wcexd_item_discount', $discount );
