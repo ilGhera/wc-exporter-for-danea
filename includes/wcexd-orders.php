@@ -1,13 +1,25 @@
 <?php
 /**
- * Esportazione degli ordini
+ * Generate the order feed 
+ *
  * @author ilGhera
+ *
  * @package wc-exporter-for-danea-premium/includes
  * @since 1.2.1
  */
 
-/*Creazione feed per prodotti e ordini*/
+/**
+ * WCEXD Orders
+ */
 class WCEXD_Orders {
+
+    /**
+     * The plugin functions
+     *
+     * @var object
+     */
+    public $functions;
+
 
     /**
      * The constructor
@@ -19,6 +31,7 @@ class WCEXD_Orders {
         /* Actions */
         add_action('init', array( $this, 'add_feed' ) );
 
+        $this->functions     = new WCEFD_Functions();
         $this->tax_included  = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
 
     }
@@ -60,10 +73,10 @@ class WCEXD_Orders {
         $customer_name = $order->get_billing_company() ? $order->get_billing_company() : $customer_name;
 
         /* Italian filscal fields names */
-        $cf_name      = '_' . WCtoDanea::get_italian_tax_fields_names('cf_name');
-        $pi_name      = '_' . WCtoDanea::get_italian_tax_fields_names('pi_name');
-        $pec_name     = '_' . WCtoDanea::get_italian_tax_fields_names('pec_name');
-        $pa_code_name = '_' . WCtoDanea::get_italian_tax_fields_names('pa_code_name');
+        $cf_name      = '_' . $this->functions->get_italian_tax_fields_names('cf_name');
+        $pi_name      = '_' . $this->functions->get_italian_tax_fields_names('pi_name');
+        $pec_name     = '_' . $this->functions->get_italian_tax_fields_names('pec_name');
+        $pa_code_name = '_' . $this->functions->get_italian_tax_fields_names('pa_code_name');
 
         /* Italian filscal fields data */
         $cf      = $order->get_meta( $cf_name );
@@ -168,14 +181,14 @@ class WCEXD_Orders {
         $writer->writeElement( 'Date', $new_date );
         $writer->writeElement( 'Number', $order->get_id() );
         $writer->writeElement( 'Total', $exchange->filter_price( $order->get_total() ) );
-        $writer->writeElement( 'CostDescription', WCtoDanea::get_cost_description( $order ) ); // Temp.
-        $writer->writeElement( 'CostVatCode', WCtoDanea::get_shipping_tax_rate($order) );
+        $writer->writeElement( 'CostDescription', $this->functions->get_cost_description( $order ) ); // Temp.
+        $writer->writeElement( 'CostVatCode', $this->functions->get_shipping_tax_rate($order) );
         $writer->writeElement( 'CostAmount', $exchange->filter_price( $this->get_cost_amount( $order ) ) );
         $writer->writeElement( 'PricesIncludeVat', $this->tax_included ? 'true' : 'false' );
         $writer->writeElement( 'PaymentName', $order->get_payment_method_title() );
         $writer->writeElement( 'InternalComment', htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ) );
         $writer->writeElement( 'CustomField1', $exchange->the_usd_exchange_rate() );
-        $writer->writeElement( 'PriceList', get_the_price_list( $order->get_billing_email() ) );
+        $writer->writeElement( 'PriceList', $this->functions->get_the_price_list( $order->get_billing_email() ) );
 
     }
 
@@ -236,7 +249,7 @@ class WCEXD_Orders {
     public function feed_single_item_details( $writer, $order, $item ) {
 
         $variation_id = $item->get_variation_id();
-        $vat_code     = WCtoDanea::get_item_tax_rate( $order, $item ); // Temp.
+        $vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
         $quantity     = $item->get_quantity();
         $price        = $item->get_subtotal();
         $price        = $this->tax_included ? $price + $item->get_subtotal_tax() : $price;
