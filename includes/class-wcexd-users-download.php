@@ -218,8 +218,8 @@ class WCEXD_Users_Download {
         /*SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE*/
         $cf_value      = ($get_cf_name) ? get_user_meta($user->ID, $get_cf_name, true) : '';
         $pi_value      = ($get_pi_name) ? get_user_meta($user->ID, $get_pi_name, true) : '';
-        $pec_value     = ($get_pec_name) ? get_user_meta($client->ID, $get_pec_name, true) : '';
-        $pa_code_value = ($get_pa_code_name) ? get_user_meta($client->ID, $get_pa_code_name, true) : '';
+        $pec_value     = ($get_pec_name) ? get_user_meta($user->ID, $get_pec_name, true) : '';
+        $pa_code_value = ($get_pa_code_name) ? get_user_meta($user->ID, $get_pa_code_name, true) : '';
 
 
         $data = array(
