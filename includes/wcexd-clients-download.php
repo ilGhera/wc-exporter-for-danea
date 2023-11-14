@@ -41,10 +41,50 @@ function wcexd_clients_download() {
 
 			$fp = fopen('php://output', 'w');
 			
-			$list = array('Cod.', 'Denominazione',	'Indirizzo', 'Cap', 'Città', 'Prov.', 'Regione', 'Nazione', 'Referente',	'Tel.', 'Cell', 'Fax',	 
-							'e-mail',	'Pec', 'Cod. destinatario Fatt. elettr.',	'Codice fiscale', 'Partita Iva',	'Sconti', 'Listino', 'Fido',	'Pagamento', 'Banca',	'Ns Banca', 'Data Mandato SDD', 
-							'Emissione SDD', 'Rit. acconto?', 'Doc via e-mail?', 'Fatt. con Iva', 'Conto reg.', 'Resp. trasporto', 'Porto', 'Avviso nuovi doc.', 
-							'Note doc.', 'Home page', 'Login web', 'Extra 1', 'Extra 2', 'Extra 3', 'Extra 4', 'Extra 5', 'Extra 6', 'Note'	);
+        $list = array(
+            'Cod.',
+            'Denominazione',
+            'Indirizzo',
+            'Cap',
+            'Città',
+            'Prov.',
+            'Regione',
+            'Nazione',
+            'Referente',
+            'Tel.',
+            'Cell',
+            'Fax',	 
+            'e-mail',	
+            'Pec',
+            'Cod. destinatario Fatt. elettr.',
+            'Codice fiscale',
+            'Partita Iva',	
+            'Sconti',
+            'Listino',
+            'Fido',	
+            'Pagamento',
+            'Banca',
+            'Ns Banca',
+            'Data Mandato SDD',
+            'Emissione SDD',
+            'Rit. acconto?',
+            'Doc via e-mail?',
+            'Fatt. con Iva',
+            'Conto reg.',
+            'Resp. trasporto',
+            'Porto',
+            'Avviso nuovi doc.',
+            'Note doc.',
+            'Home page',
+            'Login web',
+            'Extra 1',
+            'Extra 2',
+            'Extra 3',
+            'Extra 4',
+            'Extra 5',
+            'Extra 6',
+            'Note'
+        );
 					
 			fputcsv($fp, $list);
 			

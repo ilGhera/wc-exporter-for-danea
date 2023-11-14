@@ -58,14 +58,14 @@ function load_wc_exporter_for_danea_premium() {
 
 	/*Richiamo file necessari*/
 	require( WCEXD_INCLUDES . 'wcexd-admin-functions.php');
-	require( WCEXD_INCLUDES . 'wcexd-functions.php');
-	require( WCEXD_INCLUDES . 'wcexd-currency-exchange.php');
-	require( WCEXD_INCLUDES . 'wcexd-suppliers-download.php');
-	require( WCEXD_INCLUDES . 'wcexd-products-download.php');
-	require( WCEXD_INCLUDES . 'wcexd-clients-download.php');
-	require( WCEXD_INCLUDES . 'wcexd-orders.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-functions.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-currency-exchange.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-users-download.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-products-download.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-orders.php');
 	require( WCEXD_INCLUDES . 'ilghera-notice/class-ilghera-notice.php');
 	require( WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php');
+	/* require( WCEXD_INCLUDES . 'wcexd-clients-download.php'); */
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );	

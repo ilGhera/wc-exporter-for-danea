@@ -7,7 +7,7 @@
  *
  * @since 1.0.1
  */
-class WCEXD_Suppliers_Download {
+class WCEXD_Users_Download {
     
     /**
      * The file
@@ -49,16 +49,34 @@ class WCEXD_Suppliers_Download {
      */
     public function init() {
 
-        if( isset( $_POST['wcexd-users'] ) && wp_verify_nonce( $_POST['wcexd-suppliers-nonce'], 'wcexd-suppliers-submit' ) ) {
+        $type = null;
 
-            /* Admin option selected */
-            $this->users_role = sanitize_text_field( wp_unslash( $_POST['wcexd-users'] ) );
+        if( isset( $_POST['wcexd-users'] ) ) {
+            
+            if ( isset( $_POST['wcexd-suppliers-nonce'] ) && wp_verify_nonce( $_POST['wcexd-suppliers-nonce'], 'wcexd-suppliers-submit' ) ) {
 
-            /* Save data */
-            update_option( 'wcexd-users-role', $this->users_role ); 
+                /* Admin option selected */
+                $this->users_role = sanitize_text_field( wp_unslash( $_POST['wcexd-users'] ) );
+
+                /* Save data */
+                update_option( 'wcexd-suppliers-role', $this->users_role ); 
+
+                $type = 'suppliers';
+
+            } elseif ( isset( $_POST['wcexd-clients-nonce'] ) && wp_verify_nonce( $_POST['wcexd-clients-nonce'], 'wcexd-clients-submit' ) ) {
+
+                /* Admin option selected */
+                $this->users_role = sanitize_text_field( wp_unslash( $_POST['wcexd-users'] ) );
+
+                /* Save data */
+                update_option( 'wcexd-clients-role', $this->users_role ); 
+
+                $type = 'clients';
+
+            }
 
             /* Create file */
-            $this->create_file();
+            $this->create_file( $type );
 
         }
 
@@ -68,9 +86,13 @@ class WCEXD_Suppliers_Download {
     /**
      * Create CSV file
      *
+     * @param string $type clients or suppliers to export.
+     *
      * @return void
      */
-    public function create_file() {
+    public function create_file( $type ) {
+
+        $filename = sprintf( 'wcexd-%s-list.csv', $type );
 
 		/* Start CSV */
 		header('Pragma: public');
@@ -78,7 +100,7 @@ class WCEXD_Suppliers_Download {
 		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 		header('Cache-Control: private', false);
 		header('Content-Type: text/csv; charset=utf-8');
-		header('Content-Disposition: attachment; filename=wcexd-suppliers-list.csv');
+		header("Content-Disposition: attachment; filename=$filename");
 		header("Content-Transfer-Encoding: binary");
 
 		$this->fp = fopen('php://output', 'w');
@@ -95,14 +117,15 @@ class WCEXD_Suppliers_Download {
                 'Referente',
                 'Tel.',
                 'Cell',
-                'Fax',
-                'e-mail',
+                'Fax',	 
+                'e-mail',	
                 'Pec',
+                'Cod. destinatario Fatt. elettr.',
                 'Codice fiscale',
-                'Partita Iva',
+                'Partita Iva',	
                 'Sconti',
                 'Listino',
-                'Fido',
+                'Fido',	
                 'Pagamento',
                 'Banca',
                 'Ns Banca',
@@ -124,7 +147,7 @@ class WCEXD_Suppliers_Download {
                 'Extra 4',
                 'Extra 5',
                 'Extra 6',
-                'Note',
+                'Note'
             );
                     
             fputcsv($this->fp, $list);
@@ -149,11 +172,11 @@ class WCEXD_Suppliers_Download {
             'role' => $this->users_role
         );
 
-		$suppliers = get_users($args);
+		$users = get_users($args);
 
-		foreach($suppliers as $supplier) {
+		foreach($users as $user) {
 
-            $this->prepare_single_user_data( $supplier );
+            $this->prepare_single_user_data( $user );
 
 		}
 
@@ -167,49 +190,54 @@ class WCEXD_Suppliers_Download {
      *
      * @return void
      */
-    public function prepare_single_user_data( $supplier ) {
+    public function prepare_single_user_data( $user ) {
 
-        $supplier_name = get_user_meta( $supplier->ID, 'billing_first_name', true ) . ' ' . get_user_meta( $supplier->ID, 'billing_last_name', true );
+        $user_name = get_user_meta( $user->ID, 'billing_first_name', true ) . ' ' . get_user_meta( $user->ID, 'billing_last_name', true );
 
         //Se presente il nome dell'azienda, modifico la denominazione per Danea
-        if(get_user_meta($supplier->ID, 'billing_company', true)) {
+        if(get_user_meta($user->ID, 'billing_company', true)) {
 
-            $denominazione = (get_user_meta($supplier->ID, 'billing_company', true));
+            $denominazione = (get_user_meta($user->ID, 'billing_company', true));
 
-        } elseif($supplier_name != ' ') {
+        } elseif($user_name != ' ') {
 
-            $denominazione = $supplier_name;
+            $denominazione = $user_name;
 
         } else {
 
-            $denominazione = $supplier->display_name;
+            $denominazione = $user->display_name;
 
         }
 
 		/*Recupero i nomi dei campi C.Fiscale e P.IVA*/
-		$get_cf_name = $this->functions->get_italian_tax_fields_names('cf_name');
-		$get_pi_name = $this->functions->get_italian_tax_fields_names('pi_name');
+		$get_cf_name      = $this->functions->get_italian_tax_fields_names('cf_name');
+		$get_pi_name      = $this->functions->get_italian_tax_fields_names('pi_name');
+		$get_pec_name     = $this->functions->get_italian_tax_fields_names('pec_name');
+		$get_pa_code_name = $this->functions->get_italian_tax_fields_names('pa_code_name');
 	
         /*SE ATTIVO UNO DEI PLUGIN, RECUPRO CF E P.IVA DEL SINGOLO UTENTE*/
-        $cf_value = ($get_cf_name) ? get_user_meta($supplier->ID, $get_cf_name, true) : '';
-        $pi_value = ($get_pi_name) ? get_user_meta($supplier->ID, $get_pi_name, true) : '';
+        $cf_value      = ($get_cf_name) ? get_user_meta($user->ID, $get_cf_name, true) : '';
+        $pi_value      = ($get_pi_name) ? get_user_meta($user->ID, $get_pi_name, true) : '';
+        $pec_value     = ($get_pec_name) ? get_user_meta($client->ID, $get_pec_name, true) : '';
+        $pa_code_value = ($get_pa_code_name) ? get_user_meta($client->ID, $get_pa_code_name, true) : '';
 
 
         $data = array(
-            $supplier->ID,
+            $user->ID,
             $denominazione,
-            get_user_meta($supplier->ID, 'billing_address_1', true),
-            get_user_meta($supplier->ID, 'billing_postcode', true),
-            get_user_meta($supplier->ID, 'billing_city', true),
-            get_user_meta($supplier->ID, 'billing_state', true),
+            get_user_meta($user->ID, 'billing_address_1', true),
+            get_user_meta($user->ID, 'billing_postcode', true),
+            get_user_meta($user->ID, 'billing_city', true),
+            get_user_meta($user->ID, 'billing_state', true),
             '',
-            get_user_meta($supplier->ID, 'billing_country', true),
-            $supplier_name,
+            get_user_meta($user->ID, 'billing_country', true),
+            $user_name,
+            get_user_meta($user->ID, 'billing_phone', true),
+            get_user_meta($user->ID, 'billing_cellphone', true),
             '',
-            get_user_meta($supplier->ID, 'billing_phone', true),
-            '',
-            $supplier->user_email,
-            '',
+            $user->user_email,
+            $pec_value,
+            $pa_code_value,
             $cf_value,
             $pi_value,
             '',
@@ -244,5 +272,5 @@ class WCEXD_Suppliers_Download {
     }
 
 }
-new WCEXD_Suppliers_Download();
+new WCEXD_Users_Download();
 

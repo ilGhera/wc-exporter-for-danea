@@ -117,12 +117,8 @@ function wcexd_options() {
 	  
 	<div id="wcexd-fornitori" class="wcexd-admin">
 		<?php
-		/*Dichiarazione variabili*/
-		$opt_users_role = 'wcexd-users-role';
-		$users_field_role = 'wcexd-users-role';
-
 		/*Leggo il dato se già esistente nel database*/
-		$users_val = get_option( $opt_users_role );
+		$users_val = get_option( 'wcexd-suppliers-role' );
 
 		echo '<h3 class="wcexd">' . __( 'WooCommerce suppliers export', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of suppliers in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
@@ -279,12 +275,8 @@ function wcexd_options() {
 	  
 	<div id="wcexd-clienti" class="wcexd-admin">
 		<?php
-		/*Dichiarazione variabili*/
-		$opt_clients_role = 'wcexd-clients-role';
-		$clients_field_role = 'wcexd-clients-role';
-
 		/*Leggo il dato se già esistente nel database*/
-		$clients_val = get_option( $opt_clients_role );
+		$clients_val = get_option( 'wcexd-clients-role' );
 
 		echo '<h3 class="wcexd">' . __( 'Export your WooCommerce customers list.', 'wc-exporter-for-danea' ) . '</h3>';
 		echo '<p>' . __( 'The import of clients in Danea is done by using an Excel/ OpenIffice file.', 'wc-exporter-for-danea' );
@@ -305,7 +297,7 @@ function wcexd_options() {
 				<tr>
 					<th scope="row"><?php _e( 'User role', 'wc-exporter-for-danea' ); ?></th>
 					<td>
-						<select class="wcexd wcexd-clients" name="wcexd-clients" form="wcexd-clients-submit">
+						<select class="wcexd wcexd-users" name="wcexd-users" form="wcexd-clients-submit">
 							<?php
 							foreach ( $roles as $key => $value ) {
 								echo '<option value="' . $key . '"' . ( $key === $clients_val ? ' selected="selected"' : '' ) . '> ' . __( $value, 'woocommerce' ) . '</option>';
