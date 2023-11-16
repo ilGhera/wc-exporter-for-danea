@@ -248,6 +248,7 @@ class WCEXD_Orders {
      */
     public function feed_single_item_details( $writer, $order, $item ) {
 
+        $product      = wc_get_product( $item->get_product_id() );
         $variation_id = $item->get_variation_id();
         $vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
         $quantity     = $item->get_quantity();
@@ -255,9 +256,10 @@ class WCEXD_Orders {
         $price        = $this->tax_included ? $price + $item->get_subtotal_tax() : $price;
         $price        = $price / $quantity;
         $exchange     = new WCEXD_Currency_Exchange( $order );
+        $um           = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : 'pz'; 
 
         $writer->startElement( 'Row' );
-        $writer->writeElement( 'Code', $item->get_product_id() );
+        $writer->writeElement( 'Code', $product->get_id() );
         $writer->writeElement( 'Description', wp_kses_post( strip_tags( html_entity_decode( $item->get_name() ) ) ) );
 
         if ( $variation_id ) {
@@ -281,7 +283,7 @@ class WCEXD_Orders {
         }
 
         $writer->writeElement( 'Qty', $quantity ); // Temp.
-        $writer->writeElement( 'Um', 'pz' );
+        $writer->writeElement( 'Um', $um );
         $writer->writeElement( 'Price', $exchange->filter_price( $price ) ); // Temp.
         $writer->writeElement( 'VatCode', $vat_code );
         $writer->writeElement( 'Discounts', $this->get_item_discounts( $item ) );
