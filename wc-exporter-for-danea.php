@@ -15,49 +15,32 @@
  * Package: wc-exporter-for-danea-premium
  */
 
-
 /*Evito accesso diretto*/
 if ( !defined( 'ABSPATH' ) ) exit;
 
-
 function load_wc_exporter_for_danea_premium() {
 
-	/*Function check */
 	if ( !function_exists( 'is_plugin_active' ) ) {
     	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
  	}
 
- 	/*Disattiva il plugin free se presente*/
+    /* Deactivate the free version of the plugin */
 	if( function_exists('load_wc_exporter_for_danea') ) {
 		deactivate_plugins('wc-exporter-for-danea/wc-exporter-for-danea.php');
 	    remove_action( 'plugins_loaded', 'load_wc_exporter_for_danea' );
 	    wp_redirect(admin_url('plugins.php?plugin_status=all&paged=1&s'));
-
 	}
 
-	/*Dichiarazioni costanti*/
+    /* Constant variables */
 	define('WCEXD_DIR', plugin_dir_path(__FILE__));
 	define('WCEXD_URI', plugin_dir_url(__FILE__));
+	define('WCEXD_ADMIN', WCEXD_DIR . 'admin/');
 	define('WCEXD_INCLUDES', WCEXD_DIR . 'includes/');
 
-	/*Database update*/
-	if(get_option('wcexd-database-version') < '0.9.6') {
-		global $wpdb;
-		$wpdb->query(
-			"
-			UPDATE " . $wpdb->prefix . "woocommerce_order_itemmeta SET
-			meta_key = REPLACE(meta_key, '_wcifd_item_discount', '_wcexd_item_discount')
-			"
-		);
-
-		update_option('wcexd-database-version', '0.9.6');
-	}
-
-	/*Internationalization*/
+	/* Internationalization */
 	load_plugin_textdomain('wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
-	/*Richiamo file necessari*/
-	require( WCEXD_INCLUDES . 'wcexd-admin-functions.php');
+	require( WCEXD_ADMIN . 'class-wcexd-admin.php');
 	require( WCEXD_INCLUDES . 'class-wcexd-functions.php');
 	require( WCEXD_INCLUDES . 'class-wcexd-currency-exchange.php');
 	require( WCEXD_INCLUDES . 'class-wcexd-users-download.php');
@@ -65,13 +48,23 @@ function load_wc_exporter_for_danea_premium() {
 	require( WCEXD_INCLUDES . 'class-wcexd-orders.php');
 	require( WCEXD_INCLUDES . 'ilghera-notice/class-ilghera-notice.php');
 	require( WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php');
-	/* require( WCEXD_INCLUDES . 'wcexd-clients-download.php'); */
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );	
 
+/**
+ * HPOS compatibility
+ */
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
 
-/*Richiamo "Update-Checker"*/
+
+/**
+ * Plugin Update Checker
+ */
 require( plugin_dir_path( __FILE__ ) . 'vendor/plugin-update-checker/plugin-update-checker.php');
 use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
 $wcexdUpdateChecker = PucFactory::buildUpdateChecker(
@@ -89,3 +82,4 @@ function wcexd_secure_update_check($queryArgs) {
     }
     return $queryArgs;
 }
+
