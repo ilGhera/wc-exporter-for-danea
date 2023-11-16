@@ -380,24 +380,25 @@ class WCEXD_Orders {
         header("Cache-Control: post-check=0, pre-check=0", false);
         header("Pragma: no-cache");
 
+        $writer = new XMLWriter();
+
+        $writer->openMemory();
+        $writer->setIndent( 2 );
+        $writer->setIndentString( '  ' );
+
+        /* Start */
+        $writer->startDocument( '1.0', 'UTF-8' );
+        $writer->startElement( 'EasyfattDocuments' );
+        $writer->writeAttribute( 'AppVersion', '2' );
+        $writer->startElement( 'Documents' );
+
+        /* Get orders */
         $orders = $this->get_orders();
 
         if ( is_array( $orders ) && ! empty( $orders ) ) {
 
             $include_tax = get_option('woocommerce_prices_include_tax');
                 
-            $writer = new XMLWriter();
-
-            $writer->openMemory();
-            $writer->setIndent( 2 );
-            $writer->setIndentString( '  ' );
-
-            /* Start */
-            $writer->startDocument( '1.0', 'UTF-8' );
-            $writer->startElement( 'EasyfattDocuments' );
-            $writer->writeAttribute( 'AppVersion', '2' );
-            $writer->startElement( 'Documents' );
-
             foreach( $orders as $order ) { 
 
                 if ( 'trash' !== $order->get_status() ) {
