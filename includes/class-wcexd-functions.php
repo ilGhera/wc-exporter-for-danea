@@ -279,7 +279,7 @@ class WCEFD_Functions {
 
 		if ( ! empty( $child ) ) {
 
-			usort( $child, array( 'WCtoDanea', 'sort_sub_categories' ) );
+			usort( $child, array( 'WCEFD_Functions', 'sort_sub_categories' ) );
 
 			foreach ( $child as $cat ) {
 
