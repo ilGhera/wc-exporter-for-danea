@@ -15,30 +15,34 @@
  * Package: wc-exporter-for-danea
  */
 
-
-/*Evito accesso diretto*/
 if ( !defined( 'ABSPATH' ) ) exit;
 
-/**
- * Attivazione plugin
- */
 function load_wc_exporter_for_danea() {
 
-	/*Dichiarazioni costanti*/
+    /* Constant variables */
 	define('WCEXD_DIR', plugin_dir_path(__FILE__));
 	define('WCEXD_URI', plugin_dir_url(__FILE__));
+	define('WCEXD_ADMIN', WCEXD_DIR . 'admin/');
 	define('WCEXD_INCLUDES', WCEXD_DIR . 'includes/');
 
-	/*Internationalization*/
+	/* Internationalization */
 	load_plugin_textdomain('wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
-	/*Richiamo file necessari*/
-	include( WCEXD_INCLUDES . 'wcexd-admin-functions.php');
-	include( WCEXD_INCLUDES . 'wcexd-functions.php');
-	include( WCEXD_INCLUDES . 'wcexd-suppliers-download.php');
-	include( WCEXD_INCLUDES . 'wcexd-products-download.php');
+	require( WCEXD_ADMIN . 'class-wcexd-admin.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-functions.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-users-download.php');
+	require( WCEXD_INCLUDES . 'class-wcexd-products-download.php');
 	require( WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php');
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea', 100 );	
+
+/**
+ * HPOS compatibility
+ */
+add_action( 'before_woocommerce_init', function() {
+	if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
 
