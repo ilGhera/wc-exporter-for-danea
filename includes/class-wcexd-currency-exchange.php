@@ -145,11 +145,11 @@ class WCEXD_Currency_Exchange {
      *
      * @return string
      */
-    public function the_usd_exchange_rate() {
+    public function get_the_usd_exchange_rate() {
 
         if ( $this->is_active && $this->is_usd ) {
 
-            printf( wp_kses_post( 'Tasso di cambio applicato: 1 USD (dollaro USA $) = %f EURO (€)' ), $this->get_usd_rate() );
+            return sprintf( wp_kses_post( 'Tasso di cambio applicato: 1 USD (dollaro USA $) = %f EURO (€)' ), $this->get_usd_rate() );
 
         }
 

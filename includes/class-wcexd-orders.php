@@ -187,7 +187,7 @@ class WCEXD_Orders {
         $writer->writeElement( 'PricesIncludeVat', $this->tax_included ? 'true' : 'false' );
         $writer->writeElement( 'PaymentName', $order->get_payment_method_title() );
         $writer->writeElement( 'InternalComment', htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ) );
-        $writer->writeElement( 'CustomField1', $exchange->the_usd_exchange_rate() );
+        $writer->writeElement( 'CustomField1', $exchange->get_the_usd_exchange_rate() );
         $writer->writeElement( 'PriceList', $this->functions->get_the_price_list( $order->get_billing_email() ) );
 
     }
