@@ -131,8 +131,8 @@ class WCEXD_Admin {
 			/* Header */
 			echo '<h1 class="wcexd main">' . esc_html__( 'Woocommmerce Exporter per Danea', 'wc-exporter-for-danea' ) . '</h1>';
 
-            /* The premium key form */
-            $this->premium_key_form();
+			/* The premium key form */
+			$this->premium_key_form();
 
 		echo '</div>';
 
@@ -146,34 +146,34 @@ class WCEXD_Admin {
 	}
 
 
-    /**
-     * The premium key form
-     *
-     * @return void
-     */
-    public function premium_key_form() {
+	/**
+	 * The premium key form
+	 *
+	 * @return void
+	 */
+	public function premium_key_form() {
 
-        /*Plugin premium key*/
-        $key = sanitize_text_field( get_option( 'wcexd-premium-key' ) );
+		/*Plugin premium key*/
+		$key = sanitize_text_field( get_option( 'wcexd-premium-key' ) );
 
 		if ( isset( $_POST['wcexd-premium-key'], $_POST['wcexd-premium-key-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wcexd-premium-key-nonce'] ) ), 'wcexd-premium-key' ) ) {
 			$key = sanitize_text_field( wp_unslash( $_POST['wcexd-premium-key'] ) );
 			update_option( 'wcexd-premium-key', $key );
 		}
 
-        echo '<form id="wcexd-options" method="post" action="">';
+		echo '<form id="wcexd-options" method="post" action="">';
 
-            echo '<label>' . esc_html__( 'Premium Key', 'wc-exporter-for-danea' ) . '</label>';
-            echo '<input type="text" class="regular-text code" name="wcexd-premium-key" id="wcexd-premium-key" placeholder="' . esc_html__( 'Add your Premium Key', 'wc-exporter-for-danea' ) . '" value="' . esc_attr( $key ) . '" />';
-            echo '<p class="description">' . esc_html__( 'Add here the Premium Key that you received by email, you will keep your copy of <strong>WooCommerce Exporter for Danea - Premium</strong> updated.', 'wc-exporter-for-danea' ) . '</p>';
-            echo '<input type="hidden" name="done" value="1" />';
+			echo '<label>' . esc_html__( 'Premium Key', 'wc-exporter-for-danea' ) . '</label>';
+			echo '<input type="text" class="regular-text code" name="wcexd-premium-key" id="wcexd-premium-key" placeholder="' . esc_html__( 'Add your Premium Key', 'wc-exporter-for-danea' ) . '" value="' . esc_attr( $key ) . '" />';
+			echo '<p class="description">' . esc_html__( 'Add here the Premium Key that you received by email, you will keep your copy of <strong>WooCommerce Exporter for Danea - Premium</strong> updated.', 'wc-exporter-for-danea' ) . '</p>';
+			echo '<input type="hidden" name="done" value="1" />';
 
-            wp_nonce_field( 'wcexd-premium-key', 'wcexd-premium-key-nonce' );
+			wp_nonce_field( 'wcexd-premium-key', 'wcexd-premium-key-nonce' );
 
-            echo '<input type="submit" class="button button-primary" value="' . esc_html__( 'Save', 'wc-exporter-for-danea' ) . '" />';
-        echo '</form>';
+			echo '<input type="submit" class="button button-primary" value="' . esc_html__( 'Save', 'wc-exporter-for-danea' ) . '" />';
+		echo '</form>';
 
-    }
+	}
 
 
 	/**
