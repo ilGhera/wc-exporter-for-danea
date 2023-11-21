@@ -31,7 +31,7 @@ class WCEXD_Orders {
         /* Actions */
         add_action('init', array( $this, 'add_feed' ) );
 
-        $this->functions     = new WCEFD_Functions();
+        $this->functions     = new WCEXD_Functions();
         $this->tax_included  = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
 
     }

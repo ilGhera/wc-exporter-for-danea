@@ -1,6 +1,6 @@
 <?php
 /**
- * WCEXD Functions Class 
+ * WCEXD Functions Class
  *
  * @author ilGhera
  *
@@ -10,38 +10,43 @@
 
 defined( 'ABSPATH' ) || exit;
 
-class WCEFD_Functions {
+/**
+ * WCEXD_Functions class
+ *
+ * @since 1.5.1
+ */
+class WCEXD_Functions {
 
-    /**
-     * The constructor
-     *
-     * @param bool $init hooks with true.
-     *
-     * @return void
-     */
-    public function __construct( $init = false ) {
+	/**
+	 * The constructor
+	 *
+	 * @param bool $init hooks with true.
+	 *
+	 * @return void
+	 */
+	public function __construct( $init = false ) {
 
-        if ( $init ) {
+		if ( $init ) {
 
-            /* Actions */
-            add_action( 'woocommerce_thankyou', array( $this, 'add_item_details' ), 10, 1 );
+			/* Actions */
+			add_action( 'woocommerce_thankyou', array( $this, 'add_item_details' ), 10, 1 );
 
-            /* Filters */
-            add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );
-            add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', array( $this, 'check_update' ) );
-            add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
+			/* Filters */
+			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );
+			add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', array( $this, 'check_update' ) );
+			add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
 
-        }
+		}
 
-    }
+	}
 
 
 	/**
 	 * Get the product VAT value
 	 *
-	 * @param  object $product the WC product ID. 
-	 * @param  string $type    the field to return (name or value). 
-     *
+	 * @param  object $product the WC product ID.
+	 * @param  string $type    the field to return (name or value).
+	 *
 	 * @return mixed
 	 */
 	public function get_tax_rate( $product, $type = null ) {
@@ -52,14 +57,14 @@ class WCEFD_Functions {
 
 			$output        = 0;
 			$tax_status    = $product->get_tax_status();
-            $base_location = isset( wc_get_base_location()['country'] ) ? wc_get_base_location()['country'] : 'IT';
+			$base_location = isset( wc_get_base_location()['country'] ) ? wc_get_base_location()['country'] : 'IT';
 
 			/* Get parent data in case of variation */
-			$parent_id         = $product->get_parent_id(); 
-            $parent_product    = wc_get_product( $parent_id );
+			$parent_id         = $product->get_parent_id();
+			$parent_product    = wc_get_product( $parent_id );
 			$parent_tax_status = $parent_id ? $parent_product->get_tax_status() : null;
 
-			if ( 'taxable' === $tax_status || ( null == $tax_status && 'taxable' === $parent_tax_status ) ) {
+			if ( 'taxable' === $tax_status || ( null === $tax_status && 'taxable' === $parent_tax_status ) ) {
 
 				/* Null with standard class (22%) */
 				$tax_class = $tax_status ? $product->get_tax_class() : $parent_product->get_tax_class();
@@ -70,27 +75,24 @@ class WCEFD_Functions {
 
 				}
 
-                $rates = WC_Tax::get_rates_for_tax_class( $tax_class );
+				$rates = WC_Tax::get_rates_for_tax_class( $tax_class );
 
-                if ( is_array( $rates ) ) {
+				if ( is_array( $rates ) ) {
 
-                    foreach ( $rates as $rate ) {
+					foreach ( $rates as $rate ) {
 
-                        if ( $rate->tax_rate_country === $base_location ) {
+						if ( $rate->tax_rate_country === $base_location ) {
 
-                            $output = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
+							$output = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
 
-                            continue;
+							continue;
 
-                        }
-
-                    }
-
-                }
-
+						}
+					}
+				}
 			}
 		}
-		
+
 		return $output;
 
 	}
@@ -99,9 +101,9 @@ class WCEFD_Functions {
 	/**
 	 * Get the order tax items
 	 *
-	 * @param object $order the WC order.		
-     * @param bool $shipping get just tax classes used for shipping.
-     *
+	 * @param object $order the WC order.
+	 * @param bool   $shipping get just tax classes used for shipping.
+	 *
 	 * @return array
 	 */
 	public function get_order_tax_items( $order, $shipping = false ) {
@@ -110,26 +112,24 @@ class WCEFD_Functions {
 
 		foreach ( $order->get_items( 'tax' ) as $tax_item ) {
 
-            if ( $shipping ) {
-                
-                if ( $tax_item->get_shipping_tax_total() ) {
+			if ( $shipping ) {
 
-                    $output[ $tax_item->get_rate_id() ] = array(
-                        'label'   => $tax_item->get_label(),
-                        'percent' => $tax_item->get_rate_percent(),
-                    );
+				if ( $tax_item->get_shipping_tax_total() ) {
 
-                }
+					$output[ $tax_item->get_rate_id() ] = array(
+						'label'   => $tax_item->get_label(),
+						'percent' => $tax_item->get_rate_percent(),
+					);
 
-            } else {
+				}
+			} else {
 
-                $output[ $tax_item->get_rate_id() ] = array(
-                    'label'   => $tax_item->get_label(),
-                    'percent' => $tax_item->get_rate_percent(),
-                );
+				$output[ $tax_item->get_rate_id() ] = array(
+					'label'   => $tax_item->get_label(),
+					'percent' => $tax_item->get_rate_percent(),
+				);
 
-            }
-
+			}
 		}
 
 		return $output;
@@ -137,49 +137,47 @@ class WCEFD_Functions {
 	}
 
 
-    /**
-     * Get the shipping tax rate
-     *
-     * @param object $order the WC order
-     *
-     * @return array 
-     */
-    public function get_shipping_tax_rate( $order ) {
+	/**
+	 * Get the shipping tax rate
+	 *
+	 * @param object $order the WC order.
+	 *
+	 * @return array
+	 */
+	public function get_shipping_tax_rate( $order ) {
 
 		$output = 'FC';
 
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
-			
-			$use_label = get_option('wcexd-orders-tax-name');
+
+			$use_label = get_option( 'wcexd-orders-tax-name' );
 			$tax_items = self::get_order_tax_items( $order, true );
 
-			foreach( $tax_items as $rate_id => $tax ){
+			foreach ( $tax_items as $rate_id => $tax ) {
 
-                if ( $use_label ) {
+				if ( $use_label ) {
 
-                    $output = $tax_items[ $rate_id ]['label'];
+					$output = $tax_items[ $rate_id ]['label'];
 
-                } else {
+				} else {
 
-                    $output = $tax_items[ $rate_id ]['percent'];
+					$output = $tax_items[ $rate_id ]['percent'];
 
-                }
-
+				}
 			}
-
 		}
 
 		return $output;
 
-    }
+	}
 
-	
+
 	/**
 	 * Get item vat percentage or label
 	 *
 	 * @param  object $order the wc order.
 	 * @param  object $item  the specific order item.
-     *
+	 *
 	 * @return string
 	 */
 	public function get_item_tax_rate( $order, $item ) {
@@ -187,25 +185,23 @@ class WCEFD_Functions {
 		$output = 'FC';
 
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
-			
-			$use_label = get_option('wcexd-orders-tax-name');
+
+			$use_label = get_option( 'wcexd-orders-tax-name' );
 			$tax_items = self::get_order_tax_items( $order );
 			$taxes     = $item->get_taxes();
 
-			foreach( $taxes['subtotal'] as $rate_id => $tax ){
+			foreach ( $taxes['subtotal'] as $rate_id => $tax ) {
 
-                if ( $use_label ) {
+				if ( $use_label ) {
 
-                    $output = $tax_items[ $rate_id ]['label'];
+					$output = $tax_items[ $rate_id ]['label'];
 
-                } else {
+				} else {
 
-                    $output = $tax_items[ $rate_id ]['percent'];
+					$output = $tax_items[ $rate_id ]['percent'];
 
-                }
-
+				}
 			}
-
 		}
 
 		return $output;
@@ -213,28 +209,27 @@ class WCEFD_Functions {
 
 
 	/**
-	 * Get the shipping method name plus fees 
+	 * Get the shipping method name plus fees
 	 *
-	 * @param object $order the WC order. 
-     *
+	 * @param object $order the WC order.
+	 *
 	 * @return string
 	 */
 	public function get_cost_description( $order ) {
 
-        $output = $order->get_shipping_method();
+		$output = $order->get_shipping_method();
 
-        /* Fees */
-        $fees = $order->get_fees();
-        
-        if ( is_array( $fees ) ) {
+		/* Fees */
+		$fees = $order->get_fees();
 
-            foreach ( $fees as $fee ) {
+		if ( is_array( $fees ) ) {
 
-                $output .= ' + ' . $fee->get_name();
+			foreach ( $fees as $fee ) {
 
-            }
+				$output .= ' + ' . $fee->get_name();
 
-        }
+			}
+		}
 
 		return $output;
 
@@ -242,18 +237,18 @@ class WCEFD_Functions {
 
 
 	/**
-     * Move the single taxonomy term based od its parent ID
+	 * Move the single taxonomy term based od its parent ID
 	 *
 	 * @param  object $a the first taxonomy term.
 	 * @param  object $b the second taxonomy term.
-     *
+	 *
 	 * @return mixed
 	 */
 	public function sort_sub_categories( $a, $b ) {
 
 		if ( isset( $a->parent ) && isset( $b->parent ) ) {
 
-			if ( $a->parent == $b->parent ) {
+			if ( $a->parent === $b->parent ) {
 
 				return 0;
 
@@ -270,7 +265,7 @@ class WCEFD_Functions {
 	 * The sub-categories string used for the products download
 	 *
 	 * @param  array $child the taxonomy terms.
-     *
+	 *
 	 * @return string la lista formattata per Danea Easyfatt
 	 */
 	public function prepare_sub_categories( $child ) {
@@ -279,7 +274,7 @@ class WCEFD_Functions {
 
 		if ( ! empty( $child ) ) {
 
-			usort( $child, array( 'WCEFD_Functions', 'sort_sub_categories' ) );
+			usort( $child, array( $this, 'sort_sub_categories' ) );
 
 			foreach ( $child as $cat ) {
 
@@ -293,38 +288,37 @@ class WCEFD_Functions {
 
 		}
 
-
 	}
 
 
 	/**
-	 * Get the product category name 
+	 * Get the product category name
 	 *
-     * @param object $product      the WC product.
-     * @param bool   $is_variation variatio object with true.
-     *
+	 * @param object $product      the WC product.
+	 * @param bool   $is_variation variatio object with true.
+	 *
 	 * @return string
 	 */
 	public function get_product_category_name( $product, $is_variation = false ) {
 
 		$parent  = null;
 		$child   = array();
-        $cat_ids = $product->get_category_ids(); 
+		$cat_ids = $product->get_category_ids();
 
-        if ( $is_variation ) {
+		if ( $is_variation ) {
 
-            $parent_p = wc_get_product( $product->get_parent_id() );
-            $cat_ids  = $parent_p->get_category_ids();
+			$parent_p = wc_get_product( $product->get_parent_id() );
+			$cat_ids  = $parent_p->get_category_ids();
 
-        }
+		}
 
 		if ( $cat_ids ) {
 
 			foreach ( $cat_ids as $cat_id ) {
 
-                $cat = get_term_by( 'id', $cat_id, 'product_cat' );
+				$cat = get_term_by( 'id', $cat_id, 'product_cat' );
 
-				if ( 0 != $cat->parent ) {
+				if ( 0 !== $cat->parent ) {
 
 					$child[] = $cat;
 
@@ -336,12 +330,11 @@ class WCEFD_Functions {
 					$parent = null === $parent ? $cat->slug : $parent;
 
 				}
-
 			}
 
 			if ( $child ) {
 
-				$child_string = self::prepare_sub_categories( $child ); // temp.
+				$child_string = self::prepare_sub_categories( $child );
 
 				$cat_name = array(
 					'cat' => $parent,
@@ -356,7 +349,6 @@ class WCEFD_Functions {
 				);
 
 			}
-
 		} else {
 
 			$cat_name = null;
@@ -369,28 +361,28 @@ class WCEFD_Functions {
 
 
 	/**
-     * Get the author of the Sensei course linked to the product
+	 * Get the author of the Sensei course linked to the product
 	 *
-	 * @param  int $product_id the WC product ID. 
-     *
-     * @return int the author ID.
+	 * @param  int $product_id the WC product ID.
+	 *
+	 * @return int the author ID.
 	 */
 	public function get_sensei_author( $product_id ) {
 
 		global $wpdb;
 
-        $query = $wpdb->prepare(
-            "
+		$courses = $wpdb->get_results(
+			$wpdb->prepare(
+				"
 			SELECT post_id
 			FROM $wpdb->postmeta
 			WHERE
 			meta_key = '_course_woocommerce_product'
 			AND meta_value = %d 
             ",
-            $product_id
-        );
-
-		$courses = $wpdb->get_results( $query );
+				$product_id
+			)
+		);
 
 		if ( is_array( $courses ) && isset( $courses[0] ) ) {
 
@@ -405,11 +397,11 @@ class WCEFD_Functions {
 
 
 	/**
-     * Fiscal fields names based on the specific plugins in use.
-     *
+	 * Fiscal fields names based on the specific plugins in use.
+	 *
 	 * @param  string $field the field to search.
-     *
-	 * @return string the meta_key name to use to get the data from the database 
+	 *
+	 * @return string the meta_key name to use to get the data from the database
 	 */
 	public function get_italian_tax_fields_names( $field ) {
 
@@ -429,66 +421,61 @@ class WCEFD_Functions {
 		} else {
 
 			/* Plugin supported */
-
-			/* WooCommerce Aggiungere CF e P.IVA */
 			if ( class_exists( 'WC_BrazilianCheckoutFields' ) ) {
+
+				/* WooCommerce Aggiungere CF e P.IVA */
 				$cf_name = 'billing_cpf';
 				$pi_name = 'billing_cnpj';
-			}
 
-			/* WooCommerce P.IVA e Codice Fiscale per Italia */
-			elseif ( class_exists( 'WooCommerce_Piva_Cf_Invoice_Ita' ) || class_exists( 'WC_Piva_Cf_Invoice_Ita' ) ) {
+			} elseif ( class_exists( 'WooCommerce_Piva_Cf_Invoice_Ita' ) || class_exists( 'WC_Piva_Cf_Invoice_Ita' ) ) {
+
+				/* WooCommerce P.IVA e Codice Fiscale per Italia */
 				$cf_name      = 'billing_cf';
 				$pi_name      = 'billing_piva';
 				$pec_name     = 'billing_pec';
 				$pa_code_name = 'billing_pa_code';
-			}
 
-			/* YITH WooCommerce Checkout Manager */
-			elseif ( function_exists( 'ywccp_init' ) ) {
+			} elseif ( function_exists( 'ywccp_init' ) ) {
+
+				/* YITH WooCommerce Checkout Manager */
 				$cf_name = 'billing_Codice_Fiscale';
 				$pi_name = 'billing_Partita_IVA';
-			}
 
-			/* WOO Codice Fiscale */
-			elseif ( function_exists( 'woocf_on_checkout' ) ) {
+			} elseif ( function_exists( 'woocf_on_checkout' ) ) {
+
+				/* WOO Codice Fiscale */
 				$cf_name = 'billing_CF';
 				$pi_name = 'billing_iva';
-			}
 
-			/* WooCommerce Italian Add-on Plus */
-			elseif ( class_exists( 'WooCommerce_Italian_add_on_plus' ) ) {
+			} elseif ( class_exists( 'WooCommerce_Italian_add_on_plus' ) ) {
+
+				/* WooCommerce Italian Add-on Plus */
 				$cf_name      = 'billing_cf';
 				$pi_name      = 'billing_cf'; // temp.
 				$pec_name     = 'billing_PEC';
 				$pa_code_name = 'billing_PEC';
 
 			}
-
 		}
 
 		switch ( $field ) {
 			case 'cf_name':
 				return $cf_name;
-				break;
 			case 'pi_name':
 				return $pi_name;
-				break;
 			case 'pec_name':
 				return $pec_name;
-				break;
 			case 'pa_code_name':
 				return $pa_code_name;
-				break;
 		}
 	}
 
 
 	/**
-     * Get the name of the price list cols base on the VAT
+	 * Get the name of the price list cols base on the VAT
 	 *
 	 * @param  int $n the price list number.
-     *
+	 *
 	 * @return string
 	 */
 	public function get_prices_col_name( $n ) {
@@ -509,31 +496,30 @@ class WCEFD_Functions {
 
 
 	/**
-     * Get the attributes of the single product variation
+	 * Get the attributes of the single product variation
 	 *
-     * @param object $product      the WC product.
-     * @param bool   $is_variation variatio object with true.
-     *
+	 * @param object $product      the WC product.
+	 * @param bool   $is_variation variatio object with true.
+	 *
 	 * @return string
 	 */
 	public function get_product_notes( $product, $is_variation = false ) {
 
 		if ( $is_variation ) {
 
-            $parent = wc_get_product( $product->get_parent_id() );
+			$parent = wc_get_product( $product->get_parent_id() );
 			$output = array(
 				'parent_id'  => $parent->get_id(),
 				'parent_sku' => $parent->get_sku(),
 			);
-            
+
 			if ( $product->get_attributes() ) {
 
-                $output['var_attributes'] = $product->get_attributes(); 
+				$output['var_attributes'] = $product->get_attributes();
 
-                return json_encode( $output );
+				return json_encode( $output );
 
 			}
-
 		} else {
 
 			$output = array();
@@ -548,16 +534,15 @@ class WCEFD_Functions {
 
 					foreach ( $product->get_attributes() as $key => $attr ) {
 
-                        if ( $attr->get_id() ) {
+						if ( $attr->get_id() ) {
 
-                            $attributes[ $key ] = array_map( 'trim', explode( ', ', $product->get_attribute( $key ) ) );
+							$attributes[ $key ] = array_map( 'trim', explode( ', ', $product->get_attribute( $key ) ) );
 
-                        } else {
+						} else {
 
-                            $attributes[ $key ] = array_map( 'trim', explode( '|', $product->get_attribute( $key ) ) );
+							$attributes[ $key ] = array_map( 'trim', explode( '|', $product->get_attribute( $key ) ) );
 
-                        }
-
+						}
 					}
 
 					$output['attributes'] = $attributes;
@@ -567,215 +552,212 @@ class WCEFD_Functions {
 				return json_encode( $output );
 
 			}
-
 		}
 	}
 
-    /**
-     * Save the discount percentage for the single product of the order.
-     *
-     * @param  int $order_id the WC order ID.
-     *
-     * @return void
-     */
-    public function add_item_details( $order_id ) {
+	/**
+	 * Save the discount percentage for the single product of the order.
+	 *
+	 * @param  int $order_id the WC order ID.
+	 *
+	 * @return void
+	 */
+	public function add_item_details( $order_id ) {
 
-        $order     = wc_get_order( $order_id );
-        $user_data = get_userdata( $order->get_user_id() ); 
-        $user_role = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
+		$order     = wc_get_order( $order_id );
+		$user_data = get_userdata( $order->get_user_id() );
+		$user_role = isset( $user_data->roles[0] ) ? $user_data->roles[0] : null;
 
-        foreach ( $order->get_items() as $key => $item ) {
+		foreach ( $order->get_items() as $key => $item ) {
 
-            $regular_price = null;
-            $price         = null;
-            
-            if ( 'line_item' === $item['type'] ) {
+			$regular_price = null;
+			$price         = null;
 
-                if ( $item->get_variation_id() ) {
+			if ( 'line_item' === $item['type'] ) {
 
-                    /*WooCommerce Role Based Price*/
-                    $wc_rbp = $item->get_meta( '_role_based_price', true );
+				if ( $item->get_variation_id() ) {
 
-                    if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
+					/*WooCommerce Role Based Price*/
+					$wc_rbp = $item->get_meta( '_role_based_price', true );
 
-                        $regular_price = isset( $wc_rbp[ $user_role ]['regular_price'] ) ? $wc_rbp[ $user_role ]['regular_price'] : null; 
-                        $price         = isset( $wc_rbp[ $user_role ]['selling_price'] ) ? $wc_rbp[ $user_role ]['selling_price'] : null;
+					if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
 
-                    } else {
+						$regular_price = isset( $wc_rbp[ $user_role ]['regular_price'] ) ? $wc_rbp[ $user_role ]['regular_price'] : null;
+						$price         = isset( $wc_rbp[ $user_role ]['selling_price'] ) ? $wc_rbp[ $user_role ]['selling_price'] : null;
 
-                        $regular_price = $regular_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
-                        $price         = $price ? $price : get_post_meta( $item['variation_id'], '_price', true );
-                        
-                    }
+					} else {
 
-                } else {
+						$regular_price = $regular_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
+						$price         = $price ? $price : get_post_meta( $item['variation_id'], '_price', true );
 
-                    /*WooCommerce Role Based Price*/
-                    $wc_rbp = $item->get_meta( '_role_based_price', true );
+					}
+				} else {
 
-                    if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
+					/*WooCommerce Role Based Price*/
+					$wc_rbp = $item->get_meta( '_role_based_price', true );
 
-                        $regular_price = isset( $wc_rbp[ $user_role ]['regular_price'] ) ? $wc_rbp[ $user_role ]['regular_price'] : null; 
-                        $price         = isset( $wc_rbp[ $user_role ]['selling_price'] ) ? $wc_rbp[ $user_role ]['selling_price'] : null;
+					if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
 
-                    } else {
+						$regular_price = isset( $wc_rbp[ $user_role ]['regular_price'] ) ? $wc_rbp[ $user_role ]['regular_price'] : null;
+						$price         = isset( $wc_rbp[ $user_role ]['selling_price'] ) ? $wc_rbp[ $user_role ]['selling_price'] : null;
 
-                        $regular_price = $regular_price ? $regular_price : get_post_meta( $item['product_id'], '_regular_price', true );
-                        $price         = $price ? $price : get_post_meta( $item['product_id'], '_price', true );
+					} else {
 
-                    }
-                }
+						$regular_price = $regular_price ? $regular_price : get_post_meta( $item['product_id'], '_regular_price', true );
+						$price         = $price ? $price : get_post_meta( $item['product_id'], '_price', true );
 
-                if ( $price && 0 < $regular_price ) {
+					}
+				}
 
-                    $math     = $price * 100 / $regular_price;
-                    $discount = number_format( ( 100 - $math ), 2, '.', '' );
+				if ( $price && 0 < $regular_price ) {
 
-                    wc_add_order_item_meta( $key, '_wcexd_item_discount', $discount );
+					$math     = $price * 100 / $regular_price;
+					$discount = number_format( ( 100 - $math ), 2, '.', '' );
 
-                }
-            }
-        }
-    }
-    
+					wc_add_order_item_meta( $key, '_wcexd_item_discount', $discount );
 
-    /**
-     * Hide item discount
-     *
-     * @param array $array the hidden order item metas.
-     *
-     * @return arra
-     */
-    public function hide_item_discount( $array ) {
+				}
+			}
+		}
+	}
 
-        $array[] = '_wcexd_item_discount';
 
-        return $array;
+	/**
+	 * Hide item discount
+	 *
+	 * @param array $array the hidden order item metas.
+	 *
+	 * @return arra
+	 */
+	public function hide_item_discount( $array ) {
 
-    }
+		$array[] = '_wcexd_item_discount';
 
+		return $array;
 
-    /**
-     * Get the Danea price list to be used as base price for the specific user level.
-     *
-     * @param string $billing_email the customer email.
-     *
-     * @return string
-     */
-    public function get_the_price_list( $billing_email ) {
+	}
 
-        /* Il listino di default per il prezzo base */
-        $regular_price_list = get_option( 'wcifd-regular-price-list' );
 
-        /* WooCommerce Role Based Price */
-        $wc_rbp = function_exists( 'get_wc_rbp' ) ? get_wc_rbp() : null;
+	/**
+	 * Get the Danea price list to be used as base price for the specific user level.
+	 *
+	 * @param string $billing_email the customer email.
+	 *
+	 * @return string
+	 */
+	public function get_the_price_list( $billing_email ) {
 
-        /* Il plugin RBP non è installato */
-        if ( ! $wc_rbp ) {
+		/* Il listino di default per il prezzo base */
+		$regular_price_list = get_option( 'wcifd-regular-price-list' );
 
-            $output = $regular_price_list;
+		/* WooCommerce Role Based Price */
+		$wc_rbp = function_exists( 'get_wc_rbp' ) ? get_wc_rbp() : null;
 
-        } elseif ( is_array( $wc_rbp ) ) {
+		/* Il plugin RBP non è installato */
+		if ( ! $wc_rbp ) {
 
-            /* Recupero l'utente se registrato */
-            $user = get_user_by( 'email', $billing_email );
+			$output = $regular_price_list;
 
-            if ( is_object( $user ) && ! is_wp_error( $user ) ) {
+		} elseif ( is_array( $wc_rbp ) ) {
 
-                /* Ruolo utente */
-                $role = isset( $user->roles[0] ) ? $user->roles[0] : null;
+			/* Recupero l'utente se registrato */
+			$user = get_user_by( 'email', $billing_email );
 
-            } else {
+			if ( is_object( $user ) && ! is_wp_error( $user ) ) {
 
-                /* Ruolo utente */
-                $role = 'logedout';
+				/* Ruolo utente */
+				$role = isset( $user->roles[0] ) ? $user->roles[0] : null;
 
-            }
+			} else {
 
-            if ( $role ) {
+				/* Ruolo utente */
+				$role = 'logedout';
 
-                if ( array_key_exists( $role, $wc_rbp ) ) {
+			}
 
-                    /* Il listino di default previsto per questo livello utente */
-                    $result = isset( $wc_rbp[ $role ]['regular_price'] ) ? $wc_rbp[ $role ]['regular_price'] : $regular_price_list;
-                    $output = $result ? $result : $regular_price_list;
+			if ( $role ) {
 
-                } else {
+				if ( array_key_exists( $role, $wc_rbp ) ) {
 
-                    $output = $regular_price_list;
-                }
+					/* Il listino di default previsto per questo livello utente */
+					$result = isset( $wc_rbp[ $role ]['regular_price'] ) ? $wc_rbp[ $role ]['regular_price'] : $regular_price_list;
+					$output = $result ? $result : $regular_price_list;
 
-            }
+				} else {
 
-            return ( sprintf( 'Listino %s', intval( $output ) ) );
+					$output = $regular_price_list;
+				}
+			}
 
-        }
+			return ( sprintf( 'Listino %s', intval( $output ) ) );
 
-    }
+		}
 
+	}
 
-    /**
-     * Random string
-     *
-     * @param  int $length the string length.
-     *
-     * @return string
-     */
-    public function rand_md5( $length ) {
 
-        $max    = ceil( $length / 32 );
-        $random = '';
+	/**
+	 * Random string
+	 *
+	 * @param  int $length the string length.
+	 *
+	 * @return string
+	 */
+	public function rand_md5( $length ) {
 
-        for ( $i = 0; $i < $max; $i ++ ) {
+		$max    = ceil( $length / 32 );
+		$random = '';
 
-            $random .= md5( microtime( true ) . mt_rand( 10000, 90000 ) );
+		for ( $i = 0; $i < $max; $i ++ ) {
 
-        }
+			$random .= md5( microtime( true ) . mt_rand( 10000, 90000 ) );
 
-        return substr( $random, 0, $length );
+		}
 
-    }
+		return substr( $random, 0, $length );
 
+	}
 
-    /**
-     * Custom text for the search update link
-     *
-     * @return string
-     */
-    public function check_update() {
 
-        return __( 'Check for updates', 'wc-exporter-for-danea' );
+	/**
+	 * Custom text for the search update link
+	 *
+	 * @return string
+	 */
+	public function check_update() {
 
-    }
+		return __( 'Check for updates', 'wc-exporter-for-danea' );
 
+	}
 
-    /**
-     * Custom messages for the update result
-     *
-     * @param  string $message the message for the admin. 
-     * @param  string $status  update available or error. 
-     *
-     * @return string
-     */
-    public function update_message( $message = null, $status = null ) {
 
-        if ( 'no_update' === $status ) {
+	/**
+	 * Custom messages for the update result
+	 *
+	 * @param  string $message the message for the admin.
+	 * @param  string $status  update available or error.
+	 *
+	 * @return string
+	 */
+	public function update_message( $message = null, $status = null ) {
 
-            $message = __( ' <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date.', 'wc-exporter-for-danea' );
+		if ( 'no_update' === $status ) {
 
-        } else if ( 'update_available' === $status ) {
+			$message = __( ' <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date.', 'wc-exporter-for-danea' );
 
-            $message = __( 'A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> is available.', 'wc-exporter-for-danea' );
+		} elseif ( 'update_available' === $status ) {
 
-        } else {
+			$message = __( 'A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> is available.', 'wc-exporter-for-danea' );
 
-            $message = __( 'An error occurred, please try again later.', 'wc-exporter-for-danea' );
+		} else {
 
-        }
+			$message = __( 'An error occurred, please try again later.', 'wc-exporter-for-danea' );
 
-        return $message;
+		}
 
-    }
+		return $message;
+
+	}
 
 }
 
