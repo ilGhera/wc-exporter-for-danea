@@ -78,8 +78,8 @@
 					<th scope="row"><?php esc_html_e( 'Sensei', 'wc-exporter-for-danea' ); ?></th>
 					<td>
 						<fieldset>
-							<label for="sensei">
-								<input type="checkbox" name="sensei" value="1" 
+							<label for="wcexd-sensei">
+								<input type="checkbox" name="wcexd-sensei" value="1" 
 								<?php
 								if ( 1 === intval( get_option( 'wcexd-sensei-option' ) ) ) {
 									echo 'checked="checked"'; }
