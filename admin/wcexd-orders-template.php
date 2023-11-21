@@ -99,7 +99,7 @@
 				<th scope="row"><?php esc_html_e( 'Currency Exchange', 'wc-exporter-for-danea' ); ?></th>
 				<td>
 					<label for="wcexd-currency-exchange">
-						<input type="checkbox" name="wcexd-currency-exchange" value="1"<?php echo 1 === $wcexd_currency_exchange ? ' checked="checked"' : ''; ?>>
+						<input type="checkbox" name="wcexd-currency-exchange" value="1"<?php echo 1 === intval( $wcexd_currency_exchange ) ? ' checked="checked"' : ''; ?>>
 						<?php esc_html_e( 'Export orders in euros', 'wc-exporter-for-danea' ); ?>
 					</label>
 					<p class="description"><?php esc_html_e( 'Export orders received in dollars into euros using the most recent exchange rate from the Bank of Italy.', 'wc-exporter-for-danea' ); ?></p>
