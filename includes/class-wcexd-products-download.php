@@ -59,15 +59,15 @@ class WCEXD_Products_Download {
 
             /* Admin options selected */
             $this->use_suppliers  = isset( $_POST['wcexd-use-suppliers'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-use-suppliers'] ) ) : 0;
-            $this->exclude_danea_vars      = isset( $_POST['wcexd-exclude-danea-vars'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-exclude-danea-vars'] ) ) : 0;
             $this->wcexd_products_tax_name = isset( $_POST['wcexd-products-tax-name'] ) ?  sanitize_text_field( wp_unslash( $_POST['wcexd-products-tax-name'] ) ) : 0;
+            $this->exclude_danea_vars      = isset( $_POST['wcexd-exclude-danea-vars'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-exclude-danea-vars'] ) ) : 0;
             $this->size_type               = isset( $_POST['wcexd-size-type'] ) ?  sanitize_text_field( wp_unslash( $_POST['wcexd-size-type'] ) ) : 0;
             $this->weight_type             = isset( $_POST['wcexd-weight-type'] ) ?  sanitize_text_field( wp_unslash( $_POST['wcexd-weight-type'] ) ) : 0;
 
             /* Save data */
             update_option( 'wcexd-use-suppliers', $this->use_suppliers );
-            update_option( 'wcexd-exclude-danea-vars', $this->exclude_danea_vars );
             update_option( 'wcexd-products-tax-name', $this->wcexd_products_tax_name );
+            update_option( 'wcexd-exclude-danea-vars', $this->exclude_danea_vars );
             update_option( 'wcexd-size-type', $this->size_type );
             update_option( 'wcexd-weight-type', $this->weight_type );
 
