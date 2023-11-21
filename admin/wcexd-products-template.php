@@ -24,9 +24,8 @@
 	<a href="https://www.danea.it/software/easyfatt/supporto/import-altri-software/" target="_blank">https://www.danea.it/software/easyfatt/supporto/import-altri-software/</a></p>
 
 	<?php
-	$size_type               = get_option( 'wcexd-size-type' );
-	$weight_type             = get_option( 'wcexd-weight-type' );
-	$wcexd_products_tax_name = get_option( 'wcexd-products-tax-name' );
+	$size_type   = get_option( 'wcexd-size-type' );
+	$weight_type = get_option( 'wcexd-weight-type' );
 	?>
 
 	<form name="wcexd-products-submit" id="wcexd-products-submit" class="wcexd-form"  method="post" action="">
@@ -51,7 +50,7 @@
 				<th scope="row"><?php esc_html_e( 'Tax name', 'wc-exporter-for-danea' ); ?></th>
 				<td>
 					<label for="wcexd-products-tax-name">
-						<input type="checkbox" name="wcexd-products-tax-name" value="1"<?php echo 1 === intval( $wcexd_products_tax_name ) ? ' checked="checked"' : ''; ?>>
+						<input type="checkbox" name="wcexd-products-tax-name" value="1"<?php echo 1 === intval( get_option( 'wcexd-products-tax-name' ) ) ? ' checked="checked"' : ''; ?>>
 						<?php esc_html_e( 'Export the tax name instead of the rate', 'wc-exporter-for-danea' ); ?>
 					</label>
 					<p class="description"><?php esc_html_e( 'Recommended option if the tax rates were imported from Danea Easyfatt previously.', 'wc-exporter-for-danea' ); ?></p>
