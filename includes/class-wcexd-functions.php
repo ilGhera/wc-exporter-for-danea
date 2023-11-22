@@ -75,7 +75,7 @@ class WCEXD_Functions {
 
 
 	/**
-     * Move the single taxonomy term based od its parent ID
+	 * Move the single taxonomy term based od its parent ID
 	 *
 	 * @param  object $a the first taxonomy term.
 	 * @param  object $b the second taxonomy term.
