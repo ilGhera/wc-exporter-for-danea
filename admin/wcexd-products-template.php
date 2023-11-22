@@ -70,7 +70,7 @@
 							<?php esc_html_e( 'Exclude sizes and colors', 'wc-exporter-for-danea' ); ?>
 						</label>
 					</fieldset>
-					<p class="description"><?php esc_html_e( 'The Danea sizes and colors variations, transferred previously in WooCommerce, cannot be imported with a file. Do you want to exclude them?', 'wc-exporter-for-danea' ); ?></p>
+					<p class="description"><?php echo wp_kses_post( __( 'The Danea sizes and colors variations, transferred previously in WooCommerce, cannot be imported with a file. Do you want to exclude them?', 'wc-exporter-for-danea' ) ); ?></p>
 				</td>
 			</tr>
 			<?php if ( class_exists( 'WooThemes_Sensei' ) ) { ?>

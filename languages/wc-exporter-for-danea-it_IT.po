@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2023-09-08 19:56+0200\n"
-"PO-Revision-Date: 2023-09-08 19:57+0200\n"
+"POT-Creation-Date: 2023-11-22 11:10+0100\n"
+"PO-Revision-Date: 2023-11-22 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -20,6 +20,360 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: js\n"
 "X-Poedit-SearchPathExcluded-3: css\n"
 "X-Poedit-SearchPathExcluded-4: vendor\n"
+
+#: admin/class-wcexd-admin.php:80
+msgid "Ops, you have not permissions to do that!"
+msgstr ""
+"Sembra che tu non abbia i permessi sufficienti per visualizzare questa "
+"pagina!"
+
+#: admin/class-wcexd-admin.php:94
+msgid "WARNING! It seems like WooCommerce is not installed."
+msgstr "ATTENZIONE! Sembra che WooCommerce non sia installato."
+
+#: admin/class-wcexd-admin.php:132
+msgid "Woocommmerce Exporter per Danea"
+msgstr "Woocommmerce Exporter for Danea"
+
+#: admin/class-wcexd-admin.php:140
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: admin/class-wcexd-admin.php:141 admin/wcexd-products-template.php:34
+msgid "Suppliers"
+msgstr "Fornitori"
+
+#: admin/class-wcexd-admin.php:142
+msgid "Products"
+msgstr "Prodotti"
+
+#: admin/class-wcexd-admin.php:143
+msgid "Customers"
+msgstr "Clienti"
+
+#: admin/class-wcexd-admin.php:144
+msgid "Orders"
+msgstr "Ordini"
+
+#: admin/class-wcexd-admin.php:166
+msgid "Premium Key"
+msgstr "Premium Key"
+
+#: admin/class-wcexd-admin.php:167
+msgid "Add your Premium Key"
+msgstr "Inserisci la tua Premium Key"
+
+#: admin/class-wcexd-admin.php:168
+msgid ""
+"Add here the Premium Key that you received by email, you will keep your copy "
+"of <strong>WooCommerce Exporter for Danea - Premium</strong> updated."
+msgstr ""
+"Incolla qui la Premium Key che hai ricevuto via mail, potrai ricevere gli "
+"ultimi aggiornamenti di <strong>WooCommerce Exporter for  Danea - Premium</"
+"strong>."
+
+#: admin/class-wcexd-admin.php:173
+msgid "Save"
+msgstr "Salva"
+
+#: admin/wcexd-clients-template.php:16
+msgid "Export your WooCommerce customers list."
+msgstr "Esportazione elenco clienti WooCommerce."
+
+#: admin/wcexd-clients-template.php:18
+msgid ""
+"The import of clients in Danea is done by using an Excel/ OpenIffice file."
+msgstr ""
+"L'importazione dei clienti in Danea avviene attraverso l'utilizzo di un file "
+"Excel/ OpenOffice."
+
+#: admin/wcexd-clients-template.php:20
+msgid "Choose the WordPress user role that identifies your customers."
+msgstr "Scegli il ruolo utente WordPress che identifica i tuoi clienti."
+
+#: admin/wcexd-clients-template.php:21
+msgid "Download your WooCommerce customers list."
+msgstr "Scarica l'elenco aggiornato dei tuoi clienti."
+
+#: admin/wcexd-clients-template.php:22 admin/wcexd-products-template.php:19
+#: admin/wcexd-suppliers-template.php:22
+msgid "Open and save the file with one of the above programs."
+msgstr "Apri e salva il file con uno dei programmi sopra indicati."
+
+#: admin/wcexd-clients-template.php:23
+msgid ""
+"In Danea, go to \"Clienti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
+"LibreOffice\" and use the file just created."
+msgstr ""
+"In Danea, vai in \"Clienti/ Utilità\", scegli \"Importa con Excel/OpenOffice/"
+"LibreOffice\" ed utilizza il file appena creato."
+
+#: admin/wcexd-clients-template.php:25 admin/wcexd-orders-template.php:23
+#: admin/wcexd-products-template.php:23 admin/wcexd-suppliers-template.php:25
+msgid "Need more information? Please, visit this page:"
+msgstr "Per maggiori informazioni, visita questa pagina:"
+
+#: admin/wcexd-clients-template.php:38 admin/wcexd-suppliers-template.php:38
+msgid "User role"
+msgstr "Ruolo utente"
+
+#: admin/wcexd-clients-template.php:47
+msgid "Select the user level of your clients."
+msgstr "Seleziona il livello utente corrispondente ai tuoi clienti."
+
+#: admin/wcexd-clients-template.php:57
+msgid "Download customers list (.CSV)"
+msgstr "Download elenco clienti (.CSV)"
+
+#: admin/wcexd-orders-template.php:14
+msgid "Export your WooCommerce orders list."
+msgstr "Esportazione elenco ordini Woocommerce."
+
+#: admin/wcexd-orders-template.php:17
+msgid "The import of orders in Danea is done by using a XML file."
+msgstr ""
+"L'importazione degli ordini in Danea avviene attraverso l'utilizzo di un "
+"file XML."
+
+#: admin/wcexd-orders-template.php:19
+msgid ""
+"Copy the full URL of your feed with your updated WooCommerce orders list"
+msgstr ""
+"Copia l'indirizzo completo del tuo feed con l'elenco ordini WooCommerce "
+"aggiornato."
+
+#: admin/wcexd-orders-template.php:20
+msgid ""
+"In Danea, choose \"Scarica ordini\" from the menu \"Strumenti/ E-commerce\""
+msgstr "In Danea, scegli \"Scarica ordini\" dal menù \"Strumenti/ E-commerce\""
+
+#: admin/wcexd-orders-template.php:21
+msgid ""
+"In the next window, paste the URL of your WooCommerce orders list in "
+"\"Impostazioni/ indirizzo...\""
+msgstr ""
+"Nella finestra seguente, incolla l'indirizzo del tuo elenco ordini in in "
+"\"Impostazioni/ Indirizzo...\""
+
+#: admin/wcexd-orders-template.php:60
+msgid "Please insert your <strong>Premium Key</strong>"
+msgstr "Per cortesia, inserisci la tua <strong>Premium Key</strong>"
+
+#: admin/wcexd-orders-template.php:69
+msgid "Orders status"
+msgstr "Stato ordini"
+
+#: admin/wcexd-orders-template.php:71
+msgid "All orders"
+msgstr "Tutti gli ordini"
+
+#: admin/wcexd-orders-template.php:85
+msgid "Select the order's status that you want to import in Danea"
+msgstr "Seleziona lo stato dell'ordine che desideri importare in Danea"
+
+#: admin/wcexd-orders-template.php:89 admin/wcexd-products-template.php:50
+msgid "Tax name"
+msgstr "Nome imposta"
+
+#: admin/wcexd-orders-template.php:93 admin/wcexd-products-template.php:54
+msgid "Export the tax name instead of the rate"
+msgstr "Esporta il nome dell'imposta e non l'aliquota"
+
+#: admin/wcexd-orders-template.php:95 admin/wcexd-products-template.php:56
+msgid ""
+"Recommended option if the tax rates were imported from Danea Easyfatt "
+"previously."
+msgstr ""
+"Opzione consigliata se le aliquote sono state precedentemente importate da "
+"Danea Easyfatt."
+
+#: admin/wcexd-orders-template.php:99
+msgid "Currency Exchange"
+msgstr "Cambio valuta"
+
+#: admin/wcexd-orders-template.php:103
+msgid "Export orders in euros"
+msgstr "Esporta ordini in euro"
+
+#: admin/wcexd-orders-template.php:105
+msgid ""
+"Export orders received in dollars into euros using the most recent exchange "
+"rate from the Bank of Italy."
+msgstr ""
+"Esporta in euro gli ordini ricevuti in dollari utilizzando il tasso di "
+"cambio più recente della Banca d'Italia."
+
+#: admin/wcexd-orders-template.php:109
+msgid "Feed URL"
+msgstr "Feed URL"
+
+#: admin/wcexd-orders-template.php:112
+msgid ""
+"Add this URL to the <b>Settings</b> tab of the function <b>Download orders</"
+"b> (Ctrl+O) in Danea."
+msgstr ""
+"Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica "
+"ordini</b> (Ctrl+O) di Danea."
+
+#: admin/wcexd-orders-template.php:121
+#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:215
+msgid "Save options"
+msgstr "Salva impostazioni"
+
+#: admin/wcexd-products-template.php:14
+msgid "WooCommerce products export"
+msgstr "Esportazione elenco prodotti Woocommerce"
+
+#: admin/wcexd-products-template.php:16
+msgid ""
+"The import of products in Danea is done by using an Excel/ OpenIffice file."
+msgstr ""
+"L'importazione dei prodotti in Danea avviene attraverso l'utilizzo di un "
+"file Excel/ OpenOffice."
+
+#: admin/wcexd-products-template.php:18
+msgid "Download your WooCommerce products list."
+msgstr "Scarica l'elenco aggiornato dei tuoi prodotti WooCommerce."
+
+#: admin/wcexd-products-template.php:20
+msgid ""
+"In Danea, go to \"Prodotti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
+"LibreOffice\" and use the file just created."
+msgstr ""
+"In Danea, vai in \"Prodotti/ Utilità\", scegli \"Importa con Excel/"
+"OpenOffice/LibreOffice\" ed utilizza il file appena creato."
+
+#: admin/wcexd-products-template.php:44
+msgid "Use the product author as supplier"
+msgstr "Utilizza l'autore del prodotto come fornitore"
+
+#: admin/wcexd-products-template.php:60
+msgid "Danea sizes and color"
+msgstr "Danea taglie e colori"
+
+#: admin/wcexd-products-template.php:70
+msgid "Exclude sizes and colors"
+msgstr "Escludi taglie e colori"
+
+#: admin/wcexd-products-template.php:73
+msgid ""
+"The Danea sizes and colors variations, transferred previously in "
+"WooCommerce, cannot be imported with a file. Do you want to exclude them?"
+msgstr ""
+"Le variazioni taglie/ colori create da Danea, trasferite a WooCommerce "
+"precedentemente, non possono essere importate attraverso un file."
+"<br>Escluderle dall'esportazione?"
+
+#: admin/wcexd-products-template.php:78
+msgid "Sensei"
+msgstr "Sensei"
+
+#: admin/wcexd-products-template.php:88
+msgid ""
+"If you're using Woothemes Sensei, you may want to link every WooCommerce "
+"product with the Teacher of the course associate."
+msgstr ""
+"Se utilizzi Woothemes Sensei, potresti voler abbinare ogni prodotto dello "
+"store all'autore (Teacher) del corso ad esso associato, importandolo in "
+"Danea come fornitore."
+
+#: admin/wcexd-products-template.php:96
+msgid "Products measures"
+msgstr "Misure prodotti"
+
+#: admin/wcexd-products-template.php:99
+msgid "Gross measures"
+msgstr "Misure lorde"
+
+#: admin/wcexd-products-template.php:100
+msgid "Net measures"
+msgstr "Misure nette"
+
+#: admin/wcexd-products-template.php:102
+msgid ""
+"Choose if the exported values will be used in Danea as gross or net measures."
+msgstr ""
+"Scegli se le misure esportate verranno usate in danea come lorde o nette."
+
+#: admin/wcexd-products-template.php:107
+msgid "Product weight"
+msgstr "Peso prodotti"
+
+#: admin/wcexd-products-template.php:110
+msgid "Gross weight"
+msgstr "Peso lordo"
+
+#: admin/wcexd-products-template.php:111
+msgid "Net weight"
+msgstr "Peso netto"
+
+#: admin/wcexd-products-template.php:113
+msgid ""
+"Choose if the value exported will be used in Danea as gross or net weight."
+msgstr "Scegli se il peso esportato sarà usato in Danea come lordo o netto."
+
+#: admin/wcexd-products-template.php:122
+msgid "Download products list (.CSV)"
+msgstr "Download elenco prodotti (.CSV)"
+
+#: admin/wcexd-suppliers-template.php:16
+msgid "WooCommerce suppliers export"
+msgstr "Esportazione elenco fornitori WooCommerce"
+
+#: admin/wcexd-suppliers-template.php:18
+msgid ""
+"The import of suppliers in Danea is done by using an Excel/ OpenIffice file."
+msgstr ""
+"L'importazione dei fornitori in Danea avviene attraverso l'utilizzo di un "
+"file Excel/ OpenOffice."
+
+#: admin/wcexd-suppliers-template.php:20
+msgid "Choose the WordPress user role that identifies your suppliers."
+msgstr "Scegli il ruolo utente WordPress che identifica i tuoi fornitori."
+
+#: admin/wcexd-suppliers-template.php:21
+msgid "Download your suppliers list."
+msgstr "Scarica l'elenco aggiornato dei tuoi fornitori."
+
+#: admin/wcexd-suppliers-template.php:23
+msgid ""
+"In Danea, go to \"Fornitori/ Utilità\", choose \"Importa con Excel/"
+"OpenOffice/LibreOffice\" and use the file just created."
+msgstr ""
+"In Danea, vai in \"Fornitori/ Utilità\", scegli \"Importa con Excel/"
+"OpenOffice/LibreOffice\" ed utilizza il file appena creato."
+
+#: admin/wcexd-suppliers-template.php:47
+msgid "Select the user level of your suppliers."
+msgstr "Seleziona il livello utente corrispondente ai tuoi fornitori."
+
+#: admin/wcexd-suppliers-template.php:55
+msgid "Download suppliers list (.CSV)"
+msgstr "Download elenco fornitori (.CSV)"
+
+#: includes/class-wcexd-functions.php:729
+msgid "Check for updates"
+msgstr "Verifica aggiornamenti"
+
+#: includes/class-wcexd-functions.php:746
+msgid ""
+" <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date."
+msgstr ""
+" E' installata l'ultima versione di <strong>WooCommerce Exporter for Danea - "
+"Premium</strong>."
+
+#: includes/class-wcexd-functions.php:750
+msgid ""
+"A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> "
+"is available."
+msgstr ""
+"E' disponibile una nuova versione di <strong>WooCommerce Exporter for Danea "
+"- Premium</strong>."
+
+#: includes/class-wcexd-functions.php:754
+msgid "An error occurred, please try again later."
+msgstr ""
+"Si è verificato un errore sconosciuto, si prega di riprovare più tardi."
 
 #: includes/ilghera-notice/class-ilghera-notice.php:66
 msgid "Renew now"
@@ -213,368 +567,6 @@ msgstr "Mostra PEC e Codice destinatario solo per l'Italia"
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:207
 msgid "Show the Fiscal code field only to Italian customers"
 msgstr "Mostra il campo Codice fiscale solo per l'Italia"
-
-#: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:215
-#: includes/wcexd-admin-functions.php:424
-msgid "Save options"
-msgstr "Salva impostazioni"
-
-#: includes/wcexd-admin-functions.php:61
-msgid "Ops, you have not permissions to do that!"
-msgstr ""
-"Sembra che tu non abbia i permessi sufficienti per visualizzare questa "
-"pagina!"
-
-#: includes/wcexd-admin-functions.php:72
-msgid "WARNING! It seems like WooCommerce is not installed."
-msgstr "ATTENZIONE! Sembra che WooCommerce non sia installato."
-
-#: includes/wcexd-admin-functions.php:84
-msgid "Woocommmerce Exporter per Danea"
-msgstr "Woocommmerce Exporter for Danea"
-
-#: includes/wcexd-admin-functions.php:93
-msgid "Premium Key"
-msgstr "Premium Key"
-
-#: includes/wcexd-admin-functions.php:94
-msgid "Add your Premium Key"
-msgstr "Inserisci la tua Premium Key"
-
-#: includes/wcexd-admin-functions.php:95
-msgid ""
-"Add here the Premium Key that you received by email, you will keep your copy "
-"of <strong>WooCommerce Exporter for Danea - Premium</strong> updated."
-msgstr ""
-"Incolla qui la Premium Key che hai ricevuto via mail, potrai ricevere gli "
-"ultimi aggiornamenti di <strong>WooCommerce Exporter for  Danea - Premium</"
-"strong>."
-
-#: includes/wcexd-admin-functions.php:98
-msgid "Save"
-msgstr "Salva"
-
-#: includes/wcexd-admin-functions.php:105
-msgid "Settings"
-msgstr "Impostazioni"
-
-#: includes/wcexd-admin-functions.php:106
-#: includes/wcexd-admin-functions.php:185
-msgid "Suppliers"
-msgstr "Fornitori"
-
-#: includes/wcexd-admin-functions.php:107
-msgid "Products"
-msgstr "Prodotti"
-
-#: includes/wcexd-admin-functions.php:108
-msgid "Customers"
-msgstr "Clienti"
-
-#: includes/wcexd-admin-functions.php:109
-msgid "Orders"
-msgstr "Ordini"
-
-#: includes/wcexd-admin-functions.php:127
-msgid "WooCommerce suppliers export"
-msgstr "Esportazione elenco fornitori WooCommerce"
-
-#: includes/wcexd-admin-functions.php:128
-msgid ""
-"The import of suppliers in Danea is done by using an Excel/ OpenIffice file."
-msgstr ""
-"L'importazione dei fornitori in Danea avviene attraverso l'utilizzo di un "
-"file Excel/ OpenOffice."
-
-#: includes/wcexd-admin-functions.php:129
-msgid "Choose the WordPress user role that identifies your suppliers."
-msgstr "Scegli il ruolo utente WordPress che identifica i tuoi fornitori."
-
-#: includes/wcexd-admin-functions.php:130
-msgid "Download your suppliers list."
-msgstr "Scarica l'elenco aggiornato dei tuoi fornitori."
-
-#: includes/wcexd-admin-functions.php:131
-#: includes/wcexd-admin-functions.php:172
-#: includes/wcexd-admin-functions.php:293
-msgid "Open and save the file with one of the above programs."
-msgstr "Apri e salva il file con uno dei programmi sopra indicati."
-
-#: includes/wcexd-admin-functions.php:132
-msgid ""
-"In Danea, go to \"Fornitori/ Utilità\", choose \"Importa con Excel/"
-"OpenOffice/LibreOffice\" and use the file just created."
-msgstr ""
-"In Danea, vai in \"Fornitori/ Utilità\", scegli \"Importa con Excel/"
-"OpenOffice/LibreOffice\" ed utilizza il file appena creato."
-
-#: includes/wcexd-admin-functions.php:133
-#: includes/wcexd-admin-functions.php:174
-#: includes/wcexd-admin-functions.php:295
-#: includes/wcexd-admin-functions.php:340
-msgid "Need more information? Please, visit this page:"
-msgstr "Per maggiori informazioni, visita questa pagina:"
-
-#: includes/wcexd-admin-functions.php:143
-#: includes/wcexd-admin-functions.php:306
-msgid "User role"
-msgstr "Ruolo utente"
-
-#: includes/wcexd-admin-functions.php:152
-msgid "Select the user level of your suppliers."
-msgstr "Select the user level of your suppliers."
-
-#: includes/wcexd-admin-functions.php:159
-msgid "Download suppliers list (.CSV)"
-msgstr "Download elenco fornitori (.CSV)"
-
-#: includes/wcexd-admin-functions.php:169
-msgid "WooCommerce products export"
-msgstr "Esportazione elenco prodotti Woocommerce"
-
-#: includes/wcexd-admin-functions.php:170
-msgid ""
-"The import of products in Danea is done by using an Excel/ OpenIffice file."
-msgstr ""
-"L'importazione dei prodotti in Danea avviene attraverso l'utilizzo di un "
-"file Excel/ OpenOffice."
-
-#: includes/wcexd-admin-functions.php:171
-msgid "Download your WooCommerce products list."
-msgstr "Scarica l'elenco aggiornato dei tuoi prodotti WooCommerce."
-
-#: includes/wcexd-admin-functions.php:173
-msgid ""
-"In Danea, go to \"Prodotti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
-"LibreOffice\" and use the file just created."
-msgstr ""
-"In Danea, vai in \"Prodotti/ Utilità\", scegli \"Importa con Excel/"
-"OpenOffice/LibreOffice\" ed utilizza il file appena creato."
-
-#: includes/wcexd-admin-functions.php:195
-msgid "Use the product author as supplier"
-msgstr "Utilizza l'autore del prodotto come fornitore"
-
-#: includes/wcexd-admin-functions.php:201
-#: includes/wcexd-admin-functions.php:395
-msgid "Tax name"
-msgstr "Nome imposta"
-
-#: includes/wcexd-admin-functions.php:205
-#: includes/wcexd-admin-functions.php:399
-msgid "Export the tax name instead of the rate"
-msgstr "Esporta il nome dell'imposta e non l'aliquota"
-
-#: includes/wcexd-admin-functions.php:207
-#: includes/wcexd-admin-functions.php:401
-msgid ""
-"Recommended option if the tax rates were imported from Danea Easyfatt "
-"previously."
-msgstr ""
-"Opzione consigliata se le aliquote sono state precedentemente importate da "
-"Danea Easyfatt."
-
-#: includes/wcexd-admin-functions.php:211
-msgid "Danea sizes and color"
-msgstr "Danea taglie e colori"
-
-#: includes/wcexd-admin-functions.php:221
-msgid "Exclude sizes and colors"
-msgstr "Escludi taglie e colori"
-
-#: includes/wcexd-admin-functions.php:224
-msgid ""
-"The Danea sizes and colors variations, transferred previously in "
-"WooCommerce, cannot be imported with a file. Do you want to exclude them?"
-msgstr ""
-"Le variazioni taglie/ colori create da Danea, trasferite a WooCommerce "
-"precedentemente, non possono essere importate attraverso un file."
-"<br>Escluderle dall'esportazione?"
-
-#: includes/wcexd-admin-functions.php:229
-msgid "Sensei"
-msgstr "Sensei"
-
-#: includes/wcexd-admin-functions.php:239
-msgid ""
-"If you're using Woothemes Sensei, you may want to link every WooCommerce "
-"product with the Teacher of the course associate."
-msgstr ""
-"Se utilizzi Woothemes Sensei, potresti voler abbinare ogni prodotto dello "
-"store all'autore (Teacher) del corso ad esso associato, importandolo in "
-"Danea come fornitore."
-
-#: includes/wcexd-admin-functions.php:247
-msgid "Products measures"
-msgstr "Misure prodotti"
-
-#: includes/wcexd-admin-functions.php:250
-msgid "Gross measures"
-msgstr "Misure lorde"
-
-#: includes/wcexd-admin-functions.php:251
-msgid "Net measures"
-msgstr "Misure nette"
-
-#: includes/wcexd-admin-functions.php:253
-msgid ""
-"Choose if the exported values will be used in Danea as gross or net measures."
-msgstr ""
-"Scegli se le misure esportate verranno usate in danea come lorde o nette."
-
-#: includes/wcexd-admin-functions.php:258
-msgid "Product weight"
-msgstr "Peso prodotti"
-
-#: includes/wcexd-admin-functions.php:261
-msgid "Gross weight"
-msgstr "Peso lordo"
-
-#: includes/wcexd-admin-functions.php:262
-msgid "Net weight"
-msgstr "Peso netto"
-
-#: includes/wcexd-admin-functions.php:264
-msgid ""
-"Choose if the value exported will be used in Danea as gross or net weight."
-msgstr "Scegli se il peso esportato sarà usato in Danea come lordo o netto."
-
-#: includes/wcexd-admin-functions.php:272
-msgid "Download products list (.CSV)"
-msgstr "Download elenco prodotti (.CSV)"
-
-#: includes/wcexd-admin-functions.php:289
-msgid "Export your WooCommerce customers list."
-msgstr "Esportazione elenco clienti WooCommerce"
-
-#: includes/wcexd-admin-functions.php:290
-msgid ""
-"The import of clients in Danea is done by using an Excel/ OpenIffice file."
-msgstr ""
-"L'importazione dei clienti in Danea avviene attraverso l'utilizzo di un file "
-"Excel/ OpenOffice."
-
-#: includes/wcexd-admin-functions.php:291
-msgid "Choose the WordPress user role that identifies your customers."
-msgstr "Scegli il ruolo utente WordPress che identifica i tuoi clienti"
-
-#: includes/wcexd-admin-functions.php:292
-msgid "Download your WooCommerce customers list."
-msgstr "Scarica l'elenco aggiornato dei tuoi clienti"
-
-#: includes/wcexd-admin-functions.php:294
-msgid ""
-"In Danea, go to \"Clienti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
-"LibreOffice\" and use the file just created."
-msgstr ""
-"In Danea, vai in \"Clienti/ Utilità\", scegli \"Importa con Excel/OpenOffice/"
-"LibreOffice\" ed utilizza il file appena creato."
-
-#: includes/wcexd-admin-functions.php:315
-msgid "Select the user level of your clients."
-msgstr "Seleziona il livello utente corrispondente ai tuoi clienti."
-
-#: includes/wcexd-admin-functions.php:323
-msgid "Download customers list (.CSV)"
-msgstr "Download elenco clienti (.CSV)"
-
-#: includes/wcexd-admin-functions.php:334
-msgid "Export your WooCommerce orders list."
-msgstr "Esportazione elenco ordini Woocommerce."
-
-#: includes/wcexd-admin-functions.php:335
-msgid "The import of orders in Danea is done by using a xml file."
-msgstr ""
-"L'importazione degli ordini in Danea avviene attraverso l'utilizzo di un "
-"file XML. "
-
-#: includes/wcexd-admin-functions.php:337
-msgid ""
-"Copy the full URL of your feed with your updated WooCommerce orders list"
-msgstr ""
-"Copia l'indirizzo completo del tuo feed con l'elenco ordini WooCommerce "
-"aggiornato."
-
-#: includes/wcexd-admin-functions.php:338
-msgid ""
-"In Danea, choose \"Scarica ordini\" from the menu \"Strumenti/ E-commerce\""
-msgstr "In Danea, scegli \"Scarica ordini\" dal menù \"Strumenti/ E-commerce\""
-
-#: includes/wcexd-admin-functions.php:339
-msgid ""
-"In the next window, paste the URL of your WooCommerce orders list in "
-"\"Impostazioni/ indirizzo...\""
-msgstr ""
-"Nella finestra seguente, incolla l'indirizzo del tuo elenco ordini in in "
-"\"Impostazioni/ Indirizzo...\""
-
-#: includes/wcexd-admin-functions.php:373
-msgid "Please insert your <strong>Premium Key</strong>"
-msgstr "Per cortesia, inserisci la tua <strong>Premium Key</strong>"
-
-#: includes/wcexd-admin-functions.php:379
-msgid "Orders status"
-msgstr "Stato ordini"
-
-#: includes/wcexd-admin-functions.php:381
-msgid "All orders"
-msgstr "Tutti gli ordini"
-
-#: includes/wcexd-admin-functions.php:391
-msgid "Select the order's status that you want to import in Danea"
-msgstr "Seleziona lo stato dell'ordine che desideri importare in Danea"
-
-#: includes/wcexd-admin-functions.php:405
-msgid "Currency Exchange"
-msgstr "Cambio valuta"
-
-#: includes/wcexd-admin-functions.php:409
-msgid "Export orders in euros"
-msgstr "Esporta ordini in euro"
-
-#: includes/wcexd-admin-functions.php:411
-msgid ""
-"Export orders received in dollars into euros using the most recent exchange "
-"rate from the Bank of Italy."
-msgstr ""
-"Esporta in euro gli ordini ricevuti in dollari utilizzando il tasso di "
-"cambio più recente della Banca d'Italia."
-
-#: includes/wcexd-admin-functions.php:415
-msgid "Feed URL"
-msgstr "Feed URL"
-
-#: includes/wcexd-admin-functions.php:418
-msgid ""
-"Add this URL to the <b>Settings</b> tab of the function <b>Download orders</"
-"b> (Ctrl+O) in Danea."
-msgstr ""
-"Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica "
-"ordini</b> (Ctrl+O) di Danea."
-
-#: includes/wcexd-functions.php:799
-msgid "Check for updates"
-msgstr "Verifica aggiornamenti"
-
-#: includes/wcexd-functions.php:816
-msgid ""
-" <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date."
-msgstr ""
-"E' installata l'ultima versione di <strong>WooCommerce Exporter for Danea - "
-"Premium</strong>."
-
-#: includes/wcexd-functions.php:820
-msgid ""
-"A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> "
-"is available."
-msgstr ""
-"E' disponibile una nuova versione di <strong>WooCommerce Exporter for Danea "
-"- Premium</strong>."
-
-#: includes/wcexd-functions.php:824
-msgid "An error occurred, please try again later."
-msgstr ""
-"Si è verificato un errore sconosciuto, si prega di riprovare più tardi."
 
 #~ msgid "Export the tax name instead of the rate."
 #~ msgstr "Esporta il nome dell'imposta e non l'aliquota."
