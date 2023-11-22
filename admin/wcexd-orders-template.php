@@ -11,18 +11,18 @@
 
 <div id="wcexd-ordini" class="wcexd-admin">
 
-    <h3 class="wcexd"><?php _e( 'Export your WooCommerce orders list.', 'wc-exporter-for-danea' ); ?></h3>
+	<h3 class="wcexd"><?php esc_html_e( 'Export your WooCommerce orders list.', 'wc-exporter-for-danea' ); ?></h3>
 
-    <p>
-        <?php _e( 'The import of orders in Danea is done by using a XML file.', 'wc-exporter-for-danea' ); ?>
-        <ul class="wcexd">
-            <li>'<?php _e( 'Copy the full URL of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ); ?></li>
-            <li>'<?php _e( 'In Danea, choose "Scarica ordini" from the menu "Strumenti/ E-commerce"', 'wc-exporter-for-danea' ); ?></li>
-            <li>'<?php _e( 'In the next window, paste the URL of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ); ?></li>
-        <ul>
-        <p><?php _e( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ); ?></p>
-        <a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a>
-    </p>
+	<p>
+		<?php esc_html_e( 'The import of orders in Danea is done by using a XML file.', 'wc-exporter-for-danea' ); ?>
+		<ul class="wcexd">
+			<li>'<?php esc_html_e( 'Copy the full URL of your feed with your updated WooCommerce orders list', 'wc-exporter-for-danea' ); ?></li>
+			<li>'<?php esc_html_e( 'In Danea, choose "Scarica ordini" from the menu "Strumenti/ E-commerce"', 'wc-exporter-for-danea' ); ?></li>
+			<li>'<?php esc_html_e( 'In the next window, paste the URL of your WooCommerce orders list in "Impostazioni/ indirizzo..."', 'wc-exporter-for-danea' ); ?></li>
+		<ul>
+		<p><?php esc_html_e( 'Need more information? Please, visit this page:', 'wc-exporter-for-danea' ); ?></p>
+		<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a>
+	</p>
 
     <form name="wcexd-orders" id="wcexd-orders" class="wcexd-form" method="post" action="">
         <table class="form-table">

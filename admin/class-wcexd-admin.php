@@ -1,59 +1,69 @@
 <?php
 /**
- * Pagina opzioni/ strumenti
+ * Admin options page and functions
  *
  * @author ilGhera
  *
- * @package wc-exporter-for-danea-premium/includes
+ * @package wc-exporter-for-danea-premium/admin
  * @since 1.5.1
  */
 
+defined( 'ABSPATH' ) || exit;
+
+/**
+ * WCEXD_Admin class
+ */
 class WCEXD_Admin {
 
-    public function __construct() {
+	/**
+	 * The constructor
+	 *
+	 * @return void
+	 */
+	public function __construct() {
 
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
         add_action( 'admin_menu', array( $this, 'add_menu' ) );
 
-    }
+	}
 
 
-    /**
-     * Enqueue scripts and styles 
-     *
-     * @return void
-     */
-    public function enqueue_scripts() {
+	/**
+	 * Enqueue scripts and styles
+	 *
+	 * @return void
+	 */
+	public function enqueue_scripts() {
 
-        $screen = get_current_screen();
+		$screen = get_current_screen();
 
-        if ( $screen->id === 'woocommerce_page_wc-exporter-for-danea' ) {
-            
-            /*css*/
-            wp_enqueue_style( 'wcexd-style', WCEXD_URI . 'css/wc-exporter-for-danea.css' );
-            wp_enqueue_style( 'tzcheckbox-style', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.css' );
-            wp_enqueue_style( 'chosen-style', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.min.css' );
+		if ( 'woocommerce_page_wc-exporter-for-danea' === $screen->id ) {
 
-            /*js*/
-            wp_enqueue_script( 'wcexd-admin', WCEXD_URI . 'js/wcexd-admin.js', array( 'jquery' ), '1.0' );
-            wp_enqueue_script( 'tzcheckbox', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.js', array( 'jquery' ) );
-            wp_enqueue_script( 'tzcheckbox-script', WCEXD_URI . 'js/tzCheckbox/js/script.js', array( 'jquery' ) );
-            wp_enqueue_script( 'chosen', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.jquery.min.js' );
+			/*css*/
+			wp_enqueue_style( 'wcexd-style', WCEXD_URI . 'css/wc-exporter-for-danea.css', array(), WCEXD_VERSION );
+			wp_enqueue_style( 'tzcheckbox-style', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.css', array(), WCEXD_VERSION );
+			wp_enqueue_style( 'chosen-style', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.min.css', array(), WCEXD_VERSION );
 
-        }
-    }
+			/*js*/
+			wp_enqueue_script( 'wcexd-admin', WCEXD_URI . 'js/wcexd-admin.js', array( 'jquery' ), WCEXD_VERSION, false );
+			wp_enqueue_script( 'tzcheckbox', WCEXD_URI . 'js/tzCheckbox/jquery.tzCheckbox/jquery.tzCheckbox.js', array( 'jquery' ), WCEXD_VERSION, false );
+			wp_enqueue_script( 'tzcheckbox-script', WCEXD_URI . 'js/tzCheckbox/js/script.js', array( 'jquery' ), WCEXD_VERSION, false );
+			wp_enqueue_script( 'chosen', WCEXD_URI . '/vendor/harvesthq/chosen/chosen.jquery.min.js', array(), WCEXD_VERSION, false );
+
+		}
+	}
 
 
-    /**
-     * Add the submenu
-     *
-     * @return string
-     */
-    public function add_menu() {
+	/**
+	 * Add the submenu
+	 *
+	 * @return void
+	 */
+	public function add_menu() {
 
-        add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', array( $this, 'setup_options_page' ) );
+		add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', array( $this, 'setup_options_page' ) );
 
-    }
+	}
 
 
     /**
@@ -91,62 +101,62 @@ class WCEXD_Admin {
      */
     public function setup_options_page() {
 
-        /* Check current user permissions */
-        if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		/* Check current user permissions */
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 
-            wp_die( __( 'Ops, you have not permissions to do that!', 'wc-exporter-for-danea' ) );
+			wp_die( esc_html__( 'Ops, you have not permissions to do that!', 'wc-exporter-for-danea' ) );
 
-        }
+		}
 
-        /* Start page template */
-        echo '<div class="wrap">';
+		/* Start page template */
+		echo '<div class="wrap">';
 
-            echo '<div class="wrap-left">';
+			echo '<div class="wrap-left">';
 
-                /* Check if WooCommerce is active */
-                if ( ! class_exists( 'WooCommerce' ) ) {
+				/* Check if WooCommerce is active */
+		if ( ! class_exists( 'WooCommerce' ) ) {
 
-                    echo '<div id="message" class="error">';
-                        echo '<p>';
-                            echo '<strong>' . __( 'WARNING! It seems like WooCommerce is not installed.', 'wc-exporter-for-danea' ) . '</strong>';
-                        echo '</p>';
-                    echo '</div>';
+			echo '<div id="message" class="error">';
+				echo '<p>';
+					echo '<strong>' . esc_html__( 'WARNING! It seems like WooCommerce is not installed.', 'wc-exporter-for-danea' ) . '</strong>';
+				echo '</p>';
+			echo '</div>';
 
-                    exit;
+			exit;
 
-                }
+		}
 
-                $this->tab_menu();
+				$this->tab_menu();
 
-                include WCEXD_INCLUDES . 'wc-checkout-fields/templates/wcexd-checkout-template.php';
-                include WCEXD_ADMIN . 'wcexd-suppliers-template.php';
-                include WCEXD_ADMIN . 'wcexd-products-template.php';
-                include WCEXD_ADMIN . 'wcexd-clients-template.php';
-                include WCEXD_ADMIN . 'wcexd-orders-template.php';
+				include WCEXD_INCLUDES . 'wc-checkout-fields/templates/wcexd-checkout-template.php';
+				include WCEXD_ADMIN . 'wcexd-suppliers-template.php';
+				include WCEXD_ADMIN . 'wcexd-products-template.php';
+				include WCEXD_ADMIN . 'wcexd-clients-template.php';
+				include WCEXD_ADMIN . 'wcexd-orders-template.php';
 
-            echo '</div>'; // wrap-left.
+			echo '</div>'; // wrap-left.
 
             echo '<div class="wrap-right">';
                 echo '<iframe width="300" height="1200" scrolling="no" src="http://www.ilghera.com/images/wed-iframe.html"></iframe>';
             echo '</div>'; // wrap-right.
             echo '<div class="clear"></div>';
 
-        echo '</div>'; // wrap.;
+		echo '</div>'; // wrap.
 
-    }
+	}
 
 
-    /**
-     * The tab menu 
-     *
-     * @return void
-     */
-    public function tab_menu() {
+	/**
+	 * The tab menu
+	 *
+	 * @return void
+	 */
+	public function tab_menu() {
 
-        echo '<div id="wcexd-general">';
+		echo '<div id="wcexd-general">';
 
-            /*Header*/
-            echo '<h1 class="wcexd main">' . __( 'Woocommmerce Exporter per Danea', 'wc-exporter-for-danea' ) . '</h1>';
+			/* Header */
+			echo '<h1 class="wcexd main">' . esc_html__( 'Woocommmerce Exporter per Danea', 'wc-exporter-for-danea' ) . '</h1>';
 
         echo '</div>';
 
