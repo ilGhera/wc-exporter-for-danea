@@ -24,33 +24,33 @@
 		<a href="https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm" target="_blank">https://help.danea.it/easyfatt/index.htm#t=Ricezione_ordini_di_acquisto.htm</a>
 	</p>
 
-    <?php
-    global $wp_roles;
-    $roles = $wp_roles->get_names();
-    ?>
-            
-    <!--Form Clienti-->
-    <form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
-        <table class="form-table">
-            <tr>
-				<th scope="row"><?php esc_html_e( 'User role', 'wc-exporter-for-danea' ); ?></th>
-                <td>
-                    <select class="wcexd wcexd-users" name="wcexd-users" form="wcexd-clients-submit">
-                        <?php
-                        foreach ( $roles as $key => $value ) {
-                            echo '<option value="' . esc_attr( $key ) . '"> ' . esc_attr__( $value, 'woocommerce' ) . '</option>';
-                        }
-                        ?>
-                    </select>
-					<p class="description"><?php esc_html_e( 'Select the user level of your clients.', 'wc-exporter-for-danea' ); ?></p>
-                    <?php WCEXD_Admin::go_premium(); ?>
-                </td>
+	<?php
+	global $wp_roles;
+	$roles = $wp_roles->get_names();
+	?>
 
-            </tr>
-        </table>
-        <p class="submit">
-            <input type="submit" name="download_csv" class="button-primary" disabled="disabled" value="<?php _e( 'Download customers list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
-        </p>
-    </form>
+	<!--Form Clienti-->
+	<form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
+		<table class="form-table">
+			<tr>
+				<th scope="row"><?php esc_html_e( 'User role', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<select class="wcexd wcexd-users" name="wcexd-users" form="wcexd-clients-submit">
+						<?php
+						foreach ( $roles as $key => $value ) {
+							echo '<option value="' . esc_attr( $key ) . '"> ' . esc_attr__( $value, 'woocommerce' ) . '</option>';
+						}
+						?>
+					</select>
+					<p class="description"><?php esc_html_e( 'Select the user level of your clients.', 'wc-exporter-for-danea' ); ?></p>
+					<?php WCEXD_Admin::go_premium(); ?>
+				</td>
+
+			</tr>
+		</table>
+		<p class="submit">
+			<input type="submit" name="download_csv" class="button-primary" disabled="disabled" value="<?php esc_html_e( 'Download customers list (.CSV)', 'wc-exporter-for-danea' ); ?>" />
+		</p>
+	</form>
 
 </div>
