@@ -22,8 +22,8 @@ class WCEXD_Admin {
 	 */
 	public function __construct() {
 
-        add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-        add_action( 'admin_menu', array( $this, 'add_menu' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 
 	}
 
@@ -66,40 +66,40 @@ class WCEXD_Admin {
 	}
 
 
-    /**
-     * Go premium button
-     *
-     * @return void
-     */
-    public static function go_premium() {
+	/**
+	 * Go premium button
+	 *
+	 * @return void
+	 */
+	public static function go_premium() {
 
-        $title = __( 'This is a premium functionality, click here for more information', 'wcexd' );
-        $output = '<span class="wcexd label label-warning premium">';
-            $output .= '<a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium" target="_blank" title="' . esc_attr( $title ) . '">Premium</a>';
-        $output .= '</span>';
+		$title       = __( 'This is a premium functionality, click here for more information', 'wcexd' );
+		$output      = '<span class="wcexd label label-warning premium">';
+			$output .= '<a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium" target="_blank" title="' . esc_attr( $title ) . '">Premium</a>';
+		$output     .= '</span>';
 
-        $allowed = array(
-            'span' => array(
-                'class' => [],
-            ),
-            'a'    => array(
-                'target' => [],
-                'title'  => [],
-                'href'   => [],
-            ),
-        );
+		$allowed = array(
+			'span' => array(
+				'class' => array(),
+			),
+			'a'    => array(
+				'target' => array(),
+				'title'  => array(),
+				'href'   => array(),
+			),
+		);
 
-        echo wp_kses( $output, $allowed );
+		echo wp_kses( $output, $allowed );
 
-    }
+	}
 
 
-    /**
-     * The plugin options page 
-     *
-     * @return void
-     */
-    public function setup_options_page() {
+	/**
+	 * The plugin options page
+	 *
+	 * @return void
+	 */
+	public function setup_options_page() {
 
 		/* Check current user permissions */
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
@@ -136,10 +136,10 @@ class WCEXD_Admin {
 
 			echo '</div>'; // wrap-left.
 
-            echo '<div class="wrap-right">';
-                echo '<iframe width="300" height="1200" scrolling="no" src="http://www.ilghera.com/images/wed-iframe.html"></iframe>';
-            echo '</div>'; // wrap-right.
-            echo '<div class="clear"></div>';
+			echo '<div class="wrap-right">';
+				echo '<iframe width="300" height="1200" scrolling="no" src="http://www.ilghera.com/images/wed-iframe.html"></iframe>';
+			echo '</div>'; // wrap-right.
+			echo '<div class="clear"></div>';
 
 		echo '</div>'; // wrap.
 
@@ -158,17 +158,16 @@ class WCEXD_Admin {
 			/* Header */
 			echo '<h1 class="wcexd main">' . esc_html__( 'Woocommmerce Exporter per Danea', 'wc-exporter-for-danea' ) . '</h1>';
 
-        echo '</div>';
+		echo '</div>';
 
-        /* echo '<div class="icon32 icon32-woocommerce-settings" id="icon-woocommerce"><br /></div>'; */
-        echo '<h2 id="wcexd-admin-menu" class="nav-tab-wrapper woo-nav-tab-wrapper">';
-            echo '<a href="#" data-link="wcexd-impostazioni" class="nav-tab nav-tab-active" onclick="return false;">' . __( 'Settings', 'wc-exporter-for-danea' ) . '</a>';
-            echo '<a href="#" data-link="wcexd-fornitori" class="nav-tab" onclick="return false;">' . __( 'Suppliers', 'wc-exporter-for-danea' ) . '</a>';
-            echo '<a href="#" data-link="wcexd-prodotti" class="nav-tab" onclick="return false;">' . __( 'Products', 'wc-exporter-for-danea' ) . '</a>';
-            echo '<a href="#" data-link="wcexd-clienti" class="nav-tab" onclick="return false;">' . __( 'Customers', 'wc-exporter-for-danea' ) . '</a>';
-            echo '<a href="#" data-link="wcexd-ordini" class="nav-tab" onclick="return false;">'. __( 'Orders', 'wc-exporter-for-danea' ) . '</a>';
-        echo '</h2>';
-    }
+		echo '<h2 id="wcexd-admin-menu" class="nav-tab-wrapper woo-nav-tab-wrapper">';
+			echo '<a href="#" data-link="wcexd-impostazioni" class="nav-tab nav-tab-active" onclick="return false;">' . esc_html__( 'Settings', 'wc-exporter-for-danea' ) . '</a>';
+			echo '<a href="#" data-link="wcexd-fornitori" class="nav-tab" onclick="return false;">' . esc_html__( 'Suppliers', 'wc-exporter-for-danea' ) . '</a>';
+			echo '<a href="#" data-link="wcexd-prodotti" class="nav-tab" onclick="return false;">' . esc_html__( 'Products', 'wc-exporter-for-danea' ) . '</a>';
+			echo '<a href="#" data-link="wcexd-clienti" class="nav-tab" onclick="return false;">' . esc_html__( 'Customers', 'wc-exporter-for-danea' ) . '</a>';
+			echo '<a href="#" data-link="wcexd-ordini" class="nav-tab" onclick="return false;">' . esc_html__( 'Orders', 'wc-exporter-for-danea' ) . '</a>';
+		echo '</h2>';
+	}
 
 }
 
