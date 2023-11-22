@@ -108,8 +108,8 @@
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Feed URL', 'wc-exporter-for-danea' ); ?></th>
 				<td>
-					<div class="wcexd-copy-url"><span<?php echo( ! $premium_key ? ' class="wcexd-red"' : null ); ?>><?php echo esc_url( $receive_orders_url ); ?></span></div>
-					<p class="description"><?php esc_html_e( 'Add this URL to the <b>Settings</b> tab of the function <b>Download orders</b> (Ctrl+O) in Danea.', 'wc-exporter-for-danea' ); ?></p>
+					<div class="wcexd-copy-url"><span<?php echo( ! $premium_key ? ' class="wcexd-red"' : null ); ?>><?php echo wp_kses_post( $receive_orders_url ); ?></span></div>
+					<p class="description"><?php echo wp_kses_post( __( 'Add this URL to the <b>Settings</b> tab of the function <b>Download orders</b> (Ctrl+O) in Danea.', 'wc-exporter-for-danea' ) ); ?></p>
 				</td>
 			</tr>
 		</table>                      
