@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
 "POT-Creation-Date: 2023-11-22 11:10+0100\n"
-"PO-Revision-Date: 2023-11-22 11:12+0100\n"
+"PO-Revision-Date: 2023-11-22 11:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -78,7 +78,7 @@ msgstr "Salva"
 
 #: admin/wcexd-clients-template.php:16
 msgid "Export your WooCommerce customers list."
-msgstr "Esportazione elenco clienti WooCommerce"
+msgstr "Esportazione elenco clienti WooCommerce."
 
 #: admin/wcexd-clients-template.php:18
 msgid ""
@@ -89,11 +89,11 @@ msgstr ""
 
 #: admin/wcexd-clients-template.php:20
 msgid "Choose the WordPress user role that identifies your customers."
-msgstr "Scegli il ruolo utente WordPress che identifica i tuoi clienti"
+msgstr "Scegli il ruolo utente WordPress che identifica i tuoi clienti."
 
 #: admin/wcexd-clients-template.php:21
 msgid "Download your WooCommerce customers list."
-msgstr "Scarica l'elenco aggiornato dei tuoi clienti"
+msgstr "Scarica l'elenco aggiornato dei tuoi clienti."
 
 #: admin/wcexd-clients-template.php:22 admin/wcexd-products-template.php:19
 #: admin/wcexd-suppliers-template.php:22
@@ -133,7 +133,7 @@ msgstr "Esportazione elenco ordini Woocommerce."
 msgid "The import of orders in Danea is done by using a XML file."
 msgstr ""
 "L'importazione degli ordini in Danea avviene attraverso l'utilizzo di un "
-"file XML. "
+"file XML."
 
 #: admin/wcexd-orders-template.php:19
 msgid ""
@@ -359,7 +359,7 @@ msgstr "Verifica aggiornamenti"
 msgid ""
 " <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date."
 msgstr ""
-"E' installata l'ultima versione di <strong>WooCommerce Exporter for Danea - "
+" E' installata l'ultima versione di <strong>WooCommerce Exporter for Danea - "
 "Premium</strong>."
 
 #: includes/class-wcexd-functions.php:750
