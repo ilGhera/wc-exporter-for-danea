@@ -25,13 +25,6 @@ defined( 'ABSPATH' ) || exit;
  */
 function load_wc_exporter_for_danea() {
 
-	/* Deactivate the free version of the plugin */
-	if ( function_exists( 'load_wc_exporter_for_danea' ) ) {
-		deactivate_plugins( 'wc-exporter-for-danea/wc-exporter-for-danea.php' );
-		remove_action( 'plugins_loaded', 'load_wc_exporter_for_danea' );
-		wp_safe_redirect( admin_url( 'plugins.php?plugin_status=all&paged=1&s' ) );
-	}
-
 	/* Constant variables */
 	define( 'WCEXD_DIR', plugin_dir_path( __FILE__ ) );
 	define( 'WCEXD_URI', plugin_dir_url( __FILE__ ) );
