@@ -42,14 +42,14 @@ function load_wc_exporter_for_danea() {
 	/* Internationalization */
 	load_plugin_textdomain( 'wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
-	require( WCEXD_ADMIN . 'class-wcexd-admin.php');
-	require( WCEXD_INCLUDES . 'class-wcexd-functions.php');
-	require( WCEXD_INCLUDES . 'class-wcexd-users-download.php');
-	require( WCEXD_INCLUDES . 'class-wcexd-products-download.php');
-	require( WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php');
+	require WCEXD_ADMIN . 'class-wcexd-admin.php';
+	require WCEXD_INCLUDES . 'class-wcexd-functions.php';
+	require WCEXD_INCLUDES . 'class-wcexd-users-download.php';
+	require WCEXD_INCLUDES . 'class-wcexd-products-download.php';
+	require WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php';
 
 }
-add_action( 'plugins_loaded', 'load_wc_exporter_for_danea', 100 );	
+add_action( 'plugins_loaded', 'load_wc_exporter_for_danea', 100 );
 
 /**
  * HPOS compatibility
