@@ -31,7 +31,7 @@
 	$roles = $wp_roles->get_names();
 	?>
 
-	<!--Form Fornitori-->
+	<!-- Suppliers form -->
 	<form name="wcexd-suppliers-submit" id="wcexd-suppliers-submit" class="wcexd-form"  method="post" action="">
 		<table class="form-table">
 			<tr>

@@ -31,7 +31,7 @@
 	$roles = $wp_roles->get_names();
 	?>
 
-	<!--Form Clienti-->
+	<!-- Clients form -->
 	<form name="wcexd-clients-submit" id="wcexd-clients-submit" class="wcexd-form"  method="post" action="">
 		<table class="form-table">
 			<tr>
