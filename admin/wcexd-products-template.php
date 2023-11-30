@@ -24,7 +24,7 @@
 	<a href="https://www.danea.it/software/easyfatt/supporto/import-altri-software/" target="_blank">https://www.danea.it/software/easyfatt/supporto/import-altri-software/</a></p>
 
 	<?php
-    $export_type = get_option( 'wcexd-export-type' );
+	$export_type = get_option( 'wcexd-export-type' );
 	$size_type   = get_option( 'wcexd-size-type' );
 	$weight_type = get_option( 'wcexd-weight-type' );
 	?>
@@ -34,11 +34,11 @@
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Export type', 'wc-exporter-for-danea' ); ?></th>
 				<td>
-                    <select name="wcexd-export-type" class="wcexd">
-                        <option value="all"<?php echo 'all' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Products and variations', 'wc-exporter-for-danea' ); ?></option>
-                        <option value="products"<?php echo 'products' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Only products (no variations)', 'wc-exporter-for-danea' ); ?></option>
-                        <option value="variations"<?php echo 'variations' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Only size/color variations', 'wc-exporter-for-danea' ); ?></option>
-                    </select>
+					<select name="wcexd-export-type" class="wcexd">
+						<option value="all"<?php echo 'all' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Products and variations', 'wc-exporter-for-danea' ); ?></option>
+						<option value="products"<?php echo 'products' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Only products (no variations)', 'wc-exporter-for-danea' ); ?></option>
+						<option value="variations"<?php echo 'variations' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Only size/color variations', 'wc-exporter-for-danea' ); ?></option>
+					</select>
 					<p class="description"><?php echo wp_kses_post( __( 'Select the export type you need.', 'wc-exporter-for-danea' ) ); ?></p>
 				</td>
 			</tr>

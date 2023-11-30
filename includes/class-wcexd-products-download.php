@@ -37,7 +37,7 @@ class WCEXD_Products_Download {
 	public $use_suppliers;
 
 	/**
-	 * Export type 
+	 * Export type
 	 *
 	 * @var string
 	 */
@@ -111,8 +111,8 @@ class WCEXD_Products_Download {
 			$this->weight_type             = isset( $_POST['wcexd-weight-type'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-weight-type'] ) ) : 0;
 			$this->use_sensei              = isset( $_POST['wcexd-sensei'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-sensei'] ) ) : 0;
 
-            /* Export Danea vars */
-            $this->danea_vars = 'variations' === $this->export_type ? true : false;
+			/* Export Danea vars */
+			$this->danea_vars = 'variations' === $this->export_type ? true : false;
 
 			/* Save data */
 			update_option( 'wcexd-use-suppliers', $this->use_suppliers );
@@ -137,8 +137,8 @@ class WCEXD_Products_Download {
 	 */
 	public function create_file() {
 
-        /* Define the file name */
-        $file_name = $this->danea_vars ? 'wcexd-variations-list.csv' : 'wcexd-products-list.csv'; 
+		/* Define the file name */
+		$file_name = $this->danea_vars ? 'wcexd-variations-list.csv' : 'wcexd-products-list.csv';
 
 		/* Start CSV */
 		header( 'Pragma: public' );
@@ -215,17 +215,17 @@ class WCEXD_Products_Download {
 				'Immagine',
 			);
 
-            $variations_list = array(
-                'Cod.',
-                'Descrizione',
-                'Colore',
-                'Taglia',
-                'Cod. a barre',
-                'Q.tà giacenza',
-            );
+			$variations_list = array(
+				'Cod.',
+				'Descrizione',
+				'Colore',
+				'Taglia',
+				'Cod. a barre',
+				'Q.tà giacenza',
+			);
 
-            /* Define the list to use */
-            $list = $this->danea_vars ? $variations_list : $products_list;
+			/* Define the list to use */
+			$list = $this->danea_vars ? $variations_list : $products_list;
 
 			fputcsv( $this->fp, $list );
 
@@ -250,8 +250,8 @@ class WCEXD_Products_Download {
 			'limit'  => -1,
 		);
 
-        /* Define the products type to get */
-        $args['type'] = $this->danea_vars ? array( 'variable' ) : array( 'simple', 'variable' );
+		/* Define the products type to get */
+		$args['type'] = $this->danea_vars ? array( 'variable' ) : array( 'simple', 'variable' );
 
 		$products = wc_get_products( $args );
 
@@ -259,63 +259,59 @@ class WCEXD_Products_Download {
 
 			foreach ( $products as $product ) {
 
-                /* Don't export parent products withs Danea variations */
-                if ( ! $this->danea_vars ) {
+				/* Don't export parent products withs Danea variations */
+				if ( ! $this->danea_vars ) {
 
-                    $this->prepare_single_product_data( $product );
+					$this->prepare_single_product_data( $product );
 
-                }
+				}
 
-                /* Don't export variations if not required */
-                if ( 'products' !== $this->export_type ) {
+				/* Don't export variations if not required */
+				if ( 'products' !== $this->export_type ) {
 
-                    $variations = $product->get_children();
+					$variations = $product->get_children();
 
-                    if ( $variations ) {
+					if ( $variations ) {
 
-                        foreach ( $variations as $var_id ) {
+						foreach ( $variations as $var_id ) {
 
-                            $variation = wc_get_product( $var_id );
+							$variation = wc_get_product( $var_id );
 
-                            if ( $this->danea_vars ) {
+							if ( $this->danea_vars ) {
 
-                                $this->prepare_single_variation_data( $variation );
+								$this->prepare_single_variation_data( $variation );
 
-                            } else {
+							} else {
 
-                                $this->prepare_single_product_data( $variation, true );
+								$this->prepare_single_product_data( $variation, true );
 
-                            }
-
-                        }
-
-                    }
-
-                }
-
+							}
+						}
+					}
+				}
 			}
 		}
 
 	}
 
 
-    /**
-     * Check if the product/variation is a Danea size/color var
-     * Both with parent and child product
-     *
+	/**
+	 * Check if the product/variation is a Danea size/color var
+	 * Both with parent and child product
+	 *
 	 * @param object $product the WC product/variation.
-     *
-     * @return bool
-     */
-    public function is_danea_variation( $product ) {
+	 *
+	 * @return bool
+	 */
+	public function is_danea_variation( $product ) {
 
-        if ( $product->get_attribute( 'color' ) || $product->get_attribute( 'size' ) ) {
+		if ( $product->get_attribute( 'color' ) || $product->get_attribute( 'size' ) ) {
 
-            return true;
+			return true;
 
-        }
+		}
 
-    }
+	}
 
 
 	/**
@@ -327,15 +323,15 @@ class WCEXD_Products_Download {
 	 */
 	public function prepare_single_variation_data( $variation ) {
 
-        /* Do not export other variations */
-        if ( ! $this->is_danea_variation( $variation ) ) {
-            return;
-        }
+		/* Do not export other variations */
+		if ( ! $this->is_danea_variation( $variation ) ) {
+			return;
+		}
 
-        /* The product parent data */
-        $parent_data   = $variation->get_parent_id() ? $variation->get_parent_data() : array();
-        $parent_status = isset( $parent_data['status'] ) ? $parent_data['status'] : null;
-        $parent_code   = isset( $parent_data['sku'] ) ? $parent_data['sku'] : $variation->get_parent_id();
+		/* The product parent data */
+		$parent_data   = $variation->get_parent_id() ? $variation->get_parent_data() : array();
+		$parent_status = isset( $parent_data['status'] ) ? $parent_data['status'] : null;
+		$parent_code   = isset( $parent_data['sku'] ) ? $parent_data['sku'] : $variation->get_parent_id();
 
 		/* Do not export variations of products not published */
 		if ( 'publish' !== $parent_status ) {
@@ -343,22 +339,22 @@ class WCEXD_Products_Download {
 		}
 
 		/* The product code to use in Danea */
-		$variation_code  = $variation->get_sku() ? $variation->get_sku() : $variation->get_id();
+		$variation_code = $variation->get_sku() ? $variation->get_sku() : $variation->get_id();
 
-        $details = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_attributes() ) );
+		$details = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_attributes() ) );
 
-        $data = array(
-            $parent_code,
+		$data = array(
+			$parent_code,
 			/* Translators: 1. The product title 2. The variable attributes */
 			sprintf( '%1$s%2$s', $variation->get_title(), $details ),
-            $variation->get_attribute( 'color' ),
-            $variation->get_attribute( 'size' ),
-            $variation_code,
+			$variation->get_attribute( 'color' ),
+			$variation->get_attribute( 'size' ),
+			$variation_code,
 			$variation->get_stock_quantity(),
-        );
+		);
 
 		fputcsv( $this->fp, $data );
-    }
+	}
 
 
 	/**
@@ -419,11 +415,11 @@ class WCEXD_Products_Download {
 		/* Manage stock */
 		if ( $product->get_manage_stock() ) {
 
-            /* Previously imported from Danea Easyfatt */
+			/* Previously imported from Danea Easyfatt */
 			$product_type = $product->get_meta( 'wcifd-danea-size-color', true ) ? 'Art. con magazzino (taglie/colori)' : 'Art. con magazzino';
 
-            /* Variations with size and/or color */
-            $product_type = $this->is_danea_variation( $product ) ? 'Art. con magazzino (taglie/colori)' : $product_type;
+			/* Variations with size and/or color */
+			$product_type = $this->is_danea_variation( $product ) ? 'Art. con magazzino (taglie/colori)' : $product_type;
 
 		} else {
 
@@ -489,15 +485,15 @@ class WCEXD_Products_Download {
 
 		$details = null;
 
-        /* Variation details */
+		/* Variation details */
 		if ( $is_variation ) {
 
 			$details = ' | ' . implode( ' - ', array_map( 'ucfirst', $product->get_attributes() ) );
 
 		}
 
-        /* Code in Notes */
-        $notes = 'all' === $this->export_type ? $this->functions->get_product_notes( $product, $is_variation ) : null;
+		/* Code in Notes */
+		$notes = 'all' === $this->export_type ? $this->functions->get_product_notes( $product, $is_variation ) : null;
 
 		$data = array(
 			$product_code,
