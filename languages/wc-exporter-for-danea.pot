@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2023-11-22 11:10+0100\n"
+"POT-Creation-Date: 2023-11-30 18:44+0100\n"
 "PO-Revision-Date: 2016-05-26 13:25+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr__;esc_attr_e\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:141 admin/wcexd-products-template.php:34
+#: admin/class-wcexd-admin.php:141 admin/wcexd-products-template.php:67
 msgid "Suppliers"
 msgstr ""
 
@@ -157,15 +157,15 @@ msgstr ""
 msgid "Select the order's status that you want to import in Danea"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:89 admin/wcexd-products-template.php:50
+#: admin/wcexd-orders-template.php:89 admin/wcexd-products-template.php:83
 msgid "Tax name"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:93 admin/wcexd-products-template.php:54
+#: admin/wcexd-orders-template.php:93 admin/wcexd-products-template.php:87
 msgid "Export the tax name instead of the rate"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:95 admin/wcexd-products-template.php:56
+#: admin/wcexd-orders-template.php:95 admin/wcexd-products-template.php:89
 msgid ""
 "Recommended option if the tax rates were imported from Danea Easyfatt "
 "previously."
@@ -219,69 +219,75 @@ msgid ""
 "LibreOffice\" and use the file just created."
 msgstr ""
 
-#: admin/wcexd-products-template.php:44
-msgid "Use the product author as supplier"
+#: admin/wcexd-products-template.php:35
+msgid "Export type"
+msgstr ""
+
+#: admin/wcexd-products-template.php:38
+msgid "Products and variations"
+msgstr ""
+
+#: admin/wcexd-products-template.php:39
+msgid "Only products (no variations)"
+msgstr ""
+
+#: admin/wcexd-products-template.php:40
+msgid "Only size/color variations"
+msgstr ""
+
+#: admin/wcexd-products-template.php:42
+msgid "Select the export type you need."
+msgstr ""
+
+#: admin/wcexd-products-template.php:46
+msgid "Products measures"
+msgstr ""
+
+#: admin/wcexd-products-template.php:49
+msgid "Gross measures"
+msgstr ""
+
+#: admin/wcexd-products-template.php:50
+msgid "Net measures"
+msgstr ""
+
+#: admin/wcexd-products-template.php:52
+msgid ""
+"Choose if the exported values will be used in Danea as gross or net measures."
+msgstr ""
+
+#: admin/wcexd-products-template.php:57
+msgid "Product weight"
 msgstr ""
 
 #: admin/wcexd-products-template.php:60
-msgid "Danea sizes and color"
+msgid "Gross weight"
 msgstr ""
 
-#: admin/wcexd-products-template.php:70
-msgid "Exclude sizes and colors"
+#: admin/wcexd-products-template.php:61
+msgid "Net weight"
 msgstr ""
 
-#: admin/wcexd-products-template.php:73
+#: admin/wcexd-products-template.php:63
 msgid ""
-"The Danea sizes and colors variations, transferred previously in "
-"WooCommerce, cannot be imported with a file. Do you want to exclude them?"
+"Choose if the value exported will be used in Danea as gross or net weight."
 msgstr ""
 
-#: admin/wcexd-products-template.php:78
+#: admin/wcexd-products-template.php:77
+msgid "Use the product author as supplier"
+msgstr ""
+
+#: admin/wcexd-products-template.php:94
 msgid "Sensei"
 msgstr ""
 
-#: admin/wcexd-products-template.php:88
+#: admin/wcexd-products-template.php:104
 msgid ""
 "If you're using Woothemes Sensei, you may want to link every WooCommerce "
 "product with the Teacher of the course associate."
 msgstr ""
 
-#: admin/wcexd-products-template.php:96
-msgid "Products measures"
-msgstr ""
-
-#: admin/wcexd-products-template.php:99
-msgid "Gross measures"
-msgstr ""
-
-#: admin/wcexd-products-template.php:100
-msgid "Net measures"
-msgstr ""
-
-#: admin/wcexd-products-template.php:102
-msgid ""
-"Choose if the exported values will be used in Danea as gross or net measures."
-msgstr ""
-
-#: admin/wcexd-products-template.php:107
-msgid "Product weight"
-msgstr ""
-
-#: admin/wcexd-products-template.php:110
-msgid "Gross weight"
-msgstr ""
-
-#: admin/wcexd-products-template.php:111
-msgid "Net weight"
-msgstr ""
-
-#: admin/wcexd-products-template.php:113
-msgid ""
-"Choose if the value exported will be used in Danea as gross or net weight."
-msgstr ""
-
-#: admin/wcexd-products-template.php:122
+#: admin/wcexd-products-template.php:117
 msgid "Download products list (.CSV)"
 msgstr ""
 
@@ -357,66 +363,66 @@ msgstr ""
 msgid "You have not set up a license key and you cannot receive updates."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:66
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:119
 msgid "VAT Number"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:67
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:120
 msgid "Fiscal code"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:68
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:121
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:166
 msgid "PEC"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:69
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:122
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:175
 msgid "Recipient code"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:92
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:145
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:118
 msgid "Private ( Receipt )"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:96
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:149
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:112
 msgid "Private ( Invoice )"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:100
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:153
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:106
 msgid "Company ( Invoice )"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:111
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:164
 msgid "Fiscal document"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:379
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:419
 msgid "WARNING! It seems like the <strong>PEC</strong> entered is not correct."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:390
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:430
 msgid ""
 "WARNING! It seems like the <strong>Fiscal Code</strong> entered is not "
 "correct."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:404
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:443
 msgid ""
 "WARNING! It seems like the <strong>VAT Number</strong> entered is not "
 "correct."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:418
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:456
 msgid "WARNING! The <strong>Recipient Code</strong> entered is incorrect."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:500
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:557
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:580
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:536
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:591
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:614
 msgid "Billing information"
 msgstr ""
 
