@@ -331,17 +331,25 @@ class WCEXD_Products_Download {
 		/* The product parent data */
 		$parent_data   = $variation->get_parent_id() ? $variation->get_parent_data() : array();
 		$parent_status = isset( $parent_data['status'] ) ? $parent_data['status'] : null;
-		$parent_code   = isset( $parent_data['sku'] ) ? $parent_data['sku'] : $variation->get_parent_id();
+		$parent_code   = isset( $parent_data['sku'] ) && $parent_data['sku'] ? $parent_data['sku'] : $variation->get_parent_id();
 
 		/* Do not export variations of products not published */
 		if ( 'publish' !== $parent_status ) {
 			return;
 		}
 
+		$details  = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_attributes() ) );
+
 		/* The product code to use in Danea */
 		$variation_code = $variation->get_sku() ? $variation->get_sku() : $variation->get_id();
 
-		$details = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_attributes() ) );
+        /* Generate the variation sku if necessary */
+        if ( is_int( $variation_code ) ) {
+
+            /* Translators: 1 The product ID. 2 The size attr. 3 The color attr. */
+            $variation_code =  sprintf( '%1d/%2$s/%3$s', $variation_code, $variation->get_attribute( 'size' ), $variation->get_attribute( 'color' ) );
+
+        }
 
 		$data = array(
 			$parent_code,
