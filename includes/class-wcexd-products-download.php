@@ -338,18 +338,18 @@ class WCEXD_Products_Download {
 			return;
 		}
 
-		$details  = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_attributes() ) );
+		$details = ' | ' . implode( ' - ', array_map( 'ucfirst', $variation->get_attributes() ) );
 
 		/* The product code to use in Danea */
 		$variation_code = $variation->get_sku() ? $variation->get_sku() : $variation->get_id();
 
-        /* Generate the variation sku if necessary */
-        if ( is_int( $variation_code ) ) {
+		/* Generate the variation sku if necessary */
+		if ( is_int( $variation_code ) ) {
 
-            /* Translators: 1 The product ID. 2 The size attr. 3 The color attr. */
-            $variation_code =  sprintf( '%1d/%2$s/%3$s', $variation_code, $variation->get_attribute( 'size' ), $variation->get_attribute( 'color' ) );
+			/* Translators: 1 The product ID. 2 The size attr. 3 The color attr. */
+			$variation_code = sprintf( '%1d/%2$s/%3$s', $variation_code, $variation->get_attribute( 'size' ), $variation->get_attribute( 'color' ) );
 
-        }
+		}
 
 		$data = array(
 			$parent_code,
