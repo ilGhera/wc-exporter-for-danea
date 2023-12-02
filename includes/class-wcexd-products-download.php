@@ -420,21 +420,6 @@ class WCEXD_Products_Download {
 		$get_regular_price = $product->get_regular_price();
 		$get_sale_price    = $product->get_sale_price();
 
-		/* Manage stock */
-		if ( $product->get_manage_stock() ) {
-
-			/* Previously imported from Danea Easyfatt */
-			$product_type = $product->get_meta( 'wcifd-danea-size-color', true ) ? 'Art. con magazzino (taglie/colori)' : 'Art. con magazzino';
-
-			/* Variations with size and/or color */
-			$product_type = $this->is_danea_variation( $product ) ? 'Art. con magazzino (taglie/colori)' : $product_type;
-
-		} else {
-
-			$product_type = 'Articolo';
-
-		}
-
 		/* Set the price format */
 		$regular_price = $get_regular_price ? round( $get_regular_price, 2 ) : $get_regular_price;
 		$regular_price = str_replace( '.', ',', $regular_price );
@@ -464,7 +449,7 @@ class WCEXD_Products_Download {
 			$product_code,
 			/* Translators: 1. The product title 2. The variable attributes */
 			sprintf( '%1$s%2$s', $product->get_title(), $details ),
-			$product_type,
+			$this->get_the_product_type( $product ),
 			$product_category_cat,
 			$product_category_sub,
 			'',
@@ -528,6 +513,35 @@ class WCEXD_Products_Download {
 		fputcsv( $this->fp, $data );
 
 	}
+
+
+    /**
+     * Define the product type to use in Danea Easyfatt
+     *
+     * @param $object $product the WC product.
+     *
+     * @return string
+     */
+    public function get_the_product_type( $product ) {
+
+		/* Manage stock */
+		if ( $product->get_manage_stock() ) {
+
+			/* Previously imported from Danea Easyfatt */
+			$product_type = $product->get_meta( 'wcifd-danea-size-color', true ) ? 'Art. con magazzino (taglie/colori)' : 'Art. con magazzino';
+
+			/* Variations with size and/or color */
+			$product_type = $this->is_danea_variation( $product ) ? 'Art. con magazzino (taglie/colori)' : $product_type;
+
+		} else {
+
+			$product_type = 'Articolo';
+
+		}
+
+        return $product_type;
+
+    }
 
 
 	/**
