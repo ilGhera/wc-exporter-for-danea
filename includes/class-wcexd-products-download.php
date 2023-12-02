@@ -446,49 +446,6 @@ class WCEXD_Products_Download {
 
 		}
 
-		/* Weight and measures */
-		$weight_unit       = get_option( 'woocommerce_weight_unit' );
-		$this->weight_type = get_option( 'wcexd-weight-type' );
-		$weight            = $product->get_weight();
-		$gross_weight      = null;
-		$net_weight        = null;
-
-		if ( 'net-weight' === $this->weight_type ) {
-
-			$net_weight = number_format( floatval( $weight ), 2, ',', '' );
-
-		} else {
-
-			$gross_weight = number_format( floatval( $weight ), 2, ',', '' );
-
-		}
-
-		$size_unit       = get_option( 'woocommerce_dimension_unit' );
-		$this->size_type = get_option( 'wcexd-size-type' );
-		$width           = number_format( floatval( $product->get_width() ), 2, ',', '' );
-		$height          = number_format( floatval( $product->get_height() ), 2, ',', '' );
-		$length          = number_format( floatval( $product->get_length() ), 2, ',', '' );
-		$net_width       = null;
-		$net_height      = null;
-		$net_length      = null;
-		$gross_width     = null;
-		$gross_height    = null;
-		$gross_length    = null;
-
-		if ( 'net-size' === $this->size_type ) {
-
-			$net_width  = $width;
-			$net_height = $height;
-			$net_length = $length;
-
-		} else {
-
-			$gross_width  = $width;
-			$gross_height = $height;
-			$gross_length = $length;
-
-		}
-
 		$tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? $this->functions->get_tax_rate( $product, 'name' ) : $this->functions->get_tax_rate( $product );
 
 		$details = null;
@@ -553,23 +510,81 @@ class WCEXD_Products_Download {
 			'',
 			'',
 			'',
-			$size_unit,
-			$net_width,
-			$net_height,
-			$net_length,
+			get_option( 'woocommerce_dimension_unit' ),
+			$this->get_the_product_measures( $product, 'net_width' ),
+			$this->get_the_product_measures( $product, 'net_height' ),
+			$this->get_the_product_measures( $product, 'net_length' ),
 			'',
-			$gross_width,
-			$gross_height,
-			$gross_length,
+			$this->get_the_product_measures( $product, 'gross_width' ),
+			$this->get_the_product_measures( $product, 'gross_height' ),
+			$this->get_the_product_measures( $product, 'gross_length' ),
 			'',
-			$weight_unit,
-			$net_weight,
-			$gross_weight,
+			get_option( 'woocommerce_weight_unit' ),
+			$this->get_the_product_measures( $product, 'net_weight' ),
+			$this->get_the_product_measures( $product, 'gross_weight' ),
 			'',
 		);
 
 		fputcsv( $this->fp, $data );
 
+	}
+
+
+	/**
+	 * Get the product width, length and wight
+	 *
+	 * @param object $product the WC product.
+	 * @param tring  $data    the data to return.
+	 *
+	 * @return array
+	 */
+	public function get_the_product_measures( $product, $data ) {
+
+		$output = array();
+
+		/* Weight */
+		$this->weight_type      = get_option( 'wcexd-weight-type' );
+		$weight                 = $product->get_weight();
+		$output['gross_weight'] = null;
+		$output['net_weight']   = null;
+
+		if ( 'net-weight' === $this->weight_type ) {
+
+			$output['net_weight'] = number_format( floatval( $weight ), 2, ',', '' );
+
+		} else {
+
+			$output['gross_weight'] = number_format( floatval( $weight ), 2, ',', '' );
+
+		}
+
+		/* Measures */
+		$this->size_type        = get_option( 'wcexd-size-type' );
+		$width                  = number_format( floatval( $product->get_width() ), 2, ',', '' );
+		$height                 = number_format( floatval( $product->get_height() ), 2, ',', '' );
+		$length                 = number_format( floatval( $product->get_length() ), 2, ',', '' );
+		$output['net_width']    = null;
+		$output['net_height']   = null;
+		$output['net_length']   = null;
+		$output['gross_width']  = null;
+		$output['gross_height'] = null;
+		$output['gross_length'] = null;
+
+		if ( 'net-size' === $this->size_type ) {
+
+			$output['net_width']  = $width;
+			$output['net_height'] = $height;
+			$output['net_length'] = $length;
+
+		} else {
+
+			$output['gross_width']    = $width;
+			$output['grgross_height'] = $height;
+			$output['grgross_length'] = $length;
+
+		}
+
+		return isset( $output[ $data ] ) ? $output[ $data ] : null;
 	}
 
 }
