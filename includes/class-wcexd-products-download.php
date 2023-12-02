@@ -578,9 +578,9 @@ class WCEXD_Products_Download {
 
 		} else {
 
-			$output['gross_width']    = $width;
-			$output['grgross_height'] = $height;
-			$output['grgross_length'] = $length;
+			$output['gross_width']  = $width;
+			$output['gross_height'] = $height;
+			$output['gross_length'] = $length;
 
 		}
 
