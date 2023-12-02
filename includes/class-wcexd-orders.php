@@ -258,7 +258,7 @@ class WCEXD_Orders {
 	public function feed_single_item_details( $writer, $order, $item ) {
 
 		$product      = wc_get_product( $item->get_product_id() );
-        $code         = $product->get_sku() ? $product->get_sku() : $product->get_id();
+		$code         = $product->get_sku() ? $product->get_sku() : $product->get_id();
 		$variation_id = $item->get_variation_id();
 		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
 		$quantity     = $item->get_quantity();
@@ -269,7 +269,7 @@ class WCEXD_Orders {
 		$um           = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : 'pz';
 
 		$writer->startElement( 'Row' );
-        $writer->writeElement( 'Code', $code );
+		$writer->writeElement( 'Code', $code );
 		$writer->writeElement( 'Description', wp_kses_post( wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) ) );
 
 		if ( $variation_id ) {
@@ -289,8 +289,7 @@ class WCEXD_Orders {
 				$writer->writeElement( 'Color', $attr_color );
 
 			}
-
-        }
+		}
 
 		$writer->writeElement( 'Qty', $quantity ); // Temp.
 		$writer->writeElement( 'Um', $um );
