@@ -388,22 +388,6 @@ class WCEXD_Products_Download {
 		$product_category_cat = isset( $product_category['cat'] ) ? $product_category['cat'] : null;
 		$product_category_sub = isset( $product_category['sub'] ) ? $product_category['sub'] : null;
 
-		$regular_price     = null;
-		$sale_price        = null;
-		$get_regular_price = $product->get_regular_price();
-		$get_sale_price    = $product->get_sale_price();
-
-		/* Set the price format */
-		$regular_price = $get_regular_price ? round( $get_regular_price, 2 ) : $get_regular_price;
-		$regular_price = str_replace( '.', ',', $regular_price );
-
-		if ( $get_sale_price ) {
-
-			$sale_price = round( $get_sale_price, 2 );
-			$sale_price = str_replace( '.', ',', $sale_price );
-
-		}
-
 		$tax_rate = 1 === intval( $this->wcexd_products_tax_name ) ? $this->functions->get_tax_rate( $product, 'name' ) : $this->functions->get_tax_rate( $product );
 
 		$details = null;
@@ -427,8 +411,8 @@ class WCEXD_Products_Download {
 			$product_category_sub,
 			'',
 			$tax_rate,
-			$regular_price,
-			$sale_price,
+			$this->get_product_price( $product ),
+			$this->get_product_price( $product, 'sale' ),
 			'',
 			'',
 			'',
@@ -513,6 +497,37 @@ class WCEXD_Products_Download {
 		}
 
         return $product_type;
+
+    }
+
+
+    /**
+     * Get the regular and sale product price
+     *
+     * @param $object $product the WC product.
+     * @param string  $data    the data to return.
+     *
+     * @return string
+     */
+    public function get_product_price( $product, $data = 'regular' ) {
+
+		$regular_price     = null;
+		$sale_price        = null;
+		$get_regular_price = $product->get_regular_price();
+		$get_sale_price    = $product->get_sale_price();
+
+		/* Set the price format */
+		$regular_price = $get_regular_price ? round( $get_regular_price, 2 ) : $get_regular_price;
+		$regular_price = str_replace( '.', ',', $regular_price );
+
+		if ( $get_sale_price ) {
+
+			$sale_price = round( $get_sale_price, 2 );
+			$sale_price = str_replace( '.', ',', $sale_price );
+
+		}
+
+        return 'regular' === $data ? $regular_price : $sale_price;
 
     }
 
