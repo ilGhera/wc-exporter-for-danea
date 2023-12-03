@@ -24,12 +24,45 @@
 	<a href="https://www.danea.it/software/easyfatt/supporto/import-altri-software/" target="_blank">https://www.danea.it/software/easyfatt/supporto/import-altri-software/</a></p>
 
 	<?php
+	$export_type = get_option( 'wcexd-export-type' );
 	$size_type   = get_option( 'wcexd-size-type' );
 	$weight_type = get_option( 'wcexd-weight-type' );
 	?>
 
 	<form name="wcexd-products-submit" id="wcexd-products-submit" class="wcexd-form"  method="post" action="">
 		<table class="form-table">
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Export type', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<select name="wcexd-export-type" class="wcexd">
+						<option value="all"<?php echo 'all' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Products and variations', 'wc-exporter-for-danea' ); ?></option>
+						<option value="products"<?php echo 'products' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Only products (no variations)', 'wc-exporter-for-danea' ); ?></option>
+						<option value="variations"<?php echo 'variations' === $export_type ? ' selected="selected"' : null; ?>><?php esc_html_e( 'Only size/color variations', 'wc-exporter-for-danea' ); ?></option>
+					</select>
+					<p class="description"><?php echo wp_kses_post( __( 'Select the export type you need.', 'wc-exporter-for-danea' ) ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Products measures', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<select name="wcexd-size-type" class="wcexd">
+						<option value="gross-size"<?php echo( 'gross-size' === $size_type ) ? ' selected="selected"' : ''; ?>><?php esc_html_e( 'Gross measures', 'wc-exporter-for-danea' ); ?></option>
+						<option value="net-size"<?php echo( 'net-size' === $size_type ) ? ' selected="selected"' : ''; ?>><?php esc_html_e( 'Net measures', 'wc-exporter-for-danea' ); ?></option>
+					</select>
+					<p class="description"><?php esc_html_e( 'Choose if the exported values will be used in Danea as gross or net measures.', 'wc-exporter-for-danea' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Product weight', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<select name="wcexd-weight-type" class="wcexd">
+						<option value="gross-weight"<?php echo 'gross-weight' === $weight_type ? 'selected="selected"' : null; ?>><?php esc_html_e( 'Gross weight', 'wc-exporter-for-danea' ); ?></option>
+						<option value="net-weight"<?php echo 'net-weight' === $weight_type ? 'selected="selected"' : null; ?>><?php esc_html_e( 'Net weight', 'wc-exporter-for-danea' ); ?></option>
+					</select>
+					<p class="description"><?php esc_html_e( 'Choose if the value exported will be used in Danea as gross or net weight.', 'wc-exporter-for-danea' ); ?></p>
+				</td>
+			</tr>
 			<tr>
 				<th scope="row"><?php esc_html_e( 'Suppliers', 'wc-exporter-for-danea' ); ?></th>
 				<td>
@@ -56,23 +89,6 @@
 					<p class="description"><?php esc_html_e( 'Recommended option if the tax rates were imported from Danea Easyfatt previously.', 'wc-exporter-for-danea' ); ?></p>
 				</td>
 			</tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Danea sizes and color', 'wc-exporter-for-danea' ); ?></th>
-				<td>
-					<fieldset>
-						<label for="wcexd-exclude-danea-vars">
-							<input type="checkbox" class="wcexd-exclude-danea-vars" name="wcexd-exclude-danea-vars" value="1" 
-							<?php
-							if ( 1 === intval( get_option( 'wcexd-exclude-danea-vars' ) ) ) {
-								echo 'checked="checked"'; }
-							?>
-							>
-							<?php esc_html_e( 'Exclude sizes and colors', 'wc-exporter-for-danea' ); ?>
-						</label>
-					</fieldset>
-					<p class="description"><?php echo wp_kses_post( __( 'The Danea sizes and colors variations, transferred previously in WooCommerce, cannot be imported with a file. Do you want to exclude them?', 'wc-exporter-for-danea' ) ); ?></p>
-				</td>
-			</tr>
 			<?php if ( class_exists( 'WooThemes_Sensei' ) ) { ?>
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Sensei', 'wc-exporter-for-danea' ); ?></th>
@@ -92,27 +108,6 @@
 				</tr>
 			<?php } ?>
 
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Products measures', 'wc-exporter-for-danea' ); ?></th>
-				<td>
-					<select name="wcexd-size-type" class="wcexd">
-						<option value="gross-size"<?php echo( 'gross-size' === $size_type ) ? ' selected="selected"' : ''; ?>><?php esc_html_e( 'Gross measures', 'wc-exporter-for-danea' ); ?></option>
-						<option value="net-size"<?php echo( 'net-size' === $size_type ) ? ' selected="selected"' : ''; ?>><?php esc_html_e( 'Net measures', 'wc-exporter-for-danea' ); ?></option>
-					</select>
-					<p class="description"><?php esc_html_e( 'Choose if the exported values will be used in Danea as gross or net measures.', 'wc-exporter-for-danea' ); ?></p>
-				</td>
-			</tr>
-			<tr>
-			<tr>
-				<th scope="row"><?php esc_html_e( 'Product weight', 'wc-exporter-for-danea' ); ?></th>
-				<td>
-					<select name="wcexd-weight-type" class="wcexd">
-						<option value="gross-weight"<?php echo( 'gross-weight' === $weight_type ) ? 'selected="selected"' : ''; ?>><?php esc_html_e( 'Gross weight', 'wc-exporter-for-danea' ); ?></option>
-						<option value="net-weight"<?php echo( 'net-weight' === $weight_type ) ? 'selected="selected"' : ''; ?>><?php esc_html_e( 'Net weight', 'wc-exporter-for-danea' ); ?></option>
-					</select>
-					<p class="description"><?php esc_html_e( 'Choose if the value exported will be used in Danea as gross or net weight.', 'wc-exporter-for-danea' ); ?></p>
-				</td>
-			</tr>
 		</table>
 
 		<?php wp_nonce_field( 'wcexd-products-submit', 'wcexd-products-nonce' ); ?>
