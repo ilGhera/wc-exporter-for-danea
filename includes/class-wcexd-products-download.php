@@ -388,33 +388,6 @@ class WCEXD_Products_Download {
 		$product_category_cat = isset( $product_category['cat'] ) ? $product_category['cat'] : null;
 		$product_category_sub = isset( $product_category['sub'] ) ? $product_category['sub'] : null;
 
-		/* Check if Sensei is active */
-		$id_supplier      = null;
-		$course_author_id = $this->functions->get_sensei_author( $product->get_id() );
-
-		if ( $this->use_sensei && $course_author_id ) {
-
-			$id_supplier = $course_author_id;
-
-		} elseif ( $this->use_suppliers ) {
-
-			$id_supplier = get_post_field( 'post_author', $product->get_id() );
-
-		}
-
-		/* Supplier name (post author) */
-		$supplier_name = null;
-
-		if ( $id_supplier ) {
-
-			$supplier_name = sprintf( '%1$s %2$s', get_user_meta( $id_supplier, 'billing_first_name', true ), get_user_meta( $id_supplier, 'billing_last_name', true ) );
-			$company_name  = get_user_meta( $id_supplier, 'billing_company', true );
-
-			/* Use the company name if exists */
-			$supplier_name = $company_name ? $company_name : $supplier_name;
-
-		}
-
 		$regular_price     = null;
 		$sale_price        = null;
 		$get_regular_price = $product->get_regular_price();
@@ -470,8 +443,8 @@ class WCEXD_Products_Download {
 			'',
 			'',
 			'',
-			$id_supplier,
-			$supplier_name,
+			$this->get_supplier_info( $product ),
+			$this->get_supplier_info( $product, 'name' ),
 			'',
 			'',
 			'',
@@ -544,13 +517,56 @@ class WCEXD_Products_Download {
     }
 
 
+    /**
+     * Get the product supplier ID and name
+     *
+     * @param object $product the WC product.
+     * @param string $data    the data to return.
+     *
+     * @return mixed
+     */
+    public function get_supplier_info( $product, $data = 'id' ) {
+
+		$id_supplier = null;
+
+		/* Check if Sensei is active */
+		$course_author_id = $this->functions->get_sensei_author( $product->get_id() );
+
+		if ( $this->use_sensei && $course_author_id ) {
+
+			$id_supplier = $course_author_id;
+
+		} elseif ( $this->use_suppliers ) {
+
+			$id_supplier = get_post_field( 'post_author', $product->get_id() );
+
+		}
+
+		/* Supplier name (post author) */
+		$supplier_name = null;
+
+		if ( $id_supplier ) {
+
+			$supplier_name = sprintf( '%1$s %2$s', get_user_meta( $id_supplier, 'billing_first_name', true ), get_user_meta( $id_supplier, 'billing_last_name', true ) );
+			$company_name  = get_user_meta( $id_supplier, 'billing_company', true );
+
+			/* Use the company name if exists */
+			$supplier_name = $company_name ? $company_name : $supplier_name;
+
+		}
+
+        return 'id' === $data ? $id_supplier : $supplier_name;
+
+    }
+
+
 	/**
 	 * Get the product width, length and wight
 	 *
 	 * @param object $product the WC product.
 	 * @param tring  $data    the data to return.
 	 *
-	 * @return array
+	 * @return float
 	 */
 	public function get_the_product_measures( $product, $data ) {
 
