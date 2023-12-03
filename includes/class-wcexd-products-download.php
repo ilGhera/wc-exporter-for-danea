@@ -3,9 +3,9 @@
  * Products download
  *
  * @author ilGhera
- *
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.4.8
+ *
+ * @since 1.6.0
  */
 
 /**

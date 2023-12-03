@@ -3,9 +3,9 @@
  * Generate the order feed
  *
  * @author ilGhera
- *
  * @package wc-exporter-for-danea-premium/includes
- * @since 1.2.1
+ *
+ * @since 1.6.0
  */
 
 /**
