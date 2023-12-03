@@ -332,12 +332,20 @@ class WCEXD_Orders {
 	 */
 	private static function get_orders() {
 
-		$statuses = get_option( 'wcexd-orders-statuses' ) ? get_option( 'wcexd-orders-statuses' ) : array( 'any' );
-		$args     = array(
-			'limit' => 150,
+		$defaults = array_keys( wc_get_order_statuses() );
+
+		/* The statuses if provided by the admin */
+		$statuses = get_option( 'wcexd-orders-statuses' );
+        
+        if ( in_array( 'any', $statuses, true ) ) {
+            $statuses = $defaults;
+        }
+
+		$args = array(
+			'limit'  => 150,
+            'status' => $statuses
 		);
 
-		/* Add order statuses if provided by the admin */
 		if ( is_array( $statuses ) && ! empty( $statuses ) ) {
 
 			$args['status'] = $statuses;
