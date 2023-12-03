@@ -257,8 +257,15 @@ class WCEXD_Orders {
 	 */
 	public function feed_single_item_details( $writer, $order, $item ) {
 
-		$product      = wc_get_product( $item->get_product_id() );
-		$code         = $product->get_sku() ? $product->get_sku() : $product->get_id();
+        $code    = $item->get_product_id();
+		$product = wc_get_product( $item->get_product_id() );
+        $um      = 'pz';
+
+        if ( is_object( $product ) ) {
+            $code = $product->get_sku() ? $product->get_sku() : $code;
+            $um   = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : $um;
+        }
+
 		$variation_id = $item->get_variation_id();
 		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
 		$quantity     = $item->get_quantity();
@@ -266,7 +273,6 @@ class WCEXD_Orders {
 		$price        = $this->tax_included ? $price + $item->get_subtotal_tax() : $price;
 		$price        = $price / $quantity;
 		$exchange     = new WCEXD_Currency_Exchange( $order );
-		$um           = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : 'pz';
 
 		$writer->startElement( 'Row' );
 		$writer->writeElement( 'Code', $code );
