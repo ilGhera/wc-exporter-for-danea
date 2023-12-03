@@ -472,14 +472,14 @@ class WCEXD_Products_Download {
 	}
 
 
-    /**
-     * Define the product type to use in Danea Easyfatt
-     *
-     * @param $object $product the WC product.
-     *
-     * @return string
-     */
-    public function get_the_product_type( $product ) {
+	/**
+	 * Define the product type to use in Danea Easyfatt
+	 *
+	 * @param $object $product the WC product.
+	 *
+	 * @return string
+	 */
+	public function get_the_product_type( $product ) {
 
 		/* Manage stock */
 		if ( $product->get_manage_stock() ) {
@@ -496,20 +496,20 @@ class WCEXD_Products_Download {
 
 		}
 
-        return $product_type;
+		return $product_type;
 
-    }
+	}
 
 
-    /**
-     * Get the regular and sale product price
-     *
-     * @param $object $product the WC product.
-     * @param string  $data    the data to return.
-     *
-     * @return string
-     */
-    public function get_product_price( $product, $data = 'regular' ) {
+	/**
+	 * Get the regular and sale product price
+	 *
+	 * @param $object $product the WC product.
+	 * @param string $data    the data to return.
+	 *
+	 * @return string
+	 */
+	public function get_product_price( $product, $data = 'regular' ) {
 
 		$regular_price     = null;
 		$sale_price        = null;
@@ -527,20 +527,20 @@ class WCEXD_Products_Download {
 
 		}
 
-        return 'regular' === $data ? $regular_price : $sale_price;
+		return 'regular' === $data ? $regular_price : $sale_price;
 
-    }
+	}
 
 
-    /**
-     * Get the product supplier ID and name
-     *
-     * @param object $product the WC product.
-     * @param string $data    the data to return.
-     *
-     * @return mixed
-     */
-    public function get_supplier_info( $product, $data = 'id' ) {
+	/**
+	 * Get the product supplier ID and name
+	 *
+	 * @param object $product the WC product.
+	 * @param string $data    the data to return.
+	 *
+	 * @return mixed
+	 */
+	public function get_supplier_info( $product, $data = 'id' ) {
 
 		$id_supplier = null;
 
@@ -570,9 +570,9 @@ class WCEXD_Products_Download {
 
 		}
 
-        return 'id' === $data ? $id_supplier : $supplier_name;
+		return 'id' === $data ? $id_supplier : $supplier_name;
 
-    }
+	}
 
 
 	/**
