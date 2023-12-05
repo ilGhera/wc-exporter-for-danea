@@ -244,7 +244,7 @@ class WCEXD_Orders {
 			$cart_discount = number_format( ( ( $item_get_subtotal - $item_get_total ) / $item_get_subtotal * 100 ), 2, '.', '' );
 
 			/* Translators: the item and the cart discount */
-			$output = $item_discount ? sprintf( '%1$.2f+%2$.2f%%', $item_discount, $cart_discount ) : sprintf( '%.2f%%', $cart_discount );
+			$output = 0 < $item_discount ? sprintf( '%1$.2f+%2$.2f%%', $item_discount, $cart_discount ) : sprintf( '%.2f%%', $cart_discount );
 
 		}
 
@@ -401,7 +401,7 @@ class WCEXD_Orders {
 
 		$exchange = new WCEXD_Currency_Exchange( $order );
 		$amount   = $exchange->filter_price( $order->get_total() );
-		$paid     = 'wc-completed' === $order->get_status() ? true : false;
+		$paid     = 'completed' === $order->get_status() ? 'true' : 'false';
 
 		$writer->startElement( 'Payment' );
 			$writer->writeElement( 'Advance', 'false' );
