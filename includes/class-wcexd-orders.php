@@ -205,11 +205,12 @@ class WCEXD_Orders {
 	/**
 	 * Get the discounts of the item
 	 *
-	 * @param object $item the WC order item.
+	 * @param object $item          the WC order item.
+	 * @param bool   $regular_price return the item regular price with true. 
 	 *
 	 * @return string
 	 */
-	private function get_item_discounts( $item ) {
+	private function get_item_discounts( $item, $regular_price = false ) {
 
 		$output            = null;
 		$cart_discount     = null;
@@ -220,11 +221,17 @@ class WCEXD_Orders {
 		$item_discount     = $item->get_meta( '_wcexd_item_discount', true ); // Temp.
 		$item_discount     = number_format( floatval( $item_discount ), 2, '.', '' );
 		$item_price        = $item->get_subtotal();
+        $item_price        = $this->tax_included ? $item_price + $item->get_subtotal_tax() : $item_price;
 
 		/* Item discount */
 		if ( $item_discount && ! $is_bundle ) {
 
 			$item_price = number_format( ( ( $item_price * 100 ) / ( 100 - $item_discount ) ), 2, '.', '' );
+
+            /* Return the item regular price */
+            if ( $regular_price ) {
+                return $item_price;
+            }
 
 			/* Translators: the item discount */
 			$output = sprintf( '%.2f%%', $item_discount );
@@ -244,6 +251,20 @@ class WCEXD_Orders {
 		return $output;
 
 	}
+
+
+    /**
+     * Get the item price before discount
+     *
+	 * @param object $item the WC order item.
+     *
+     * @return float 
+     */
+    public function get_item_regular_price( $item ) {
+
+        return $this->get_item_discounts( $item, true );
+
+    }
 
 
 	/**
@@ -269,8 +290,7 @@ class WCEXD_Orders {
 		$variation_id = $item->get_variation_id();
 		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
 		$quantity     = $item->get_quantity();
-		$price        = $item->get_subtotal();
-		$price        = $this->tax_included ? $price + $item->get_subtotal_tax() : $price;
+		$price        = $this->get_item_regular_price( $item );
 		$price        = $price / $quantity;
 		$exchange     = new WCEXD_Currency_Exchange( $order );
 
