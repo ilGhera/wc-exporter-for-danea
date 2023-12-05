@@ -206,7 +206,7 @@ class WCEXD_Orders {
 	 * Get the discounts of the item
 	 *
 	 * @param object $item          the WC order item.
-	 * @param bool   $regular_price return the item regular price with true. 
+	 * @param bool   $regular_price return the item regular price with true.
 	 *
 	 * @return string
 	 */
@@ -221,17 +221,17 @@ class WCEXD_Orders {
 		$item_discount     = $item->get_meta( '_wcexd_item_discount', true ); // Temp.
 		$item_discount     = number_format( floatval( $item_discount ), 2, '.', '' );
 		$item_price        = $item->get_subtotal();
-        $item_price        = $this->tax_included ? $item_price + $item->get_subtotal_tax() : $item_price;
+		$item_price        = $this->tax_included ? $item_price + $item->get_subtotal_tax() : $item_price;
 
 		/* Item discount */
 		if ( $item_discount && ! $is_bundle ) {
 
 			$item_price = number_format( ( ( $item_price * 100 ) / ( 100 - $item_discount ) ), 2, '.', '' );
 
-            /* Return the item regular price */
-            if ( $regular_price ) {
-                return $item_price;
-            }
+			/* Return the item regular price */
+			if ( $regular_price ) {
+				return $item_price;
+			}
 
 			/* Translators: the item discount */
 			$output = sprintf( '%.2f%%', $item_discount );
@@ -253,18 +253,18 @@ class WCEXD_Orders {
 	}
 
 
-    /**
-     * Get the item price before discount
-     *
+	/**
+	 * Get the item price before discount
+	 *
 	 * @param object $item the WC order item.
-     *
-     * @return float 
-     */
-    public function get_item_regular_price( $item ) {
+	 *
+	 * @return float
+	 */
+	public function get_item_regular_price( $item ) {
 
-        return $this->get_item_discounts( $item, true );
+		return $this->get_item_discounts( $item, true );
 
-    }
+	}
 
 
 	/**
@@ -278,14 +278,14 @@ class WCEXD_Orders {
 	 */
 	public function feed_single_item_details( $writer, $order, $item ) {
 
-        $code    = $item->get_product_id();
+		$code    = $item->get_product_id();
 		$product = wc_get_product( $item->get_product_id() );
-        $um      = 'pz';
+		$um      = 'pz';
 
-        if ( is_object( $product ) ) {
-            $code = $product->get_sku() ? $product->get_sku() : $code;
-            $um   = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : $um;
-        }
+		if ( is_object( $product ) ) {
+			$code = $product->get_sku() ? $product->get_sku() : $code;
+			$um   = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : $um;
+		}
 
 		$variation_id = $item->get_variation_id();
 		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
@@ -362,14 +362,14 @@ class WCEXD_Orders {
 
 		/* The statuses if provided by the admin */
 		$statuses = get_option( 'wcexd-orders-statuses' );
-        
-        if ( in_array( 'any', $statuses, true ) ) {
-            $statuses = $defaults;
-        }
+
+		if ( in_array( 'any', $statuses, true ) ) {
+			$statuses = $defaults;
+		}
 
 		$args = array(
 			'limit'  => 150,
-            'status' => $statuses
+			'status' => $statuses,
 		);
 
 		if ( is_array( $statuses ) && ! empty( $statuses ) ) {
