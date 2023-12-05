@@ -761,3 +761,5 @@ class WCEXD_Functions {
 
 }
 
+new WCEXD_Functions( true );
+
