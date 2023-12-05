@@ -426,7 +426,7 @@ class WCEXD_Orders {
 
 			foreach ( $orders as $order ) {
 
-				if ( 'trash' !== $order->get_status() ) {
+				if ( 'shop_order_refund' !== $order->get_type() && 'trash' !== $order->get_status() ) {
 
 					$writer->startElement( 'Document' );
 					$writer->writeElement( 'DocumentType', 'C' );
