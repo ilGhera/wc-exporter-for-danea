@@ -578,7 +578,7 @@ class WCEXD_Functions {
 				if ( $item->get_variation_id() ) {
 
 					/*WooCommerce Role Based Price*/
-					$wc_rbp = $item->get_meta( '_role_based_price', true );
+					$wc_rbp = get_post_meta( $item->get_variation_id(), '_role_based_price', true );
 
 					if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
 
@@ -594,7 +594,7 @@ class WCEXD_Functions {
 				} else {
 
 					/*WooCommerce Role Based Price*/
-					$wc_rbp = $item->get_meta( '_role_based_price', true );
+					$wc_rbp = get_post_meta( $item->get_product_id(), '_role_based_price', true );
 
 					if ( $wc_rbp && isset( $wc_rbp[ $user_role ] ) ) {
 
