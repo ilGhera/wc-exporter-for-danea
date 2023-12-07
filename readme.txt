@@ -48,7 +48,7 @@ Completato il processo di installazione, troverai nel menù WooCommerce la pagin
 = 1.6.2 =
 Release Date: 7 December 2023 
 
-    * Bug Fix: Error getting the product prices set with WC Role Base Price exporting orders 
+    * Bug Fix: Incorrect discount when exporting orders when using WC Role Based Price
 
 
 = 1.6.1 =
