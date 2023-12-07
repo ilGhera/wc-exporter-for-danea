@@ -11,7 +11,7 @@
 /**
  * WCEXD Orders
  *
- * @since 1.2.1
+ * @since 1.6.1
  */
 class WCEXD_Orders {
 
