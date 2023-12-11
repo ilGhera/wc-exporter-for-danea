@@ -363,7 +363,7 @@ class WCEXD_Orders {
 		/* The statuses if provided by the admin */
 		$statuses = get_option( 'wcexd-orders-statuses' );
 
-		if ( in_array( 'any', $statuses, true ) ) {
+		if ( ! is_array( $statuses ) || in_array( 'any', $statuses, true ) ) {
 			$statuses = $defaults;
 		}
 
