@@ -56,6 +56,7 @@ class WCEXD_Functions {
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
 			$output        = 0;
+			$results       = array();
 			$tax_status    = $product->get_tax_status();
 			$base_location = isset( wc_get_base_location()['country'] ) ? wc_get_base_location()['country'] : 'IT';
 
@@ -83,12 +84,24 @@ class WCEXD_Functions {
 
 						if ( $rate->tax_rate_country === $base_location ) {
 
+							/* The specific tax rate for the country */
 							$output = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
 
 							continue;
 
+						} elseif ( ! $rate->tax_rate_country ) {
+
+							/* A generic tax rate where the country is not specified */
+							$results[] = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
+
 						}
 					}
+				}
+
+				if ( ! $output && isset( $results[0] ) ) {
+
+					$output = $results[0];
+
 				}
 			}
 		}
