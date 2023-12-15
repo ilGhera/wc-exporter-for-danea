@@ -41,7 +41,7 @@ function load_wc_exporter_for_danea_premium() {
 	define( 'WCEXD_URI', plugin_dir_url( __FILE__ ) );
 	define( 'WCEXD_ADMIN', WCEXD_DIR . 'admin/' );
 	define( 'WCEXD_INCLUDES', WCEXD_DIR . 'includes/' );
-	define( 'WCEXD_VERSION', '1.6.1' );
+	define( 'WCEXD_VERSION', '1.6.3' );
 
 	/* Internationalization */
 	load_plugin_textdomain( 'wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
