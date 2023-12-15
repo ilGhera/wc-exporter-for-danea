@@ -52,7 +52,7 @@
 
 			if ( ! $url_code ) {
 
-				$url_code = wcexd_rand_md5( 6 );
+				$url_code = WCEXD_Functions::rand_md5( 6 );
 				add_option( 'wcexd-url-code', $url_code );
 
 			}

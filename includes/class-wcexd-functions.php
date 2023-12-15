@@ -716,7 +716,7 @@ class WCEXD_Functions {
 	 *
 	 * @return string
 	 */
-	public function rand_md5( $length ) {
+	public static function rand_md5( $length ) {
 
 		$max    = ceil( $length / 32 );
 		$random = '';
