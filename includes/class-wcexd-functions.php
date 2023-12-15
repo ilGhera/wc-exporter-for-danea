@@ -5,7 +5,7 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
  *
- * @since 1.6.2
+ * @since 1.6.3
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WCEXD_Functions class
  *
- * @since 1.6.2
+ * @since 1.6.3
  */
 class WCEXD_Functions {
 

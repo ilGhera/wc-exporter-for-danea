@@ -5,13 +5,13 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
  *
- * @since 1.6.1
+ * @since 1.6.3
  */
 
 /**
  * WCEXD Orders
  *
- * @since 1.6.1
+ * @since 1.6.3
  */
 class WCEXD_Orders {
 
