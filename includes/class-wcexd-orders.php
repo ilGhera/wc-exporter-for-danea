@@ -5,13 +5,13 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
  *
- * @since 1.6.3
+ * @since 1.6.4
  */
 
 /**
  * WCEXD Orders
  *
- * @since 1.6.3
+ * @since 1.6.4
  */
 class WCEXD_Orders {
 
@@ -288,7 +288,7 @@ class WCEXD_Orders {
 		}
 
 		$variation_id = $item->get_variation_id();
-        $hide_attr    = true;
+		$hide_attr    = true;
 		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
 		$quantity     = $item->get_quantity();
 		$price        = $this->get_item_regular_price( $item );
@@ -306,23 +306,22 @@ class WCEXD_Orders {
 			$color      = $attr_color ? $attr_color : '-';
 			$hide_attr  = ! $attr_size && ! $attr_color ? true : false;
 
-            if ( $hide_attr ) {
+			if ( $hide_attr ) {
 
-                /* Only size and color variations use parent sku */
-                $code = $product_variation->get_sku() ? $product_variation->get_sku() : $variation_id;
+				/* Only size and color variations use parent sku */
+				$code = $product_variation->get_sku() ? $product_variation->get_sku() : $variation_id;
 
-            }
-
+			}
 		}
 
 		$writer->startElement( 'Row' );
 		$writer->writeElement( 'Code', $code );
 		$writer->writeElement( 'Description', wp_kses_post( wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) ) );
 
-        if ( ! $hide_attr ) {
-            $writer->writeElement( 'Size', $size );
-            $writer->writeElement( 'Color', $color );
-        }
+		if ( ! $hide_attr ) {
+			$writer->writeElement( 'Size', $size );
+			$writer->writeElement( 'Color', $color );
+		}
 
 		$writer->writeElement( 'Qty', $quantity ); // Temp.
 		$writer->writeElement( 'Um', $um );

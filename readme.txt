@@ -1,7 +1,7 @@
 === WooCommerce Exporter for Danea - Premium ===
 Contributors: ghera74
 Tags: WooCommerce, Danea, Easyfatt, ecommerce, exporter, csv, shop, orders, products, fattura elettronica, gestionale
-Version: 1.6.3
+Version: 1.6.4
 Requires at least: 4.0
 Tested up to: 6.4
 
@@ -44,6 +44,13 @@ Completato il processo di installazione, troverai nel menù WooCommerce la pagin
 
 
 == Changelog ==
+
+= 1.6.4 =
+Release Date: 19 December 2023 
+
+    * Bug Fix: Bad SKU in orders in case of variations previously imported in Danea as single products 
+    * Bug Fix: Variation with only size or color not reconized exporting orders
+
 
 = 1.6.3 =
 Release Date: 15 December 2023 
