@@ -320,8 +320,8 @@ class WCEXD_Orders {
 		$writer->writeElement( 'Description', wp_kses_post( wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) ) );
 
         if ( ! $hide_attr ) {
-            $writer->writeElement( 'Size', $attr_size );
-            $writer->writeElement( 'Color', $attr_color );
+            $writer->writeElement( 'Size', $size );
+            $writer->writeElement( 'Color', $color );
         }
 
 		$writer->writeElement( 'Qty', $quantity ); // Temp.
