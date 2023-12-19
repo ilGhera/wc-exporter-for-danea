@@ -288,15 +288,12 @@ class WCEXD_Orders {
 		}
 
 		$variation_id = $item->get_variation_id();
+        $hide_attr    = true;
 		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
 		$quantity     = $item->get_quantity();
 		$price        = $this->get_item_regular_price( $item );
 		$price        = $price / $quantity;
 		$exchange     = new WCEXD_Currency_Exchange( $order );
-
-		$writer->startElement( 'Row' );
-		$writer->writeElement( 'Code', $code );
-		$writer->writeElement( 'Description', wp_kses_post( wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) ) );
 
 		if ( $variation_id ) {
 
@@ -307,15 +304,25 @@ class WCEXD_Orders {
 			$size       = $attr_size ? $attr_size : '-';
 			$attr_color = $product_variation->get_attribute( 'pa_color' );
 			$color      = $attr_color ? $attr_color : '-';
-			$hide       = ! $attr_size && ! $attr_color ? true : false;
+			$hide_attr  = ! $attr_size && ! $attr_color ? true : false;
 
-			if ( ! $hide ) {
+            if ( $hide_attr ) {
 
-				$writer->writeElement( 'Size', $attr_size );
-				$writer->writeElement( 'Color', $attr_color );
+                /* Only size and color variations use parent sku */
+                $code = $product_variation->get_sku() ? $product_variation->get_sku() : $variation_id;
 
-			}
+            }
+
 		}
+
+		$writer->startElement( 'Row' );
+		$writer->writeElement( 'Code', $code );
+		$writer->writeElement( 'Description', wp_kses_post( wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) ) );
+
+        if ( ! $hide_attr ) {
+            $writer->writeElement( 'Size', $attr_size );
+            $writer->writeElement( 'Color', $attr_color );
+        }
 
 		$writer->writeElement( 'Qty', $quantity ); // Temp.
 		$writer->writeElement( 'Um', $um );
