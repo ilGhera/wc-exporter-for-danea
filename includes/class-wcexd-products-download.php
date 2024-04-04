@@ -5,13 +5,13 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
  *
- * @since 1.6.0
+ * @since 1.6.5
  */
 
 /**
  * WCEXD_Products_Download class
  *
- * @since 1.4.8
+ * @since 1.6.5
  */
 class WCEXD_Products_Download {
 
@@ -251,7 +251,7 @@ class WCEXD_Products_Download {
 		);
 
 		/* Define the products type to get */
-		$args['type'] = $this->danea_vars ? array( 'variable' ) : array( 'simple', 'variable' );
+		$args['type'] = $this->danea_vars ? array( 'variable' ) : apply_filters( 'wcexd_export_products_types', array( 'simple', 'variable' ) );
 
 		$products = wc_get_products( $args );
 
