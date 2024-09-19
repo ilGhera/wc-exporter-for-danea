@@ -174,6 +174,30 @@ class WCEXD_Orders {
 
 
 	/**
+	 * Add a single row for every fee 
+	 *
+	 * @param object $writer the xml writer.
+	 * @param object $order  the WC order.
+	 * @param object $fee the single fee. 
+	 *
+	 * @return void
+	 */
+	private function feed_single_fee_as_row( $writer, $order, $fee ) {
+
+		$vat_code = $this->functions->get_item_tax_rate( $order, $fee ); // Temp.
+
+        $writer->startElement( 'Row' );
+        $writer->writeElement( 'Code', $fee->get_id() );
+        $writer->writeElement( 'Description', $fee->get_name() );
+        $writer->writeElement( 'Qty', 1 );
+        $writer->writeElement( 'Price', -$fee->get_total() );
+        $writer->writeElement( 'VatCode', $vat_code );
+        $writer->endElement(); // Row.
+
+	}
+
+
+	/**
 	 * The XML part about the generic info of the order
 	 *
 	 * @param object $writer the xml writer.
