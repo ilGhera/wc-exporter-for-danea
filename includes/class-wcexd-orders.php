@@ -174,11 +174,11 @@ class WCEXD_Orders {
 
 
 	/**
-	 * Add a single row for every fee 
+	 * Add a single row for every fee
 	 *
 	 * @param object $writer the xml writer.
 	 * @param object $order  the WC order.
-	 * @param object $fee the single fee. 
+	 * @param object $fee the single fee.
 	 *
 	 * @return void
 	 */
@@ -186,13 +186,13 @@ class WCEXD_Orders {
 
 		$vat_code = $this->functions->get_item_tax_rate( $order, $fee ); // Temp.
 
-        $writer->startElement( 'Row' );
-        $writer->writeElement( 'Code', $fee->get_id() );
-        $writer->writeElement( 'Description', $fee->get_name() );
-        $writer->writeElement( 'Qty', 1 );
-        $writer->writeElement( 'Price', -$fee->get_total() );
-        $writer->writeElement( 'VatCode', $vat_code );
-        $writer->endElement(); // Row.
+		$writer->startElement( 'Row' );
+		$writer->writeElement( 'Code', $fee->get_id() );
+		$writer->writeElement( 'Description', $fee->get_name() );
+		$writer->writeElement( 'Qty', 1 );
+		$writer->writeElement( 'Price', -$fee->get_total() );
+		$writer->writeElement( 'VatCode', $vat_code );
+		$writer->endElement(); // Row.
 
 	}
 
@@ -340,7 +340,7 @@ class WCEXD_Orders {
 
 		$writer->startElement( 'Row' );
 		$writer->writeElement( 'Code', $code );
-		$writer->writeElement( 'Description', wp_kses_post( wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) ) );
+		$writer->writeElement( 'Description', mb_convert_encoding( $item->get_name(), 'UTF-8', 'ISO-8859-1' ) );
 
 		if ( ! $hide_attr ) {
 			$writer->writeElement( 'Size', $size );
