@@ -5,13 +5,13 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
  *
- * @since 1.6.0
+ * @since 1.6.3
  */
 
 /**
  * WCEXD_Users_Download class
  *
- * @since 1.0.1
+ * @since 1.6.3
  */
 class WCEXD_Users_Download {
 
@@ -194,6 +194,27 @@ class WCEXD_Users_Download {
 
 
 	/**
+	 * Get the full country name from its code
+	 *
+	 * @param int $user_id the ueser ID.
+	 *
+	 * @return string
+	 */
+	public function get_country_name( $user_id ) {
+
+		$class        = new WC_Countries();
+		$countries    = $class->get_countries();
+		$country_code = get_user_meta( $user_id, 'billing_country', true );
+
+		if ( isset( $countries[ $country_code ] ) ) {
+
+			return $countries[ $country_code ];
+
+		}
+	}
+
+
+	/**
 	 * The single user data
 	 *
 	 * @param object $user the WP user.
@@ -239,7 +260,7 @@ class WCEXD_Users_Download {
 			get_user_meta( $user->ID, 'billing_city', true ),
 			get_user_meta( $user->ID, 'billing_state', true ),
 			'',
-			get_user_meta( $user->ID, 'billing_country', true ),
+			$this->get_country_name( $user->ID ),
 			$user_name,
 			get_user_meta( $user->ID, 'billing_phone', true ),
 			get_user_meta( $user->ID, 'billing_cellphone', true ),

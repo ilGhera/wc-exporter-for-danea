@@ -1,9 +1,12 @@
 === WooCommerce Exporter for Danea ===
 Contributors: ghera74
-Tags: Fattura elettronica, WooCommerce, Danea Easyfatt, ecommerce, exporter, csv, shop, orders, products, gestionale
-Version: 1.6.0
+Tags: Fattura elettronica, WooCommerce, Danea Easyfatt, Esportazione ordini, Esportazione prodotti
+Version: 1.6.1
+Stable tag: 1.6.1
 Requires at least: 4.0
-Tested up to: 6.4
+Tested up to: 6.7
+License: GPLv3
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Export suppliers, products, customers and orders from your WooCommerce store to Danea.
 
@@ -54,6 +57,13 @@ From WordPress.org
 
 
 == Changelog ==
+
+= 1.6.1 =
+Release Date: 4 December 2024
+
+    * Bug Fix: Mandatory fields missed
+    * Bug Fix: Plugin text-domain loaded too early 
+
 
 = 1.6.0 =
 Release Date: 3 December 2023 

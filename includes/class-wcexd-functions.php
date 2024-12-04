@@ -5,7 +5,7 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/includes
  *
- * @since 1.6.0
+ * @since 1.6.3
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * WCEXD_Functions class
  *
- * @since 1.5.1
+ * @since 1.6.3
  */
 class WCEXD_Functions {
 
@@ -32,6 +32,7 @@ class WCEXD_Functions {
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
 			$output        = 0;
+			$results       = array();
 			$tax_status    = $product->get_tax_status();
 			$base_location = isset( wc_get_base_location()['country'] ) ? wc_get_base_location()['country'] : 'IT';
 
@@ -59,12 +60,24 @@ class WCEXD_Functions {
 
 						if ( $rate->tax_rate_country === $base_location ) {
 
+							/* The specific tax rate for the country */
 							$output = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
 
 							continue;
 
+						} elseif ( ! $rate->tax_rate_country ) {
+
+							/* A generic tax rate where the country is not specified */
+							$results[] = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
+
 						}
 					}
+				}
+
+				if ( ! $output && isset( $results[0] ) ) {
+
+					$output = $results[0];
+
 				}
 			}
 		}
@@ -452,4 +465,6 @@ class WCEXD_Functions {
 	}
 
 }
+
+new WCEXD_Functions( true );
 
