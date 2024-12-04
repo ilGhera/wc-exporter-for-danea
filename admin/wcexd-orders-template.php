@@ -39,12 +39,10 @@
 							echo '<option name="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"';
 							esc_html_e( $value, 'wc-exporter-for-danea' ) . '</option>';
 
-								echo '<option name="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '"';
-								echo ( in_array( $key, $orders_statuses, true ) ) ? ' selected="selected">' : '>';
+								echo '<option name="' . esc_attr( $key ) . '" value="' . esc_attr( $key ) . '">';
 								echo esc_html__( $value, 'wc-exporter-for-danea' );
 								echo '</option>';
 
-							}
 						}
 						?>
 					</select>
