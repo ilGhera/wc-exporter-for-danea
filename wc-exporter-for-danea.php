@@ -43,9 +43,6 @@ function load_wc_exporter_for_danea_premium() {
 	define( 'WCEXD_INCLUDES', WCEXD_DIR . 'includes/' );
 	define( 'WCEXD_VERSION', '1.6.6' );
 
-	/* Internationalization */
-	load_plugin_textdomain( 'wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
-
 	require WCEXD_ADMIN . 'class-wcexd-admin.php';
 	require WCEXD_INCLUDES . 'class-wcexd-functions.php';
 	require WCEXD_INCLUDES . 'class-wcexd-currency-exchange.php';
@@ -57,6 +54,17 @@ function load_wc_exporter_for_danea_premium() {
 
 }
 add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );
+
+/**
+ * Load the plugin text-domain
+ *
+ * @return void
+ */
+function wcexd_load_textdomain() {
+
+	load_plugin_textdomain( 'wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'init', 'wcexd_load_textdomain' );
 
 /**
  * HPOS compatibility
