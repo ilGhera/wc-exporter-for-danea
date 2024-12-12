@@ -340,7 +340,7 @@ class WCEXD_Orders {
 
 		$writer->startElement( 'Row' );
 		$writer->writeElement( 'Code', $code );
-		$writer->writeElement( 'Description', mb_convert_encoding( $item->get_name(), 'UTF-8', 'ISO-8859-1' ) );
+		$writer->writeElement( 'Description', wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) );
 
 		if ( ! $hide_attr ) {
 			$writer->writeElement( 'Size', $size );
