@@ -4,7 +4,7 @@
  * Plugin URI: https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium/
  * Description: If you've built your online store with WooCommerce and you're using Danea Easyfatt as management software, you definitely need WooCommerce Exporter for Danea - Premium!
  * You'll be able to export suppliers, products, clients and orders.
- * Version: 1.6.7
+ * Version: 1.6.8
  * Author: ilGhera
  * Author URI: https://ilghera.com
  * Text Domain: wc-exporter-for-danea
@@ -35,13 +35,25 @@ function load_wc_exporter_for_danea_premium() {
 		remove_action( 'plugins_loaded', 'load_wc_exporter_for_danea' );
 		wp_safe_redirect( admin_url( 'plugins.php?plugin_status=all&paged=1&s' ) );
 	}
+}
+add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );
+
+/**
+ * Plugin init
+ *
+ * @return void
+ */
+function wcexd_init() {
 
 	/* Constant variables */
 	define( 'WCEXD_DIR', plugin_dir_path( __FILE__ ) );
 	define( 'WCEXD_URI', plugin_dir_url( __FILE__ ) );
 	define( 'WCEXD_ADMIN', WCEXD_DIR . 'admin/' );
 	define( 'WCEXD_INCLUDES', WCEXD_DIR . 'includes/' );
-	define( 'WCEXD_VERSION', '1.6.7' );
+	define( 'WCEXD_VERSION', '1.6.8' );
+
+	/* Text domain */
+	load_plugin_textdomain( 'wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
 
 	require WCEXD_ADMIN . 'class-wcexd-admin.php';
 	require WCEXD_INCLUDES . 'class-wcexd-functions.php';
@@ -51,20 +63,8 @@ function load_wc_exporter_for_danea_premium() {
 	require WCEXD_INCLUDES . 'class-wcexd-orders.php';
 	require WCEXD_INCLUDES . 'ilghera-notice/class-ilghera-notice.php';
 	require WCEXD_INCLUDES . 'wc-checkout-fields/class-wcexd-checkout-fields.php';
-
 }
-add_action( 'plugins_loaded', 'load_wc_exporter_for_danea_premium', 1 );
-
-/**
- * Load the plugin text-domain
- *
- * @return void
- */
-function wcexd_load_textdomain() {
-
-	load_plugin_textdomain( 'wc-exporter-for-danea', false, basename( dirname( __FILE__ ) ) . '/languages' );
-}
-add_action( 'init', 'wcexd_load_textdomain' );
+add_action( 'init', 'wcexd_init', PHP_INT_MIN );
 
 /**
  * HPOS compatibility
