@@ -29,6 +29,7 @@
 	$orders_statuses         = get_option( 'wcexd-orders-statuses' ) ? get_option( 'wcexd-orders-statuses' ) : array( 'any' );
 	$wcexd_orders_tax_name   = get_option( 'wcexd-orders-tax-name' );
 	$wcexd_currency_exchange = get_option( 'wcexd-currency-exchange' );
+	$wcexd_numbering         = get_option( 'wcexd-numbering' );
 
 	if ( isset( $_POST['wcexd-orders-nonce'], $_POST['wcexd-orders-sent'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wcexd-orders-nonce'] ) ), 'wcexd-orders-submit' ) ) {
 
@@ -40,6 +41,9 @@
 
 		$wcexd_currency_exchange = isset( $_POST['wcexd-currency-exchange'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-currency-exchange'] ) ) : 0;
 		update_option( 'wcexd-currency-exchange', $wcexd_currency_exchange );
+
+		$wcexd_numbering = isset( $_POST['wcexd-numbering'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-numbering'] ) ) : 0;
+		update_option( 'wcexd-numbering', $wcexd_numbering );
 
 	}
 	?>
@@ -106,6 +110,17 @@
 						<?php esc_html_e( 'Export orders in euros', 'wc-exporter-for-danea' ); ?>
 					</label>
 					<p class="description"><?php esc_html_e( 'Export orders received in dollars into euros using the most recent exchange rate from the Bank of Italy.', 'wc-exporter-for-danea' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Numbering', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<label for="wcexd-numbering">
+						<input type="checkbox" name="wcexd-numbering" value="1"<?php echo 1 === intval( $wcexd_numbering ) ? ' checked="checked"' : ''; ?>>
+						<?php esc_html_e( 'Use the label EC', 'wc-exporter-for-danea' ); ?>
+					</label>
+					<p class="description"><?php esc_html_e( 'A dedicated numbering avoids conflicts with orders created manually by the management system.', 'wc-exporter-for-danea' ); ?></p>
 				</td>
 			</tr>
 			<tr>

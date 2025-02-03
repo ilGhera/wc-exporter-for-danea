@@ -32,6 +32,14 @@ class WCEXD_Orders {
 
 
 	/**
+	 * Numbering EC
+	 *
+	 * @var bool
+	 */
+	public $numbering;
+
+
+	/**
 	 * The constructor
 	 *
 	 * @return void
@@ -43,6 +51,7 @@ class WCEXD_Orders {
 
 		$this->functions    = new WCEXD_Functions();
 		$this->tax_included = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
+		$this->numbering    = get_option( 'wcexd-numbering' );
 
 	}
 
@@ -213,6 +222,11 @@ class WCEXD_Orders {
 
 		$writer->writeElement( 'Date', $new_date );
 		$writer->writeElement( 'Number', $order->get_id() );
+
+		if ( $this->numbering ) {
+			$writer->writeElement( 'Numbering', '-EC' );
+		}
+
 		$writer->writeElement( 'Total', $exchange->filter_price( $order->get_total() ) );
 		$writer->writeElement( 'CostDescription', $this->functions->get_cost_description( $order ) ); // Temp.
 		$writer->writeElement( 'CostVatCode', $this->functions->get_shipping_tax_rate( $order ) );
