@@ -166,16 +166,16 @@ class WCEXD_Orders {
 		}
 
 		/* Fees */
-		$fees = $order->get_fees();
+		/* $fees = $order->get_fees(); */
 
-		if ( is_array( $fees ) ) {
+		/* if ( is_array( $fees ) ) { */
 
-			foreach ( $fees as $fee ) {
+		/* 	foreach ( $fees as $fee ) { */
 
-				$cost_amount += $fee->get_total() + $fee->get_total_tax();
+		/* 		$cost_amount += $fee->get_total() + $fee->get_total_tax(); */
 
-			}
-		}
+		/* 	} */
+		/* } */
 
 		return $cost_amount;
 
@@ -193,13 +193,14 @@ class WCEXD_Orders {
 	 */
 	private function feed_single_fee_as_row( $writer, $order, $fee ) {
 
-		$vat_code = $this->functions->get_item_tax_rate( $order, $fee ); // Temp.
+		$vat_code  = $this->functions->get_item_tax_rate( $order, $fee, true );
+		$fee_price = $this->tax_included ? $fee->get_total() + $fee->get_total_tax() : $fee->get_total();
 
 		$writer->startElement( 'Row' );
 		$writer->writeElement( 'Code', $fee->get_id() );
 		$writer->writeElement( 'Description', $fee->get_name() );
 		$writer->writeElement( 'Qty', 1 );
-		$writer->writeElement( 'Price', -$fee->get_total() );
+		$writer->writeElement( 'Price', $fee_price );
 		$writer->writeElement( 'VatCode', $vat_code );
 		$writer->endElement(); // Row.
 
@@ -388,6 +389,18 @@ class WCEXD_Orders {
 			/* Single item details */
 			$this->feed_single_item_details( $writer, $order, $item );
 
+		}
+
+		/* Fees */
+		$fees = $order->get_fees();
+
+		if ( is_array( $fees ) ) {
+
+			foreach ( $fees as $fee ) {
+
+                $this->feed_single_fee_as_row( $writer, $order, $fee );
+
+			}
 		}
 
 		$writer->endElement(); // Rows.

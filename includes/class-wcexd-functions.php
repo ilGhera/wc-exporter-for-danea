@@ -190,10 +190,11 @@ class WCEXD_Functions {
 	 *
 	 * @param  object $order the wc order.
 	 * @param  object $item  the specific order item.
+     * @param  bool   $is_fee true if the item is a fee.
 	 *
 	 * @return string
 	 */
-	public function get_item_tax_rate( $order, $item ) {
+	public function get_item_tax_rate( $order, $item, $is_fee = false ) {
 
 		$output = 'FC';
 
@@ -202,8 +203,9 @@ class WCEXD_Functions {
 			$use_label = get_option( 'wcexd-orders-tax-name' );
 			$tax_items = self::get_order_tax_items( $order );
 			$taxes     = $item->get_taxes();
+            $key       = $is_fee ? 'total' : 'subtotal';
 
-			foreach ( $taxes['subtotal'] as $rate_id => $tax ) {
+			foreach ( $taxes[ $key ] as $rate_id => $tax ) {
 
 				if ( $use_label ) {
 
@@ -233,16 +235,16 @@ class WCEXD_Functions {
 		$output = $order->get_shipping_method();
 
 		/* Fees */
-		$fees = $order->get_fees();
+		/* $fees = $order->get_fees(); */
 
-		if ( is_array( $fees ) ) {
+		/* if ( is_array( $fees ) ) { */
 
-			foreach ( $fees as $fee ) {
+		/* 	foreach ( $fees as $fee ) { */
 
-				$output .= ' + ' . $fee->get_name();
+		/* 		$output .= ' + ' . $fee->get_name(); */
 
-			}
-		}
+		/* 	} */
+		/* } */
 
 		return $output;
 
