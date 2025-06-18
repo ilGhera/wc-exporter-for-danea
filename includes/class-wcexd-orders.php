@@ -8,6 +8,8 @@
  * @since 1.6.9
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * WCEXD Orders
  *
@@ -22,7 +24,6 @@ class WCEXD_Orders {
 	 */
 	public $functions;
 
-
 	/**
 	 * Prices including VAT or not
 	 *
@@ -30,14 +31,12 @@ class WCEXD_Orders {
 	 */
 	public $tax_included;
 
-
 	/**
 	 * Numbering EC
 	 *
 	 * @var bool
 	 */
 	public $numbering;
-
 
 	/**
 	 * The constructor
@@ -54,7 +53,6 @@ class WCEXD_Orders {
 		$this->numbering    = get_option( 'wcexd-numbering' );
 
 	}
-
 
 	/**
 	 * Create the new feed.
@@ -75,7 +73,6 @@ class WCEXD_Orders {
 		$wp_rewrite->flush_rules();
 
 	}
-
 
 	/**
 	 * The XML part about the customer
@@ -122,7 +119,6 @@ class WCEXD_Orders {
 
 	}
 
-
 	/**
 	 * The XML part about the delivery
 	 *
@@ -145,7 +141,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'DeliveryCellPhone', null );
 
 	}
-
 
 	/**
 	 * The cost amount of the order
@@ -181,7 +176,6 @@ class WCEXD_Orders {
 
 	}
 
-
 	/**
 	 * Add a single row for every fee
 	 *
@@ -205,7 +199,6 @@ class WCEXD_Orders {
 		$writer->endElement(); // Row.
 
 	}
-
 
 	/**
 	 * The XML part about the generic info of the order
@@ -239,7 +232,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'PriceList', $this->functions->get_the_price_list( $order->get_billing_email() ) );
 
 	}
-
 
 	/**
 	 * Get the discounts of the item
@@ -291,7 +283,6 @@ class WCEXD_Orders {
 
 	}
 
-
 	/**
 	 * Get the item price before discount
 	 *
@@ -304,7 +295,6 @@ class WCEXD_Orders {
 		return $this->get_item_discounts( $item, true );
 
 	}
-
 
 	/**
 	 * The XML part about the single item
@@ -371,7 +361,6 @@ class WCEXD_Orders {
 
 	}
 
-
 	/**
 	 * The XML part about the order items
 	 *
@@ -406,7 +395,6 @@ class WCEXD_Orders {
 		$writer->endElement(); // Rows.
 
 	}
-
 
 	/**
 	 * Get the orders
@@ -445,7 +433,6 @@ class WCEXD_Orders {
 
 	}
 
-
 	/**
 	 * The XML part about the order payment
 	 *
@@ -468,7 +455,6 @@ class WCEXD_Orders {
 		$writer->endElement(); // Payment.
 
 	}
-
 
 	/**
 	 * The order XML feed.
@@ -537,5 +523,6 @@ class WCEXD_Orders {
 
 	}
 }
+
 new WCEXD_Orders();
 

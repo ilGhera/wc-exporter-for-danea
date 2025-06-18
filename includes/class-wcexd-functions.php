@@ -40,7 +40,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Get the product VAT value
 	 *
@@ -110,7 +109,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Get the order tax items
 	 *
@@ -149,7 +147,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Get the shipping tax rate
 	 *
@@ -183,7 +180,6 @@ class WCEXD_Functions {
 		return $output;
 
 	}
-
 
 	/**
 	 * Get item vat percentage or label
@@ -222,7 +218,6 @@ class WCEXD_Functions {
 		return $output;
 	}
 
-
 	/**
 	 * Get the shipping method name plus fees
 	 *
@@ -250,7 +245,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Move the single taxonomy term based od its parent ID
 	 *
@@ -274,7 +268,6 @@ class WCEXD_Functions {
 		}
 
 	}
-
 
 	/**
 	 * The sub-categories string used for the products download
@@ -304,7 +297,6 @@ class WCEXD_Functions {
 		}
 
 	}
-
 
 	/**
 	 * Get the product category name
@@ -374,7 +366,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Get the author of the Sensei course linked to the product
 	 *
@@ -409,7 +400,6 @@ class WCEXD_Functions {
 		}
 
 	}
-
 
 	/**
 	 * Fiscal fields names based on the specific plugins in use.
@@ -485,7 +475,6 @@ class WCEXD_Functions {
 		}
 	}
 
-
 	/**
 	 * Get the name of the price list cols base on the VAT
 	 *
@@ -508,7 +497,6 @@ class WCEXD_Functions {
 		}
 
 	}
-
 
 	/**
 	 * Get the attributes of the single product variation
@@ -636,7 +624,6 @@ class WCEXD_Functions {
 		}
 	}
 
-
 	/**
 	 * Hide item discount
 	 *
@@ -651,7 +638,6 @@ class WCEXD_Functions {
 		return $array;
 
 	}
-
 
 	/**
 	 * Get the Danea price list to be used as base price for the specific user level.
@@ -710,7 +696,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Random string
 	 *
@@ -733,7 +718,6 @@ class WCEXD_Functions {
 
 	}
 
-
 	/**
 	 * Custom text for the search update link
 	 *
@@ -744,7 +728,6 @@ class WCEXD_Functions {
 		return __( 'Check for updates', 'wc-exporter-for-danea' );
 
 	}
-
 
 	/**
 	 * Custom messages for the update result
