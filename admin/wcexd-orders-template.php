@@ -30,6 +30,7 @@
 	$wcexd_orders_tax_name   = get_option( 'wcexd-orders-tax-name' );
 	$wcexd_currency_exchange = get_option( 'wcexd-currency-exchange' );
 	$wcexd_numbering         = get_option( 'wcexd-numbering' );
+    $wcexd_fee_as_item       = get_option( 'wcexd-fee-as-item' );
 
 	if ( isset( $_POST['wcexd-orders-nonce'], $_POST['wcexd-orders-sent'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wcexd-orders-nonce'] ) ), 'wcexd-orders-submit' ) ) {
 
@@ -45,6 +46,8 @@
 		$wcexd_numbering = isset( $_POST['wcexd-numbering'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-numbering'] ) ) : 0;
 		update_option( 'wcexd-numbering', $wcexd_numbering );
 
+		$wcexd_fee_as_item = isset( $_POST['wcexd-fee-as-item'] ) ? sanitize_text_field( wp_unslash( $_POST['wcexd-fee-as-item'] ) ) : 0;
+		update_option( 'wcexd-fee-as-item', $wcexd_fee_as_item );
 	}
 	?>
 
@@ -121,6 +124,16 @@
 						<?php esc_html_e( 'Use the label EC', 'wc-exporter-for-danea' ); ?>
 					</label>
 					<p class="description"><?php esc_html_e( 'A dedicated numbering avoids conflicts with orders created manually by the management system.', 'wc-exporter-for-danea' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Fees', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<label for="wcexd-fee-as-item">
+						<input type="checkbox" name="wcexd-fee-as-item" value="1"<?php echo 1 === intval( $wcexd_fee_as_item ) ? ' checked="checked"' : ''; ?>>
+						<?php esc_html_e( 'Fees as order items', 'wc-exporter-for-danea' ); ?>
+					</label>
+					<p class="description"><?php esc_html_e( 'Manage additional costs as order items', 'wc-exporter-for-danea' ); ?></p>
 				</td>
 			</tr>
 			<tr>
