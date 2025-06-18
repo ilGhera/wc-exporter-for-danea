@@ -17,6 +17,13 @@ defined( 'ABSPATH' ) || exit;
  */
 class WCEXD_Functions {
 
+    /**
+     * WCEXD Fee as item
+     *
+     * @var bool
+     */
+    public $fee_as_order_item;
+
 	/**
 	 * The constructor
 	 *
@@ -37,6 +44,8 @@ class WCEXD_Functions {
 			add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
 
 		}
+
+        $this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
 
 	}
 
@@ -229,20 +238,22 @@ class WCEXD_Functions {
 
 		$output = $order->get_shipping_method();
 
-		/* Fees */
-		/* $fees = $order->get_fees(); */
+        if ( ! $this->fee_as_order_item ) {
 
-		/* if ( is_array( $fees ) ) { */
+            /* Fees */
+            $fees = $order->get_fees();
 
-		/* 	foreach ( $fees as $fee ) { */
+            if ( is_array( $fees ) ) {
 
-		/* 		$output .= ' + ' . $fee->get_name(); */
+                foreach ( $fees as $fee ) {
 
-		/* 	} */
-		/* } */
+                    $output .= ' + ' . $fee->get_name();
+
+                }
+            }
+        }
 
 		return $output;
-
 	}
 
 	/**
