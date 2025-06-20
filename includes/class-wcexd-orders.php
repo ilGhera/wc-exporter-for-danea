@@ -38,6 +38,13 @@ class WCEXD_Orders {
 	 */
 	public $numbering;
 
+    /**
+     * WCEXD Fee as item
+     *
+     * @var bool
+     */
+    public $fee_as_order_item;
+
 	/**
 	 * The constructor
 	 *
@@ -48,9 +55,10 @@ class WCEXD_Orders {
 		/* Actions */
 		add_action( 'init', array( $this, 'add_feed' ) );
 
-		$this->functions    = new WCEXD_Functions();
-		$this->tax_included = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
-		$this->numbering    = get_option( 'wcexd-numbering' );
+		$this->functions         = new WCEXD_Functions();
+		$this->tax_included      = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
+		$this->numbering         = get_option( 'wcexd-numbering' );
+        $this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
 
 	}
 
@@ -161,16 +169,19 @@ class WCEXD_Orders {
 		}
 
 		/* Fees */
-		/* $fees = $order->get_fees(); */
+        if ( ! $this->fee_as_order_item ) {
+            
+            $fees = $order->get_fees();
 
-		/* if ( is_array( $fees ) ) { */
+            if ( is_array( $fees ) ) {
 
-		/* 	foreach ( $fees as $fee ) { */
+                foreach ( $fees as $fee ) {
 
-		/* 		$cost_amount += $fee->get_total() + $fee->get_total_tax(); */
+                    $cost_amount += $fee->get_total() + $fee->get_total_tax();
 
-		/* 	} */
-		/* } */
+                }
+            }
+        }
 
 		return $cost_amount;
 
@@ -381,16 +392,19 @@ class WCEXD_Orders {
 		}
 
 		/* Fees */
-		$fees = $order->get_fees();
+        if ( $this->fee_as_order_item ) {
 
-		if ( is_array( $fees ) ) {
+            $fees = $order->get_fees();
 
-			foreach ( $fees as $fee ) {
+            if ( is_array( $fees ) ) {
 
-                $this->feed_single_fee_as_row( $writer, $order, $fee );
+                foreach ( $fees as $fee ) {
 
-			}
-		}
+                    $this->feed_single_fee_as_row( $writer, $order, $fee );
+
+                }
+            }
+        }
 
 		$writer->endElement(); // Rows.
 

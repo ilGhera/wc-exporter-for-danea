@@ -46,7 +46,6 @@ class WCEXD_Functions {
 		}
 
         $this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
-
 	}
 
 	/**
@@ -134,26 +133,21 @@ class WCEXD_Functions {
 
 			if ( $shipping ) {
 
-				if ( $tax_item->get_shipping_tax_total() ) {
+                $output[ $tax_item->get_rate_id() ] = array(
+                    'label'   => $tax_item->get_label(),
+                    'percent' => $tax_item->get_rate_percent(),
+                );
 
-					$output[ $tax_item->get_rate_id() ] = array(
-						'label'   => $tax_item->get_label(),
-						'percent' => $tax_item->get_rate_percent(),
-					);
-
-				}
 			} else {
 
 				$output[ $tax_item->get_rate_id() ] = array(
 					'label'   => $tax_item->get_label(),
 					'percent' => $tax_item->get_rate_percent(),
 				);
-
 			}
 		}
 
 		return $output;
-
 	}
 
 	/**
