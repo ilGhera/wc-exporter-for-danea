@@ -110,7 +110,6 @@ class WCEXD_Functions {
 		}
 
 		return $output;
-
 	}
 
 	/**
@@ -503,6 +502,7 @@ class WCEXD_Functions {
 
 				return json_encode( $output );
 			}
+
 		} else {
 
 			$output = array();
@@ -570,6 +570,7 @@ class WCEXD_Functions {
 						$regular_price = $regular_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
 						$price         = $price ? $price : get_post_meta( $item['variation_id'], '_price', true );
 					}
+
 				} else {
 
 					/*WooCommerce Role Based Price*/
