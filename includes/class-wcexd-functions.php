@@ -17,12 +17,12 @@ defined( 'ABSPATH' ) || exit;
  */
 class WCEXD_Functions {
 
-    /**
-     * WCEXD Fee as item
-     *
-     * @var bool
-     */
-    public $fee_as_order_item;
+	/**
+	 * WCEXD Fee as item
+	 *
+	 * @var bool
+	 */
+	public $fee_as_order_item;
 
 	/**
 	 * The constructor
@@ -42,10 +42,9 @@ class WCEXD_Functions {
 			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );
 			add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', array( $this, 'check_update' ) );
 			add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
-
 		}
 
-        $this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
+		$this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
 	}
 
 	/**
@@ -80,7 +79,6 @@ class WCEXD_Functions {
 				if ( 'parent' === $tax_class && 'taxable' === $parent_tax_status ) {
 
 					$tax_class = $parent_product->get_tax_class();
-
 				}
 
 				$rates = WC_Tax::get_rates_for_tax_class( $tax_class );
@@ -100,7 +98,6 @@ class WCEXD_Functions {
 
 							/* A generic tax rate where the country is not specified */
 							$results[] = 'name' === $type ? $rate->tax_rate_name : intval( $rate->tax_rate );
-
 						}
 					}
 				}
@@ -108,7 +105,6 @@ class WCEXD_Functions {
 				if ( ! $output && isset( $results[0] ) ) {
 
 					$output = $results[0];
-
 				}
 			}
 		}
@@ -133,10 +129,10 @@ class WCEXD_Functions {
 
 			if ( $shipping ) {
 
-                $output[ $tax_item->get_rate_id() ] = array(
-                    'label'   => $tax_item->get_label(),
-                    'percent' => $tax_item->get_rate_percent(),
-                );
+				$output[ $tax_item->get_rate_id() ] = array(
+					'label'   => $tax_item->get_label(),
+					'percent' => $tax_item->get_rate_percent(),
+				);
 
 			} else {
 
@@ -175,13 +171,11 @@ class WCEXD_Functions {
 				} else {
 
 					$output = $tax_items[ $rate_id ]['percent'];
-
 				}
 			}
 		}
 
 		return $output;
-
 	}
 
 	/**
@@ -189,7 +183,7 @@ class WCEXD_Functions {
 	 *
 	 * @param  object $order the wc order.
 	 * @param  object $item  the specific order item.
-     * @param  bool   $is_fee true if the item is a fee.
+	 * @param  bool   $is_fee true if the item is a fee.
 	 *
 	 * @return string
 	 */
@@ -202,7 +196,7 @@ class WCEXD_Functions {
 			$use_label = get_option( 'wcexd-orders-tax-name' );
 			$tax_items = self::get_order_tax_items( $order );
 			$taxes     = $item->get_taxes();
-            $key       = $is_fee ? 'total' : 'subtotal';
+			$key       = $is_fee ? 'total' : 'subtotal';
 
 			foreach ( $taxes[ $key ] as $rate_id => $tax ) {
 
@@ -213,7 +207,6 @@ class WCEXD_Functions {
 				} else {
 
 					$output = $tax_items[ $rate_id ]['percent'];
-
 				}
 			}
 		}
@@ -232,20 +225,19 @@ class WCEXD_Functions {
 
 		$output = $order->get_shipping_method();
 
-        if ( ! $this->fee_as_order_item ) {
+		if ( ! $this->fee_as_order_item ) {
 
-            /* Fees */
-            $fees = $order->get_fees();
+			/* Fees */
+			$fees = $order->get_fees();
 
-            if ( is_array( $fees ) ) {
+			if ( is_array( $fees ) ) {
 
-                foreach ( $fees as $fee ) {
+				foreach ( $fees as $fee ) {
 
-                    $output .= ' + ' . $fee->get_name();
-
-                }
-            }
-        }
+					$output .= ' + ' . $fee->get_name();
+				}
+			}
+		}
 
 		return $output;
 	}
@@ -265,13 +257,10 @@ class WCEXD_Functions {
 			if ( $a->parent === $b->parent ) {
 
 				return 0;
-
 			}
 
 			return ( $a->parent > $b->parent ) ? +1 : -1;
-
 		}
-
 	}
 
 	/**
@@ -292,15 +281,12 @@ class WCEXD_Functions {
 			foreach ( $child as $cat ) {
 
 				$list[] = $cat->slug;
-
 			}
 
 			$child_string = implode( ' >> ', $list );
 
 			return $child_string;
-
 		}
-
 	}
 
 	/**
@@ -321,7 +307,6 @@ class WCEXD_Functions {
 
 			$parent_p = wc_get_product( $product->get_parent_id() );
 			$cat_ids  = $parent_p->get_category_ids();
-
 		}
 
 		if ( $cat_ids ) {
@@ -340,7 +325,6 @@ class WCEXD_Functions {
 				} else {
 
 					$parent = null === $parent ? $cat->slug : $parent;
-
 				}
 			}
 
@@ -359,16 +343,13 @@ class WCEXD_Functions {
 					'cat' => $parent,
 					'sub' => '',
 				);
-
 			}
 		} else {
 
 			$cat_name = null;
-
 		}
 
 		return $cat_name;
-
 	}
 
 	/**
@@ -401,9 +382,7 @@ class WCEXD_Functions {
 			$author    = get_post_field( 'post_author', $course_id['post_id'] );
 
 			return $author;
-
 		}
-
 	}
 
 	/**
@@ -464,7 +443,6 @@ class WCEXD_Functions {
 				$pi_name      = 'billing_cf'; // temp.
 				$pec_name     = 'billing_PEC';
 				$pa_code_name = 'billing_PEC';
-
 			}
 		}
 
@@ -498,9 +476,7 @@ class WCEXD_Functions {
 		} else {
 
 			return 'Listino ' . $n;
-
 		}
-
 	}
 
 	/**
@@ -526,7 +502,6 @@ class WCEXD_Functions {
 				$output['var_attributes'] = $product->get_attributes();
 
 				return json_encode( $output );
-
 			}
 		} else {
 
@@ -549,16 +524,13 @@ class WCEXD_Functions {
 						} else {
 
 							$attributes[ $key ] = array_map( 'trim', explode( '|', $product->get_attribute( $key ) ) );
-
 						}
 					}
 
 					$output['attributes'] = $attributes;
-
 				}
 
 				return json_encode( $output );
-
 			}
 		}
 	}
@@ -597,7 +569,6 @@ class WCEXD_Functions {
 
 						$regular_price = $regular_price ? $regular_price : get_post_meta( $item['variation_id'], '_regular_price', true );
 						$price         = $price ? $price : get_post_meta( $item['variation_id'], '_price', true );
-
 					}
 				} else {
 
@@ -613,7 +584,6 @@ class WCEXD_Functions {
 
 						$regular_price = $regular_price ? $regular_price : get_post_meta( $item['product_id'], '_regular_price', true );
 						$price         = $price ? $price : get_post_meta( $item['product_id'], '_price', true );
-
 					}
 				}
 
@@ -623,7 +593,6 @@ class WCEXD_Functions {
 					$discount = number_format( ( 100 - $math ), 2, '.', '' );
 
 					wc_add_order_item_meta( $key, '_wcexd_item_discount', $discount );
-
 				}
 			}
 		}
@@ -641,7 +610,6 @@ class WCEXD_Functions {
 		$array[] = '_wcexd_item_discount';
 
 		return $array;
-
 	}
 
 	/**
@@ -678,7 +646,6 @@ class WCEXD_Functions {
 
 				/* Ruolo utente */
 				$role = 'logedout';
-
 			}
 
 			if ( $role ) {
@@ -696,9 +663,7 @@ class WCEXD_Functions {
 			}
 
 			return ( sprintf( 'Listino %s', intval( $output ) ) );
-
 		}
-
 	}
 
 	/**
@@ -716,11 +681,9 @@ class WCEXD_Functions {
 		for ( $i = 0; $i < $max; $i ++ ) {
 
 			$random .= md5( microtime( true ) . mt_rand( 10000, 90000 ) );
-
 		}
 
 		return substr( $random, 0, $length );
-
 	}
 
 	/**
@@ -731,7 +694,6 @@ class WCEXD_Functions {
 	public function check_update() {
 
 		return __( 'Check for updates', 'wc-exporter-for-danea' );
-
 	}
 
 	/**
@@ -755,13 +717,10 @@ class WCEXD_Functions {
 		} else {
 
 			$message = __( 'An error occurred, please try again later.', 'wc-exporter-for-danea' );
-
 		}
 
 		return $message;
-
 	}
-
 }
 
 new WCEXD_Functions( true );
