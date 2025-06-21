@@ -35,17 +35,32 @@ class WCEXD_Functions {
 
 		if ( $init ) {
 
-			/* Actions */
-			add_action( 'woocommerce_thankyou', array( $this, 'add_item_details' ), 10, 1 );
-
-			/* Filters */
-			add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );
-			add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', array( $this, 'check_update' ) );
-			add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
+            add_action( 'plugins_loaded', array( $this, 'init_wc_dependent_hooks' ), 20 );
 		}
 
 		$this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
 	}
+
+    /**
+     * Init WC dependent hooks
+     *
+     * @return void
+     */
+    public function init_wc_dependent_hooks() {
+
+        if ( ! class_exists( 'WooCommerce' ) || ! class_exists( 'WC_Tax' ) ) {
+
+            return;
+        }
+
+        /* Actions */
+        add_action( 'woocommerce_thankyou', array( $this, 'add_item_details' ), 10, 1 );
+
+        /* Filters */
+        add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );
+        add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', array( $this, 'check_update' ) );
+        add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
+    }
 
 	/**
 	 * Get the product VAT value
@@ -145,9 +160,17 @@ class WCEXD_Functions {
 
 		$output = 'FC';
 
+        if ( ! class_exists( 'WC_Tax' ) ) {
+
+            return $output;
+        }
+
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
 			$use_label = get_option( 'wcexd-orders-tax-name' );
+
+            /* Get tax items from the order */
+            $tax_items_from_order = self::get_order_tax_items( $order );
 
             /* Get the shipping methods of the order */
             foreach ( $order->get_shipping_methods() as $shipping_item_id => $shipping_item ) {
@@ -157,29 +180,31 @@ class WCEXD_Functions {
 
                 if ( ! empty( $taxes ) ) {
 
-                    foreach ( $taxes as $tax_id => $tax_data ) {
+                    if ( isset( $taxes['total'] ) ) {
 
-                        $rate_id      = isset( $tax_data['rate_id'] ) ? $tax_data['rate_id'] : null;
-                        $rate_percent = null;
-                        $rate_label   = null;
+                        foreach ( $taxes['total'] as $rate_id => $rate_amount ) {
 
-                        if ( $rate_id ) {
+                            if ( $rate_id ) {
 
-                            /* Get rate details by ID */
-                            $tax_rate_obj = WC_Tax::get_rate_by_id( $rate_id );
+                                /* Get rate details by ID from the order's tax items */
+                                if ( isset( $tax_items_from_order[ $rate_id ] ) ) {
 
-                            if ( $tax_rate_obj ) {
+                                    $tax_rate_obj_info = $tax_items_from_order[ $rate_id ];
 
-                                $rate_percent = wc_format_decimal( $tax_rate_obj->tax_rate, 4 ) . '%';
-                                $rate_label = $tax_rate_obj->tax_rate_name;
+                                    if ( $tax_rate_obj_info ) {
 
-                                if ( $use_label ) {
+                                        $rate_percent = $tax_rate_obj_info['percent'];
+                                        $rate_label = $tax_rate_obj_info['label'];
 
-                                    $output = $rate_label; 
+                                        if ( $use_label ) {
 
-                                } else {
+                                            $output = $rate_label;
+                                            
+                                        } else {
 
-                                    $output = $rate_percent; 
+                                            $output = wc_format_decimal( $rate_percent, 4 ) . '%';
+                                        }
+                                    }
                                 }
                             }
                         }
