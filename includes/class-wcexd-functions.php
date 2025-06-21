@@ -216,7 +216,7 @@ class WCEXD_Functions {
 		return $output;
 	}
 
-	/**
+    /**
 	 * Get item vat percentage or label
 	 *
 	 * @param  object $order the wc order.
@@ -236,22 +236,29 @@ class WCEXD_Functions {
 			$taxes     = $item->get_taxes();
 			$key       = $is_fee ? 'total' : 'subtotal';
 
-			foreach ( $taxes[ $key ] as $rate_id => $tax ) {
+            if ( ! empty( $taxes[ $key ] ) ) {
 
-				if ( $use_label ) {
+                foreach ( $taxes[ $key ] as $rate_id => $tax ) {
 
-					$output = $tax_items[ $rate_id ]['label'];
+                    if ( isset( $tax_items[ $rate_id ] ) ) {
 
-				} else {
+                        if ( $use_label ) {
 
-					$output = $tax_items[ $rate_id ]['percent'];
-				}
-			}
+                            $output = $tax_items[ $rate_id ]['label'];
+
+                        } else {
+
+                            $output = $tax_items[ $rate_id ]['percent'];
+                        }
+
+                        break;
+                    }
+                }
+            }
 		}
 
 		return $output;
 	}
-
 	/**
 	 * Get the shipping method name plus fees
 	 *

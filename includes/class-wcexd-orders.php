@@ -319,7 +319,7 @@ class WCEXD_Orders {
 
 		$variation_id = $item->get_variation_id();
 		$hide_attr    = true;
-		$vat_code     = $this->functions->get_item_tax_rate( $order, $item ); // Temp.
+		$vat_code     = $this->functions->get_item_tax_rate( $order, $item );
 		$quantity     = $item->get_quantity();
 		$price        = $this->get_item_regular_price( $item );
 		$price        = $price / $quantity;
