@@ -48,7 +48,7 @@ class WCEXD_Users_Download {
 		/* Actions */
 		add_action( 'admin_init', array( $this, 'init' ) );
 
-		$this->functions = new WCEXD_Functions( false );
+		$this->functions = new WCEXD_Functions();
 
 	}
 
