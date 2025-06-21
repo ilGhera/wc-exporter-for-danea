@@ -90,7 +90,7 @@ class WCEXD_Products_Download {
 		/* Actions */
 		add_action( 'admin_init', array( $this, 'init' ) );
 
-		$this->functions = new WCEXD_Functions();
+		$this->functions = new WCEXD_Functions( false );
 
 	}
 
