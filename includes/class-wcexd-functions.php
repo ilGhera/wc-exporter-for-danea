@@ -193,16 +193,13 @@ class WCEXD_Functions {
 
                                     if ( $tax_rate_obj_info ) {
 
-                                        $rate_percent = $tax_rate_obj_info['percent'];
-                                        $rate_label = $tax_rate_obj_info['label'];
-
                                         if ( $use_label ) {
 
-                                            $output = $rate_label;
+                                            $output = $tax_rate_obj_info['label'];
                                             
                                         } else {
 
-                                            $output = wc_format_decimal( $rate_percent, 4 ) . '%';
+                                            $output = $tax_rate_obj_info['percent'];
                                         }
                                     }
                                 }
