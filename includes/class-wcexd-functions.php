@@ -175,38 +175,7 @@ class WCEXD_Functions {
             /* Get the shipping methods of the order */
             foreach ( $order->get_shipping_methods() as $shipping_item_id => $shipping_item ) {
 
-                /* Get the tax items */
-                $taxes = $shipping_item->get_taxes();
-
-                if ( ! empty( $taxes ) ) {
-
-                    if ( isset( $taxes['total'] ) ) {
-
-                        foreach ( $taxes['total'] as $rate_id => $rate_amount ) {
-
-                            if ( $rate_id ) {
-
-                                /* Get rate details by ID from the order's tax items */
-                                if ( isset( $tax_items_from_order[ $rate_id ] ) ) {
-
-                                    $tax_rate_obj_info = $tax_items_from_order[ $rate_id ];
-
-                                    if ( $tax_rate_obj_info ) {
-
-                                        if ( $use_label ) {
-
-                                            $output = $tax_rate_obj_info['label'];
-                                            
-                                        } else {
-
-                                            $output = $tax_rate_obj_info['percent'];
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                $output = $this->get_item_tax_rate( $order, $shipping_item, true );
             }
 		}
 
