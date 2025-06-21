@@ -55,7 +55,7 @@ class WCEXD_Orders {
 		/* Actions */
 		add_action( 'init', array( $this, 'add_feed' ) );
 
-		$this->functions         = new WCEXD_Functions();
+		$this->functions         = new WCEXD_Functions( false );
 		$this->tax_included      = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
 		$this->numbering         = get_option( 'wcexd-numbering' );
 		$this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
