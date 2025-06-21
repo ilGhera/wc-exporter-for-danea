@@ -59,7 +59,6 @@ class WCEXD_Orders {
 		$this->tax_included      = 'yes' === get_option( 'woocommerce_prices_include_tax' ) ? true : false;
 		$this->numbering         = get_option( 'wcexd-numbering' );
 		$this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
-
 	}
 
 	/**
@@ -79,7 +78,6 @@ class WCEXD_Orders {
 		global $wp_rewrite;
 
 		$wp_rewrite->flush_rules();
-
 	}
 
 	/**
@@ -124,7 +122,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'CustomerTel', $order->get_billing_phone() );
 		$writer->writeElement( 'CustomerCellPhone', null );
 		$writer->writeElement( 'CustomerEmail', $order->get_billing_email() );
-
 	}
 
 	/**
@@ -147,7 +144,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'DeliveryCountry', $order->get_shipping_country() );
 		$writer->writeElement( 'DeliveryTel', null );
 		$writer->writeElement( 'DeliveryCellPhone', null );
-
 	}
 
 	/**
@@ -165,7 +161,6 @@ class WCEXD_Orders {
 		if ( $this->tax_included ) {
 
 			$cost_amount = round( $cost_amount + $order->get_shipping_tax(), 2 );
-
 		}
 
 		/* Fees */
@@ -178,13 +173,11 @@ class WCEXD_Orders {
 				foreach ( $fees as $fee ) {
 
 					$cost_amount += $fee->get_total() + $fee->get_total_tax();
-
 				}
 			}
 		}
 
 		return $cost_amount;
-
 	}
 
 	/**
@@ -208,7 +201,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'Price', $fee_price );
 		$writer->writeElement( 'VatCode', $vat_code );
 		$writer->endElement(); // Row.
-
 	}
 
 	/**
@@ -229,6 +221,7 @@ class WCEXD_Orders {
 		$writer->writeElement( 'Number', $order->get_id() );
 
 		if ( $this->numbering ) {
+
 			$writer->writeElement( 'Numbering', '-EC' );
 		}
 
@@ -241,7 +234,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'InternalComment', htmlspecialchars( html_entity_decode( $order->get_customer_note() ) ) );
 		$writer->writeElement( 'CustomField1', $exchange->get_the_usd_exchange_rate() );
 		$writer->writeElement( 'PriceList', $this->functions->get_the_price_list( $order->get_billing_email() ) );
-
 	}
 
 	/**
@@ -272,12 +264,12 @@ class WCEXD_Orders {
 
 			/* Return the item regular price */
 			if ( $regular_price ) {
+
 				return $item_price;
 			}
 
 			/* Translators: the item discount */
 			$output = sprintf( '%.2f%%', $item_discount );
-
 		}
 
 		/* Add the cart discount */
@@ -287,11 +279,9 @@ class WCEXD_Orders {
 
 			/* Translators: the item and the cart discount */
 			$output = 0 < $item_discount ? sprintf( '%1$.2f+%2$.2f%%', $item_discount, $cart_discount ) : sprintf( '%.2f%%', $cart_discount );
-
 		}
 
 		return $output;
-
 	}
 
 	/**
@@ -304,7 +294,6 @@ class WCEXD_Orders {
 	public function get_item_regular_price( $item ) {
 
 		return $this->get_item_discounts( $item, true );
-
 	}
 
 	/**
@@ -323,6 +312,7 @@ class WCEXD_Orders {
 		$um      = 'pz';
 
 		if ( is_object( $product ) ) {
+
 			$code = $product->get_sku() ? $product->get_sku() : $code;
 			$um   = $product->get_meta( '_wcifd-um' ) ? $product->get_meta( '_wcifd-um' ) : $um;
 		}
@@ -350,7 +340,6 @@ class WCEXD_Orders {
 
 				/* Only size and color variations use parent sku */
 				$code = $product_variation->get_sku() ? $product_variation->get_sku() : $variation_id;
-
 			}
 		}
 
@@ -359,6 +348,7 @@ class WCEXD_Orders {
 		$writer->writeElement( 'Description', wp_strip_all_tags( html_entity_decode( $item->get_name() ) ) );
 
 		if ( ! $hide_attr ) {
+
 			$writer->writeElement( 'Size', $size );
 			$writer->writeElement( 'Color', $color );
 		}
@@ -369,7 +359,6 @@ class WCEXD_Orders {
 		$writer->writeElement( 'VatCode', $vat_code );
 		$writer->writeElement( 'Discounts', $this->get_item_discounts( $item ) );
 		$writer->endElement(); // Row.
-
 	}
 
 	/**
@@ -388,7 +377,6 @@ class WCEXD_Orders {
 
 			/* Single item details */
 			$this->feed_single_item_details( $writer, $order, $item );
-
 		}
 
 		/* Fees */
@@ -401,13 +389,11 @@ class WCEXD_Orders {
 				foreach ( $fees as $fee ) {
 
 					$this->feed_single_fee_as_row( $writer, $order, $fee );
-
 				}
 			}
 		}
 
 		$writer->endElement(); // Rows.
-
 	}
 
 	/**
@@ -423,6 +409,7 @@ class WCEXD_Orders {
 		$statuses = get_option( 'wcexd-orders-statuses' );
 
 		if ( ! is_array( $statuses ) || in_array( 'any', $statuses, true ) ) {
+
 			$statuses = $defaults;
 		}
 
@@ -434,7 +421,6 @@ class WCEXD_Orders {
 		if ( is_array( $statuses ) && ! empty( $statuses ) ) {
 
 			$args['status'] = $statuses;
-
 		}
 
 		$orders = wc_get_orders( $args );
@@ -442,9 +428,7 @@ class WCEXD_Orders {
 		if ( $orders ) {
 
 			return $orders;
-
 		}
-
 	}
 
 	/**
@@ -467,7 +451,6 @@ class WCEXD_Orders {
 			$writer->writeElement( 'Amount', $amount );
 			$writer->writeElement( 'Paid', $paid );
 		$writer->endElement(); // Payment.
-
 	}
 
 	/**
@@ -524,7 +507,6 @@ class WCEXD_Orders {
 					$this->feed_payment_details( $writer, $order );
 
 					$writer->endElement(); // Document.
-
 				}
 			}
 		}
@@ -534,7 +516,6 @@ class WCEXD_Orders {
 		$writer->endDocument();
 
 		echo $writer->outputMemory();
-
 	}
 }
 
