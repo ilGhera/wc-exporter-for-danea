@@ -116,30 +116,19 @@ class WCEXD_Functions {
 	 * Get the order tax items
 	 *
 	 * @param object $order the WC order.
-	 * @param bool   $shipping get just tax classes used for shipping.
 	 *
 	 * @return array
 	 */
-	public function get_order_tax_items( $order, $shipping = false ) {
+	public function get_order_tax_items( $order ) {
 
 		$output = array();
 
 		foreach ( $order->get_items( 'tax' ) as $tax_item ) {
 
-			if ( $shipping ) {
-
-				$output[ $tax_item->get_rate_id() ] = array(
-					'label'   => $tax_item->get_label(),
-					'percent' => $tax_item->get_rate_percent(),
-				);
-
-			} else {
-
-				$output[ $tax_item->get_rate_id() ] = array(
-					'label'   => $tax_item->get_label(),
-					'percent' => $tax_item->get_rate_percent(),
-				);
-			}
+            $output[ $tax_item->get_rate_id() ] = array(
+                'label'   => $tax_item->get_label(),
+                'percent' => $tax_item->get_rate_percent(),
+            );
 		}
 
 		return $output;
@@ -159,19 +148,44 @@ class WCEXD_Functions {
 		if ( 'yes' === get_option( 'woocommerce_calc_taxes' ) ) {
 
 			$use_label = get_option( 'wcexd-orders-tax-name' );
-			$tax_items = self::get_order_tax_items( $order, true );
 
-			foreach ( $tax_items as $rate_id => $tax ) {
+            /* Get the shipping methods of the order */
+            foreach ( $order->get_shipping_methods() as $shipping_item_id => $shipping_item ) {
 
-				if ( $use_label ) {
+                /* Get the tax items */
+                $taxes = $shipping_item->get_taxes();
 
-					$output = $tax_items[ $rate_id ]['label'];
+                if ( ! empty( $taxes ) ) {
 
-				} else {
+                    foreach ( $taxes as $tax_id => $tax_data ) {
 
-					$output = $tax_items[ $rate_id ]['percent'];
-				}
-			}
+                        $rate_id      = isset( $tax_data['rate_id'] ) ? $tax_data['rate_id'] : null;
+                        $rate_percent = null;
+                        $rate_label   = null;
+
+                        if ( $rate_id ) {
+
+                            /* Get rate details by ID */
+                            $tax_rate_obj = WC_Tax::get_rate_by_id( $rate_id );
+
+                            if ( $tax_rate_obj ) {
+
+                                $rate_percent = wc_format_decimal( $tax_rate_obj->tax_rate, 4 ) . '%';
+                                $rate_label = $tax_rate_obj->tax_rate_name;
+
+                                if ( $use_label ) {
+
+                                    $output = $rate_label; 
+
+                                } else {
+
+                                    $output = $rate_percent; 
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 		}
 
 		return $output;
