@@ -133,7 +133,7 @@
 						<input type="checkbox" name="wcexd-fee-as-item" value="1"<?php echo 1 === intval( $wcexd_fee_as_item ) ? ' checked="checked"' : ''; ?>>
 						<?php esc_html_e( 'Fees as order items', 'wc-exporter-for-danea' ); ?>
 					</label>
-					<p class="description"><?php esc_html_e( 'Manage additional costs as order items', 'wc-exporter-for-danea' ); ?></p>
+					<p class="description"><?php esc_html_e( 'This option is necessary if the VAT rate for fees differs from that of shipping costs.', 'wc-exporter-for-danea' ); ?></p>
 				</td>
 			</tr>
 			<tr>
