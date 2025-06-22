@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2025-06-21 19:03+0200\n"
-"PO-Revision-Date: 2025-06-22 07:12+0200\n"
+"POT-Creation-Date: 2025-06-22 07:18+0200\n"
+"PO-Revision-Date: 2025-06-22 07:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -228,8 +228,12 @@ msgid "Fees as order items"
 msgstr "Spese aggiuntive come articoli dell'ordine"
 
 #: admin/wcexd-orders-template.php:136
-msgid "Manage additional costs as order items"
-msgstr "Gestisci le spese aggiuntive come articoli dell'ordine"
+msgid ""
+"This option is necessary if the VAT rate for fees differs from that of "
+"shipping costs."
+msgstr ""
+"Questa opzione è necessaria se l'aliquota IVA delle spese aggiuntive è "
+"diversa da quella delle spese di spedizione."
 
 #: admin/wcexd-orders-template.php:140
 msgid "Feed URL"
@@ -598,6 +602,9 @@ msgstr "Mostra PEC e Codice destinatario solo per l'Italia"
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:207
 msgid "Show the Fiscal code field only to Italian customers"
 msgstr "Mostra il campo Codice fiscale solo per l'Italia"
+
+#~ msgid "Manage additional costs as order items"
+#~ msgstr "Gestisci le spese aggiuntive come articoli dell'ordine"
 
 #~ msgid "Danea sizes and color"
 #~ msgstr "Danea taglie e colori"
