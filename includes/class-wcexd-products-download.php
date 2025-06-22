@@ -8,6 +8,8 @@
  * @since 1.6.5
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * WCEXD_Products_Download class
  *
@@ -78,7 +80,6 @@ class WCEXD_Products_Download {
 	 */
 	public $use_sensei;
 
-
 	/**
 	 * The constructor
 	 *
@@ -92,7 +93,6 @@ class WCEXD_Products_Download {
 		$this->functions = new WCEXD_Functions();
 
 	}
-
 
 	/**
 	 * Get data sent by the admin
@@ -124,11 +124,8 @@ class WCEXD_Products_Download {
 
 			/* Create file */
 			$this->create_file();
-
 		}
-
 	}
-
 
 	/**
 	 * Create CSV file
@@ -234,9 +231,7 @@ class WCEXD_Products_Download {
 			fclose( $this->fp );
 
 			exit;
-
 	}
-
 
 	/**
 	 * The products loop
@@ -263,7 +258,6 @@ class WCEXD_Products_Download {
 				if ( ! $this->danea_vars ) {
 
 					$this->prepare_single_product_data( $product );
-
 				}
 
 				/* Don't export variations if not required */
@@ -284,16 +278,13 @@ class WCEXD_Products_Download {
 							} else {
 
 								$this->prepare_single_product_data( $variation, true );
-
 							}
 						}
 					}
 				}
 			}
 		}
-
 	}
-
 
 	/**
 	 * Check if the product/variation is a Danea size/color var
@@ -308,11 +299,8 @@ class WCEXD_Products_Download {
 		if ( $product->get_attribute( 'color' ) || $product->get_attribute( 'size' ) ) {
 
 			return true;
-
 		}
-
 	}
-
 
 	/**
 	 * The single Danea variation data
@@ -325,6 +313,7 @@ class WCEXD_Products_Download {
 
 		/* Do not export other variations */
 		if ( ! $this->is_danea_variation( $variation ) ) {
+
 			return;
 		}
 
@@ -348,7 +337,6 @@ class WCEXD_Products_Download {
 
 			/* Translators: 1 The product ID. 2 The size attr. 3 The color attr. */
 			$variation_code = sprintf( '%1d/%2$s/%3$s', $variation_code, $variation->get_attribute( 'size' ), $variation->get_attribute( 'color' ) );
-
 		}
 
 		$data = array(
@@ -364,7 +352,6 @@ class WCEXD_Products_Download {
 		fputcsv( $this->fp, $data );
 	}
 
-
 	/**
 	 * The single product data
 	 *
@@ -377,6 +364,7 @@ class WCEXD_Products_Download {
 
 		/* Do not import variations of products not published */
 		if ( $is_variation && 'publish' !== get_post_status( $product->get_parent_id() ) ) {
+
 			return;
 		}
 
@@ -396,7 +384,6 @@ class WCEXD_Products_Download {
 		if ( $is_variation ) {
 
 			$details = ' | ' . implode( ' - ', array_map( 'ucfirst', $product->get_attributes() ) );
-
 		}
 
 		/* Code in Notes */
@@ -468,9 +455,7 @@ class WCEXD_Products_Download {
 		);
 
 		fputcsv( $this->fp, $data );
-
 	}
-
 
 	/**
 	 * Define the product type to use in Danea Easyfatt
@@ -493,13 +478,10 @@ class WCEXD_Products_Download {
 		} else {
 
 			$product_type = 'Articolo';
-
 		}
 
 		return $product_type;
-
 	}
-
 
 	/**
 	 * Get the regular and sale product price
@@ -524,13 +506,10 @@ class WCEXD_Products_Download {
 
 			$sale_price = round( $get_sale_price, 2 );
 			$sale_price = str_replace( '.', ',', $sale_price );
-
 		}
 
 		return 'regular' === $data ? $regular_price : $sale_price;
-
 	}
-
 
 	/**
 	 * Get the product supplier ID and name
@@ -554,7 +533,6 @@ class WCEXD_Products_Download {
 		} elseif ( $this->use_suppliers ) {
 
 			$id_supplier = get_post_field( 'post_author', $product->get_id() );
-
 		}
 
 		/* Supplier name (post author) */
@@ -567,13 +545,10 @@ class WCEXD_Products_Download {
 
 			/* Use the company name if exists */
 			$supplier_name = $company_name ? $company_name : $supplier_name;
-
 		}
 
 		return 'id' === $data ? $id_supplier : $supplier_name;
-
 	}
-
 
 	/**
 	 * Get the product width, length and wight
@@ -600,7 +575,6 @@ class WCEXD_Products_Download {
 		} else {
 
 			$output['gross_weight'] = number_format( floatval( $weight ), 2, ',', '' );
-
 		}
 
 		/* Measures */
@@ -626,12 +600,11 @@ class WCEXD_Products_Download {
 			$output['gross_width']  = $width;
 			$output['gross_height'] = $height;
 			$output['gross_length'] = $length;
-
 		}
 
 		return isset( $output[ $data ] ) ? $output[ $data ] : null;
 	}
-
 }
+
 new WCEXD_Products_Download();
 

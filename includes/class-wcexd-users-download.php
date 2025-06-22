@@ -8,6 +8,8 @@
  * @since 1.6.3
  */
 
+defined( 'ABSPATH' ) || exit;
+
 /**
  * WCEXD_Users_Download class
  *
@@ -36,7 +38,6 @@ class WCEXD_Users_Download {
 	 */
 	public $users_role;
 
-
 	/**
 	 * The constructor
 	 *
@@ -50,7 +51,6 @@ class WCEXD_Users_Download {
 		$this->functions = new WCEXD_Functions();
 
 	}
-
 
 	/**
 	 * Get data sent by the admin
@@ -87,11 +87,8 @@ class WCEXD_Users_Download {
 
 			/* Create file */
 			$this->create_file( $type );
-
 		}
-
 	}
-
 
 	/**
 	 * Create CSV file
@@ -167,9 +164,7 @@ class WCEXD_Users_Download {
 			fclose( $this->fp );
 
 			exit;
-
 	}
-
 
 	/**
 	 * The users loop
@@ -187,11 +182,8 @@ class WCEXD_Users_Download {
 		foreach ( $users as $user ) {
 
 			$this->prepare_single_user_data( $user );
-
 		}
-
 	}
-
 
 	/**
 	 * Get the full country name from its code
@@ -209,10 +201,8 @@ class WCEXD_Users_Download {
 		if ( isset( $countries[ $country_code ] ) ) {
 
 			return $countries[ $country_code ];
-
 		}
 	}
-
 
 	/**
 	 * The single user data
@@ -237,7 +227,6 @@ class WCEXD_Users_Download {
 		} else {
 
 			$denominazione = $user->display_name;
-
 		}
 
 		/*Recupero i nomi dei campi C.Fiscale e P.IVA*/
@@ -298,9 +287,8 @@ class WCEXD_Users_Download {
 		);
 
 		fputcsv( $this->fp, $data );
-
 	}
-
 }
+
 new WCEXD_Users_Download();
 

@@ -4,7 +4,7 @@
  * @author ilGhera
  * @package wc-exporter-for-danea-premium/admin
  *
- * @since 1.6.3
+ * @since 1.6.9
  */
 
 ?>
@@ -67,6 +67,27 @@
 						<?php esc_html_e( 'Export orders in euros', 'wc-exporter-for-danea' ); ?>
 					</label>
 					<p class="description"><?php esc_html_e( 'Export orders received in dollars into euros using the most recent exchange rate from the Bank of Italy.', 'wc-exporter-for-danea' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Numbering', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<label for="wcexd-numbering">
+						<input type="checkbox" name="wcexd-numbering" value="1" disabled="disabled">
+						<?php esc_html_e( 'Use the label EC', 'wc-exporter-for-danea' ); ?>
+					</label>
+					<p class="description"><?php esc_html_e( 'A dedicated numbering avoids conflicts with orders created manually by the management system.', 'wc-exporter-for-danea' ); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<th scope="row"><?php esc_html_e( 'Fees', 'wc-exporter-for-danea' ); ?></th>
+				<td>
+					<label for="wcexd-fee-as-item">
+						<input type="checkbox" name="wcexd-fee-as-item" value="1" disabled="disabled">
+						<?php esc_html_e( 'Fees as order items', 'wc-exporter-for-danea' ); ?>
+					</label>
+					<p class="description"><?php esc_html_e( 'This option is necessary if the VAT rate for fees differs from that of shipping costs.', 'wc-exporter-for-danea' ); ?></p>
 				</td>
 			</tr>
 			<tr>

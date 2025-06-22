@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2023-11-30 18:44+0100\n"
+"POT-Creation-Date: 2025-06-22 07:19+0200\n"
 "PO-Revision-Date: 2016-05-26 13:25+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr__;esc_attr_e\n"
@@ -141,61 +141,89 @@ msgid ""
 "\"Impostazioni/ indirizzo...\""
 msgstr ""
 
-#: admin/wcexd-orders-template.php:60
+#: admin/wcexd-orders-template.php:67
 msgid "Please insert your <strong>Premium Key</strong>"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:69
+#: admin/wcexd-orders-template.php:76
 msgid "Orders status"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:71
+#: admin/wcexd-orders-template.php:78
 msgid "All orders"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:85
+#: admin/wcexd-orders-template.php:95
 msgid "Select the order's status that you want to import in Danea"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:89 admin/wcexd-products-template.php:83
+#: admin/wcexd-orders-template.php:99 admin/wcexd-products-template.php:83
 msgid "Tax name"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:93 admin/wcexd-products-template.php:87
+#: admin/wcexd-orders-template.php:103 admin/wcexd-products-template.php:87
 msgid "Export the tax name instead of the rate"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:95 admin/wcexd-products-template.php:89
+#: admin/wcexd-orders-template.php:105 admin/wcexd-products-template.php:89
 msgid ""
 "Recommended option if the tax rates were imported from Danea Easyfatt "
 "previously."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:99
+#: admin/wcexd-orders-template.php:109
 msgid "Currency Exchange"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:103
+#: admin/wcexd-orders-template.php:113
 msgid "Export orders in euros"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:105
+#: admin/wcexd-orders-template.php:115
 msgid ""
 "Export orders received in dollars into euros using the most recent exchange "
 "rate from the Bank of Italy."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:109
+#: admin/wcexd-orders-template.php:120
+msgid "Numbering"
+msgstr ""
+
+#: admin/wcexd-orders-template.php:124
+msgid "Use the label EC"
+msgstr ""
+
+#: admin/wcexd-orders-template.php:126
+msgid ""
+"A dedicated numbering avoids conflicts with orders created manually by the "
+"management system."
+msgstr ""
+
+#: admin/wcexd-orders-template.php:130
+msgid "Fees"
+msgstr ""
+
+#: admin/wcexd-orders-template.php:134
+msgid "Fees as order items"
+msgstr ""
+
+#: admin/wcexd-orders-template.php:136
+msgid ""
+"This option is necessary if the VAT rate for fees differs from that of "
+"shipping costs."
+msgstr ""
+
+#: admin/wcexd-orders-template.php:140
 msgid "Feed URL"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:112
+#: admin/wcexd-orders-template.php:143
 msgid ""
 "Add this URL to the <b>Settings</b> tab of the function <b>Download orders</"
 "b> (Ctrl+O) in Danea."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:121
+#: admin/wcexd-orders-template.php:152
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:215
 msgid "Save options"
 msgstr ""
@@ -322,22 +350,22 @@ msgstr ""
 msgid "Download suppliers list (.CSV)"
 msgstr ""
 
-#: includes/class-wcexd-functions.php:729
+#: includes/class-wcexd-functions.php:709
 msgid "Check for updates"
 msgstr ""
 
-#: includes/class-wcexd-functions.php:746
+#: includes/class-wcexd-functions.php:724
 msgid ""
 " <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date."
 msgstr ""
 
-#: includes/class-wcexd-functions.php:750
+#: includes/class-wcexd-functions.php:728
 msgid ""
 "A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> "
 "is available."
 msgstr ""
 
-#: includes/class-wcexd-functions.php:754
+#: includes/class-wcexd-functions.php:732
 msgid "An error occurred, please try again later."
 msgstr ""
 
@@ -400,29 +428,29 @@ msgstr ""
 msgid "Fiscal document"
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:419
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:416
 msgid "WARNING! It seems like the <strong>PEC</strong> entered is not correct."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:430
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:427
 msgid ""
 "WARNING! It seems like the <strong>Fiscal Code</strong> entered is not "
 "correct."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:443
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:440
 msgid ""
 "WARNING! It seems like the <strong>VAT Number</strong> entered is not "
 "correct."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:456
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:453
 msgid "WARNING! The <strong>Recipient Code</strong> entered is incorrect."
 msgstr ""
 
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:536
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:591
-#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:614
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:533
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:588
+#: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:611
 msgid "Billing information"
 msgstr ""
 
