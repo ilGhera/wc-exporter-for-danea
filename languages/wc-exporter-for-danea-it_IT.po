@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2025-02-03 17:02+0100\n"
-"PO-Revision-Date: 2025-02-03 17:02+0100\n"
+"POT-Creation-Date: 2025-06-21 19:03+0200\n"
+"PO-Revision-Date: 2025-06-22 07:12+0200\n"
 "Last-Translator: \n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
 "Language: it_IT\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e;esc_attr__;esc_attr_e\n"
@@ -155,31 +155,31 @@ msgstr ""
 "Nella finestra seguente, incolla l'indirizzo del tuo elenco ordini in in "
 "\"Impostazioni/ Indirizzo...\""
 
-#: admin/wcexd-orders-template.php:64
+#: admin/wcexd-orders-template.php:67
 msgid "Please insert your <strong>Premium Key</strong>"
 msgstr "Inserisci la tua <strong>Premium Key</strong>"
 
-#: admin/wcexd-orders-template.php:73
+#: admin/wcexd-orders-template.php:76
 msgid "Orders status"
 msgstr "Stato ordini"
 
-#: admin/wcexd-orders-template.php:75
+#: admin/wcexd-orders-template.php:78
 msgid "All orders"
 msgstr "Tutti gli ordini"
 
-#: admin/wcexd-orders-template.php:92
+#: admin/wcexd-orders-template.php:95
 msgid "Select the order's status that you want to import in Danea"
 msgstr "Seleziona lo stato dell'ordine che desideri importare in Danea"
 
-#: admin/wcexd-orders-template.php:96 admin/wcexd-products-template.php:83
+#: admin/wcexd-orders-template.php:99 admin/wcexd-products-template.php:83
 msgid "Tax name"
 msgstr "Nome imposta"
 
-#: admin/wcexd-orders-template.php:100 admin/wcexd-products-template.php:87
+#: admin/wcexd-orders-template.php:103 admin/wcexd-products-template.php:87
 msgid "Export the tax name instead of the rate"
 msgstr "Esporta il nome dell'imposta e non l'aliquota"
 
-#: admin/wcexd-orders-template.php:102 admin/wcexd-products-template.php:89
+#: admin/wcexd-orders-template.php:105 admin/wcexd-products-template.php:89
 msgid ""
 "Recommended option if the tax rates were imported from Danea Easyfatt "
 "previously."
@@ -187,15 +187,15 @@ msgstr ""
 "Opzione consigliata se le aliquote sono state precedentemente importate da "
 "Danea Easyfatt."
 
-#: admin/wcexd-orders-template.php:106
+#: admin/wcexd-orders-template.php:109
 msgid "Currency Exchange"
 msgstr "Cambio valuta"
 
-#: admin/wcexd-orders-template.php:110
+#: admin/wcexd-orders-template.php:113
 msgid "Export orders in euros"
 msgstr "Esporta ordini in euro"
 
-#: admin/wcexd-orders-template.php:112
+#: admin/wcexd-orders-template.php:115
 msgid ""
 "Export orders received in dollars into euros using the most recent exchange "
 "rate from the Bank of Italy."
@@ -203,15 +203,15 @@ msgstr ""
 "Esporta in euro gli ordini ricevuti in dollari utilizzando il tasso di "
 "cambio più recente della Banca d'Italia."
 
-#: admin/wcexd-orders-template.php:117
+#: admin/wcexd-orders-template.php:120
 msgid "Numbering"
 msgstr "Numerazione"
 
-#: admin/wcexd-orders-template.php:121
+#: admin/wcexd-orders-template.php:124
 msgid "Use the label EC"
 msgstr "Utilizza l'etichetta EC"
 
-#: admin/wcexd-orders-template.php:123
+#: admin/wcexd-orders-template.php:126
 msgid ""
 "A dedicated numbering avoids conflicts with orders created manually by the "
 "management system."
@@ -219,11 +219,23 @@ msgstr ""
 "Una numerazione dedicata evita conflitti con gli ordini creati manualmente "
 "dal gestionale."
 
-#: admin/wcexd-orders-template.php:127
+#: admin/wcexd-orders-template.php:130
+msgid "Fees"
+msgstr "Spese aggiuntive"
+
+#: admin/wcexd-orders-template.php:134
+msgid "Fees as order items"
+msgstr "Spese aggiuntive come articoli dell'ordine"
+
+#: admin/wcexd-orders-template.php:136
+msgid "Manage additional costs as order items"
+msgstr "Gestisci le spese aggiuntive come articoli dell'ordine"
+
+#: admin/wcexd-orders-template.php:140
 msgid "Feed URL"
 msgstr "Feed URL"
 
-#: admin/wcexd-orders-template.php:130
+#: admin/wcexd-orders-template.php:143
 msgid ""
 "Add this URL to the <b>Settings</b> tab of the function <b>Download orders</"
 "b> (Ctrl+O) in Danea."
@@ -231,7 +243,7 @@ msgstr ""
 "Aggiungi questo URL al tab <b>Impostazioni</b> della funzione <b>Scarica "
 "ordini</b> (Ctrl+O) di Danea."
 
-#: admin/wcexd-orders-template.php:139
+#: admin/wcexd-orders-template.php:152
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:215
 msgid "Save options"
 msgstr "Salva impostazioni"
@@ -370,18 +382,18 @@ msgstr "Seleziona il livello utente corrispondente ai tuoi fornitori."
 msgid "Download suppliers list (.CSV)"
 msgstr "Download elenco fornitori (.CSV)"
 
-#: includes/class-wcexd-functions.php:742
+#: includes/class-wcexd-functions.php:709
 msgid "Check for updates"
 msgstr "Verifica aggiornamenti"
 
-#: includes/class-wcexd-functions.php:759
+#: includes/class-wcexd-functions.php:724
 msgid ""
 " <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date."
 msgstr ""
 " E' installata l'ultima versione di <strong>WooCommerce Exporter for Danea - "
 "Premium</strong>."
 
-#: includes/class-wcexd-functions.php:763
+#: includes/class-wcexd-functions.php:728
 msgid ""
 "A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> "
 "is available."
@@ -389,7 +401,7 @@ msgstr ""
 "E' disponibile una nuova versione di <strong>WooCommerce Exporter for Danea "
 "- Premium</strong>."
 
-#: includes/class-wcexd-functions.php:767
+#: includes/class-wcexd-functions.php:732
 msgid "An error occurred, please try again later."
 msgstr ""
 "Si è verificato un errore sconosciuto, si prega di riprovare più tardi."
