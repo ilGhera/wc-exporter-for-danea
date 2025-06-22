@@ -1,7 +1,7 @@
 === WooCommerce Exporter for Danea - Premium ===
 Contributors: ghera74
 Tags: Fattura elettronica, Danea Easyfatt, gestionale, ordini, sincronizzazione
-Version: 1.6.10
+Version: 1.7.0
 Requires at least: 6.0
 Tested up to: 6.8
 WC tested up to: 9
@@ -46,7 +46,7 @@ Completato il processo di installazione, troverai nel menù WooCommerce la pagin
 
 == Changelog ==
 
-= 1.6.10 =
+= 1.7.0 =
 Release Date: June 22, 2025
 
     * New Feature: Introduced 'Fees as Order Items' management in XML export, with a corresponding configuration option.
