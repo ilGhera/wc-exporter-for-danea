@@ -1,4 +1,4 @@
-=== WooCommerce Exporter for Danea - Premium ===
+=== ilGhera Danea Exporter for WooCommerce - Premium ===
 Contributors: ghera74
 Tags: Fattura elettronica, Danea Easyfatt, gestionale, ordini, sincronizzazione
 Version: 1.7.1
@@ -15,14 +15,14 @@ Esporta fornitori, prodotti, clienti e ordini, dal tuo store WooCommerce a Danea
 
 
 == Description ==
-If you've built your online store with WooCommerce and you're using Danea Easyfatt as management software, you definitely need WooCommerce Exporter for Danea - Premium!
+If you've built your online store with WooCommerce and you're using Danea Easyfatt as management software, you definitely need ilGhera Danea Exporter for WooCommerce - Premium!
 You'll be able to export suppliers, products, clients and orders.
 
 *Danea Easyfatt certified*
 ----
 
-Se hai realizzato il tuo negozio online con WooCommerce ed utilizzi Danea Easyfatt come gestionale, WooCommerce Exporter per Danea è lo strumento che ti serve perché le due piattaforme siano in grado di comunicare.
-WC Exporter for Danea - Premium ti permette di esportare:
+Se hai realizzato il tuo negozio online con WooCommerce ed utilizzi Danea Easyfatt come gestionale, ilGhera Danea Exporter for WooCommerce è lo strumento che ti serve perché le due piattaforme siano in grado di comunicare.
+ilGhera Danea Exporter for WooCommerce - Premium ti permette di esportare:
 
 * L'elenco dei fornitori, sotto forma di utenti WordPress a cui si è assegnato un ruolo specifico (CSV).
 * L'elenco dei prodotti WooCommerce (CSV).
@@ -34,14 +34,14 @@ WC Exporter for Danea - Premium ti permette di esportare:
 == Installation ==
 
 Upload the ‘woocommerce-exporter-for-danea-premium’ directory to your ‘/wp-content/plugins/’ directory, using your favorite method (ftp, sftp, scp, etc…)
-Activate WooCommerce Exporter for Danea – Premium from your Plugins page.
-Once Activated, go to WooCommerce/ WooCommerce Exporter for Danea.
+Activate ilGhera Danea Exporter for WooCommerce – Premium from your Plugins page.
+Once Activated, go to WooCommerce/ Danea Exporter for WC.
 
 ----
 
-Per installare WooCommerce Exporter for Danea, dalla Bacheca del tuo sito WordPress vai alla voce Plugin/ Aggiungi nuovo.
+Per installare ilGhera Danea Exporter for WooCommerce, dalla Bacheca del tuo sito WordPress vai alla voce Plugin/ Aggiungi nuovo.
 Clicca sul pulsante "Carica plugin" e seleziona la cartella compressa appena scaricata.
-Completato il processo di installazione, troverai nel menù WooCommerce la pagina opzioni con tutte le informazioni necessarie all'utilizzo di WC Exporter for Danea.
+Completato il processo di installazione, troverai nel menù WooCommerce la pagina opzioni con tutte le informazioni necessarie all'utilizzo di ilGhera Danea Exporter for WooCommerce.
 
 
 == Changelog ==
