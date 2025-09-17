@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wcexd\n"
-"POT-Creation-Date: 2025-06-22 07:19+0200\n"
+"POT-Creation-Date: 2025-09-17 14:46+0200\n"
 "PO-Revision-Date: 2016-05-26 13:25+0200\n"
 "Last-Translator: ilGhera <info@ilghera.com>\n"
 "Language-Team: ilGhera <info@ilghera.com>\n"
@@ -22,98 +22,84 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-3: css\n"
 "X-Poedit-SearchPathExcluded-4: vendor\n"
 
-#: admin/class-wcexd-admin.php:80
+#: admin/class-wcexd-admin.php:76
+msgid "This is a premium functionality, click here for more information"
+msgstr ""
+
+#: admin/class-wcexd-admin.php:107
 msgid "Ops, you have not permissions to do that!"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:94
+#: admin/class-wcexd-admin.php:121
 msgid "WARNING! It seems like WooCommerce is not installed."
 msgstr ""
 
-#: admin/class-wcexd-admin.php:132
+#: admin/class-wcexd-admin.php:159
 msgid "Woocommmerce Exporter per Danea"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:140
+#: admin/class-wcexd-admin.php:164
 msgid "Settings"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:141 admin/wcexd-products-template.php:67
+#: admin/class-wcexd-admin.php:165 admin/wcexd-products-template.php:67
 msgid "Suppliers"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:142
+#: admin/class-wcexd-admin.php:166
 msgid "Products"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:143
+#: admin/class-wcexd-admin.php:167
 msgid "Customers"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:144
+#: admin/class-wcexd-admin.php:168
 msgid "Orders"
 msgstr ""
 
-#: admin/class-wcexd-admin.php:166
-msgid "Premium Key"
-msgstr ""
-
-#: admin/class-wcexd-admin.php:167
-msgid "Add your Premium Key"
-msgstr ""
-
-#: admin/class-wcexd-admin.php:168
-msgid ""
-"Add here the Premium Key that you received by email, you will keep your copy "
-"of <strong>WooCommerce Exporter for Danea - Premium</strong> updated."
-msgstr ""
-
-#: admin/class-wcexd-admin.php:173
-msgid "Save"
-msgstr ""
-
-#: admin/wcexd-clients-template.php:16
+#: admin/wcexd-clients-template.php:14
 msgid "Export your WooCommerce customers list."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:18
+#: admin/wcexd-clients-template.php:16
 msgid ""
 "The import of clients in Danea is done by using an Excel/ OpenIffice file."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:20
+#: admin/wcexd-clients-template.php:18
 msgid "Choose the WordPress user role that identifies your customers."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:21
+#: admin/wcexd-clients-template.php:19
 msgid "Download your WooCommerce customers list."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:22 admin/wcexd-products-template.php:19
+#: admin/wcexd-clients-template.php:20 admin/wcexd-products-template.php:19
 #: admin/wcexd-suppliers-template.php:22
 msgid "Open and save the file with one of the above programs."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:23
+#: admin/wcexd-clients-template.php:21
 msgid ""
 "In Danea, go to \"Clienti/ Utilità\", choose \"Importa con Excel/OpenOffice/"
 "LibreOffice\" and use the file just created."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:25 admin/wcexd-orders-template.php:23
+#: admin/wcexd-clients-template.php:23 admin/wcexd-orders-template.php:23
 #: admin/wcexd-products-template.php:23 admin/wcexd-suppliers-template.php:25
 msgid "Need more information? Please, visit this page:"
 msgstr ""
 
-#: admin/wcexd-clients-template.php:38 admin/wcexd-suppliers-template.php:38
+#: admin/wcexd-clients-template.php:36 admin/wcexd-suppliers-template.php:38
 msgid "User role"
 msgstr ""
 
-#: admin/wcexd-clients-template.php:47
+#: admin/wcexd-clients-template.php:45
 msgid "Select the user level of your clients."
 msgstr ""
 
-#: admin/wcexd-clients-template.php:57
+#: admin/wcexd-clients-template.php:52
 msgid "Download customers list (.CSV)"
 msgstr ""
 
@@ -141,89 +127,89 @@ msgid ""
 "\"Impostazioni/ indirizzo...\""
 msgstr ""
 
-#: admin/wcexd-orders-template.php:67
+#: admin/wcexd-orders-template.php:29
 msgid "Please insert your <strong>Premium Key</strong>"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:76
+#: admin/wcexd-orders-template.php:31
 msgid "Orders status"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:78
+#: admin/wcexd-orders-template.php:33
 msgid "All orders"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:95
+#: admin/wcexd-orders-template.php:49
 msgid "Select the order's status that you want to import in Danea"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:99 admin/wcexd-products-template.php:83
+#: admin/wcexd-orders-template.php:53 admin/wcexd-products-template.php:83
 msgid "Tax name"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:103 admin/wcexd-products-template.php:87
+#: admin/wcexd-orders-template.php:57 admin/wcexd-products-template.php:87
 msgid "Export the tax name instead of the rate"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:105 admin/wcexd-products-template.php:89
+#: admin/wcexd-orders-template.php:59 admin/wcexd-products-template.php:89
 msgid ""
 "Recommended option if the tax rates were imported from Danea Easyfatt "
 "previously."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:109
+#: admin/wcexd-orders-template.php:63
 msgid "Currency Exchange"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:113
+#: admin/wcexd-orders-template.php:67
 msgid "Export orders in euros"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:115
+#: admin/wcexd-orders-template.php:69
 msgid ""
 "Export orders received in dollars into euros using the most recent exchange "
 "rate from the Bank of Italy."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:120
+#: admin/wcexd-orders-template.php:74
 msgid "Numbering"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:124
+#: admin/wcexd-orders-template.php:78
 msgid "Use the label EC"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:126
+#: admin/wcexd-orders-template.php:80
 msgid ""
 "A dedicated numbering avoids conflicts with orders created manually by the "
 "management system."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:130
+#: admin/wcexd-orders-template.php:84
 msgid "Fees"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:134
+#: admin/wcexd-orders-template.php:88
 msgid "Fees as order items"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:136
+#: admin/wcexd-orders-template.php:90
 msgid ""
 "This option is necessary if the VAT rate for fees differs from that of "
 "shipping costs."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:140
+#: admin/wcexd-orders-template.php:94
 msgid "Feed URL"
 msgstr ""
 
-#: admin/wcexd-orders-template.php:143
+#: admin/wcexd-orders-template.php:97
 msgid ""
 "Add this URL to the <b>Settings</b> tab of the function <b>Download orders</"
 "b> (Ctrl+O) in Danea."
 msgstr ""
 
-#: admin/wcexd-orders-template.php:152
+#: admin/wcexd-orders-template.php:104
 #: includes/wc-checkout-fields/templates/wcexd-checkout-template.php:215
 msgid "Save options"
 msgstr ""
@@ -348,47 +334,6 @@ msgstr ""
 
 #: admin/wcexd-suppliers-template.php:55
 msgid "Download suppliers list (.CSV)"
-msgstr ""
-
-#: includes/class-wcexd-functions.php:709
-msgid "Check for updates"
-msgstr ""
-
-#: includes/class-wcexd-functions.php:724
-msgid ""
-" <strong>WooCommerce Exporter for Danea - Premium</strong> is up to date."
-msgstr ""
-
-#: includes/class-wcexd-functions.php:728
-msgid ""
-"A new version of <strong>WooCommerce Exporter for Danea - Premium</strong> "
-"is available."
-msgstr ""
-
-#: includes/class-wcexd-functions.php:732
-msgid "An error occurred, please try again later."
-msgstr ""
-
-#: includes/ilghera-notice/class-ilghera-notice.php:66
-msgid "Renew now"
-msgstr ""
-
-#: includes/ilghera-notice/class-ilghera-notice.php:66
-msgid "Get a license"
-msgstr ""
-
-#: includes/ilghera-notice/class-ilghera-notice.php:107
-msgid "Your license is <u>expired</u> and you're unable to receive updates."
-msgstr ""
-
-#: includes/ilghera-notice/class-ilghera-notice.php:123
-msgid ""
-"It seems like your license is <u>not valid</u> and you're unable to receive "
-"updates."
-msgstr ""
-
-#: includes/ilghera-notice/class-ilghera-notice.php:139
-msgid "You have not set up a license key and you cannot receive updates."
 msgstr ""
 
 #: includes/wc-checkout-fields/class-wcexd-checkout-fields.php:119
