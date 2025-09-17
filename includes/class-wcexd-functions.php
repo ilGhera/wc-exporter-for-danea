@@ -36,6 +36,7 @@ class WCEXD_Functions {
 		if ( $init ) {
 
             add_action( 'plugins_loaded', array( $this, 'init_wc_dependent_hooks' ), 20 );
+            add_action( 'woocommerce_thankyou', array( $this, 'add_item_details' ), 10, 1 );
 		}
 
 		$this->fee_as_order_item = get_option( 'wcexd-fee-as-item' );
@@ -52,9 +53,6 @@ class WCEXD_Functions {
 
             return;
         }
-
-        /* Actions */
-        add_action( 'woocommerce_thankyou', array( $this, 'add_item_details' ), 10, 1 );
 
         /* Filters */
         add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );

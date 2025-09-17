@@ -61,7 +61,7 @@ class WCEXD_Admin {
 	 */
 	public function add_menu() {
 
-		add_submenu_page( 'woocommerce', 'WED Options', 'WC Exporter for Danea', 'manage_woocommerce', 'wc-exporter-for-danea', array( $this, 'setup_options_page' ) );
+		add_submenu_page( 'woocommerce', 'WED Options', 'Danea Exporter for WC', 'manage_woocommerce', 'wc-exporter-for-danea', array( $this, 'setup_options_page' ) );
 
 	}
 

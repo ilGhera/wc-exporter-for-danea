@@ -1,4 +1,4 @@
-=== WooCommerce Exporter for Danea ===
+=== ilGhera Danea Exporter for WooCommerce ===
 Contributors: ghera74
 Tags: Fattura elettronica, Danea Easyfatt, gestionale, ordini, sincronizzazione
 Version: 1.6.2
@@ -13,11 +13,11 @@ Export suppliers, products, customers and orders from your WooCommerce store to 
 
 == Description ==
 
-If you've built your online store with WooCommerce and you're using Danea as management software, you definitely need WooCommerce Exporter for Danea!
+If you've built your online store with WooCommerce and you're using Danea Easyfatt as management software, you definitely need ilGhera Danea Exporter for WooCommerce!
 
 *Danea Easyfatt certified*
 
-WC Exporter for Danea allows you to export:
+ilGhera Danea Exporter for WooCommerce allows you to export:
 
 * The list of suppliers, in the form of WordPress users who have been assigned a specific role (CSV).
 * The WooCommerce product list (CSV).
@@ -38,16 +38,16 @@ https://youtu.be/tLWc_1i7778
 From your WordPress dashboard
 
 * Visit 'Plugins > Add New'
-* Search for 'WooCommerce Exporter for Danea' and download it.
-* Activate WooCommerce Exporter for Danea from your Plugins page.
-* Once Activated, go to WooCommerce/ WooCommerce Exporter for Danea.
+* Search for 'ilGhera Danea Exporter for WooCommerce' and download it.
+* Activate ilGhera Danea Exporter for WooCommerce from your Plugins page.
+* Once Activated, go to WooCommerce/ Danea Exporter for WC.
 
 From WordPress.org
 
-* Download WooCommerce Exporter for Danea
-* Upload the 'woocommerce-exporter-for-danea' directory to your '/wp-content/plugins/' directory, using your favorite method (ftp, sftp, scp, etc...)
-* Activate WooCommerce Exporter for Danea from your Plugins page.
-* Once Activated, go to WooCommerce/ WooCommerce Exporter for Danea.
+* Download ilGhera Danea Exporter for WooCommerce
+* Upload the ‘woocommerce-exporter-for-danea’ folder to your ‘/wp-content/plugins/’ directory, using your favorite method (ftp, sftp, scp, etc…)
+* Activate ilGhera Danea Exporter for WooCommerce from your Plugins page.
+* Once Activated, go to WooCommerce/ Danea Exporter for WC.
 
 
 == Screenshots ==
