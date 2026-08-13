@@ -62,8 +62,7 @@ From WordPress.org
 = 1.6.4 =
 Release Date: August 13, 2026
 
-    * Compatibility: WordPress 7.0
-    * Compatibility: WooCommerce 11.0.1
+    * Bug Fix: rimuovi gli hook del Plugin Update Checker rimasti nel free
 
 
 = 1.6.3 =
