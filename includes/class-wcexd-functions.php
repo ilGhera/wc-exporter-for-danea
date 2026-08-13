@@ -56,8 +56,6 @@ class WCEXD_Functions {
 
         /* Filters */
         add_filter( 'woocommerce_hidden_order_itemmeta', array( $this, 'hide_item_discount' ) );
-        add_filter( 'puc_manual_check_link-wc-exporter-for-danea-premium', array( $this, 'check_update' ) );
-        add_filter( 'puc_manual_check_message-wc-exporter-for-danea-premium', array( $this, 'update_message' ), 10, 2 );
     }
 
 	/**
