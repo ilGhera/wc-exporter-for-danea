@@ -60,7 +60,7 @@ From WordPress.org
 == Changelog ==
 
 = 1.6.4 =
-Release Date: August 13, 2026
+Release Date: August 14, 2026
 
     * Bug Fix: rimuovi gli hook del Plugin Update Checker rimasti nel free
 
