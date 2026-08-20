@@ -4,7 +4,7 @@ Tags: Fattura elettronica, Danea Easyfatt, gestionale, ordini, sincronizzazione
 Version: 1.6.4
 Stable tag: 1.6.4
 Requires at least: 6.0
-Tested up to: 7.0
+Tested up to: 7.1
 WC tested up to: 11.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
