@@ -1,8 +1,8 @@
 === ilGhera Danea Exporter for WooCommerce ===
 Contributors: ghera74
 Tags: Fattura elettronica, Danea Easyfatt, gestionale, ordini, sincronizzazione
-Version: 1.6.5
-Stable tag: 1.6.5
+Version: 1.6.6
+Stable tag: 1.6.6
 Requires at least: 6.0
 Tested up to: 7.1
 WC tested up to: 11.1.0
@@ -58,6 +58,13 @@ From WordPress.org
 
 
 == Changelog ==
+
+= 1.6.6 =
+Release Date: September 8, 2026
+
+    * Compatibility: WooCommerce 11.1.0
+    * Bug Fix: fatal error in the WooCommerce email preview when the order does not exist
+
 
 = 1.6.5 =
 Release Date: August 20, 2026
