@@ -5,7 +5,7 @@ Version: 1.6.7
 Stable tag: 1.6.7
 Requires at least: 6.0
 Tested up to: 7.1
-WC tested up to: 11.1.2
+WC tested up to: 11.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
