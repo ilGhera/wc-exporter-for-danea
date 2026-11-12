@@ -7,7 +7,7 @@
  * Version: 1.6.10
  * Requires at least: 6.0
  * Tested up to: 7.1
- * WC tested up to: 11.2.2
+ * WC tested up to: 11.3.0
  * Author: ilGhera
  * Author URI: https://ilghera.com
  * Text Domain: wc-exporter-for-danea
