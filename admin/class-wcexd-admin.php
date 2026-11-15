@@ -10,6 +10,32 @@
 
 defined( 'ABSPATH' ) || exit;
 
+if ( ! function_exists( 'wcexd_ilghera_url' ) ) {
+
+	/**
+	 * Indirizzo di una pagina prodotto su ilghera.com: lingua dell'utente e tracciamento.
+	 *
+	 * @param string $slug     lo slug del prodotto, uguale nelle due lingue.
+	 * @param string $campaign utm_campaign: settings (upgrade) o license (rinnovo).
+	 *
+	 * @return string
+	 */
+	function wcexd_ilghera_url( $slug, $campaign = 'settings' ) {
+
+		$locale = function_exists( 'get_user_locale' ) ? get_user_locale() : get_locale();
+		$path   = ( 0 === strpos( $locale, 'it' ) ) ? 'it/prodotto' : 'product';
+
+		return add_query_arg(
+			array(
+				'utm_source'   => 'wp-plugin',
+				'utm_medium'   => 'wc-exporter-for-danea',
+				'utm_campaign' => $campaign,
+			),
+			'https://www.ilghera.com/' . $path . '/' . $slug . '/'
+		);
+	}
+}
+
 /**
  * WCEXD_Admin class
  */
@@ -73,9 +99,9 @@ class WCEXD_Admin {
 	 */
 	public static function go_premium() {
 
-		$title       = __( 'This is a premium functionality, click here for more information', 'wcexd' );
+		$title       = __( 'This is a premium functionality, click here for more information', 'wc-exporter-for-danea' );
 		$output      = '<span class="wcexd label label-warning premium">';
-			$output .= '<a href="https://www.ilghera.com/product/woocommerce-exporter-for-danea-premium" target="_blank" title="' . esc_attr( $title ) . '">Premium</a>';
+			$output .= '<a href="' . esc_url( wcexd_ilghera_url( 'woocommerce-exporter-for-danea-premium', 'settings' ) ) . '" target="_blank" title="' . esc_attr( $title ) . '">Premium</a>';
 		$output     .= '</span>';
 
 		$allowed = array(
