@@ -62,7 +62,7 @@ From WordPress.org
 = 1.6.12 =
 Release Date: November 19, 2026
 
-    * Bug Fix: iframe della barra laterale in https
+    * Bug Fix: barra laterale delle impostazioni in https
     * Bug Fix: link al premium nella lingua dell'utente, con tracciamento
 
 
